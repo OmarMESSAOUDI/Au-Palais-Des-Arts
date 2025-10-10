@@ -1,185 +1,75 @@
-<!DOCTYPE html> <!-- Déclaration du type de document HTML5 -->
-<html lang="fr"> <!-- Balise racine avec langue française -->
-<head> <!-- En-tête du document (non visible) -->
-    <meta charset="UTF-8"> <!-- Encodage des caractères (pour accents français) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design -->
-    <title>Nos Créations - Vannerie</title> <!-- Titre de l'onglet du navigateur -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Au Palais Des Arts - Créations Artisanales en Osier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Au Palais Des Arts</h1>
+        <p class="slogan">L'excellence de l'artisanat français en osier</p>
+    </header>
     
-    <style> <!-- Début de la section CSS -->
-        /* === STYLES GÉNÉRAUX === */
-        body {
-            font-family: 'Arial', sans-serif; /* Police de caractères principale */
-            line-height: 1.6; /* Espacement entre les lignes pour meilleure lisibilité */
-            color: #333; /* Couleur du texte principal (gris foncé) */
-            max-width: 1200px; /* Largeur maximum du contenu */
-            margin: 0 auto; /* Centre le contenu horizontalement */
-            padding: 20px; /* Espacement intérieur autour du contenu */
-            background-color: #f8f9fa; /* Couleur de fond légère (gris très clair) */
-        }
-
-        /* === TITRE PRINCIPAL === */
-        h1 {
-            text-align: center; /* Centre le texte horizontalement */
-            color: #2c3e50; /* Couleur bleu-gris foncé */
-            margin-bottom: 2rem; /* Espace en dessous du titre */
-            font-size: 2.5rem; /* Taille de police grande pour l'importance */
-            font-weight: 300; /* Épaisseur de police fine et élégante */
-            text-transform: uppercase; /* Met le texte en majuscules */
-            letter-spacing: 2px; /* Espacement entre les lettres pour plus d'élégance */
-        }
-
-        /* === CONTENEUR DES PRODUITS === */
-        .produits-container {
-            display: grid; /* Utilise le système de grille CSS */
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Crée des colonnes responsives */
-            gap: 2rem; /* Espace entre les cartes produits */
-            padding: 1rem; /* Espacement intérieur du conteneur */
-        }
-
-        /* === CARTE PRODUIT INDIVIDUELLE === */
-        .produit {
-            background: white; /* Fond blanc pour chaque carte */
-            border-radius: 10px; /* Coins arrondis */
-            padding: 1.5rem; /* Espacement intérieur de la carte */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Ombre légère pour effet de profondeur */
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation fluide au survol */
-            position: relative; /* Position relative pour les éléments absoluts enfants */
-            overflow: hidden; /* Cache tout contenu qui dépasse */
-        }
-
-        /* === EFFET AU SURVOL DE LA CARTE === */
-        .produit:hover {
-            transform: translateY(-5px); /* Légère élévation de la carte */
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Ombre plus prononcée au survol */
-        }
-
-        /* === EN-TÊTE DU PRODUIT === */
-        .produit-header {
-            border-bottom: 1px solid #eee; /* Ligne de séparation fine en bas */
-            padding-bottom: 1rem; /* Espace sous le contenu de l'en-tête */
-            margin-bottom: 1rem; /* Espace après l'en-tête */
-        }
-
-        /* === TITRE DU PRODUIT === */
-        .produit h2 {
-            color: #2c3e50; /* Couleur bleu-gris foncé */
-            margin: 0 0 0.5rem 0; /* Marge en bas seulement */
-            font-size: 1.4rem; /* Taille de police moyenne */
-            font-weight: 500; /* Épaisseur de police moyenne */
-        }
-
-        /* === DESCRIPTION DU PRODUIT === */
-        .produit p {
-            color: #7f8c8d; /* Couleur gris-bleu clair */
-            margin: 0.5rem 0; /* Marge haut et bas */
-            font-size: 0.95rem; /* Taille de police légèrement réduite */
-        }
-
-        /* === PRIX === */
-        .prix {
-            display: block; /* Affiche comme un bloc (prend toute la largeur) */
-            font-size: 1.5rem; /* Taille de police grande pour visibilité */
-            color: #e74c3c; /* Couleur rouge pour attirer l'attention */
-            font-weight: bold; /* Texte en gras */
-            margin: 1rem 0; /* Marge haut et bas */
-            text-align: right; /* Aligne le prix à droite */
-        }
-
-        /* === BADGE "DÉCOUVRIR" === */
-        .badge-decouvrir {
-            display: inline-block; /* Affiche en ligne mais peut avoir dimensions */
-            background: #3498db; /* Fond bleu vif */
-            color: white; /* Texte blanc */
-            padding: 0.3rem 0.8rem; /* Espacement intérieur du badge */
-            border-radius: 20px; /* Coins très arrondis (forme capsule) */
-            font-size: 0.8rem; /* Petite taille de police */
-            margin-bottom: 0.5rem; /* Espace en dessous du badge */
-            text-transform: uppercase; /* Texte en majuscules */
-            letter-spacing: 1px; /* Espacement entre les lettres */
-        }
-
-        /* === ANIMATION SUBTILE (ligne bleue au survol) === */
-        .produit::before {
-            content: ''; /* Contenu vide nécessaire pour pseudo-élément */
-            position: absolute; /* Position absolue par rapport à la carte */
-            top: 0; /* Position en haut */
-            left: -100%; /* Commence hors de l'écran à gauche */
-            width: 100%; /* Prend toute la largeur */
-            height: 3px; /* Hauteur très fine */
-            background: #3498db; /* Couleur bleue */
-            transition: left 0.3s ease; /* Animation fluide de la position */
-        }
-
-        /* === ANIMATION AU SURVOL === */
-        .produit:hover::before {
-            left: 0; /* Fait apparaître la ligne bleue de gauche à droite */
-        }
-
-        /* === STYLES RESPONSIVE (pour mobiles) === */
-        @media (max-width: 768px) {
-            .produits-container {
-                grid-template-columns: 1fr; /* Une seule colonne sur mobile */
-                gap: 1.5rem; /* Espacement réduit entre cartes */
-            }
+    <nav>
+        <a href="#produits">Nos Créations</a>
+        <a href="#histoire">Notre Histoire</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    
+    <main>
+        <section class="produits" id="produits">
+            <h2>Nos Créations Exclusives</h2>
             
-            body {
-                padding: 10px; /* Espacement réduit sur mobile */
-            }
+            <div class="produit">
+                <h3>Panier Royal</h3>
+                <p>Panier d'exception en osier naturel, tissage traditionnel français</p>
+                <p class="prix">45,00€</p>
+                <button>Découvrir</button>
+            </div>
             
-            h1 {
-                font-size: 2rem; /* Taille de titre réduite sur mobile */
-            }
-        }
-    </style> <!-- Fin de la section CSS -->
-</head> <!-- Fin de l'en-tête -->
-
-<body> <!-- Début du corps du document (contenu visible) -->
+            <div class="produit">
+                <h3>Corbeille Champêtre</h3>
+                <p>Corbeille authentique pour votre décoration naturelle et élégante</p>
+                <p class="prix">28,00€</p>
+                <button>Découvrir</button>
+            </div>
+            
+            <div class="produit">
+                <h3>Corbeille Élégante</h3>
+                <p>Osier travaillé main avec finition premium et détails raffinés</p>
+                <p class="prix">35,00€</p>
+                <button>Découvrir</button>
+            </div>
+            
+            <div class="produit">
+                <h3>Suspension Naturelle</h3>
+                <p>Luminaire artistique en osier pour une ambiance chaleureuse</p>
+                <p class="prix">60,00€</p>
+                <button>Découvrir</button>
+            </div>
+        </section>
+        
+        <section class="histoire" id="histoire">
+            <h2>Notre Savoir-Faire Ancestral</h2>
+            <p>Depuis trois générations, notre famille perpétue la tradition de la vannerie d'art. Chaque création est le fruit d'un savoir-faire unique, alliant techniques ancestrales et créativité contemporaine. Nous sélectionnons rigoureusement nos brins d'osier pour garantir qualité et durabilité à chacune de nos pièces.</p>
+        </section>
+        
+        <section class="contact" id="contact">
+            <h2>Contact & Commandes</h2>
+            <p>📧 Email : contact@aupalaisdesarts.fr</p>
+            <p>📞 Téléphone : 01 23 45 67 89</p>
+            <p>📍 Atelier : 123 Rue de l'Artisanat, 75000 Paris</p>
+            <p>⏰ Ouvert du lundi au vendredi, 9h-18h</p>
+        </section>
+    </main>
     
-    <!-- Titre principal de la page -->
-    <h1>Nos Créations</h1> <!-- Titre principal centré en haut -->
+    <footer>
+        <p>&copy; 2025 Au Palais Des Arts - Artisanat Français d'Excellence</p>
+        <p>🌿 Créations 100% fait main - 🚚 Livraison en France métropolitaine</p>
+    </footer>
     
-    <!-- Conteneur principal qui organise les produits en grille -->
-    <div class="produits-container"> <!-- Grille responsive qui s'adapte automatiquement -->
-        
-        <!-- Première carte produit : Pariser Royal -->
-        <div class="produit"> <!-- Carte individuelle avec effets de survol -->
-            <div class="produit-header"> <!-- Section d'en-tête du produit -->
-                <h2>Pariser Royal</h2> <!-- Nom du produit -->
-            </div>
-            <p>Création exclusive en osier naturel</p> <!-- Description du produit -->
-            <span class="prix">45,00€</span> <!-- Prix en rouge et aligné à droite -->
-        </div> <!-- Fin de la carte produit -->
-        
-        <!-- Deuxième carte produit : Corbeille Champêtre -->
-        <div class="produit"> <!-- Carte individuelle avec effets de survol -->
-            <span class="badge-decouvrir">Découvrir</span> <!-- Badge bleu "Découvrir" -->
-            <div class="produit-header"> <!-- Section d'en-tête du produit -->
-                <h2>Corbeille Champêtre</h2> <!-- Nom du produit -->
-            </div>
-            <p>Corbeille traditionnelle en osier naturel, parfaite pour la décoration</p> <!-- Description détaillée -->
-            <span class="prix">28,00€</span> <!-- Prix en rouge et aligné à droite -->
-        </div> <!-- Fin de la carte produit -->
-        
-        <!-- Troisième carte produit : Corbeille Élégante -->
-        <div class="produit"> <!-- Carte individuelle avec effets de survol -->
-            <span class="badge-decouvrir">Découvrir</span> <!-- Badge bleu "Découvrir" -->
-            <div class="produit-header"> <!-- Section d'en-tête du produit -->
-                <h2>Corbeille Élégante</h2> <!-- Nom du produit -->
-            </div>
-            <p>Osier travaillé main avec finition premium</p> <!-- Description du produit -->
-            <span class="prix">35,00€</span> <!-- Prix en rouge et aligné à droite -->
-        </div> <!-- Fin de la carte produit -->
-        
-        <!-- Quatrième carte produit : Suspension Naturelle -->
-        <div class="produit"> <!-- Carte individuelle avec effets de survol -->
-            <div class="produit-header"> <!-- Section d'en-tête du produit -->
-                <h2>Suspension Naturelle</h2> <!-- Nom du produit -->
-            </div>
-            <p>Lumière en osier pour décoration intérieure</p> <!-- Description du produit -->
-            <span class="prix">60,00€</span> <!-- Prix en rouge et aligné à droite -->
-        </div> <!-- Fin de la carte produit -->
-        
-    </div> <!-- Fin du conteneur des produits -->
-
-</body> <!-- Fin du corps du document -->
-</html> <!-- Fin du document HTML -->
+    <script src="script.js"></script>
+</body>
+</html>

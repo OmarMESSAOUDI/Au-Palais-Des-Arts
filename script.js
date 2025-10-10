@@ -1,134 +1,190 @@
-// Attendre que le DOM soit chargé
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🌿 Au Palais Des Arts - Site chargé avec succès !');
-    
-    // Initialiser toutes les fonctionnalités
-    initialiserAnimations();
-    initialiserInteractions();
-    initialiserNavigation();
-});
-
-// Animations d'apparition
-function initialiserAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    });
-
-    // Observer les produits
-    document.querySelectorAll('.produit').forEach(produit => {
-        produit.style.opacity = '0';
-        produit.style.transform = 'translateY(30px)';
-        produit.style.transition = 'all 0.6s ease';
-        observer.observe(produit);
-    });
-}
-
-// Interactions des boutons
-function initialiserInteractions() {
-    document.querySelectorAll('button').forEach(bouton => {
-        bouton.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const produit = this.closest('.produit');
-            const nomProduit = produit.querySelector('h3').textContent;
-            const prix = produit.querySelector('.prix').textContent;
-            
-            // Message élégant
-            afficherNotification(
-                `✨ Intéressé par le "${nomProduit}" ?\n\n` +
-                `💶 Prix : ${prix}\n\n` +
-                `📞 Contactez-nous pour commander !\n` +
-                `📧 contact@aupalaisdesarts.fr`
-            );
-            
-            // Animation du bouton
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 150);
-        });
-    });
-}
-
-// Navigation fluide
-function initialiserNavigation() {
-    document.querySelectorAll('nav a').forEach(lien => {
-        lien.addEventListener('click', function(e) {
-            e.preventDefault();
-            const cible = document.querySelector(this.getAttribute('href'));
-            if (cible) {
-                window.scrollTo({
-                    top: cible.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
-// Système de notifications élégant
-function afficherNotification(message) {
-    // Créer la notification
-    const notification = document.createElement('div');
-    notification.innerHTML = `
-        <div style="
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            color: #5D4037;
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Créations - Vannerie</title>
+    <style>
+        /* === STYLES GÉNÉRAUX === */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #2d5016; /* Vert foncé pour le texte */
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            z-index: 10000;
-            max-width: 350px;
-            border-left: 4px solid #8D6E63;
-            font-family: Arial, sans-serif;
-            line-height: 1.5;
-            white-space: pre-line;
-        ">
-            <div style="font-weight: bold; margin-bottom: 10px; color: #6D4C41;">
-                🎨 Au Palais Des Arts
-            </div>
-            <div>${message}</div>
-            <button onclick="this.parentElement.parentElement.remove()" style="
-                margin-top: 15px;
-                background: #8D6E63;
-                color: white;
-                border: none;
-                padding: 8px 16px;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 0.9em;
-            ">Fermer</button>
-        </div>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Suppression automatique après 8 secondes
-    setTimeout(() => {
-        if (notification.parentElement) {
-            notification.remove();
+            background-color: #f8fbf3; /* Vert très clair pour le fond */
         }
-    }, 8000);
-}
 
-// Effets de survol améliorés
-document.querySelectorAll('.produit').forEach(produit => {
-    produit.addEventListener('mouseenter', function() {
-        this.style.boxShadow = '0 12px 25px rgba(0,0,0,0.2)';
-    });
+        /* === TITRE PRINCIPAL === */
+        h1 {
+            text-align: center;
+            color: #5d8c2a; /* Vert moyen */
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* === CONTENEUR DES PRODUITS === */
+        .produits-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        /* === CARTE PRODUIT INDIVIDUELLE === */
+        .produit {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(93, 140, 42, 0.1); /* Ombre verte subtile */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e8f5e0; /* Bordure verte très claire */
+        }
+
+        .produit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(93, 140, 42, 0.2); /* Ombre verte plus prononcée */
+        }
+
+        /* === EN-TÊTE DU PRODUIT === */
+        .produit-header {
+            border-bottom: 1px solid #e8f5e0; /* Ligne de séparation verte claire */
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .produit h2 {
+            color: #4a7020; /* Vert foncé pour les titres */
+            margin: 0 0 0.5rem 0;
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+
+        /* === DESCRIPTION DU PRODUIT === */
+        .produit p {
+            color: #6b8c4a; /* Vert-gris pour la description */
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        /* === PRIX === */
+        .prix {
+            display: block;
+            font-size: 1.5rem;
+            color: #b8860b; /* Doré pour les prix */
+            font-weight: bold;
+            margin: 1rem 0;
+            text-align: right;
+        }
+
+        /* === BADGE DÉCOUVRIR === */
+        .badge-decouvrir {
+            display: inline-block;
+            background: #5d8c2a; /* Vert naturel pour le badge */
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* === ANIMATION SUBTILE === */
+        .produit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: #b8860b; /* Ligne dorée pour l'animation */
+            transition: left 0.3s ease;
+        }
+
+        .produit:hover::before {
+            left: 0;
+        }
+
+        /* === EFFET SPÉCIAL SUR LES PRIX === */
+        .prix {
+            position: relative;
+            display: inline-block;
+        }
+
+        .prix::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #b8860b, transparent);
+        }
+
+        /* === STYLES RESPONSIVE === */
+        @media (max-width: 768px) {
+            .produits-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>NOS CRÉATIONS</h1>
     
-    produit.addEventListener('mouseleave', function() {
-        this.style.boxShadow = '0 6px 16px rgba(0,0,0,0.1)';
-    });
-});
-
-// Confirmation de chargement
-console.log('🚀 Script JavaScript chargé - Prêt pour les interactions !');
+    <div class="produits-container">
+        <!-- Produit 1 -->
+        <div class="produit">
+            <div class="produit-header">
+                <h2>Pariser Royal</h2>
+            </div>
+            <p>Création exclusive en osier naturel</p>
+            <span class="prix">45,00€</span>
+        </div>
+        
+        <!-- Produit 2 -->
+        <div class="produit">
+            <span class="badge-decouvrir">DÉCOUVRIR</span>
+            <div class="produit-header">
+                <h2>Corbeille Champêtre</h2>
+            </div>
+            <p>Corbeille traditionnelle en osier naturel, parfaite pour la décoration</p>
+            <span class="prix">28,00€</span>
+        </div>
+        
+        <!-- Produit 3 -->
+        <div class="produit">
+            <span class="badge-decouvrir">DÉCOUVRIR</span>
+            <div class="produit-header">
+                <h2>Corbeille Élégante</h2>
+            </div>
+            <p>Osier travaillé main avec finition premium</p>
+            <span class="prix">35,00€</span>
+        </div>
+        
+        <!-- Produit 4 -->
+        <div class="produit">
+            <div class="produit-header">
+                <h2>Suspension Naturelle</h2>
+            </div>
+            <p>Lumière en osier pour décoration intérieure</p>
+            <span class="prix">60,00€</span>
+        </div>
+    </div>
+</body>

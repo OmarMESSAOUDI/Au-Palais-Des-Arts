@@ -1,122 +1,124 @@
-css
-/* Styles généraux */
+/* === STYLES GÉNÉRAUX === */
 body {
-  font-family: 'Arial', sans-serif;
-  line-height: 1.6;
-  color: #333;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f8f9fa;
+  font-family: 'Arial', sans-serif; /* Police de caractères principale */
+  line-height: 1.6; /* Espacement entre les lignes pour meilleure lisibilité */
+  color: #333; /* Couleur du texte principal (gris foncé) */
+  max-width: 1200px; /* Largeur maximum du contenu */
+  margin: 0 auto; /* Centre le contenu horizontalement */
+  padding: 20px; /* Espacement intérieur autour du contenu */
+  background-color: #f8f9fa; /* Couleur de fond légère (gris très clair) */
 }
 
-/* Titre principal */
+/* === TITRE PRINCIPAL === */
 h1 {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 2rem;
-  font-size: 2.5rem;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  text-align: center; /* Centre le texte horizontalement */
+  color: #2c3e50; /* Couleur bleu-gris foncé */
+  margin-bottom: 2rem; /* Espace en dessous du titre */
+  font-size: 2.5rem; /* Taille de police grande pour l'importance */
+  font-weight: 300; /* Épaisseur de police fine et élégante */
+  text-transform: uppercase; /* Met le texte en majuscules */
+  letter-spacing: 2px; /* Espacement entre les lettres pour plus d'élégance */
 }
 
-/* Conteneur des produits */
+/* === CONTENEUR DES PRODUITS === */
 .produits-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 1rem;
+  display: grid; /* Utilise le système de grille CSS */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Crée des colonnes responsives qui s'adaptent automatiquement */
+  gap: 2rem; /* Espace entre les cartes produits */
+  padding: 1rem; /* Espacement intérieur du conteneur */
 }
 
-/* Carte produit */
+/* === CARTE PRODUIT INDIVIDUELLE === */
 .produit {
-  background: white;
-  border-radius: 10px;
-  padding: 1.5rem;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  background: white; /* Fond blanc pour chaque carte */
+  border-radius: 10px; /* Coins arrondis */
+  padding: 1.5rem; /* Espacement intérieur de la carte */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Ombre légère pour effet de profondeur */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation fluide au survol */
+  position: relative; /* Position relative pour les éléments absoluts enfants */
+  overflow: hidden; /* Cache tout contenu qui dépasse */
 }
 
+/* === EFFET AU SURVOL DE LA CARTE === */
 .produit:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  transform: translateY(-5px); /* Légère élévation de la carte */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Ombre plus prononcée au survol */
 }
 
-/* En-tête produit */
+/* === EN-TÊTE DU PRODUIT === */
 .produit-header {
-  border-bottom: 1px solid #eee;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
+  border-bottom: 1px solid #eee; /* Ligne de séparation fine en bas */
+  padding-bottom: 1rem; /* Espace sous le contenu de l'en-tête */
+  margin-bottom: 1rem; /* Espace après l'en-tête */
 }
 
+/* === TITRE DU PRODUIT === */
 .produit h2 {
-  color: #2c3e50;
-  margin: 0 0 0.5rem 0;
-  font-size: 1.4rem;
-  font-weight: 500;
+  color: #2c3e50; /* Couleur bleu-gris foncé */
+  margin: 0 0 0.5rem 0; /* Marge en bas seulement */
+  font-size: 1.4rem; /* Taille de police moyenne */
+  font-weight: 500; /* Épaisseur de police moyenne */
 }
 
-/* Description */
+/* === DESCRIPTION DU PRODUIT === */
 .produit p {
-  color: #7f8c8d;
-  margin: 0.5rem 0;
-  font-size: 0.95rem;
+  color: #7f8c8d; /* Couleur gris-bleu clair */
+  margin: 0.5rem 0; /* Marge haut et bas */
+  font-size: 0.95rem; /* Taille de police légèrement réduite */
 }
 
-/* Prix */
+/* === PRIX === */
 .prix {
-  display: block;
-  font-size: 1.5rem;
-  color: #e74c3c;
-  font-weight: bold;
-  margin: 1rem 0;
-  text-align: right;
+  display: block; /* Affiche comme un bloc (prend toute la largeur) */
+  font-size: 1.5rem; /* Taille de police grande pour visibilité */
+  color: #e74c3c; /* Couleur rouge pour attirer l'attention */
+  font-weight: bold; /* Texte en gras */
+  margin: 1rem 0; /* Marge haut et bas */
+  text-align: right; /* Aligne le prix à droite */
 }
 
-/* Badge Découvrir */
+/* === BADGE "DÉCOUVRIR" === */
 .badge-decouvrir {
-  display: inline-block;
-  background: #3498db;
-  color: white;
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  display: inline-block; /* Affiche en ligne mais peut avoir dimensions */
+  background: #3498db; /* Fond bleu vif */
+  color: white; /* Texte blanc */
+  padding: 0.3rem 0.8rem; /* Espacement intérieur du badge */
+  border-radius: 20px; /* Coins très arrondis (forme capsule) */
+  font-size: 0.8rem; /* Petite taille de police */
+  margin-bottom: 0.5rem; /* Espace en dessous du badge */
+  text-transform: uppercase; /* Texte en majuscules */
+  letter-spacing: 1px; /* Espacement entre les lettres */
 }
 
-/* Animation subtile au survol */
+/* === ANIMATION SUBTILE (ligne bleue au survol) === */
 .produit::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 3px;
-  background: #3498db;
-  transition: left 0.3s ease;
+  content: ''; /* Contenu vide nécessaire pour pseudo-élément */
+  position: absolute; /* Position absolue par rapport à la carte */
+  top: 0; /* Position en haut */
+  left: -100%; /* Commence hors de l'écran à gauche */
+  width: 100%; /* Prend toute la largeur */
+  height: 3px; /* Hauteur très fine */
+  background: #3498db; /* Couleur bleue */
+  transition: left 0.3s ease; /* Animation fluide de la position */
 }
 
+/* === ANIMATION AU SURVOL === */
 .produit:hover::before {
-  left: 0;
+  left: 0; /* Fait apparaître la ligne bleue de gauche à droite */
 }
 
-/* Responsive */
+/* === STYLES RESPONSIVE (pour mobiles) === */
 @media (max-width: 768px) {
   .produits-container {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    gap: 1.5rem; /* Espacement réduit entre cartes */
   }
   
   body {
-    padding: 10px;
+    padding: 10px; /* Espacement réduit sur mobile */
   }
   
   h1 {
-    font-size: 2rem;
+    font-size: 2rem; /* Taille de titre réduite sur mobile */
   }
 }

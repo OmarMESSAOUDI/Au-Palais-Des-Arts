@@ -1,124 +1,218 @@
-/* === STYLES GÉNÉRAUX === */
+/* Reset de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-  font-family: 'Arial', sans-serif; /* Police de caractères principale */
-  line-height: 1.6; /* Espacement entre les lignes pour meilleure lisibilité */
-  color: #333; /* Couleur du texte principal (gris foncé) */
-  max-width: 1200px; /* Largeur maximum du contenu */
-  margin: 0 auto; /* Centre le contenu horizontalement */
-  padding: 20px; /* Espacement intérieur autour du contenu */
-  background-color: #f8f9fa; /* Couleur de fond légère (gris très clair) */
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+    color: #2E7D32; /* Vert principal */
+    background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%); /* Fond vert très clair */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
 }
 
-/* === TITRE PRINCIPAL === */
+/* En-tête */
+header {
+    text-align: center;
+    padding: 50px 0;
+    border-bottom: 3px solid #D4AF37; /* Doré */
+    margin-bottom: 40px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
 h1 {
-  text-align: center; /* Centre le texte horizontalement */
-  color: #2c3e50; /* Couleur bleu-gris foncé */
-  margin-bottom: 2rem; /* Espace en dessous du titre */
-  font-size: 2.5rem; /* Taille de police grande pour l'importance */
-  font-weight: 300; /* Épaisseur de police fine et élégante */
-  text-transform: uppercase; /* Met le texte en majuscules */
-  letter-spacing: 2px; /* Espacement entre les lettres pour plus d'élégance */
+    color: #2E7D32; /* Vert foncé */
+    font-size: 3em;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
-/* === CONTENEUR DES PRODUITS === */
-.produits-container {
-  display: grid; /* Utilise le système de grille CSS */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Crée des colonnes responsives qui s'adaptent automatiquement */
-  gap: 2rem; /* Espace entre les cartes produits */
-  padding: 1rem; /* Espacement intérieur du conteneur */
+.slogan {
+    font-style: italic;
+    color: #4CAF50; /* Vert moyen */
+    font-size: 1.3em;
+    font-weight: 300;
 }
 
-/* === CARTE PRODUIT INDIVIDUELLE === */
+/* Navigation */
+nav {
+    text-align: center;
+    margin-bottom: 50px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: #2E7D32; /* Vert */
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: white;
+    background-color: #D4AF37; /* Doré au survol */
+}
+
+/* Sections principales */
+main {
+    margin-bottom: 50px;
+}
+
+section {
+    margin-bottom: 60px;
+}
+
+h2 {
+    color: #1B5E20; /* Vert très foncé */
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.2em;
+    font-weight: normal;
+}
+
+h3 {
+    color: #1B5E20; /* Vert très foncé */
+    margin-bottom: 15px;
+    font-size: 1.4em;
+}
+
+/* Produits */
+.produits {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
 .produit {
-  background: white; /* Fond blanc pour chaque carte */
-  border-radius: 10px; /* Coins arrondis */
-  padding: 1.5rem; /* Espacement intérieur de la carte */
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Ombre légère pour effet de profondeur */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation fluide au survol */
-  position: relative; /* Position relative pour les éléments absoluts enfants */
-  overflow: hidden; /* Cache tout contenu qui dépasse */
+    background: white;
+    border: 2px solid #C8E6C9; /* Vert très clair */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 320px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-/* === EFFET AU SURVOL DE LA CARTE === */
-.produit:hover {
-  transform: translateY(-5px); /* Légère élévation de la carte */
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Ombre plus prononcée au survol */
-}
-
-/* === EN-TÊTE DU PRODUIT === */
-.produit-header {
-  border-bottom: 1px solid #eee; /* Ligne de séparation fine en bas */
-  padding-bottom: 1rem; /* Espace sous le contenu de l'en-tête */
-  margin-bottom: 1rem; /* Espace après l'en-tête */
-}
-
-/* === TITRE DU PRODUIT === */
-.produit h2 {
-  color: #2c3e50; /* Couleur bleu-gris foncé */
-  margin: 0 0 0.5rem 0; /* Marge en bas seulement */
-  font-size: 1.4rem; /* Taille de police moyenne */
-  font-weight: 500; /* Épaisseur de police moyenne */
-}
-
-/* === DESCRIPTION DU PRODUIT === */
-.produit p {
-  color: #7f8c8d; /* Couleur gris-bleu clair */
-  margin: 0.5rem 0; /* Marge haut et bas */
-  font-size: 0.95rem; /* Taille de police légèrement réduite */
-}
-
-/* === PRIX === */
-.prix {
-  display: block; /* Affiche comme un bloc (prend toute la largeur) */
-  font-size: 1.5rem; /* Taille de police grande pour visibilité */
-  color: #e74c3c; /* Couleur rouge pour attirer l'attention */
-  font-weight: bold; /* Texte en gras */
-  margin: 1rem 0; /* Marge haut et bas */
-  text-align: right; /* Aligne le prix à droite */
-}
-
-/* === BADGE "DÉCOUVRIR" === */
-.badge-decouvrir {
-  display: inline-block; /* Affiche en ligne mais peut avoir dimensions */
-  background: #3498db; /* Fond bleu vif */
-  color: white; /* Texte blanc */
-  padding: 0.3rem 0.8rem; /* Espacement intérieur du badge */
-  border-radius: 20px; /* Coins très arrondis (forme capsule) */
-  font-size: 0.8rem; /* Petite taille de police */
-  margin-bottom: 0.5rem; /* Espace en dessous du badge */
-  text-transform: uppercase; /* Texte en majuscules */
-  letter-spacing: 1px; /* Espacement entre les lettres */
-}
-
-/* === ANIMATION SUBTILE (ligne bleue au survol) === */
 .produit::before {
-  content: ''; /* Contenu vide nécessaire pour pseudo-élément */
-  position: absolute; /* Position absolue par rapport à la carte */
-  top: 0; /* Position en haut */
-  left: -100%; /* Commence hors de l'écran à gauche */
-  width: 100%; /* Prend toute la largeur */
-  height: 3px; /* Hauteur très fine */
-  background: #3498db; /* Couleur bleue */
-  transition: left 0.3s ease; /* Animation fluide de la position */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #D4AF37, #FFD700); /* Dégradé doré */
 }
 
-/* === ANIMATION AU SURVOL === */
-.produit:hover::before {
-  left: 0; /* Fait apparaître la ligne bleue de gauche à droite */
+.produit:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    border-color: #D4AF37; /* Doré au survol */
 }
 
-/* === STYLES RESPONSIVE (pour mobiles) === */
+.produit p {
+    margin: 12px 0;
+    font-size: 1.1em;
+    color: #666;
+}
+
+.prix {
+    color: #D4AF37; /* Doré */
+    font-size: 1.6em;
+    font-weight: bold;
+    margin: 20px 0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Boutons */
+button {
+    background: linear-gradient(135deg, #D4AF37, #B8860B); /* Dégradé doré */
+    color: white;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #B8860B, #DAA520); /* Doré plus clair */
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+/* Sections spéciales */
+.histoire, .contact {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.histoire p {
+    font-size: 1.2em;
+    line-height: 1.8;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact p {
+    font-size: 1.2em;
+    margin: 15px 0;
+    color: #2E7D32; /* Vert */
+}
+
+/* Pied de page */
+footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 30px;
+    border-top: 2px solid #C8E6C9; /* Vert très clair */
+    color: #2E7D32; /* Vert */
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .produits-container {
-    grid-template-columns: 1fr; /* Une seule colonne sur mobile */
-    gap: 1.5rem; /* Espacement réduit entre cartes */
-  }
-  
-  body {
-    padding: 10px; /* Espacement réduit sur mobile */
-  }
-  
-  h1 {
-    font-size: 2rem; /* Taille de titre réduite sur mobile */
-  }
+    body {
+        padding: 15px;
+    }
+    
+    nav a {
+        display: block;
+        margin: 10px 0;
+    }
+    
+    .produit {
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    h1 {
+        font-size: 2.2em;
+    }
 }

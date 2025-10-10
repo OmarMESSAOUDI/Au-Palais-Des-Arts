@@ -1,75 +1,72 @@
+html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Au Palais Des Arts - Créations Artisanales en Osier</title>
-    <link rel="stylesheet" href="style.css">
+    <title>AU PALAIS DES ARTS</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .logo-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .logo {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .upload-instructions {
+            background: white;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Au Palais Des Arts</h1>
-        <p class="slogan">L'excellence de l'artisanat français en osier</p>
-    </header>
-    
-    <nav>
-        <a href="#produits">Nos Créations</a>
-        <a href="#histoire">Notre Histoire</a>
-        <a href="#contact">Contact</a>
-    </nav>
-    
-    <main>
-        <section class="produits" id="produits">
-            <h2>Nos Créations Exclusives</h2>
-            
-            <div class="produit">
-                <h3>Panier Royal</h3>
-                <p>Panier d'exception en osier naturel, tissage traditionnel français</p>
-                <p class="prix">45,00€</p>
-                <button>Découvrir</button>
-            </div>
-            
-            <div class="produit">
-                <h3>Corbeille Champêtre</h3>
-                <p>Corbeille authentique pour votre décoration naturelle et élégante</p>
-                <p class="prix">28,00€</p>
-                <button>Découvrir</button>
-            </div>
-            
-            <div class="produit">
-                <h3>Corbeille Élégante</h3>
-                <p>Osier travaillé main avec finition premium et détails raffinés</p>
-                <p class="prix">35,00€</p>
-                <button>Découvrir</button>
-            </div>
-            
-            <div class="produit">
-                <h3>Suspension Naturelle</h3>
-                <p>Luminaire artistique en osier pour une ambiance chaleureuse</p>
-                <p class="prix">60,00€</p>
-                <button>Découvrir</button>
-            </div>
-        </section>
+    <div class="logo-container">
+        <!-- REMPLACEZ LE CHEMIN CI-DESSOUS PAR VOTRE LOGO -->
+        <img src="CHEMIN/VERS/VOTRE/LOGO/Au_Palais_Des_Arts.png" 
+             alt="AU PALAIS DES ARTS" 
+             class="logo"
+             onerror="this.style.display='none'">
         
-        <section class="histoire" id="histoire">
-            <h2>Notre Savoir-Faire Ancestral</h2>
-            <p>Depuis trois générations, notre famille perpétue la tradition de la vannerie d'art. Chaque création est le fruit d'un savoir-faire unique, alliant techniques ancestrales et créativité contemporaine. Nous sélectionnons rigoureusement nos brins d'osier pour garantir qualité et durabilité à chacune de nos pièces.</p>
-        </section>
-        
-        <section class="contact" id="contact">
-            <h2>Contact & Commandes</h2>
-            <p>📧 Email : contact@aupalaisdesarts.fr</p>
-            <p>📞 Téléphone : 01 23 45 67 89</p>
-            <p>📍 Atelier : 123 Rue de l'Artisanat, 75000 Paris</p>
-            <p>⏰ Ouvert du lundi au vendredi, 9h-18h</p>
-        </section>
-    </main>
-    
-    <footer>
-        <p>&copy; 2025 Au Palais Des Arts - Artisanat Français d'Excellence</p>
-        <p>🌿 Créations 100% fait main - 🚚 Livraison en France métropolitaine</p>
-    </footer>
-    
-    <script src="script.js"></script>
+        <!-- Message si le logo ne charge pas -->
+        <div style="text-align: center; color: #666; margin-top: 1rem;">
+            <h2>AU PALAIS DES ARTS</h2>
+            <p><em>Logo à charger</em></p>
+        </div>
+    </div>
+
+    <div class="upload-instructions">
+        <h3>📋 Instructions pour charger votre logo :</h3>
+        <ol>
+            <li><strong>Sur votre ordinateur :</strong>
+                <ul>
+                    <li>Créez un nouveau dossier "mon-site"</li>
+                    <li>Copiez votre fichier HTML dans ce dossier</li>
+                    <li>Copiez votre image "Au_Palais_Des_Arts.png" dans le même dossier</li>
+                    <li>Ouvrez le fichier HTML dans votre navigateur</li>
+                </ul>
+            </li>
+            <li><strong>Modifiez la ligne :</strong>
+                <br><code>src="C:\Users\omarm\Downloads/Au_Palais_Des_Arts.png"</code>
+                <br>→ Remplacez par <code>src="Au_Palais_Des_Arts.png"</code>
+            </li>
+        </ol>
+    </div>
 </body>
 </html>

@@ -3,158 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Au Palais des Arts - Accueil</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Georgia', serif;
-        }
-        
-        body {
-            background-color: #f8f5f0;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        header {
-            background-color: #2c2c2c;
-            color: #fff;
-            padding: 1rem 0;
-            text-align: center;
-        }
-        
-        .logo-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        
-        .logo {
-            width: 100%;
-            height: auto;
-            display: block;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .hero {
-            text-align: center;
-            padding: 3rem 0;
-        }
-        
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #8b7355;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background-color: #8b7355;
-            color: white;
-            padding: 0.8rem 2rem;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        .cta-button:hover {
-            background-color: #6d5a42;
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 4rem 0;
-        }
-        
-        .feature {
-            text-align: center;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        .feature h3 {
-            color: #8b7355;
-            margin-bottom: 1rem;
-        }
-        
-        footer {
-            background-color: #2c2c2c;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 0 1rem;
-            }
-        }
-    </style>
+    <meta name="description" content="Au Palais Des Arts - Créations artisanales en osier de qualité supérieure. Vannerie française traditionnelle, pièces uniques faites main.">
+    <meta name="keywords" content="osier, vannerie, artisanat français, panier osier, décoration naturelle, fait main">
+    <title>Au Palais Des Arts - Créations Artisanales en Osier | Vannerie Française</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Header avec logo -->
     <header>
-        <div class="container">
-            <h1>Au Palais des Arts</h1>
+        <div class="logo-container">
+            <div class="logo">🌿 APA</div>
+            <div class="logo-text">
+                <h1>Au Palais Des Arts</h1>
+                <p class="slogan">L'excellence de l'artisanat français en osier</p>
+            </div>
         </div>
     </header>
     
+    <!-- Navigation -->
+    <nav>
+        <a href="#produits">Nos Créations</a>
+        <a href="#apropos">Notre Histoire</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact-form">Commander</a>
+    </nav>
+    
     <main>
-        <section class="logo-container">
-            <img src="Au_Palais_Des_Arts.png" alt="Au Palais des Arts" class="logo">
-        </section>
-        
-        <section class="hero">
-            <div class="container">
-                <h1>Bienvenue au Palais des Arts</h1>
-                <p>Découvrez un univers où l'art et l'élégance se rencontrent. Notre galerie présente des œuvres exceptionnelles d'artistes contemporains et classiques.</p>
-                <a href="#" class="cta-button">Découvrir nos expositions</a>
+        <!-- Section Produits -->
+        <section class="produits" id="produits">
+            <h2>Nos Créations Exclusives</h2>
+            
+            <div class="produit">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Panier+Royal" 
+                         alt="Panier Royal en osier naturel - Au Palais Des Arts" 
+                         class="produit-image">
+                    <div class="image-overlay">👁️ Voir</div>
+                </div>
+                <h3>Panier Royal</h3>
+                <p>Panier d'exception en osier naturel, tissage traditionnel français</p>
+                <div class="details">
+                    <span class="matiere">📏 30x40cm</span>
+                    <span class="livraison">🚚 48h</span>
+                </div>
+                <p class="prix">45,00€</p>
+                <button>Commander</button>
+            </div>
+            
+            <div class="produit">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Corbeille+Champêtre" 
+                         alt="Corbeille Champêtre en osier - Au Palais Des Arts" 
+                         class="produit-image">
+                    <div class="image-overlay">👁️ Voir</div>
+                </div>
+                <h3>Corbeille Champêtre</h3>
+                <p>Corbeille authentique pour votre décoration naturelle et élégante</p>
+                <div class="details">
+                    <span class="matiere">📏 25x35cm</span>
+                    <span class="livraison">🚚 48h</span>
+                </div>
+                <p class="prix">28,00€</p>
+                <button>Commander</button>
+            </div>
+            
+            <div class="produit">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Corbeille+Élégante" 
+                         alt="Corbeille Élégante en osier premium - Au Palais Des Arts" 
+                         class="produit-image">
+                    <div class="image-overlay">👁️ Voir</div>
+                </div>
+                <h3>Corbeille Élégante</h3>
+                <p>Osier travaillé main avec finition premium et détails raffinés</p>
+                <div class="details">
+                    <span class="matiere">📏 20x30cm</span>
+                    <span class="livraison">🚚 48h</span>
+                </div>
+                <p class="prix">35,00€</p>
+                <button>Commander</button>
+            </div>
+            
+            <div class="produit">
+                <div class="image-container">
+                    <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Suspension+Naturelle" 
+                         alt="Suspension Naturelle en osier - Au Palais Des Arts" 
+                         class="produit-image">
+                    <div class="image-overlay">👁️ Voir</div>
+                </div>
+                <h3>Suspension Naturelle</h3>
+                <p>Luminaire artistique en osier pour une ambiance chaleureuse</p>
+                <div class="details">
+                    <span class="matiere">📏 Diamètre 45cm</span>
+                    <span class="livraison">🚚 72h</span>
+                </div>
+                <p class="prix">60,00€</p>
+                <button>Commander</button>
             </div>
         </section>
         
-        <section class="container features">
-            <div class="feature">
-                <h3>Expositions</h3>
-                <p>Explorez nos collections temporaires et permanentes d'art moderne et classique.</p>
+        <!-- Section À Propos -->
+        <section class="a-propos" id="apropos">
+            <h2>Notre Histoire & Engagement</h2>
+            
+            <div class="valeurs">
+                <div class="valeur">
+                    <h3>🏆 Excellence Artisanale</h3>
+                    <p>Chaque pièce est unique, créée avec des techniques ancestrales transmises depuis 3 générations.</p>
+                </div>
+                
+                <div class="valeur">
+                    <h3>🌱 Matériaux Naturels</h3>
+                    <p>Nous utilisons exclusivement de l'osier français de première qualité, respectueux de l'environnement.</p>
+                </div>
+                
+                <div class="valeur">
+                    <h3>⚡ Fabrication Française</h3>
+                    <p>Toutes nos créations sont conçues et réalisées dans notre atelier parisien.</p>
+                </div>
             </div>
-            <div class="feature">
-                <h3>Événements</h3>
-                <p>Participez à nos vernissages, conférences et ateliers artistiques.</p>
+            
+            <div class="processus">
+                <h3>Notre Processus de Création</h3>
+                <ol>
+                    <li><strong>Sélection rigoureuse</strong> des brins d'osier</li>
+                    <li><strong>Tressage traditionnel</strong> à la main</li>
+                    <li><strong>Contrôle qualité</strong> à chaque étape</li>
+                    <li><strong>Finitions perfectionnistes</strong></li>
+                    <li><strong>Emballage soigné</strong> et livraison sécurisée</li>
+                </ol>
             </div>
-            <div class="feature">
-                <h3>Artistes</h3>
-                <p>Rencontrez les artistes émergents et établis qui exposent dans notre galerie.</p>
+        </section>
+        
+        <!-- Section Contact Informations -->
+        <section class="contact" id="contact">
+            <h2>Contact & Informations</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>📧 Email</h3>
+                    <p>contact@aupalaisdesarts.fr</p>
+                </div>
+                <div class="contact-item">
+                    <h3>📞 Téléphone</h3>
+                    <p>01 23 45 67 89</p>
+                </div>
+                <div class="contact-item">
+                    <h3>📍 Atelier</h3>
+                    <p>123 Rue de l'Artisanat<br>75000 Paris</p>
+                </div>
+                <div class="contact-item">
+                    <h3>⏰ Horaires</h3>
+                    <p>Lun-Ven : 9h-18h<br>Sam : 10h-16h</p>
+                </div>
             </div>
+        </section>
+        
+        <!-- Section Formulaire de Contact -->
+        <section class="contact-form" id="contact-form">
+            <h2>Contactez-Nous</h2>
+            <form class="formulaire" id="formContact">
+                <div class="form-group">
+                    <label for="nom">Nom complet *</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telephone">Téléphone</label>
+                    <input type="tel" id="telephone" name="telephone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="sujet">Sujet *</label>
+                    <select id="sujet" name="sujet" required>
+                        <option value="">Choisissez un sujet</option>
+                        <option value="commande">Commande sur mesure</option>
+                        <option value="info">Demande d'information</option>
+                        <option value="devis">Devis personnalisé</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn-submit">📨 Envoyer mon message</button>
+            </form>
         </section>
     </main>
     
+    <!-- Footer -->
     <footer>
-        <div class="container">
-            <p>&copy; 2023 Au Palais des Arts. Tous droits réservés.</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Au Palais Des Arts</h3>
+                <p>Artisanat français d'exception depuis 1985</p>
+            </div>
+            <div class="footer-section">
+                <h3>Garanties</h3>
+                <p>🌿 100% Fait main</p>
+                <p>🚚 Livraison France</p>
+                <p>💎 Qualité premium</p>
+            </div>
+            <div class="footer-section">
+                <h3>Mentions</h3>
+                <p><a href="#cgv">CGV</a> • <a href="#mentions">Mentions légales</a></p>
+                <p><a href="#confidentialite">Confidentialité</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Au Palais Des Arts - Artisanat Français d'Excellence</p>
+            <p>🌿 Créations 100% fait main - 🚚 Livraison en France métropolitaine</p>
         </div>
     </footer>
+    
+    <script src="script.js"></script>
 </body>
 </html>

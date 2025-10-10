@@ -1,40 +1,36 @@
 // Attendre que le DOM soit chargé
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🌿 Site Au Palais Des Arts chargé !');
+    console.log('🌿 Au Palais Des Arts - Site chargé avec succès !');
     
-    // Animation d'apparition des produits
-    animerProduits();
-    
-    // Gestion des clics sur les boutons
-    gererClicsBoutons();
-    
-    // Navigation fluide
-    gererNavigation();
+    // Initialiser toutes les fonctionnalités
+    initialiserAnimations();
+    initialiserInteractions();
+    initialiserNavigation();
 });
 
-// Animation des produits
-function animerProduits() {
-    const produits = document.querySelectorAll('.produit');
-    
-    produits.forEach((produit, index) => {
-        // État initial
+// Animations d'apparition
+function initialiserAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    });
+
+    // Observer les produits
+    document.querySelectorAll('.produit').forEach(produit => {
         produit.style.opacity = '0';
         produit.style.transform = 'translateY(30px)';
-        
-        // Animation avec délai
-        setTimeout(() => {
-            produit.style.transition = 'all 0.6s ease';
-            produit.style.opacity = '1';
-            produit.style.transform = 'translateY(0)';
-        }, index * 200);
+        produit.style.transition = 'all 0.6s ease';
+        observer.observe(produit);
     });
 }
 
-// Gestion des clics sur les boutons
-function gererClicsBoutons() {
-    const boutons = document.querySelectorAll('button');
-    
-    boutons.forEach(bouton => {
+// Interactions des boutons
+function initialiserInteractions() {
+    document.querySelectorAll('button').forEach(bouton => {
         bouton.addEventListener('click', function(e) {
             e.preventDefault();
             
@@ -42,10 +38,15 @@ function gererClicsBoutons() {
             const nomProduit = produit.querySelector('h3').textContent;
             const prix = produit.querySelector('.prix').textContent;
             
-            // Message personnalisé
-            afficherMessage(`✨ Intéressé par ${nomProduit} ?\nPrix : ${prix}\nContactez-nous pour commander !`);
+            // Message élégant
+            afficherNotification(
+                `✨ Intéressé par le "${nomProduit}" ?\n\n` +
+                `💶 Prix : ${prix}\n\n` +
+                `📞 Contactez-nous pour commander !\n` +
+                `📧 contact@aupalaisdesarts.fr`
+            );
             
-            // Effet visuel sur le bouton
+            // Animation du bouton
             this.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 this.style.transform = 'scale(1)';
@@ -55,16 +56,11 @@ function gererClicsBoutons() {
 }
 
 // Navigation fluide
-function gererNavigation() {
-    const liens = document.querySelectorAll('nav a');
-    
-    liens.forEach(lien => {
+function initialiserNavigation() {
+    document.querySelectorAll('nav a').forEach(lien => {
         lien.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            const cibleId = this.getAttribute('href');
-            const cible = document.querySelector(cibleId);
-            
+            const cible = document.querySelector(this.getAttribute('href'));
             if (cible) {
                 window.scrollTo({
                     top: cible.offsetTop - 80,
@@ -75,34 +71,64 @@ function gererNavigation() {
     });
 }
 
-// Fonction pour afficher des messages
-function afficherMessage(texte) {
-    // Créer un élément de message
-    const message = document.createElement('div');
-    message.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #2c5530;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 5px;
-        z-index: 1000;
-        max-width: 300px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+// Système de notifications élégant
+function afficherNotification(message) {
+    // Créer la notification
+    const notification = document.createElement('div');
+    notification.innerHTML = `
+        <div style="
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #5D4037;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            z-index: 10000;
+            max-width: 350px;
+            border-left: 4px solid #8D6E63;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            white-space: pre-line;
+        ">
+            <div style="font-weight: bold; margin-bottom: 10px; color: #6D4C41;">
+                🎨 Au Palais Des Arts
+            </div>
+            <div>${message}</div>
+            <button onclick="this.parentElement.parentElement.remove()" style="
+                margin-top: 15px;
+                background: #8D6E63;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 0.9em;
+            ">Fermer</button>
+        </div>
     `;
-    message.textContent = texte;
     
-    document.body.appendChild(message);
+    document.body.appendChild(notification);
     
-    // Supprimer après 4 secondes
+    // Suppression automatique après 8 secondes
     setTimeout(() => {
-        message.style.opacity = '0';
-        message.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => {
-            if (message.parentNode) {
-                document.body.removeChild(message);
-            }
-        }, 500);
-    }, 4000);
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 8000);
 }
+
+// Effets de survol améliorés
+document.querySelectorAll('.produit').forEach(produit => {
+    produit.addEventListener('mouseenter', function() {
+        this.style.boxShadow = '0 12px 25px rgba(0,0,0,0.2)';
+    });
+    
+    produit.addEventListener('mouseleave', function() {
+        this.style.boxShadow = '0 6px 16px rgba(0,0,0,0.1)';
+    });
+});
+
+// Confirmation de chargement
+console.log('🚀 Script JavaScript chargé - Prêt pour les interactions !');

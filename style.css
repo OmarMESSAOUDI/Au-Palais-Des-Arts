@@ -712,3 +712,48 @@ header, nav, .produit, .a-propos, .contact, .contact-form, .recherche-filtres, f
 .bouton-theme:hover {
     transform: scale(1.1);
 }
+/* Section Avis Clients */
+.avis-clients {
+    background: white;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    margin-bottom: 50px;
+}
+
+.avis-clients h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #1B5E20;
+}
+
+.container-avis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.avis {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 4px solid #D4AF37;
+    text-align: center;
+}
+
+.etoiles {
+    color: #D4AF37;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.avis p {
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.auteur {
+    font-weight: bold;
+    color: #2E7D32;
+}

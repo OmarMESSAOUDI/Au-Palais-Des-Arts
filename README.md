@@ -1,44 +1,38 @@
 # 🧺 Au Palais Des Arts
 
-> Boutique en ligne dédiée à l’artisanat français en osier — une vitrine numérique pour des créations naturelles, durables et élégantes.
+> Boutique en ligne élégante dédiée à l’artisanat français — paniers, corbeilles et décorations en osier.
 
 ---
 
-## 🌿 Aperçu
+## 🌿 Présentation
 
-**Au Palais Des Arts** est une boutique e-commerce moderne mettant en avant des objets artisanaux en osier (paniers, corbeilles, luminaires...).  
-Le projet met l'accent sur :
-- la valorisation du savoir-faire artisanal français,
-- une interface fluide et agréable,
-- une expérience utilisateur soignée et immersive.
+**Au Palais Des Arts** est une boutique web moderne qui valorise le savoir-faire artisanal.  
+Le site présente une collection de créations naturelles, esthétiques et durables.
 
 ---
 
-## 🛠️ Stack Technique
+## ✨ Fonctionnalités principales
 
-| Technologie | Usage |
-|--------------|-------|
-| **HTML5** | Structure sémantique et accessibilité |
-| **CSS3 (variables, flex, grid)** | Design moderne et responsive |
-| **JavaScript (ES6+)** | Gestion d’état, interactions et logique métier |
+- 🛒 Panier interactif (LocalStorage)
+- 🎨 Thème clair/sombre (vert & doré)
+- 🔎 Filtres par catégorie et recherche dynamique
+- 📦 Pagination automatique
+- 💌 Formulaire de contact
+- 📱 Design responsive & moderne
+- ⚡ Animation de chargement fluide
+
+---
+
+## 🛠️ Technologies utilisées
+
+| Technologie | Rôle |
+|--------------|------|
+| **HTML5** | Structure sémantique |
+| **CSS3 (Flex/Grid)** | Design responsive vert & doré |
+| **JavaScript (ES6)** | Logique interactive |
 | **LocalStorage** | Persistance du panier et du thème |
-| **Unsplash API (mock)** | Illustrations produits de démonstration |
 
 ---
 
-## 🚀 Fonctionnalités
-
-✅ Catalogue produits dynamique  
-✅ Filtres par catégorie + recherche en direct  
-✅ Panier interactif avec persistance  
-✅ Mode clair/sombre  
-✅ Système de notifications animé  
-✅ Pagination automatique  
-✅ Formulaire de contact simulé  
-✅ Responsive mobile-first  
-✅ Accessibilité (ARIA, contrastes, clavier)
-
----
-
-## 🧩 Architecture
+## 📁 Arborescence
 

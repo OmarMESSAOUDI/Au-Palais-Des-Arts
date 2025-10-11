@@ -552,3 +552,8 @@ function filtrerProduits() {
         }
     });
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // ... autres initialisations
+    initialiserRechercheFiltres();
+});

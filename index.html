@@ -1,77 +1,52 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
+<html lang="fr">
 <head>
-    <!-- Métadonnées essentielles pour le SEO et l'affichage -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Au Palais Des Arts - Créations artisanales en osier de qualité supérieure. Vannerie française traditionnelle depuis 1985.">
-    
-    <title>Au Palais Des Arts - Artisanat Français en Osier</title>
-    
-    <!-- Feuille de style principale -->
+    <title>Au Palais Des Arts - Créations en Osier</title>
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Préchargement des polices pour améliorer les performances -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-    <!-- ===== ÉCRAN DE CHARGEMENT ===== -->
-    <div class="loading-screen" id="loadingScreen">
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
         <div class="loading-content">
-            <!-- Logo animé -->
             <div class="loading-logo">🧺</div>
-            <!-- Titre principal -->
             <h1>Au Palais Des Arts</h1>
-            <!-- Message de chargement -->
-            <p class="loading-text">Chargement de l'artisanat français...</p>
-            <!-- Barre de progression -->
+            <p>Chargement de l'artisanat français...</p>
             <div class="loading-bar">
-                <div class="loading-progress" id="loadingProgress"></div>
+                <div class="loading-progress"></div>
             </div>
         </div>
     </div>
 
-    <!-- ===== EN-TÊTE ===== -->
+    <!-- Header -->
     <header id="header">
         <div class="container">
             <div class="header-content">
-                <!-- Logo et nom du site -->
-                <div class="logo-container">
-                    <div class="logo">🧺</div>
+                <div class="logo">
+                    <span class="logo-icon">🧺</span>
                     <div class="logo-text">
                         <h1>Au Palais Des Arts</h1>
-                        <p class="slogan">L'excellence de l'artisanat français en osier</p>
+                        <p>Artisanat français d'exception</p>
                     </div>
                 </div>
                 
-                <!-- ===== NAVIGATION PRINCIPALE ===== -->
-                <nav class="main-nav">
-                    <!-- Bouton menu mobile -->
-                    <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu">
+                <nav class="nav">
+                    <button class="nav-toggle" id="navToggle">
                         <span></span>
                         <span></span>
                         <span></span>
                     </button>
-                    
-                    <!-- Menu de navigation -->
                     <div class="nav-menu" id="navMenu">
                         <a href="#produits" class="nav-link">Nos Créations</a>
-                        <a href="#apropos" class="nav-link">Notre Histoire</a>
-                        <a href="#galerie" class="nav-link">Galerie</a>
+                        <a href="#histoire" class="nav-link">Notre Histoire</a>
                         <a href="#avis" class="nav-link">Avis Clients</a>
                         <a href="#contact" class="nav-link">Contact</a>
-                        
-                        <!-- Actions utilisateur -->
                         <div class="nav-actions">
-                            <!-- Icône panier avec badge -->
-                            <button class="icone-panier" id="iconePanier" aria-label="Panier">
-                                🛒 <span class="badge-panier">0</span>
+                            <button class="cart-btn" id="cartBtn">
+                                🛒 <span class="cart-count">0</span>
                             </button>
-                            <!-- Bouton changement de thème -->
-                            <button class="bouton-theme" id="boutonTheme" aria-label="Changer le thème">
-                                <span class="theme-icone">🌙</span>
-                            </button>
+                            <button class="theme-btn" id="themeBtn">🌙</button>
                         </div>
                     </div>
                 </nav>
@@ -79,247 +54,182 @@
         </div>
     </header>
 
-    <!-- ===== SECTION HERO (BANNIÈRE PRINCIPALE) ===== -->
+    <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="container">
             <div class="hero-content">
-                <!-- Contenu texte -->
                 <div class="hero-text">
-                    <h1 class="hero-title">L'Art de la Vannerie Française</h1>
-                    <p class="hero-subtitle">Découvrez nos créations uniques en osier, façonnées avec passion depuis 1985</p>
-                    
-                    <!-- Actions principales -->
-                    <div class="hero-actions">
-                        <a href="#produits" class="btn btn-primary">Découvrir nos créations</a>
-                        <a href="#apropos" class="btn btn-secondary">Notre histoire</a>
+                    <h1>L'Art de la Vannerie Française</h1>
+                    <p>Découvrez nos créations uniques en osier, façonnées avec passion depuis 1985</p>
+                    <div class="hero-buttons">
+                        <a href="#produits" class="btn btn-primary">Découvrir</a>
+                        <a href="#histoire" class="btn btn-secondary">Notre histoire</a>
                     </div>
-                    
-                    <!-- Statistiques de confiance -->
                     <div class="hero-stats">
                         <div class="stat">
-                            <span class="stat-number">38</span>
-                            <span class="stat-label">Ans d'expertise</span>
+                            <span class="number">38</span>
+                            <span class="label">Ans d'expertise</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-number">5000+</span>
-                            <span class="stat-label">Créations vendues</span>
+                            <span class="number">5000+</span>
+                            <span class="label">Créations vendues</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-number">4.9</span>
-                            <span class="stat-label">/5 Satisfaction</span>
+                            <span class="number">4.9</span>
+                            <span class="label">/5 Satisfaction</span>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Image hero -->
-                <div class="hero-visual">
-                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop&auto=format" 
-                         alt="Panier en osier artisanal traditionnel français"
-                         class="hero-image">
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=600&fit=crop" alt="Panier en osier artisanal">
                 </div>
             </div>
-        </div>
-        
-        <!-- Indicateur de scroll -->
-        <div class="scroll-indicator">
-            <span>Défiler</span>
-            <div class="arrow"></div>
         </div>
     </section>
 
-    <!-- ===== SECTION PRODUITS ===== -->
-    <section class="produits section-padding" id="produits">
+    <!-- Produits Section -->
+    <section class="produits" id="produits">
         <div class="container">
-            <!-- En-tête de section -->
             <div class="section-header">
-                <h2>Nos Créations Exclusives</h2>
-                <p>Chaque pièce est unique, tissée à la main avec des techniques ancestrales</p>
+                <h2>Nos Créations en Osier</h2>
+                <p>Pièces uniques faites main avec des techniques ancestrales</p>
             </div>
 
-            <!-- ===== SYSTÈME DE FILTRES ===== -->
-            <div class="filtres-avances">
-                <!-- Barre de recherche -->
-                <div class="search-container">
-                    <div class="search-box">
-                        <input type="text" id="inputRecherche" placeholder="Rechercher un produit...">
-                        <button id="btnRecherche">🔍</button>
-                    </div>
+            <!-- Filtres -->
+            <div class="filters">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Rechercher...">
+                    <button id="searchBtn">🔍</button>
                 </div>
-                
-                <!-- Filtres par catégorie -->
-                <div class="filtres-group">
-                    <div class="filtres-categories">
-                        <button class="filtre-btn active" data-categorie="tous">Tous</button>
-                        <button class="filtre-btn" data-categorie="panier">Paniers</button>
-                        <button class="filtre-btn" data-categorie="corbeille">Corbeilles</button>
-                        <button class="filtre-btn" data-categorie="decoration">Décorations</button>
-                    </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Tous</button>
+                    <button class="filter-btn" data-filter="panier">Paniers</button>
+                    <button class="filter-btn" data-filter="corbeille">Corbeilles</button>
+                    <button class="filter-btn" data-filter="decoration">Décorations</button>
                 </div>
             </div>
 
-            <!-- ===== GRILLE DES PRODUITS ===== -->
-            <div class="grille-produits" id="grilleProduits">
-                <!-- Les produits sont injectés ici par JavaScript -->
+            <!-- Grille Produits -->
+            <div class="products-grid" id="productsGrid">
+                <!-- Produits chargés par JavaScript -->
             </div>
 
-            <!-- ===== PAGINATION ===== -->
+            <!-- Pagination -->
             <div class="pagination" id="pagination">
-                <button class="page-btn prev" disabled>Précédent</button>
+                <button class="page-btn prev" disabled>‹</button>
                 <div class="page-numbers"></div>
-                <button class="page-btn next">Suivant</button>
+                <button class="page-btn next">›</button>
             </div>
         </div>
     </section>
 
-    <!-- ===== SECTION À PROPOS ===== -->
-    <section class="a-propos section-padding" id="apropos">
+    <!-- Histoire Section -->
+    <section class="histoire" id="histoire">
         <div class="container">
             <div class="section-header">
-                <h2>Notre Histoire & Engagement</h2>
-                <p>Transmettre l'excellence artisanale depuis trois générations</p>
+                <h2>Notre Histoire</h2>
+                <p>38 ans de passion pour l'artisanat français</p>
             </div>
-            
-            <!-- Frise chronologique -->
-            <div class="histoire-timeline">
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-year">1985</div>
-                        <div class="timeline-content">
-                            <h3>Création de l'atelier</h3>
-                            <p>Jean-Pierre Martin fonde l'atelier Au Palais Des Arts</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-year">1995</div>
-                        <div class="timeline-content">
-                            <h3>Reconnaissance nationale</h3>
-                            <p>Obtention du label "Entreprise du Patrimoine Vivant"</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-year">2010</div>
-                        <div class="timeline-content">
-                            <h3>Transmission familiale</h3>
-                            <p>Sophie Martin reprend l'atelier et modernise la production</p>
-                        </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="year">1985</div>
+                    <div class="content">
+                        <h3>Création de l'atelier</h3>
+                        <p>Fondation de l'atelier Au Palais Des Arts dans le Marais</p>
                     </div>
                 </div>
-            </div>
-
-            <!-- Valeurs de l'entreprise -->
-            <div class="valeurs-grid">
-                <div class="valeur-card">
-                    <div class="valeur-icon">🌱</div>
-                    <h3>Éco-responsable</h3>
-                    <p>Osier 100% naturel provenant de cultures durables françaises</p>
+                <div class="timeline-item">
+                    <div class="year">1995</div>
+                    <div class="content">
+                        <h3>Reconnaissance</h3>
+                        <p>Obtention du label "Entreprise du Patrimoine Vivant"</p>
+                    </div>
                 </div>
-                <div class="valeur-card">
-                    <div class="valeur-icon">👐</div>
-                    <h3>Fait Main</h3>
-                    <p>Chaque pièce unique créée avec des techniques ancestrales</p>
-                </div>
-                <div class="valeur-card">
-                    <div class="valeur-icon">🇫🇷</div>
-                    <h3>Made in France</h3>
-                    <p>Fabrication 100% française dans notre atelier parisien</p>
+                <div class="timeline-item">
+                    <div class="year">2023</div>
+                    <div class="content">
+                        <h3>Nouvelle ère</h3>
+                        <p>Lancement de la boutique en ligne</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SECTION AVIS CLIENTS ===== -->
-    <section class="avis-clients section-padding" id="avis">
+    <!-- Avis Section -->
+    <section class="avis" id="avis">
         <div class="container">
             <div class="section-header">
-                <h2>Ce que disent nos clients</h2>
-                <p>Découvrez les expériences de nos clients satisfaits</p>
+                <h2>Avis Clients</h2>
+                <p>Ce que disent nos clients satisfaits</p>
             </div>
-
-            <!-- Carousel d'avis -->
-            <div class="avis-carousel" id="avisCarousel">
-                <div class="avis-slide active">
-                    <div class="avis-card">
-                        <div class="avis-header">
-                            <div class="client-info">
-                                <div class="client-avatar">M</div>
-                                <div>
-                                    <h4>Marie L.</h4>
-                                    <div class="avis-date">15 mars 2024</div>
-                                </div>
-                            </div>
-                            <div class="avis-rating">★★★★★</div>
-                        </div>
-                        <p class="avis-text">"Le panier est absolument magnifique ! La qualité de l'osier est exceptionnelle."</p>
+            <div class="reviews-carousel">
+                <div class="review active">
+                    <div class="review-content">
+                        <div class="stars">★★★★★</div>
+                        <p>"Le panier est absolument magnifique ! Qualité exceptionnelle."</p>
+                        <div class="client">Marie L.</div>
                     </div>
                 </div>
-                <div class="avis-slide">
-                    <div class="avis-card">
-                        <div class="avis-header">
-                            <div class="client-info">
-                                <div class="client-avatar">P</div>
-                                <div>
-                                    <h4>Pierre D.</h4>
-                                    <div class="avis-date">12 mars 2024</div>
-                                </div>
-                            </div>
-                            <div class="avis-rating">★★★★★</div>
-                        </div>
-                        <p class="avis-text">"Service client au top ! Communication parfaite et produit correspond exactement à la description."</p>
+                <div class="review">
+                    <div class="review-content">
+                        <div class="stars">★★★★★</div>
+                        <p>"Service client au top et produit correspond parfaitement à la description."</p>
+                        <div class="client">Pierre D.</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SECTION CONTACT ===== -->
-    <section class="contact section-padding" id="contact">
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
         <div class="container">
-            <div class="contact-grid">
-                <!-- Informations de contact -->
+            <div class="section-header">
+                <h2>Contactez-nous</h2>
+                <p>Une question ? Un projet sur mesure ?</p>
+            </div>
+            <div class="contact-content">
                 <div class="contact-info">
-                    <h2>Contact & Informations</h2>
-                    <div class="contact-items">
-                        <div class="contact-item">
-                            <div class="contact-icon">📧</div>
-                            <div>
-                                <h3>Email</h3>
-                                <p>contact@aupalaisdesarts.fr</p>
-                            </div>
+                    <div class="contact-item">
+                        <div class="icon">📧</div>
+                        <div class="details">
+                            <h3>Email</h3>
+                            <p>contact@aupalaisdesarts.fr</p>
                         </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">📍</div>
-                            <div>
-                                <h3>Atelier</h3>
-                                <p>123 Rue de l'Artisanat<br>75000 Paris</p>
-                            </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">📞</div>
+                        <div class="details">
+                            <h3>Téléphone</h3>
+                            <p>01 23 45 67 89</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">📍</div>
+                        <div class="details">
+                            <h3>Atelier</h3>
+                            <p>123 Rue de l'Artisanat<br>75000 Paris</p>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Formulaire de contact -->
-                <div class="contact-form-container">
-                    <h2>Contactez-Nous</h2>
-                    <form class="contact-form" id="formContact">
-                        <div class="form-group">
-                            <label for="nom">Nom complet *</label>
-                            <input type="text" id="nom" name="nom" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message *</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Envoyer mon message</button>
-                    </form>
-                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Votre nom" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Votre email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" placeholder="Votre message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- ===== PIED DE PAGE ===== -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -330,37 +240,35 @@
                 <div class="footer-section">
                     <h3>Navigation</h3>
                     <ul>
-                        <li><a href="#produits">Nos Créations</a></li>
-                        <li><a href="#apropos">Notre Histoire</a></li>
+                        <li><a href="#produits">Nos créations</a></li>
+                        <li><a href="#histoire">Notre histoire</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Au Palais Des Arts - Artisanat Français d'Excellence</p>
+                <p>&copy; 2024 Au Palais Des Arts. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
-    <!-- ===== PANIER FLOTTANT ===== -->
-    <div class="panier-flottant" id="panier">
-        <div class="panier-header">
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
             <h3>🛒 Mon Panier</h3>
-            <button class="close-panier">×</button>
+            <button class="close-cart" id="closeCart">×</button>
         </div>
-        <div class="panier-items" id="panierItems">
-            <!-- Contenu du panier injecté par JavaScript -->
+        <div class="cart-items" id="cartItems">
+            <!-- Items du panier -->
         </div>
-        <div class="panier-total">
-            <strong>Total : <span id="totalPanier">0,00€</span></strong>
+        <div class="cart-total">
+            Total: <span id="cartTotal">0,00€</span>
         </div>
-        <button class="btn-commander" id="btnCommander">Commander</button>
+        <button class="btn btn-primary checkout-btn">Commander</button>
     </div>
 
-    <!-- Overlay pour le panier -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- Script JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>

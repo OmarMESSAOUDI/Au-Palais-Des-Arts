@@ -808,3 +808,21 @@ footer {
 .avis {
     animation: fadeIn 0.5s ease;
 }
+/* ===== MODE SOMBRE ===== */
+body.theme-sombre {
+    --couleur-primaire: #6b8c42;
+    --couleur-secondaire: #8a9a5b;
+    --couleur-accent: #a8b88c;
+    --couleur-texte: #e9ecef;
+    --couleur-texte-clair: #adb5bd;
+    --couleur-fond: #1a1a1a;
+    --couleur-fond-secondaire: #2d2d2d;
+    --couleur-border: #495057;
+    --couleur-blanc: #2d2d2d;
+    --couleur-noir: #f8f9fa;
+}
+
+body.theme-sombre header,
+body.theme-sombre footer {
+    background: linear-gradient(135deg, #2d5016, #3a6428);
+}

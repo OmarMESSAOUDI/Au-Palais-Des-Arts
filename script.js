@@ -485,3 +485,15 @@ function chargerPlusAvis() {
         if (index >= listeAvis.children.length - avisSupplementaires.length) {
             avis.style.opacity = '0';
             avis.style.transform = '
+
+
+        {
+    id: 5,
+    nom: "Nouveau Produit",
+    prix: 75.00,
+    categorie: "decoration",
+    image: "chemin/vers/image.jpg",
+    description: "Description du produit",
+    dimensions: "30x40cm",
+    livraison: "48h"
+}

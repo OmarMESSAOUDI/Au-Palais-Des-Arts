@@ -487,3 +487,68 @@ console.log('🚀 Script JavaScript avancé chargé - Panier fonctionnel !');
         min-width: 150px;
     }
 }
+
+javascript
+// ===== SYSTÈME DE RECHERCHE ET FILTRES =====
+
+function initialiserRechercheFiltres() {
+    const inputRecherche = document.getElementById('inputRecherche');
+    const btnRecherche = document.getElementById('btnRecherche');
+    const filtreCategorie = document.getElementById('filtreCategorie');
+    const filtrePrix = document.getElementById('filtrePrix');
+
+    // Écouter les événements de recherche et filtres
+    inputRecherche.addEventListener('input', filtrerProduits);
+    btnRecherche.addEventListener('click', filtrerProduits);
+    filtreCategorie.addEventListener('change', filtrerProduits);
+    filtrePrix.addEventListener('change', filtrerProduits);
+}
+
+function filtrerProduits() {
+    const termeRecherche = document.getElementById('inputRecherche').value.toLowerCase();
+    const categorie = document.getElementById('filtreCategorie').value;
+    const plagePrix = document.getElementById('filtrePrix').value;
+
+    const produitsElements = document.querySelectorAll('.produit');
+
+    produitsElements.forEach(produitElement => {
+        const nom = produitElement.querySelector('h3').textContent.toLowerCase();
+        const description = produitElement.querySelector('p').textContent.toLowerCase();
+        const prixText = produitElement.querySelector('.prix').textContent;
+        const prix = parseFloat(prixText.replace('€', '').replace(',', '.'));
+
+        // Vérifier la correspondance de la recherche
+        const correspondRecherche = nom.includes(termeRecherche) || description.includes(termeRecherche);
+
+        // Vérifier la catégorie
+        let correspondCategorie = true;
+        if (categorie) {
+            // Déterminer la catégorie en fonction du nom
+            if (categorie === 'panier') {
+                correspondCategorie = nom.includes('panier');
+            } else if (categorie === 'corbeille') {
+                correspondCategorie = nom.includes('corbeille');
+            } else if (categorie === 'suspension') {
+                correspondCategorie = nom.includes('suspension');
+            }
+        }
+
+        // Vérifier la plage de prix
+        let correspondPrix = true;
+        if (plagePrix) {
+            const [min, max] = plagePrix.split('-').map(Number);
+            if (max) {
+                correspondPrix = prix >= min && prix <= max;
+            } else {
+                correspondPrix = prix >= min;
+            }
+        }
+
+        // Afficher ou masquer le produit
+        if (correspondRecherche && correspondCategorie && correspondPrix) {
+            produitElement.style.display = 'block';
+        } else {
+            produitElement.style.display = 'none';
+        }
+    });
+}

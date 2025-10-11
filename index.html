@@ -3,66 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Au Palais Des Arts - Artisanat en Osier</title>
-  <meta name="description" content="Découvrez nos créations artisanales en osier, tissées à la main. Fabrication française depuis 1985.">
-  <link rel="stylesheet" href="styles.css">
+  <title>Au Palais Des Arts</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
-  <!-- ÉCRAN DE CHARGEMENT -->
+  <!-- ===== ÉCRAN DE CHARGEMENT ===== -->
   <div id="loadingScreen">
     <div class="loading-container">
-      <p>Chargement en cours...</p>
-      <div class="loading-bar">
+      <p>Chargement...</p>
+      <div class="progress-bar">
         <div id="loadingProgress"></div>
       </div>
     </div>
   </div>
 
-  <!-- HEADER -->
+  <!-- ===== HEADER ===== -->
   <header id="header">
-    <div class="container header-content">
-      <a href="#" class="logo">🧺 Au Palais Des Arts</a>
+    <div class="container">
+      <h1 class="logo">Au Palais Des Arts</h1>
 
       <nav id="navMenu" class="nav-menu">
         <a href="#produits" class="nav-link">Produits</a>
-        <a href="#apropos" class="nav-link">À propos</a>
-        <a href="#avis" class="nav-link">Avis</a>
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
       <div class="actions">
-        <button id="boutonTheme" class="btn-theme" aria-label="Changer de thème">
-          <span class="theme-icone">🌙</span>
+        <button id="boutonTheme" class="btn-theme"><span class="theme-icone">🌙</span></button>
+        <button id="iconePanier" class="btn-panier">
+          🧺 <span class="badge-panier">0</span>
         </button>
-        <button id="iconePanier" aria-label="Voir le panier" class="btn-panier">
-          🛒 <span class="badge-panier">0</span>
-        </button>
-        <button id="navToggle" class="btn-menu" aria-label="Menu mobile">☰</button>
+        <button id="navToggle" aria-label="Menu mobile">☰</button>
       </div>
     </div>
   </header>
 
-  <!-- SECTION HERO -->
-  <section id="hero">
-    <div class="container hero-content">
-      <div class="hero-text">
-        <h1>Artisanat en Osier Français</h1>
-        <p>Des créations tissées à la main, entre tradition et élégance naturelle.</p>
-        <a href="#produits" class="btn btn-primary">Découvrir nos produits</a>
-      </div>
-      <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600" alt="Panier artisanal en osier">
-      </div>
-    </div>
-  </section>
+  <!-- ===== SECTION PRODUITS ===== -->
+  <main>
+    <section id="produits" class="section-produits">
+      <h2>Nos créations artisanales</h2>
 
-  <!-- SECTION PRODUITS -->
-  <section id="produits" class="section">
-    <div class="container">
-      <h2>Nos créations</h2>
-
-      <!-- Filtres -->
       <div class="filtres">
         <button class="filtre-btn active" data-categorie="tous">Tous</button>
         <button class="filtre-btn" data-categorie="panier">Paniers</button>
@@ -70,75 +50,48 @@
         <button class="filtre-btn" data-categorie="decoration">Décorations</button>
       </div>
 
-      <!-- Recherche -->
       <div class="recherche">
         <input type="text" id="inputRecherche" placeholder="Rechercher un produit...">
-        <button id="btnRecherche" class="btn btn-secondary">🔍</button>
+        <button id="btnRecherche">🔍</button>
       </div>
 
-      <!-- Grille produits -->
       <div id="grilleProduits" class="grille-produits"></div>
 
-      <!-- Pagination -->
       <div id="pagination" class="pagination">
-        <button class="prev">⟵</button>
+        <button class="prev">⟨</button>
         <div class="page-numbers"></div>
-        <button class="next">⟶</button>
+        <button class="next">⟩</button>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- PANIER -->
+  <!-- ===== PANIER ===== -->
+  <div id="overlay"></div>
   <aside id="panier">
     <div class="panier-header">
-      <h3>Mon panier</h3>
-      <button class="close-panier" aria-label="Fermer le panier">×</button>
+      <h3>Votre panier</h3>
+      <button class="close-panier">×</button>
     </div>
-    <div id="panierItems" class="panier-items"></div>
-    <div class="panier-footer">
-      <button id="btnCommander" class="btn btn-primary">Commander</button>
+    <div class="panier-content">
+      <p>Vos articles s'afficheront ici.</p>
     </div>
+    <button id="btnCommander" class="btn btn-primary">Passer commande</button>
   </aside>
-  <div id="overlay"></div>
 
-  <!-- SECTION À PROPOS -->
-  <section id="apropos" class="section">
-    <div class="container">
-      <h2>Notre histoire</h2>
-      <p>Depuis 1985, Au Palais des Arts perpétue le savoir-faire ancestral de la vannerie française.</p>
-    </div>
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="section-contact">
+    <h2>Contactez-nous</h2>
+    <form id="formContact">
+      <input type="text" name="nom" placeholder="Votre nom" required>
+      <input type="email" name="email" placeholder="Votre email" required>
+      <textarea name="message" placeholder="Votre message" required></textarea>
+      <button type="submit" class="btn btn-secondary">Envoyer mon message</button>
+    </form>
   </section>
 
-  <!-- SECTION AVIS -->
-  <section id="avis" class="section">
-    <div class="container">
-      <h2>Ils nous font confiance</h2>
-      <div class="carousel-avis">
-        <blockquote>“Des produits magnifiques, authentiques et durables.” – <strong>Marie L.</strong></blockquote>
-        <blockquote>“Le panier de pique-nique est superbe ! Merci.” – <strong>Luc R.</strong></blockquote>
-      </div>
-    </div>
-  </section>
+  <!-- ===== SCROLL TOP ===== -->
+  <div class="scroll-indicator">⬆</div>
 
-  <!-- CONTACT -->
-  <section id="contact" class="section">
-    <div class="container">
-      <h2>Contactez-nous</h2>
-      <form id="formContact" class="formulaire-contact">
-        <input type="text" name="nom" placeholder="Votre nom" required>
-        <input type="email" name="email" placeholder="Votre email" required>
-        <textarea name="message" placeholder="Votre message" required></textarea>
-        <button type="submit" class="btn btn-primary">Envoyer mon message</button>
-      </form>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Au Palais Des Arts – Artisanat Français</p>
-  </footer>
-
-  <div class="scroll-indicator" title="Retour en haut">⬆️</div>
-
-  <script src="main.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>

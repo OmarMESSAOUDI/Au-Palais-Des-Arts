@@ -931,3 +931,11 @@ body.theme-sombre header,
 body.theme-sombre footer {
     background: linear-gradient(135deg, #2d5016, #3a6428);
 }
+
+
+:root {
+    --couleur-primaire: #2d5016;      /* Vert principal */
+    --couleur-secondaire: #4a7c3a;    /* Vert secondaire */
+    --couleur-accent: #8a9a5b;        /* Accent naturel */
+    /* Modifier ces valeurs pour changer le thème couleur */
+}

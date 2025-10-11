@@ -296,3 +296,33 @@
         </div>
     </div>
 </section>
+
+<!-- Barre de recherche -->
+<div class="barre-recherche-container">
+    <div class="barre-recherche">
+        <input type="text" id="inputRecherche" placeholder="🔍 Rechercher un produit, une catégorie...">
+        <button id="btnRecherche">Rechercher</button>
+    </div>
+    <div class="suggestions-recherche" id="suggestions"></div>
+</div>
+
+<!-- Filtres de recherche -->
+<div class="filtres-container">
+    <div class="filtres">
+        <button class="filtre-btn active" data-categorie="tous">Tous</button>
+        <button class="filtre-btn" data-categorie="panier">Paniers</button>
+        <button class="filtre-btn" data-categorie="corbeille">Corbeilles</button>
+        <button class="filtre-btn" data-categorie="suspension">Suspensions</button>
+        <button class="filtre-btn" data-categorie="decoration">Décorations</button>
+    </div>
+    <div class="tri">
+        <select id="triProduits">
+            <option value="defaut">Trier par : Par défaut</option>
+            <option value="prix-croissant">Prix : Croissant</option>
+            <option value="prix-decroissant">Prix : Décroissant</option>
+            <option value="nom">Nom : A-Z</option>
+            <option value="populaire">Plus populaires</option>
+        </select>
+    </div>
+</div>
+

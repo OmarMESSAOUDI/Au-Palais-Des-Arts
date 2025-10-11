@@ -995,3 +995,156 @@ h1, h2, h3 {
 [data-theme="sombre"] .suggestion-item:hover {
     background: var(--couleur-survol);
 }
+
+/* Section Avis */
+.avis-container {
+    background: var(--couleur-card);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px var(--couleur-ombre);
+    margin-bottom: 50px;
+}
+
+.stats-avis {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    margin-bottom: 40px;
+    align-items: center;
+}
+
+.stat {
+    text-align: center;
+    padding: 30px;
+    background: var(--couleur-survol);
+    border-radius: 15px;
+}
+
+.note-globale {
+    font-size: 3em;
+    font-weight: bold;
+    color: var(--couleur-principale);
+    margin-bottom: 10px;
+}
+
+.etoiles {
+    color: #D4AF37;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.total-avis {
+    color: var(--couleur-texte-secondaire);
+}
+
+.barre-notes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.barre-notes span:first-child {
+    width: 80px;
+    color: var(--couleur-texte-secondaire);
+}
+
+.barre {
+    flex: 1;
+    height: 8px;
+    background: var(--couleur-survol);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.remplissage {
+    height: 100%;
+    background: #D4AF37;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.barre-notes span:last-child {
+    width: 40px;
+    text-align: right;
+    color: var(--couleur-texte-secondaire);
+}
+
+/* Liste des avis */
+.liste-avis {
+    display: grid;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.avis {
+    background: var(--couleur-survol);
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 4px solid var(--couleur-secondaire);
+}
+
+.en-tete-avis {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.info-client strong {
+    color: var(--couleur-principale);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.date-avis {
+    color: var(--couleur-texte-secondaire);
+    font-size: 0.9em;
+}
+
+.note-avis {
+    color: #D4AF37;
+    font-size: 1.1em;
+}
+
+.avis p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: var(--couleur-texte);
+}
+
+.produit-avis {
+    color: var(--couleur-texte-secondaire);
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.btn-voir-plus-avis {
+    background: linear-gradient(135deg, #2E7D32, #4CAF50);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.btn-voir-plus-avis:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+}
+
+/* Responsive avis */
+@media (max-width: 768px) {
+    .stats-avis {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .avis-container {
+        padding: 30px 20px;
+    }
+}

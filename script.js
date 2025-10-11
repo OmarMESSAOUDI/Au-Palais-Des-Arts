@@ -557,3 +557,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // ... autres initialisations
     initialiserRechercheFiltres();
 });
+
+// ===== GESTION DU THÈME SOMBRE/CLAIR =====
+
+function initialiserTheme() {
+    const boutonTheme = document.getElementById('boutonTheme');
+    const theme = localStorage.getItem('theme') || 'clair';
+
+    // Appliquer le thème sauvegardé
+    document.documentElement.setAttribute('data-theme', theme);
+    mettreAJourBoutonTheme(theme);
+
+    // Basculer le thème au clic
+    boutonTheme.addEventListener('click', () => {
+        const themeActuel = document.documentElement.getAttribute('data-theme');
+        const nouveauTheme = themeActuel === 'clair' ? 'sombre' : 'clair';
+        
+        document.documentElement.setAttribute('data-theme', nouveauTheme);
+        localStorage.setItem('theme', nouveauTheme);
+        mettreAJourBoutonTheme(nouveauTheme);
+    });
+}
+
+function mettreAJourBoutonTheme(theme) {
+    const bouton = document.getElementById('boutonTheme');
+    bouton.textContent = theme === 'clair' ? '🌙' : '☀️';
+}

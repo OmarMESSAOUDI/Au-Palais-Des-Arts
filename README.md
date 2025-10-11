@@ -1,53 +1,44 @@
-arkdown
-# 🌿 Au Palais Des Arts - Site E-commerce
+# 🌿 Au Palais Des Arts - Site E-commerce Artisanal
 
-Site e-commerce professionnel pour créations artisanales en osier.
+![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
 
-## 🚀 Fonctionnalités
+Site e-commerce vitrine pour un artisan spécialisé dans la vannerie française et les créations en osier faites main.
 
-### ✅ Implémentées
-- **Design responsive** vert et doré
-- **4 sections complètes** : Produits, À propos, Contact, Formulaire
-- **Animations fluides** et interactions utilisateur
-- **Formulaire de contact** fonctionnel
-- **SEO optimisé** avec meta tags
-- **Logo et identité visuelle**
-- **Système d'images** avec overlay
-- **Notifications élégantes**
+## ✨ Fonctionnalités Principales
 
-### 🔮 À venir
-- Intégration de vraies photos produits
-- Système de paiement en ligne
-- Backend pour le formulaire
-- Base de données produits
-- Blog intégré
+### 🛒 Expérience d'Achat
+- **Catalogue produits** avec filtres et recherche avancée
+- **Panier interactif** avec sauvegarde localStorage
+- **Interface responsive** adaptée mobile/desktop
+- **Animations fluides** et transitions élégantes
 
-## 🛠 Technologies
+### 🎨 Design & Expérience Utilisateur
+- **Design moderne** avec palette naturelle (verts, bruns)
+- **Mode sombre/clair** avec préférences sauvegardées
+- **Navigation intuitive** avec scroll smooth
+- **Sections organisées** : produits, histoire, avis, contact
 
-- **Frontend** : HTML5, CSS3, JavaScript vanilla
-- **Hébergement** : GitHub Pages
-- **Design** : CSS Grid, Flexbox, Animations CSS
-- **SEO** : Meta tags optimisés, structure sémantique
+### 📱 Fonctionnalités Techniques
+- **Validation de formulaire** en temps réel
+- **Notifications utilisateur** contextuelles
+- **Système de filtres** par catégorie et prix
+- **Tri des produits** multiple (nom, prix, popularité)
 
-## 📁 Structure
-## 🎨 Palette de Couleurs
+## 🚀 Installation et Déploiement
 
-- **Vert principal** : `#2E7D32`
-- **Vert foncé** : `#1B5E20`
-- **Doré** : `#D4AF37`
-- **Vert clair** : `#C8E6C9`
-- **Fond** : Dégradé vert très clair
+### Prérequis
+- Navigateur web moderne (Chrome, Firefox, Safari, Edge)
+- Serveur web (optionnel pour développement local)
 
-## 🌐 Déploiement
+### Installation Rapide
+```bash
+# Cloner le repository
+git clone https://github.com/votre-username/au-palais-des-arts.git
 
-Le site est automatiquement déployé sur :
-`https://omarnessaqudi.github.io/Au-Palais-Des-Arts/`
-
-## 📞 Contact
-
-- **Email** : contact@aupalaisdesarts.fr
-- **Site** : https://aupalaisdesarts.fr (futur domaine)
-
-## 📄 Licence
-
-© 2025 Au Palais Des Arts - Tous droits réservés
+# Ou simplement télécharger les fichiers :
+# - index.html
+# - style.css  
+# - script.js

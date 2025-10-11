@@ -73,31 +73,8 @@ function initialiserEvenements() {
         });
     }
     
-    // Newsletter
-    const newsletterForm = document.getElementById('newsletterForm');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            inscrireNewsletter();
-        });
-    }
-    
-    // FAQ
-    initialiserFAQ();
-    
-    // Carousel avis
-    initialiserCarouselAvis();
-    
     // Scroll events
     initialiserScrollEvents();
-    
-    // Back to top
-    const backToTop = document.getElementById('backToTop');
-    if (backToTop) {
-        backToTop.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
 }
 
 // ===== PRODUITS =====
@@ -106,14 +83,14 @@ function chargerProduits() {
     
     // Simuler un chargement asynchrone
     setTimeout(() => {
-        // Données des produits avec de VRAIES images d'osier
+        // Données des produits avec de VRAIES images d'osier qui fonctionnent
         state.produits = [
             {
                 id: 1,
                 nom: "Panier Royal en Osier",
                 prix: 45.00,
                 categorie: "panier",
-                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
+                image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
                 description: "Panier d'exception en osier naturel, tissage traditionnel français. Parfait pour le rangement ou la décoration.",
                 dimensions: "30x40cm",
                 livraison: "48h",
@@ -125,7 +102,7 @@ function chargerProduits() {
                 nom: "Corbeille Champêtre",
                 prix: 28.00,
                 categorie: "corbeille",
-                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
+                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
                 description: "Corbeille authentique pour votre décoration naturelle. Idéale pour les fruits ou le rangement.",
                 dimensions: "25x35cm",
                 livraison: "48h",
@@ -136,7 +113,7 @@ function chargerProduits() {
                 nom: "Panier Jardin Rustique",
                 prix: 38.00,
                 categorie: "panier",
-                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
+                image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
                 description: "Panier robuste idéal pour le jardin, les courses ou la décoration campagne.",
                 dimensions: "35x45cm",
                 livraison: "48h",
@@ -147,7 +124,7 @@ function chargerProduits() {
                 nom: "Corbeille à Fruits Élégante",
                 prix: 32.00,
                 categorie: "corbeille",
-                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
+                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
                 description: "Corbeille raffinée pour présenter vos fruits avec élégance et style naturel.",
                 dimensions: "28x38cm",
                 livraison: "48h",
@@ -158,7 +135,7 @@ function chargerProduits() {
                 nom: "Suspension Naturelle",
                 prix: 65.00,
                 categorie: "decoration",
-                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
+                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
                 description: "Luminaire artistique en osier pour une ambiance chaleureuse et naturelle.",
                 dimensions: "Diamètre 45cm",
                 livraison: "72h",
@@ -169,33 +146,11 @@ function chargerProduits() {
                 nom: "Panier Pique-nique",
                 prix: 55.00,
                 categorie: "panier",
-                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
+                image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
                 description: "Panier spacieux avec anses renforcées, parfait pour vos pique-niques.",
                 dimensions: "40x50cm",
                 livraison: "48h",
                 stock: 7
-            },
-            {
-                id: 7,
-                nom: "Corbeille à Pain Traditionnelle",
-                prix: 35.00,
-                categorie: "corbeille",
-                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
-                description: "Corbeille traditionnelle pour présenter votre pain avec authenticité.",
-                dimensions: "35x25cm",
-                livraison: "48h",
-                stock: 9
-            },
-            {
-                id: 8,
-                nom: "Panier à Linge",
-                prix: 75.00,
-                categorie: "panier",
-                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
-                description: "Grand panier pratique pour le rangement du linge, design naturel.",
-                dimensions: "50x60cm",
-                livraison: "72h",
-                stock: 4
             }
         ];
         
@@ -275,13 +230,6 @@ function initialiserFiltres() {
         searchInput.addEventListener('input', (e) => {
             if (e.target.value === '') {
                 rechercherProduits('');
-            }
-        });
-        
-        // Recherche avec Enter
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                rechercherProduits(searchInput.value);
             }
         });
     }
@@ -380,13 +328,6 @@ function initialiserPanier() {
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', passerCommande);
     }
-    
-    // Fermer le panier avec Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            fermerPanier();
-        }
-    });
 }
 
 function ajouterAuPanier(produitId) {
@@ -547,90 +488,9 @@ function envoyerFormulaireContact() {
     }, 2000);
 }
 
-function inscrireNewsletter() {
-    const form = document.getElementById('newsletterForm');
-    const input = form.querySelector('input[type="email"]');
-    
-    // Simulation d'inscription
-    setTimeout(() => {
-        afficherNotification('Merci pour votre inscription à notre newsletter !', 'success');
-        form.reset();
-    }, 1000);
-}
-
-// ===== FAQ =====
-function initialiserFAQ() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        
-        question.addEventListener('click', () => {
-            // Fermer tous les autres items
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            
-            // Basculer l'item actuel
-            item.classList.toggle('active');
-        });
-    });
-}
-
-// ===== CAROUSEL AVIS =====
-function initialiserCarouselAvis() {
-    const prevBtn = document.getElementById('prevReview');
-    const nextBtn = document.getElementById('nextReview');
-    const dots = document.querySelectorAll('.carousel-dots .dot');
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => changerAvis(-1));
-    }
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => changerAvis(1));
-    }
-    
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            state.currentReview = index;
-            mettreAJourCarouselAvis();
-        });
-    });
-    
-    // Auto-play
-    setInterval(() => {
-        changerAvis(1);
-    }, 5000);
-}
-
-function changerAvis(direction) {
-    const reviews = document.querySelectorAll('.review');
-    const totalReviews = reviews.length;
-    
-    state.currentReview = (state.currentReview + direction + totalReviews) % totalReviews;
-    mettreAJourCarouselAvis();
-}
-
-function mettreAJourCarouselAvis() {
-    const reviews = document.querySelectorAll('.review');
-    const dots = document.querySelectorAll('.carousel-dots .dot');
-    
-    reviews.forEach((review, index) => {
-        review.classList.toggle('active', index === state.currentReview);
-    });
-    
-    dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === state.currentReview);
-    });
-}
-
 // ===== SCROLL EVENTS =====
 function initialiserScrollEvents() {
     const header = document.getElementById('header');
-    const backToTop = document.getElementById('backToTop');
     
     window.addEventListener('scroll', () => {
         // Header scroll
@@ -638,13 +498,6 @@ function initialiserScrollEvents() {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
-        }
-        
-        // Back to top
-        if (window.scrollY > 500) {
-            backToTop.classList.add('visible');
-        } else {
-            backToTop.classList.remove('visible');
         }
     });
 }

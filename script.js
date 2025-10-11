@@ -794,3 +794,53 @@ function reinitialiserRecherche() {
     document.querySelectorAll('.aucun-resultat').forEach(el => el.remove());
     document.getElementById('suggestions').style.display = 'none';
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // ... autres initialisations
+    initialiserRecherche();
+});
+const produits = [
+    {
+        id: 'panier-royal',
+        nom: 'Panier Royal',
+        prix: 45.00,
+        image: 'https://via.placeholder.com/300x200/4CAF50/white?text=Panier+Royal',
+        description: 'Panier d\'exception en osier naturel, tissage traditionnel français',
+        popularite: 95
+    },
+    // ... autres produits avec popularité
+];
+// ===== SYSTÈME DE THÈME SOMBRE/CLAIR =====
+
+function initialiserTheme() {
+    const boutonTheme = document.getElementById('boutonTheme');
+    const theme = localStorage.getItem('theme') || 'clair';
+
+    // Appliquer le thème sauvegardé
+    document.documentElement.setAttribute('data-theme', theme);
+    mettreAJourBoutonTheme(theme);
+
+    // Basculer le thème
+    boutonTheme.addEventListener('click', () => {
+        const themeActuel = document.documentElement.getAttribute('data-theme');
+        const nouveauTheme = themeActuel === 'clair' ? 'sombre' : 'clair';
+        
+        document.documentElement.setAttribute('data-theme', nouveauTheme);
+        localStorage.setItem('theme', nouveauTheme);
+        mettreAJourBoutonTheme(nouveauTheme);
+        
+        // Animation de transition
+        document.body.style.transition = 'all 0.3s ease';
+    });
+}
+
+function mettreAJourBoutonTheme(theme) {
+    const bouton = document.getElementById('boutonTheme');
+    const icone = bouton.querySelector('.theme-icone');
+    icone.textContent = theme === 'clair' ? '🌙' : '☀️';
+    bouton.title = theme === 'clair' ? 'Activer le mode sombre' : 'Activer le mode clair';
+}
+document.addEventListener('DOMContentLoaded', function() {
+    // ... autres initialisations
+    initialiserTheme();
+});

@@ -42,3 +42,36 @@ git clone https://github.com/votre-username/au-palais-des-arts.git
 # - index.html
 # - style.css  
 # - script.js
+
+
+## Fichiers supplémentaires recommandés
+
+### LICENSE.md
+```markdown
+MIT License
+
+Copyright (c) 2025 Au Palais Des Arts
+
+Permission is hereby granted...
+# Changelog
+
+## [1.0.0] - 2025-03-20
+### Ajouté
+- Site e-commerce complet
+- Gestion panier avec localStorage
+- Système de filtres et recherche
+- Formulaire de contact
+- Section avis clients
+- Design responsive
+# Guide de Contribution
+
+## Code Style
+- Utiliser des commentaires en français
+- Respecter l'indentation à 4 espaces
+- Nommer les variables en français
+
+## Processus
+1. Discuter des changements via Issues
+2. Créer une branche feature
+3. Tester sur multiple navigateurs
+4. Soumettre une Pull Request

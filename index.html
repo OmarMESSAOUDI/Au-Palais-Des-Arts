@@ -1,238 +1,107 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light only">
-    <meta name="description" content="Au Palais Des Arts - Créations artisanales en osier de qualité supérieure. Vannerie française traditionnelle, pièces uniques faites main.">
-    <meta name="keywords" content="osier, vannerie, artisanat français, panier osier, décoration naturelle, fait main">
-    <title>Au Palais Des Arts - Créations Artisanales en Osier | Vannerie Française</title>
-    <style>
-        /* Styles optimisés pour éviter la barre mode sombre */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background-color: #fefefe;
-            color: #333;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-        }
-        
-        /* Votre CSS existant reste ici */
-        /* ... autres styles ... */
-        
-        /* Correction pour éviter le mode sombre */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #fefefe !important;
-                color: #333 !important;
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- Header avec logo -->
-    <header>
-        <div class="logo-container">
-            <div class="logo">🌿 APA</div>
-            <div class="logo-text">
-                <h1>Au Palais Des Arts</h1>
-                <p class="slogan">L'excellence de l'artisanat français en osier</p>
-            </div>
-        </div>
-        
-        <!-- Navigation principale -->
-        <nav>
-            <a href="#produits">Nos Créations</a>
-            <a href="#apropos">Notre Histoire</a>
-            <a href="#avis">Avis Clients</a>
-            <a href="#contact">Contact</a>
-            <a href="#contact-form">Commander</a>
-            <button class="icone-panier" id="iconePanier">
-                🛒 <span class="badge-panier">0</span>
-            </button>
-            <button class="bouton-theme" id="boutonTheme" title="Changer le thème">
-                <span class="theme-icone">🌙</span>
-            </button>
-        </nav>
-    </header>
+<!-- Section Avis Clients -->
+<section class="avis-container" id="avis">
+    <h2>🌟 Ce que disent nos clients</h2>
     
-    <main>
-        <!-- Section Recherche et Filtres -->
-        <section class="recherche-filtres" id="recherche">
-            <h2>Trouvez la création parfaite</h2>
-            <div class="controle-recherche">
-                <div class="barre-recherche-container">
-                    <div class="barre-recherche">
-                        <input type="text" id="inputRecherche" placeholder="🔍 Rechercher un produit, une catégorie...">
-                        <button id="btnRecherche">Rechercher</button>
-                    </div>
-                    <div class="suggestions-recherche" id="suggestions"></div>
-                </div>
-                <div class="filtres-container">
-                    <div class="filtres">
-                        <button class="filtre-btn active" data-categorie="tous">Tous</button>
-                        <button class="filtre-btn" data-categorie="panier">Paniers</button>
-                        <button class="filtre-btn" data-categorie="corbeille">Corbeilles</button>
-                        <button class="filtre-btn" data-categorie="suspension">Suspensions</button>
-                    </div>
-                    <div class="tri">
-                        <select id="triProduits">
-                            <option value="defaut">Trier par : Par défaut</option>
-                            <option value="prix-croissant">Prix : Croissant</option>
-                            <option value="prix-decroissant">Prix : Décroissant</option>
-                            <option value="nom">Nom : A-Z</option>
-                        </select>
-                    </div>
-                </div>
+    <div class="stats-avis">
+        <div class="stat">
+            <div class="note-globale">4.9/5</div>
+            <div class="etoiles">★★★★★</div>
+            <div class="total-avis">127 avis</div>
+        </div>
+        <div class="repartition">
+            <div class="barre-notes">
+                <span>5 étoiles</span>
+                <div class="barre"><div class="remplissage" style="width: 85%"></div></div>
+                <span>85%</span>
             </div>
-        </section>
-
-        <!-- Section Produits -->
-        <section class="produits" id="produits">
-            <h2>Nos Créations Exclusives</h2>
-            <div class="grille-produits">
-                <!-- Vos produits existants -->
-                <div class="produit" data-categorie="panier">
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Panier+Royal" 
-                             alt="Panier Royal en osier naturel - Au Palais Des Arts" 
-                             class="produit-image">
-                        <div class="image-overlay">👁️ Voir</div>
-                    </div>
-                    <h3>Panier Royal</h3>
-                    <p>Panier d'exception en osier naturel, tissage traditionnel français</p>
-                    <div class="details">
-                        <span class="matiere">📏 30x40cm</span>
-                        <span class="livraison">🚚 48h</span>
-                    </div>
-                    <p class="prix">45,00€</p>
-                    <button class="btn-ajouter-panier">Ajouter au panier</button>
-                </div>
-                
-                <!-- Autres produits... -->
+            <div class="barre-notes">
+                <span>4 étoiles</span>
+                <div class="barre"><div class="remplissage" style="width: 12%"></div></div>
+                <span>12%</span>
             </div>
-        </section>
-        
-        <!-- Section À Propos -->
-        <section class="a-propos" id="apropos">
-            <h2>Notre Histoire & Engagement</h2>
-            
-            <div class="valeurs">
-                <div class="valeur">
-                    <h3>🏆 Excellence Artisanale</h3>
-                    <p>Chaque pièce est unique, créée avec des techniques ancestrales transmises depuis 3 générations.</p>
-                </div>
-                
-                <div class="valeur">
-                    <h3>🌱 Matériaux Naturels</h3>
-                    <p>Nous utilisons exclusivement de l'osier français de première qualité, respectueux de l'environnement.</p>
-                </div>
-                
-                <div class="valeur">
-                    <h3>⚡ Fabrication Française</h3>
-                    <p>Toutes nos créations sont conçues et réalisées dans notre atelier parisien.</p>
-                </div>
+            <div class="barre-notes">
+                <span>3 étoiles</span>
+                <div class="barre"><div class="remplissage" style="width: 2%"></div></div>
+                <span>2%</span>
             </div>
-            
-            <div class="processus">
-                <h3>Notre Processus de Création</h3>
-                <ol>
-                    <li><strong>Sélection rigoureuse</strong> des brins d'osier</li>
-                    <li><strong>Tressage traditionnel</strong> à la main</li>
-                    <li><strong>Contrôle qualité</strong> à chaque étape</li>
-                    <li><strong>Finitions perfectionnistes</strong></li>
-                    <li><strong>Emballage soigné</strong> et livraison sécurisée</li>
-                </ol>
-            </div>
-        </section>
-
-        <!-- Section Avis Clients -->
-        <section class="avis-container" id="avis">
-            <h2>🌟 Ce que disent nos clients</h2>
-            
-            <div class="stats-avis">
-                <div class="stat">
-                    <div class="note-globale">4.9/5</div>
-                    <div class="etoiles">★★★★★</div>
-                    <div class="total-avis">127 avis</div>
-                </div>
-                <div class="repartition">
-                    <div class="barre-notes">
-                        <span>5 étoiles</span>
-                        <div class="barre"><div class="remplissage" style="width: 85%"></div></div>
-                        <span>85%</span>
-                    </div>
-                    <div class="barre-notes">
-                        <span>4 étoiles</span>
-                        <div class="barre"><div class="remplissage" style="width: 12%"></div></div>
-                        <span>12%</span>
-                    </div>
-                    <div class="barre-notes">
-                        <span>3 étoiles</span>
-                        <div class="barre"><div class="remplissage" style="width: 2%"></div></div>
-                        <span>2%</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="liste-avis">
-                <!-- Vos avis clients... -->
-            </div>
-            <button class="btn-voir-plus-avis">Voir plus d'avis</button>
-        </section>
-        
-        <!-- Sections Contact et Formulaire (inchangées) -->
-        <!-- ... -->
-        
-    </main>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Au Palais Des Arts</h3>
-                <p>Artisanat français d'exception depuis 1985</p>
-            </div>
-            <div class="footer-section">
-                <h3>Garanties</h3>
-                <p>🌿 100% Fait main</p>
-                <p>🚚 Livraison France</p>
-                <p>💎 Qualité premium</p>
-            </div>
-            <div class="footer-section">
-                <h3>Mentions</h3>
-                <p><a href="#cgv">CGV</a> • <a href="#mentions">Mentions légales</a></p>
-                <p><a href="#confidentialite">Confidentialité</a></p>
+            <div class="barre-notes">
+                <span>2 étoiles</span>
+                <div class="barre"><div class="remplissage" style="width: 1%"></div></div>
+                <span>1%</span>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Au Palais Des Arts - Artisanat Français d'Excellence</p>
-            <p>🌿 Créations 100% fait main - 🚚 Livraison en France métropolitaine</p>
-        </div>
-    </footer>
-
-    <!-- Panier flottant -->
-    <div class="panier-flottant" id="panier">
-        <div class="panier-header">
-            <h3>🛒 Mon Panier</h3>
-            <span class="panier-count">0</span>
-            <button class="close-panier">×</button>
-        </div>
-        <div class="panier-items" id="panierItems">
-            <!-- Items du panier dynamiques -->
-        </div>
-        <div class="panier-total">
-            <strong>Total : <span id="totalPanier">0,00€</span></strong>
-        </div>
-        <button class="btn-commander" id="btnCommander">🎨 Commander</button>
     </div>
+
+    <div class="liste-avis">
+        <div class="avis">
+            <div class="en-tete-avis">
+                <div class="info-client">
+                    <strong>Marie L.</strong>
+                    <div class="date-avis">15 mars 2025</div>
+                </div>
+                <div class="note-avis">★★★★★</div>
+            </div>
+            <p>"Le panier royal est absolument magnifique ! La qualité de l'osier est exceptionnelle et le travail artisanal se voit dans chaque détail. Livraison rapide et emballage soigné."</p>
+            <div class="produit-avis">Acheté : Panier Royal</div>
+        </div>
+
+        <div class="avis">
+            <div class="en-tete-avis">
+                <div class="info-client">
+                    <strong>Pierre D.</strong>
+                    <div class="date-avis">12 mars 2025</div>
+                </div>
+                <div class="note-avis">★★★★★</div>
+            </div>
+            <p>"Service client au top ! J'ai commandé la corbeille champêtre et je suis ravi. La communication était parfaite et le produit correspond exactement à la description. Je recommande !"</p>
+            <div class="produit-avis">Acheté : Corbeille Champêtre</div>
+        </div>
+
+        <div class="avis">
+            <div class="en-tete-avis">
+                <div class="info-client">
+                    <strong>Sophie M.</strong>
+                    <div class="date-avis">8 mars 2025</div>
+                </div>
+                <div class="note-avis">★★★★☆</div>
+            </div>
+            <p>"Très belle corbeille, juste un peu plus petite que ce que j'imaginais. Mais la qualité est là et le service client a été réactif pour répondre à mes questions."</p>
+            <div class="produit-avis">Acheté : Corbeille Élégante</div>
+        </div>
+    </div>
+
+    <button class="btn-voir-plus-avis">Voir plus d'avis</button>
+</section>
+
+<nav>
+    <a href="#produits">Nos Créations</a>
+    <a href="#apropos">Notre Histoire</a>
+    <a href="#avis">Avis Clients</a> <!-- Ajoutez cette ligne -->
+    <a href="#contact">Contact</a>
+    <a href="#contact-form">Commander</a>
+    <button class="icone-panier" id="iconePanier">
+        🛒 <span class="badge-panier">0</span>
+    </button>
+    <button class="bouton-theme" id="boutonTheme" title="Changer le thème">
+        <span class="theme-icone">🌙</span>
+    </button>
+</nav>
+<main>
+    <!-- Section Recherche et Filtres -->
+    <section class="recherche-filtres" id="recherche">...</section>
+
+    <!-- Section Produits -->
+    <section class="produits" id="produits">...</section>
     
-    <script src="script.js"></script>
-</body>
-</html>
+    <!-- Section À Propos -->
+    <section class="a-propos" id="apropos">...</section>
+    
+    <!-- Section Avis Clients -->
+    <section class="avis-container" id="avis">...</section> <!-- ICI -->
+    
+    <!-- Section Contact Informations -->
+    <section class="contact" id="contact">...</section>
+    
+    <!-- Section Formulaire de Contact -->
+    <section class="contact-form" id="contact-form">...</section>
+</main>

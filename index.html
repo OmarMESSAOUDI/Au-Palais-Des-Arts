@@ -1,1241 +1,646 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light only">
-    <meta name="description" content="Au Palais Des Arts - Créations artisanales en osier de qualité supérieure. Vannerie française traditionnelle, pièces uniques faites main.">
-    <meta name="keywords" content="osier, vannerie, artisanat français, panier osier, décoration naturelle, fait main">
+    <meta name="description" content="Au Palais Des Arts - Créations artisanales en osier de qualité supérieure. Vannerie française traditionnelle, pièces uniques faites main depuis 1985.">
+    <meta name="keywords" content="osier, vannerie, artisanat français, panier osier, décoration naturelle, fait main, artisanat Paris">
+    <meta name="author" content="Au Palais Des Arts">
+    <meta property="og:title" content="Au Palais Des Arts - Créations Artisanales en Osier">
+    <meta property="og:description" content="Vannerie française traditionnelle, pièces uniques faites main depuis 1985">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aupalaisdesarts.fr">
     <title>Au Palais Des Arts - Créations Artisanales en Osier | Vannerie Française</title>
-    <style>
-        /* ===== RESET ET BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --couleur-primaire: #2d5016;
-            --couleur-secondaire: #4a7c3a;
-            --couleur-accent: #8a9a5b;
-            --couleur-texte: #333333;
-            --couleur-texte-clair: #666666;
-            --couleur-fond: #fefefe;
-            --couleur-fond-secondaire: #f8f9fa;
-            --couleur-border: #e9ecef;
-            --couleur-blanc: #ffffff;
-            --couleur-noir: #000000;
-            --ombre-legere: 0 2px 10px rgba(0, 0, 0, 0.1);
-            --ombre-portee: 0 4px 20px rgba(0, 0, 0, 0.15);
-            --border-radius: 8px;
-            --transition: all 0.3s ease;
-        }
-
-        /* Forcer le mode clair */
-        body {
-            background-color: var(--couleur-fond) !important;
-            color: var(--couleur-texte) !important;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: var(--couleur-fond) !important;
-                color: var(--couleur-texte) !important;
-            }
-        }
-
-        /* ===== HEADER ===== */
-        header {
-            background: linear-gradient(135deg, var(--couleur-primaire), var(--couleur-secondaire));
-            color: white;
-            padding: 1.5rem 2rem;
-            box-shadow: var(--ombre-portee);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 2.5rem;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .logo-text h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-            font-weight: 300;
-        }
-
-        .slogan {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            font-style: italic;
-        }
-
-        /* ===== NAVIGATION ===== */
-        nav {
-            background: var(--couleur-blanc);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            box-shadow: var(--ombre-legere);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--couleur-texte);
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-            position: relative;
-        }
-
-        nav a:hover {
-            background: var(--couleur-fond-secondaire);
-            color: var(--couleur-primaire);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--couleur-primaire);
-            transition: var(--transition);
-            transform: translateX(-50%);
-        }
-
-        nav a:hover::after {
-            width: 80%;
-        }
-
-        /* Boutons de navigation */
-        .icone-panier, .bouton-theme {
-            background: var(--couleur-fond-secondaire);
-            border: 2px solid var(--couleur-border);
-            border-radius: var(--border-radius);
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .icone-panier:hover, .bouton-theme:hover {
-            background: var(--couleur-primaire);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .badge-panier {
-            background: #e74c3c;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* ===== SECTIONS PRINCIPALES ===== */
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        section {
-            margin-bottom: 4rem;
-            padding: 2rem 0;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--couleur-primaire);
-            position: relative;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--couleur-primaire), var(--couleur-accent));
-            border-radius: 2px;
-        }
-
-        /* ===== RECHERCHE ET FILTRES ===== */
-        .recherche-filtres {
-            background: var(--couleur-fond-secondaire);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 2rem;
-        }
-
-        .barre-recherche-container {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-
-        .barre-recherche {
-            display: flex;
-            gap: 0.5rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .barre-recherche input {
-            flex: 1;
-            padding: 1rem;
-            border: 2px solid var(--couleur-border);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .barre-recherche input:focus {
-            outline: none;
-            border-color: var(--couleur-primaire);
-            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
-        }
-
-        .barre-recherche button {
-            padding: 1rem 1.5rem;
-            background: var(--couleur-primaire);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .barre-recherche button:hover {
-            background: var(--couleur-secondaire);
-            transform: translateY(-2px);
-        }
-
-        .filtres-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .filtres {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .filtre-btn {
-            padding: 0.5rem 1rem;
-            border: 2px solid var(--couleur-border);
-            background: var(--couleur-blanc);
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .filtre-btn.active,
-        .filtre-btn:hover {
-            background: var(--couleur-primaire);
-            color: white;
-            border-color: var(--couleur-primaire);
-        }
-
-        .tri select {
-            padding: 0.5rem 1rem;
-            border: 2px solid var(--couleur-border);
-            border-radius: var(--border-radius);
-            background: var(--couleur-blanc);
-            cursor: pointer;
-        }
-
-        /* ===== PRODUITS ===== */
-        .grille-produits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .produit {
-            background: var(--couleur-blanc);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--ombre-legere);
-            transition: var(--transition);
-            border: 1px solid var(--couleur-border);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .produit:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--ombre-portee);
-        }
-
-        .image-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: var(--border-radius);
-            margin-bottom: 1rem;
-        }
-
-        .produit-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .image-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .image-container:hover .image-overlay {
-            opacity: 1;
-        }
-
-        .image-container:hover .produit-image {
-            transform: scale(1.1);
-        }
-
-        .produit h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--couleur-primaire);
-        }
-
-        .produit > p {
-            color: var(--couleur-texte-clair);
-            margin-bottom: 1rem;
-            flex: 1;
-        }
-
-        .details {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: var(--couleur-texte-clair);
-        }
-
-        .prix {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--couleur-primaire);
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .btn-ajouter-panier {
-            background: var(--couleur-primaire);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-
-        .btn-ajouter-panier:hover {
-            background: var(--couleur-secondaire);
-            transform: translateY(-2px);
-        }
-
-        /* ===== SECTION À PROPOS ===== */
-        .a-propos {
-            background: var(--couleur-fond-secondaire);
-            padding: 3rem 2rem;
-            border-radius: var(--border-radius);
-        }
-
-        .valeurs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .valeur {
-            background: var(--couleur-blanc);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            text-align: center;
-            box-shadow: var(--ombre-legere);
-            transition: var(--transition);
-        }
-
-        .valeur:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--ombre-portee);
-        }
-
-        .valeur h3 {
-            color: var(--couleur-primaire);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .processus {
-            background: var(--couleur-blanc);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--ombre-legere);
-        }
-
-        .processus ol {
-            margin-left: 2rem;
-            margin-top: 1rem;
-        }
-
-        .processus li {
-            margin-bottom: 0.8rem;
-            padding-left: 0.5rem;
-        }
-
-        /* ===== AVIS CLIENTS ===== */
-        .avis-container {
-            background: var(--couleur-blanc);
-            padding: 3rem 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--ombre-legere);
-        }
-
-        .stats-avis {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-            align-items: start;
-        }
-
-        .stat {
-            text-align: center;
-            background: var(--couleur-fond-secondaire);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-        }
-
-        .note-globale {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--couleur-primaire);
-            margin-bottom: 0.5rem;
-        }
-
-        .etoiles {
-            font-size: 1.5rem;
-            color: #ffc107;
-            margin-bottom: 0.5rem;
-        }
-
-        .total-avis {
-            color: var(--couleur-texte-clair);
-        }
-
-        .barre-notes {
-            display: grid;
-            grid-template-columns: 80px 1fr 50px;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .barre {
-            background: var(--couleur-border);
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .remplissage {
-            background: #ffc107;
-            height: 100%;
-            transition: width 1s ease;
-        }
-
-        .liste-avis {
-            display: grid;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .avis {
-            background: var(--couleur-fond-secondaire);
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            border-left: 4px solid var(--couleur-primaire);
-        }
-
-        .en-tete-avis {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-        }
-
-        .info-client strong {
-            display: block;
-            margin-bottom: 0.3rem;
-        }
-
-        .date-avis {
-            font-size: 0.9rem;
-            color: var(--couleur-texte-clair);
-        }
-
-        .note-avis {
-            color: #ffc107;
-            font-size: 1.1rem;
-        }
-
-        .produit-avis {
-            font-size: 0.9rem;
-            color: var(--couleur-texte-clair);
-            font-style: italic;
-            margin-top: 0.5rem;
-        }
-
-        .btn-voir-plus-avis {
-            display: block;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            background: var(--couleur-primaire);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 1rem;
-        }
-
-        .btn-voir-plus-avis:hover {
-            background: var(--couleur-secondaire);
-            transform: translateY(-2px);
-        }
-
-        /* ===== FORMULAIRES ===== */
-        .contact-form {
-            background: var(--couleur-fond-secondaire);
-            padding: 3rem 2rem;
-            border-radius: var(--border-radius);
-        }
-
-        .formulaire {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--couleur-texte);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 2px solid var(--couleur-border);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--couleur-primaire);
-            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 1rem 2rem;
-            background: var(--couleur-primaire);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-submit:hover {
-            background: var(--couleur-secondaire);
-            transform: translateY(-2px);
-        }
-
-        /* ===== PANIER FLOTTANT ===== */
-        .panier-flottant {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 380px;
-            height: 100vh;
-            background: var(--couleur-blanc);
-            box-shadow: var(--ombre-portee);
-            transition: var(--transition);
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .panier-flottant.ouvert {
-            right: 0;
-        }
-
-        .panier-header {
-            background: var(--couleur-primaire);
-            color: white;
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .close-panier {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.2rem 0.5rem;
-        }
-
-        .panier-items {
-            flex: 1;
-            padding: 1rem;
-            overflow-y: auto;
-        }
-
-        .panier-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--couleur-border);
-        }
-
-        .panier-item-info h4 {
-            margin-bottom: 0.5rem;
-        }
-
-        .panier-item-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .panier-item-controls button {
-            background: var(--couleur-fond-secondaire);
-            border: 1px solid var(--couleur-border);
-            border-radius: 4px;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .panier-vide {
-            text-align: center;
-            padding: 2rem;
-            color: var(--couleur-texte-clair);
-        }
-
-        .panier-total {
-            padding: 1.5rem;
-            background: var(--couleur-fond-secondaire);
-            text-align: center;
-            font-size: 1.2rem;
-            border-top: 2px solid var(--couleur-border);
-        }
-
-        .btn-commander {
-            margin: 1rem;
-            padding: 1rem 2rem;
-            background: var(--couleur-secondaire);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-commander:hover {
-            background: var(--couleur-primaire);
-            transform: translateY(-2px);
-        }
-
-        /* ===== CONTACT ===== */
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .contact-item {
-            background: var(--couleur-blanc);
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--ombre-legere);
-            text-align: center;
-        }
-
-        .contact-item h3 {
-            color: var(--couleur-primaire);
-            margin-bottom: 1rem;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: linear-gradient(135deg, var(--couleur-primaire), var(--couleur-secondaire));
-            color: white;
-            padding: 3rem 2rem 1rem;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .footer-section a {
-            color: white;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-section a:hover {
-            text-decoration: underline;
-            opacity: 0.8;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
-            padding-top: 1.5rem;
-            text-align: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-bottom p {
-            margin-bottom: 0.5rem;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            header {
-                padding: 1rem;
-            }
-            
-            .logo-container {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav {
-                flex-wrap: wrap;
-                gap: 1rem;
-                padding: 1rem;
-            }
-            
-            main {
-                padding: 1rem;
-            }
-            
-            .filtres-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .stats-avis {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .grille-produits {
-                grid-template-columns: 1fr;
-            }
-            
-            .panier-flottant {
-                width: 100%;
-                right: -100%;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
-
-            .barre-notes {
-                grid-template-columns: 70px 1fr 40px;
-                gap: 0.5rem;
-            }
-            
-            .en-tete-avis {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo-text h1 {
-                font-size: 1.8rem;
-            }
-            
-            .slogan {
-                font-size: 1rem;
-            }
-            
-            .valeurs {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .produit {
-            animation: fadeIn 0.6s ease;
-        }
-
-        .valeur {
-            animation: fadeIn 0.8s ease;
-        }
-
-        .avis {
-            animation: fadeIn 0.5s ease;
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            z-index: 3000;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            max-width: 300px;
-        }
-
-        .notification.success {
-            background: #2ecc71;
-            color: white;
-        }
-
-        .notification.error {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .aucun-resultat {
-            text-align: center;
-            padding: 2rem;
-            color: var(--couleur-texte-clair);
-            grid-column: 1 / -1;
-        }
-
-        .erreur {
-            color: #e74c3c;
-            font-size: 0.9rem;
-            margin-top: 0.3rem;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-    <!-- Header avec logo -->
-    <header>
-        <div class="logo-container">
-            <div class="logo">🌿 APA</div>
-            <div class="logo-text">
-                <h1>Au Palais Des Arts</h1>
-                <p class="slogan">L'excellence de l'artisanat français en osier</p>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">🌿</div>
+            <h2>Au Palais Des Arts</h2>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
             </div>
         </div>
-        
-        <!-- Navigation principale -->
-        <nav>
-            <a href="#produits">Nos Créations</a>
-            <a href="#apropos">Notre Histoire</a>
-            <a href="#avis">Avis Clients</a>
-            <a href="#contact">Contact</a>
-            <a href="#contact-form">Commander</a>
-            <button class="icone-panier" id="iconePanier">
-                🛒 <span class="badge-panier">0</span>
-            </button>
-            <button class="bouton-theme" id="boutonTheme" title="Changer le thème">
-                <span class="theme-icone">🌙</span>
-            </button>
-        </nav>
-    </header>
-    
-    <main>
-        <!-- Section Recherche et Filtres -->
-        <section class="recherche-filtres" id="recherche">
-            <h2>Trouvez la création parfaite</h2>
-            <div class="controle-recherche">
-                <div class="barre-recherche-container">
-                    <div class="barre-recherche">
-                        <input type="text" id="inputRecherche" placeholder="🔍 Rechercher un produit, une catégorie...">
-                        <button id="btnRecherche">Rechercher</button>
-                    </div>
-                    <div class="suggestions-recherche" id="suggestions"></div>
+    </div>
+
+    <!-- Header avec logo -->
+    <header id="header">
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo">🌿 APA</div>
+                <div class="logo-text">
+                    <h1>Au Palais Des Arts</h1>
+                    <p class="slogan">L'excellence de l'artisanat français en osier</p>
                 </div>
-                <div class="filtres-container">
-                    <div class="filtres">
+            </div>
+            
+            <!-- Navigation principale -->
+            <nav class="main-nav">
+                <button class="nav-toggle" id="navToggle" aria-label="Menu navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="nav-menu" id="navMenu">
+                    <a href="#produits" class="nav-link">Nos Créations</a>
+                    <a href="#apropos" class="nav-link">Notre Histoire</a>
+                    <a href="#galerie" class="nav-link">Galerie</a>
+                    <a href="#avis" class="nav-link">Avis Clients</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="#contact-form" class="nav-link cta-link">Commander</a>
+                    <div class="nav-actions">
+                        <button class="icone-panier" id="iconePanier" aria-label="Ouvrir le panier">
+                            🛒 <span class="badge-panier">0</span>
+                        </button>
+                        <button class="bouton-theme" id="boutonTheme" title="Changer le thème" aria-label="Changer le thème">
+                            <span class="theme-icone">🌙</span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">L'Art de la Vannerie Française</h1>
+                <p class="hero-subtitle">Découvrez nos créations uniques en osier, façonnées avec passion depuis 1985</p>
+                <div class="hero-actions">
+                    <a href="#produits" class="btn btn-primary">Découvrir nos créations</a>
+                    <a href="#apropos" class="btn btn-secondary">Notre histoire</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">38</span>
+                        <span class="stat-label">Ans d'expertise</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">5000+</span>
+                        <span class="stat-label">Créations vendues</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4.9</span>
+                        <span class="stat-label">/5 Satisfaction</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-elements">
+                    <div class="floating-element element-1">🌿</div>
+                    <div class="floating-element element-2">🧺</div>
+                    <div class="floating-element element-3">✨</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Défiler</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- Section Produits -->
+    <section class="produits section-padding" id="produits">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nos Créations Exclusives</h2>
+                <p>Chaque pièce est unique, tissée à la main avec des techniques ancestrales</p>
+            </div>
+
+            <!-- Filtres et Recherche -->
+            <div class="filtres-avances">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="inputRecherche" placeholder="Rechercher un produit..." aria-label="Rechercher un produit">
+                        <button id="btnRecherche" aria-label="Rechercher">🔍</button>
+                    </div>
+                </div>
+                <div class="filtres-group">
+                    <div class="filtres-categories">
                         <button class="filtre-btn active" data-categorie="tous">Tous</button>
                         <button class="filtre-btn" data-categorie="panier">Paniers</button>
                         <button class="filtre-btn" data-categorie="corbeille">Corbeilles</button>
                         <button class="filtre-btn" data-categorie="suspension">Suspensions</button>
+                        <button class="filtre-btn" data-categorie="decoration">Décorations</button>
                     </div>
-                    <div class="tri">
-                        <select id="triProduits">
+                    <div class="filtres-options">
+                        <select id="triProduits" aria-label="Trier les produits">
                             <option value="defaut">Trier par : Par défaut</option>
                             <option value="prix-croissant">Prix : Croissant</option>
                             <option value="prix-decroissant">Prix : Décroissant</option>
                             <option value="nom">Nom : A-Z</option>
+                            <option value="populaire">Plus populaires</option>
                         </select>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Produits -->
-        <section class="produits" id="produits">
-            <h2>Nos Créations Exclusives</h2>
-            <div class="grille-produits">
-                <div class="produit" data-categorie="panier">
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Panier+Royal" 
-                             alt="Panier Royal en osier naturel - Au Palais Des Arts" 
-                             class="produit-image">
-                        <div class="image-overlay">👁️ Voir</div>
-                    </div>
-                    <h3>Panier Royal</h3>
-                    <p>Panier d'exception en osier naturel, tissage traditionnel français</p>
-                    <div class="details">
-                        <span class="matiere">📏 30x40cm</span>
-                        <span class="livraison">🚚 48h</span>
-                    </div>
-                    <p class="prix">45,00€</p>
-                    <button class="btn-ajouter-panier">Ajouter au panier</button>
-                </div>
-                
-                <div class="produit" data-categorie="corbeille">
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Corbeille+Champêtre" 
-                             alt="Corbeille Champêtre en osier - Au Palais Des Arts" 
-                             class="produit-image">
-                        <div class="image-overlay">👁️ Voir</div>
-                    </div>
-                    <h3>Corbeille Champêtre</h3>
-                    <p>Corbeille authentique pour votre décoration naturelle et élégante</p>
-                    <div class="details">
-                        <span class="matiere">📏 25x35cm</span>
-                        <span class="livraison">🚚 48h</span>
-                    </div>
-                    <p class="prix">28,00€</p>
-                    <button class="btn-ajouter-panier">Ajouter au panier</button>
-                </div>
-                
-                <div class="produit" data-categorie="corbeille">
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Corbeille+Élégante" 
-                             alt="Corbeille Élégante en osier premium - Au Palais Des Arts" 
-                             class="produit-image">
-                        <div class="image-overlay">👁️ Voir</div>
-                    </div>
-                    <h3>Corbeille Élégante</h3>
-                    <p>Osier travaillé main avec finition premium et détails raffinés</p>
-                    <div class="details">
-                        <span class="matiere">📏 20x30cm</span>
-                        <span class="livraison">🚚 48h</span>
-                    </div>
-                    <p class="prix">35,00€</p>
-                    <button class="btn-ajouter-panier">Ajouter au panier</button>
-                </div>
-                
-                <div class="produit" data-categorie="suspension">
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Suspension+Naturelle" 
-                             alt="Suspension Naturelle en osier - Au Palais Des Arts" 
-                             class="produit-image">
-                        <div class="image-overlay">👁️ Voir</div>
-                    </div>
-                    <h3>Suspension Naturelle</h3>
-                    <p>Luminaire artistique en osier pour une ambiance chaleureuse</p>
-                    <div class="details">
-                        <span class="matiere">📏 Diamètre 45cm</span>
-                        <span class="livraison">🚚 72h</span>
-                    </div>
-                    <p class="prix">60,00€</p>
-                    <button class="btn-ajouter-panier">Ajouter au panier</button>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Section À Propos -->
-        <section class="a-propos" id="apropos">
-            <h2>Notre Histoire & Engagement</h2>
-            
-            <div class="valeurs">
-                <div class="valeur">
-                    <h3>🏆 Excellence Artisanale</h3>
-                    <p>Chaque pièce est unique, créée avec des techniques ancestrales transmises depuis 3 générations.</p>
-                </div>
-                
-                <div class="valeur">
-                    <h3>🌱 Matériaux Naturels</h3>
-                    <p>Nous utilisons exclusivement de l'osier français de première qualité, respectueux de l'environnement.</p>
-                </div>
-                
-                <div class="valeur">
-                    <h3>⚡ Fabrication Française</h3>
-                    <p>Toutes nos créations sont conçues et réalisées dans notre atelier parisien.</p>
-                </div>
-            </div>
-            
-            <div class="processus">
-                <h3>Notre Processus de Création</h3>
-                <ol>
-                    <li><strong>Sélection rigoureuse</strong> des brins d'osier</li>
-                    <li><strong>Tressage traditionnel</strong> à la main</li>
-                    <li><strong>Contrôle qualité</strong> à chaque étape</li>
-                    <li><strong>Finitions perfectionnistes</strong></li>
-                    <li><strong>Emballage soigné</strong> et livraison sécurisée</li>
-                </ol>
-            </div>
-        </section>
-
-        <!-- Section Avis Clients -->
-        <section class="avis-container" id="avis">
-            <h2>🌟 Ce que disent nos clients</h2>
-            
-            <div class="stats-avis">
-                <div class="stat">
-                    <div class="note-globale">4.9/5</div>
-                    <div class="etoiles">★★★★★</div>
-                    <div class="total-avis">127 avis</div>
-                </div>
-                <div class="repartition">
-                    <div class="barre-notes">
-                        <span>5 étoiles</span>
-                        <div class="barre"><div class="remplissage" style="width: 85%"></div></div>
-                        <span>85%</span>
-                    </div>
-                    <div class="barre-notes">
-                        <span>4 étoiles</span>
-                        <div class="barre"><div class="remplissage" style="width: 12%"></div></div>
-                        <span>12%</span>
-                    </div>
-                    <div class="barre-notes">
-                        <span>3 étoiles</span>
-                        <div class="barre"><div class="remplissage" style="width: 2%"></div></div>
-                        <span>2%</span>
-                    </div>
-                    <div class="barre-notes">
-                        <span>2 étoiles</span>
-                        <div class="barre"><div class="remplissage" style="width: 1%"></div></div>
-                        <span>1%</span>
+                        <button class="filtre-avance-btn" id="filtreAvanceBtn">Filtres avancés</button>
                     </div>
                 </div>
             </div>
 
-            <div class="liste-avis">
-                <div class="avis">
-                    <div class="en-tete-avis">
-                        <div class="info-client">
-                            <strong>Marie L.</strong>
-                            <div class="date-avis">15 mars 2025</div>
+            <!-- Filtres Avancés -->
+            <div class="filtres-avances-panel" id="filtresAvances">
+                <div class="filtre-groupe">
+                    <h4>Prix</h4>
+                    <div class="range-slider">
+                        <input type="range" id="prixMin" min="0" max="200" value="0" aria-label="Prix minimum">
+                        <input type="range" id="prixMax" min="0" max="200" value="200" aria-label="Prix maximum">
+                        <div class="range-values">
+                            <span id="prixMinValue">0€</span>
+                            <span id="prixMaxValue">200€</span>
                         </div>
-                        <div class="note-avis">★★★★★</div>
                     </div>
-                    <p>"Le panier royal est absolument magnifique ! La qualité de l'osier est exceptionnelle et le travail artisanal se voit dans chaque détail. Livraison rapide et emballage soigné."</p>
-                    <div class="produit-avis">Acheté : Panier Royal</div>
                 </div>
-
-                <div class="avis">
-                    <div class="en-tete-avis">
-                        <div class="info-client">
-                            <strong>Pierre D.</strong>
-                            <div class="date-avis">12 mars 2025</div>
-                        </div>
-                        <div class="note-avis">★★★★★</div>
-                    </div>
-                    <p>"Service client au top ! J'ai commandé la corbeille champêtre et je suis ravi. La communication était parfaite et le produit correspond exactement à la description. Je recommande !"</p>
-                    <div class="produit-avis">Acheté : Corbeille Champêtre</div>
-                </div>
-
-                <div class="avis">
-                    <div class="en-tete-avis">
-                        <div class="info-client">
-                            <strong>Sophie M.</strong>
-                            <div class="date-avis">8 mars 2025</div>
-                        </div>
-                        <div class="note-avis">★★★★☆</div>
-                    </div>
-                    <p>"Très belle corbeille, juste un peu plus petite que ce que j'imaginais. Mais la qualité est là et le service client a été réactif pour répondre à mes questions."</p>
-                    <div class="produit-avis">Acheté : Corbeille Élégante</div>
-                </div>
-            </div>
-
-            <button class="btn-voir-plus-avis">Voir plus d'avis</button>
-        </section>
-        
-        <!-- Section Contact Informations -->
-        <section class="contact" id="contact">
-            <h2>Contact & Informations</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <h3>📧 Email</h3>
-                    <p>contact@aupalaisdesarts.fr</p>
-                </div>
-                <div class="contact-item">
-                    <h3>📞 Téléphone</h3>
-                    <p>01 23 45 67 89</p>
-                </div>
-                <div class="contact-item">
-                    <h3>📍 Atelier</h3>
-                    <p>123 Rue de l'Artisanat<br>75000 Paris</p>
-                </div>
-                <div class="contact-item">
-                    <h3>⏰ Horaires</h3>
-                    <p>Lun-Ven : 9h-18h<br>Sam : 10h-16h</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Section Formulaire de Contact -->
-        <section class="contact-form" id="contact-form">
-            <h2>Contactez-Nous</h2>
-            <form class="formulaire" id="formContact">
-                <div class="form-group">
-                    <label for="nom">Nom complet *</label>
-                    <input type="text" id="nom" name="nom" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="telephone">Téléphone</label>
-                    <input type="tel" id="telephone" name="telephone">
-                </div>
-                
-                <div class="form-group">
-                    <label for="sujet">Sujet *</label>
-                    <select id="sujet" name="sujet" required>
-                        <option value="">Choisissez un sujet</option>
-                        <option value="commande">Commande sur mesure</option>
-                        <option value="info">Demande d'information</option>
-                        <option value="devis">Devis personnalisé</option>
-                        <option value="autre">Autre</option>
+                <div class="filtre-groupe">
+                    <h4>Dimensions</h4>
+                    <select id="filtreDimensions" aria-label="Filtrer par dimensions">
+                        <option value="">Toutes dimensions</option>
+                        <option value="petit">Petit (&lt; 25cm)</option>
+                        <option value="moyen">Moyen (25-40cm)</option>
+                        <option value="grand">Grand (&gt; 40cm)</option>
                     </select>
                 </div>
-                
-                <div class="form-group">
-                    <label for="message">Message *</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
+                <div class="filtre-groupe">
+                    <h4>Livraison</h4>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="livraisonRapide" value="48h">
+                        <span class="checkmark"></span>
+                        Livraison rapide (48h)
+                    </label>
                 </div>
-                
-                <button type="submit" class="btn-submit">📨 Envoyer mon message</button>
-            </form>
-        </section>
-    </main>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Au Palais Des Arts</h3>
-                <p>Artisanat français d'exception depuis 1985</p>
             </div>
-            <div class="footer-section">
-                <h3>Garanties</h3>
-                <p>🌿 100% Fait main</p>
-                <p>🚚 Livraison France</p>
-                <p>💎 Qualité
+
+            <!-- Grille Produits -->
+            <div class="grille-produits" id="grilleProduits">
+                <!-- Produits chargés dynamiquement -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <button class="page-btn prev" disabled>Précédent</button>
+                <div class="page-numbers"></div>
+                <button class="page-btn next">Suivant</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section À Propos -->
+    <section class="a-propos section-padding" id="apropos">
+        <div class="container">
+            <div class="section-header">
+                <h2>Notre Histoire & Engagement</h2>
+                <p>Transmettre l'excellence artisanale depuis trois générations</p>
+            </div>
+            
+            <div class="histoire-timeline">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">1985</div>
+                        <div class="timeline-content">
+                            <h3>Création de l'atelier</h3>
+                            <p>Jean-Pierre Martin fonde l'atelier Au Palais Des Arts dans le Marais</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1995</div>
+                        <div class="timeline-content">
+                            <h3>Reconnaissance nationale</h3>
+                            <p>Obtention du label "Entreprise du Patrimoine Vivant"</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2010</div>
+                        <div class="timeline-content">
+                            <h3>Transmission familiale</h3>
+                            <p>Sophie Martin reprend l'atelier et modernise la production</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-content">
+                            <h3>Ouverture en ligne</h3>
+                            <p>Lancement de notre boutique e-commerce</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="valeurs-grid">
+                <div class="valeur-card">
+                    <div class="valeur-icon">🌱</div>
+                    <h3>Éco-responsable</h3>
+                    <p>Osier 100% naturel provenant de cultures durables françaises</p>
+                </div>
+                <div class="valeur-card">
+                    <div class="valeur-icon">👐</div>
+                    <h3>Fait Main</h3>
+                    <p>Chaque pièce unique créée avec des techniques ancestrales</p>
+                </div>
+                <div class="valeur-card">
+                    <div class="valeur-icon">🇫🇷</div>
+                    <h3>Made in France</h3>
+                    <p>Fabrication 100% française dans notre atelier parisien</p>
+                </div>
+                <div class="valeur-card">
+                    <div class="valeur-icon">💎</div>
+                    <h3>Qualité Premium</h3>
+                    <p>Sélection rigoureuse des matériaux et finitions parfaites</p>
+                </div>
+            </div>
+
+            <div class="processus-section">
+                <h3>Notre Processus de Création</h3>
+                <div class="processus-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h4>Sélection de l'osier</h4>
+                        <p>Choix des brins d'osier français de première qualité</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h4>Tressage traditionnel</h4>
+                        <p>Techniques ancestrales transmises de génération en génération</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h4>Contrôle qualité</h4>
+                        <p>Vérification minutieuse à chaque étape de fabrication</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h4>Finitions</h4>
+                        <p>Dernières touches pour une perfection artisanale</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Galerie -->
+    <section class="galerie section-padding" id="galerie">
+        <div class="container">
+            <div class="section-header">
+                <h2>Galerie & Réalisations</h2>
+                <p>Découvrez l'art de la vannerie à travers nos créations</p>
+            </div>
+            <div class="galerie-grid">
+                <div class="galerie-item" data-category="panier">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop" alt="Panier en osier traditionnel" loading="lazy">
+                    <div class="galerie-overlay">
+                        <h4>Panier Traditionnel</h4>
+                        <p>Technique de tressage ancestral</p>
+                    </div>
+                </div>
+                <div class="galerie-item" data-category="suspension">
+                    <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop" alt="Suspension lumineuse en osier" loading="lazy">
+                    <div class="galerie-overlay">
+                        <h4>Suspension Naturelle</h4>
+                        <p>Lumière douce et ambiance chaleureuse</p>
+                    </div>
+                </div>
+                <div class="galerie-item" data-category="corbeille">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop" alt="Corbeille élégante en osier" loading="lazy">
+                    <div class="galerie-overlay">
+                        <h4>Corbeille Élégante</h4>
+                        <p>Finition premium et design raffiné</p>
+                    </div>
+                </div>
+                <div class="galerie-item" data-category="decoration">
+                    <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop" alt="Décoration murale en osier" loading="lazy">
+                    <div class="galerie-overlay">
+                        <h4>Décoration Murale</h4>
+                        <p>Pièce unique pour votre intérieur</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Avis Clients -->
+    <section class="avis-clients section-padding" id="avis">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ce que disent nos clients</h2>
+                <p>Découvrez les expériences de nos clients satisfaits</p>
+            </div>
+
+            <div class="avis-stats">
+                <div class="stat-global">
+                    <div class="rating-score">4.9</div>
+                    <div class="stars">★★★★★</div>
+                    <div class="rating-count">Basé sur 127 avis</div>
+                </div>
+                <div class="rating-bars">
+                    <div class="rating-bar">
+                        <span>5 étoiles</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 85%"></div>
+                        </div>
+                        <span>85%</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span>4 étoiles</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 12%"></div>
+                        </div>
+                        <span>12%</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span>3 étoiles</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 2%"></div>
+                        </div>
+                        <span>2%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="avis-carousel" id="avisCarousel">
+                <div class="avis-slide active">
+                    <div class="avis-card">
+                        <div class="avis-header">
+                            <div class="client-info">
+                                <div class="client-avatar">M</div>
+                                <div>
+                                    <h4>Marie L.</h4>
+                                    <div class="avis-date">15 mars 2025</div>
+                                </div>
+                            </div>
+                            <div class="avis-rating">★★★★★</div>
+                        </div>
+                        <p class="avis-text">"Le panier royal est absolument magnifique ! La qualité de l'osier est exceptionnelle et le travail artisanal se voit dans chaque détail. Livraison rapide et emballage soigné."</p>
+                        <div class="avis-product">Acheté : Panier Royal</div>
+                    </div>
+                </div>
+                <div class="avis-slide">
+                    <div class="avis-card">
+                        <div class="avis-header">
+                            <div class="client-info">
+                                <div class="client-avatar">P</div>
+                                <div>
+                                    <h4>Pierre D.</h4>
+                                    <div class="avis-date">12 mars 2025</div>
+                                </div>
+                            </div>
+                            <div class="avis-rating">★★★★★</div>
+                        </div>
+                        <p class="avis-text">"Service client au top ! J'ai commandé la corbeille champêtre et je suis ravi. La communication était parfaite et le produit correspond exactement à la description. Je recommande !"</p>
+                        <div class="avis-product">Acheté : Corbeille Champêtre</div>
+                    </div>
+                </div>
+                <div class="avis-slide">
+                    <div class="avis-card">
+                        <div class="avis-header">
+                            <div class="client-info">
+                                <div class="client-avatar">S</div>
+                                <div>
+                                    <h4>Sophie M.</h4>
+                                    <div class="avis-date">8 mars 2025</div>
+                                </div>
+                            </div>
+                            <div class="avis-rating">★★★★☆</div>
+                        </div>
+                        <p class="avis-text">"Très belle corbeille, juste un peu plus petite que ce que j'imaginais. Mais la qualité est là et le service client a été réactif pour répondre à mes questions."</p>
+                        <div class="avis-product">Acheté : Corbeille Élégante</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-controls">
+                <button class="carousel-btn prev" id="prevAvis">‹</button>
+                <div class="carousel-dots"></div>
+                <button class="carousel-btn next" id="nextAvis">›</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section FAQ -->
+    <section class="faq section-padding" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Questions Fréquentes</h2>
+                <p>Trouvez rapidement des réponses à vos questions</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Comment entretenir mes produits en osier ?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>L'osier nécessite peu d'entretien. Évitez l'exposition directe au soleil et l'humidité excessive. Pour le nettoyage, utilisez un chiffon sec ou légèrement humide.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Quels sont les délais de livraison ?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>La plupart de nos créations sont livrées sous 48h. Les pièces sur mesure peuvent nécessiter 2 à 3 semaines de fabrication.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Proposez-vous des créations sur mesure ?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui, nous réalisons des créations sur mesure selon vos spécifications. Contactez-nous pour discuter de votre projet.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Quelle est votre politique de retour ?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Vous disposez de 14 jours pour retourner un produit non personnalisé et non utilisé. Les frais de retour sont à votre charge.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section class="contact section-padding" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Contact & Informations</h2>
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div>
+                                <h3>Email</h3>
+                                <p>contact@aupalaisdesarts.fr</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div>
+                                <h3>Téléphone</h3>
+                                <p>01 23 45 67 89</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div>
+                                <h3>Atelier</h3>
+                                <p>123 Rue de l'Artisanat<br>75000 Paris</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">⏰</div>
+                            <div>
+                                <h3>Horaires</h3>
+                                <p>Lun-Ven : 9h-18h<br>Sam : 10h-16h</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Pinterest">📌</a>
+                    </div>
+                </div>
+                <div class="contact-form-container" id="contact-form">
+                    <h2>Contactez-Nous</h2>
+                    <form class="contact-form" id="formContact">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nom">Nom complet *</label>
+                                <input type="text" id="nom" name="nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone">Téléphone</label>
+                            <input type="tel" id="telephone" name="telephone">
+                        </div>
+                        <div class="form-group">
+                            <label for="sujet">Sujet *</label>
+                            <select id="sujet" name="sujet" required>
+                                <option value="">Choisissez un sujet</option>
+                                <option value="commande">Commande sur mesure</option>
+                                <option value="info">Demande d'information</option>
+                                <option value="devis">Devis personnalisé</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">📨 Envoyer mon message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Restez informé</h2>
+                <p>Recevez nos nouvelles créations et actualités artisanales</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="newsletter-input">
+                        <input type="email" placeholder="Votre email" required aria-label="Votre email pour la newsletter">
+                        <button type="submit" class="btn btn-primary">S'inscrire</button>
+                    </div>
+                    <label class="checkbox-label">
+                        <input type="checkbox" required>
+                        <span class="checkmark"></span>
+                        J'accepte de recevoir les communications
+                    </label>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Au Palais Des Arts</h3>
+                    <p>Artisanat français d'exception depuis 1985</p>
+                    <div class="trust-badges">
+                        <span class="badge">🌿 100% Fait main</span>
+                        <span class="badge">🚚 Livraison France</span>
+                        <span class="badge">💎 Qualité premium</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="#produits">Nos Créations</a></li>
+                        <li><a href="#apropos">Notre Histoire</a></li>
+                        <li><a href="#galerie">Galerie</a></li>
+                        <li><a href="#avis">Avis Clients</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#contact-form">Commande sur mesure</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Devis personnalisé</a></li>
+                        <li><a href="#contact">Ateliers découverte</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Légal</h3>
+                    <ul>
+                        <li><a href="#cgv">CGV</a></li>
+                        <li><a href="#mentions">Mentions légales</a></li>
+                        <li><a href="#confidentialite">Confidentialité</a></li>
+                        <li><a href="#cookies">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Au Palais Des Arts - Artisanat Français d'Excellence</p>
+                <p>🌿 Créations 100% fait main - 🚚 Livraison en France métropolitaine</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Retour en haut">
+        ↑
+    </button>
+
+    <!-- Panier flottant -->
+    <div class="panier-flottant" id="panier">
+        <div class="panier-header">
+            <h3>🛒 Mon Panier</h3>
+            <span class="panier-count">0</span>
+            <button class="close-panier" aria-label="Fermer le panier">×</button>
+        </div>
+        <div class="panier-items" id="panierItems">
+            <!-- Items du panier dynamiques -->
+        </div>
+        <div class="panier-total">
+            <strong>Total : <span id="totalPanier">0,00€</span></strong>
+        </div>
+        <button class="btn-commander" id="btnCommander">🎨 Commander</button>
+    </div>
+
+    <!-- Overlay pour le panier -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

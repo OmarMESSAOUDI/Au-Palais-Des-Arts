@@ -900,3 +900,98 @@ header, nav, .produit, .a-propos, .contact, .contact-form, .recherche-filtres, f
     color: #2E7D32;
     margin-bottom: 15px;
 }
+
+
+/* Variables CSS pour les thèmes */
+:root {
+    --couleur-principale: #2E7D32;
+    --couleur-secondaire: #D4AF37;
+    --couleur-fond: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
+    --couleur-texte: #333;
+    --couleur-texte-secondaire: #666;
+    --couleur-card: white;
+    --couleur-border: #C8E6C9;
+    --couleur-ombre: rgba(0,0,0,0.1);
+    --couleur-survol: #f8f9fa;
+}
+
+[data-theme="sombre"] {
+    --couleur-principale: #4CAF50;
+    --couleur-secondaire: #FFD700;
+    --couleur-fond: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    --couleur-texte: #e0e0e0;
+    --couleur-texte-secondaire: #b0b0b0;
+    --couleur-card: #2d2d2d;
+    --couleur-border: #4CAF50;
+    --couleur-ombre: rgba(0,0,0,0.3);
+    --couleur-survol: #3d3d3d;
+}
+
+/* Application des variables */
+body {
+    background: var(--couleur-fond);
+    color: var(--couleur-texte);
+}
+
+header, nav, .produit, .a-propos, .contact, .contact-form, 
+.barre-recherche-container, .filtres-container, .avis-container {
+    background: var(--couleur-card);
+    color: var(--couleur-texte);
+    border-color: var(--couleur-border);
+}
+
+h1, h2, h3 {
+    color: var(--couleur-principale);
+}
+
+.slogan, .contact p, .histoire p {
+    color: var(--couleur-texte-secondaire);
+}
+
+.produit p, .valeur p {
+    color: var(--couleur-texte-secondaire);
+}
+
+/* Bouton thème */
+.bouton-theme {
+    background: var(--couleur-card);
+    border: 2px solid var(--couleur-border);
+    color: var(--couleur-principale);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bouton-theme:hover {
+    transform: scale(1.1);
+    background: var(--couleur-survol);
+}
+
+/* Ajustements spécifiques pour le mode sombre */
+[data-theme="sombre"] .produit {
+    border-color: var(--couleur-border);
+}
+
+[data-theme="sombre"] input,
+[data-theme="sombre"] select,
+[data-theme="sombre"] textarea {
+    background: var(--couleur-card);
+    color: var(--couleur-texte);
+    border-color: var(--couleur-border);
+}
+
+[data-theme="sombre"] .suggestions-recherche {
+    background: var(--couleur-card);
+    border: 1px solid var(--couleur-border);
+}
+
+[data-theme="sombre"] .suggestion-item:hover {
+    background: var(--couleur-survol);
+}

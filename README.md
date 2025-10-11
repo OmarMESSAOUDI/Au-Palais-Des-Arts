@@ -1,38 +1,33 @@
-# 🧺 Au Palais Des Arts
+# Au Palais Des Arts - Boutique d'Artisanat en Osier
 
-> Boutique en ligne élégante dédiée à l’artisanat français — paniers, corbeilles et décorations en osier.
+## 🎯 Description
+Site e-commerce moderne pour la vente de créations artisanales en osier, mettant en valeur l'artisanat français traditionnel.
 
----
+## 🛠 Stack Technique
+- **HTML5** - Structure sémantique et accessibilité
+- **CSS3** - Design moderne avec variables CSS et animations
+- **JavaScript ES6+** - Interactivité avancée et gestion d'état
+- **LocalStorage** - Persistance des données utilisateur
 
-## 🌿 Présentation
+## 🚀 Fonctionnalités
+- ✅ Catalogue produits avec filtres avancés
+- ✅ Panier dynamique avec persistance
+- ✅ Design responsive et mobile-first
+- ✅ Mode sombre/clair
+- ✅ Système de notifications
+- ✅ Carousel d'avis clients
+- ✅ Formulaire de contact avec validation
+- ✅ Animations et micro-interactions
+- ✅ SEO optimisé
+- ✅ Accessibilité (ARIA, contrastes)
 
-**Au Palais Des Arts** est une boutique web moderne qui valorise le savoir-faire artisanal.  
-Le site présente une collection de créations naturelles, esthétiques et durables.
+## 📦 Installation
+```bash
+# Cloner le repository
+git clone https://github.com/aupalaisdesarts/site-web.git
 
----
+# Accéder au dossier
+cd aupalaisdesarts
 
-## ✨ Fonctionnalités principales
-
-- 🛒 Panier interactif (LocalStorage)
-- 🎨 Thème clair/sombre (vert & doré)
-- 🔎 Filtres par catégorie et recherche dynamique
-- 📦 Pagination automatique
-- 💌 Formulaire de contact
-- 📱 Design responsive & moderne
-- ⚡ Animation de chargement fluide
-
----
-
-## 🛠️ Technologies utilisées
-
-| Technologie | Rôle |
-|--------------|------|
-| **HTML5** | Structure sémantique |
-| **CSS3 (Flex/Grid)** | Design responsive vert & doré |
-| **JavaScript (ES6)** | Logique interactive |
-| **LocalStorage** | Persistance du panier et du thème |
-
----
-
-## 📁 Arborescence
-
+# Ouvrir dans le navigateur
+open index.html

@@ -1,165 +1,131 @@
-// ===== CONFIGURATION GLOBALE =====
+// ===== CONFIGURATION =====
 const CONFIG = {
-    produitsParPage: 8,          // Nombre de produits affichés par page
-    delaiChargement: 1000,       // Délai simulé du chargement
-    apiBaseURL: 'https://api.aupalaisdesarts.fr' // URL de l'API (simulée)
+    produitsParPage: 6,
+    delaiChargement: 1000
 };
 
-// ===== ÉTAT DE L'APPLICATION =====
-const state = {
-    panier: [],                  // Tableau des articles dans le panier
-    produits: [],                // Liste complète des produits
-    produitsFiltres: [],         // Produits filtrés actuellement affichés
-    pageCourante: 1,             // Page actuelle de la pagination
-    theme: 'light'               // Thème actuel (light/dark)
+// ===== ÉTAT GLOBAL =====
+let state = {
+    panier: [],
+    produits: [],
+    produitsFiltres: [],
+    pageCourante: 1,
+    theme: 'light',
+    currentReview: 0
 };
 
-// ===== INITIALISATION DE L'APPLICATION =====
+// ===== INITIALISATION =====
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Initialisation de l application Au Palais Des Arts');
+    console.log('🚀 Initialisation du site Au Palais Des Arts');
     
-    // Initialisation des différents modules
     initialiserApplication();
-    initialiserEvenements();
     chargerProduits();
+    initialiserEvenements();
 });
 
-/**
- * Initialise l'application principale
- */
 function initialiserApplication() {
-    console.log('📱 Initialisation des composants');
-    
     // Charger le panier depuis le localStorage
-    chargerPanier();
+    const panierSauvegarde = localStorage.getItem('panier_apa');
+    if (panierSauvegarde) {
+        state.panier = JSON.parse(panierSauvegarde);
+        mettreAJourPanier();
+    }
     
-    // Initialiser le thème
-    initialiserTheme();
-    
-    // Afficher l'écran de chargement
-    afficherChargement();
+    // Charger le thème
+    const themeSauvegarde = localStorage.getItem('theme_apa');
+    if (themeSauvegarde) {
+        state.theme = themeSauvegarde;
+        document.documentElement.setAttribute('data-theme', state.theme);
+        mettreAJourBoutonTheme();
+    }
 }
 
-/**
- * Initialise tous les écouteurs d'événements
- */
 function initialiserEvenements() {
-    console.log('🎯 Initialisation des événements');
-    
     // Navigation mobile
-    initialiserNavigationMobile();
-    
-    // Filtres produits
-    initialiserFiltres();
-    
-    // Panier
-    initialiserPanier();
-    
-    // Formulaire de contact
-    initialiserFormulaireContact();
-    
-    // Scroll et autres interactions
-    initialiserInteractions();
-}
-
-// ===== GESTION DU CHARGEMENT =====
-
-/**
- * Affiche l'écran de chargement
- */
-function afficherChargement() {
-    const loadingScreen = document.getElementById('loadingScreen');
-    const progressBar = document.getElementById('loadingProgress');
-    
-    // Animation de la barre de progression
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += Math.random() * 15;
-        if (progress >= 100) {
-            progress = 100;
-            clearInterval(interval);
-            
-            // Masquer l'écran de chargement après délai
-            setTimeout(cacherChargement, 500);
-        }
-        progressBar.style.width = progress + '%';
-    }, 200);
-}
-
-/**
- * Cache l'écran de chargement
- */
-function cacherChargement() {
-    const loadingScreen = document.getElementById('loadingScreen');
-    loadingScreen.classList.add('hidden');
-    
-    // Retirer complètement l'élément après l'animation
-    setTimeout(() => {
-        loadingScreen.style.display = 'none';
-    }, 500);
-    
-    console.log('✅ Chargement terminé');
-}
-
-// ===== GESTION DE LA NAVIGATION MOBILE =====
-
-/**
- * Initialise le menu de navigation mobile
- */
-function initialiserNavigationMobile() {
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
     
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', function() {
-            // Basculer l'état du menu
             navMenu.classList.toggle('active');
-            navToggle.classList.toggle('active');
-            
-            // Mettre à jour l'accessibilité
-            const isExpanded = navMenu.classList.contains('active');
-            navToggle.setAttribute('aria-expanded', isExpanded);
+            this.classList.toggle('active');
         });
     }
     
-    // Fermer le menu en cliquant sur un lien
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            navToggle.classList.remove('active');
+    // Panier
+    initialiserPanier();
+    
+    // Thème
+    const themeBtn = document.getElementById('themeBtn');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', changerTheme);
+    }
+    
+    // Filtres produits
+    initialiserFiltres();
+    
+    // Formulaire contact
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            envoyerFormulaireContact();
         });
-    });
+    }
+    
+    // Newsletter
+    const newsletterForm = document.getElementById('newsletterForm');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            inscrireNewsletter();
+        });
+    }
+    
+    // FAQ
+    initialiserFAQ();
+    
+    // Carousel avis
+    initialiserCarouselAvis();
+    
+    // Scroll events
+    initialiserScrollEvents();
+    
+    // Back to top
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 }
 
-// ===== GESTION DES PRODUITS =====
-
-/**
- * Charge les produits (simulation d'appel API)
- */
+// ===== PRODUITS =====
 function chargerProduits() {
     console.log('📦 Chargement des produits...');
     
-    // Simulation d'un appel API avec setTimeout
+    // Simuler un chargement asynchrone
     setTimeout(() => {
-        // Données des produits avec de vraies images d'osier
+        // Données des produits avec de VRAIES images d'osier
         state.produits = [
             {
                 id: 1,
                 nom: "Panier Royal en Osier",
                 prix: 45.00,
                 categorie: "panier",
-                image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop&auto=format",
+                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
                 description: "Panier d'exception en osier naturel, tissage traditionnel français. Parfait pour le rangement ou la décoration.",
                 dimensions: "30x40cm",
                 livraison: "48h",
-                stock: 15
+                stock: 15,
+                populaire: true
             },
             {
                 id: 2,
                 nom: "Corbeille Champêtre",
                 prix: 28.00,
                 categorie: "corbeille",
-                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop&auto=format",
+                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
                 description: "Corbeille authentique pour votre décoration naturelle. Idéale pour les fruits ou le rangement.",
                 dimensions: "25x35cm",
                 livraison: "48h",
@@ -170,7 +136,7 @@ function chargerProduits() {
                 nom: "Panier Jardin Rustique",
                 prix: 38.00,
                 categorie: "panier",
-                image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop&auto=format",
+                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
                 description: "Panier robuste idéal pour le jardin, les courses ou la décoration campagne.",
                 dimensions: "35x45cm",
                 livraison: "48h",
@@ -181,7 +147,7 @@ function chargerProduits() {
                 nom: "Corbeille à Fruits Élégante",
                 prix: 32.00,
                 categorie: "corbeille",
-                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop&auto=format",
+                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
                 description: "Corbeille raffinée pour présenter vos fruits avec élégance et style naturel.",
                 dimensions: "28x38cm",
                 livraison: "48h",
@@ -192,7 +158,7 @@ function chargerProduits() {
                 nom: "Suspension Naturelle",
                 prix: 65.00,
                 categorie: "decoration",
-                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop&auto=format",
+                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
                 description: "Luminaire artistique en osier pour une ambiance chaleureuse et naturelle.",
                 dimensions: "Diamètre 45cm",
                 livraison: "72h",
@@ -203,211 +169,156 @@ function chargerProduits() {
                 nom: "Panier Pique-nique",
                 prix: 55.00,
                 categorie: "panier",
-                image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop&auto=format",
+                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
                 description: "Panier spacieux avec anses renforcées, parfait pour vos pique-niques.",
                 dimensions: "40x50cm",
                 livraison: "48h",
                 stock: 7
+            },
+            {
+                id: 7,
+                nom: "Corbeille à Pain Traditionnelle",
+                prix: 35.00,
+                categorie: "corbeille",
+                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
+                description: "Corbeille traditionnelle pour présenter votre pain avec authenticité.",
+                dimensions: "35x25cm",
+                livraison: "48h",
+                stock: 9
+            },
+            {
+                id: 8,
+                nom: "Panier à Linge",
+                prix: 75.00,
+                categorie: "panier",
+                image: "https://cdn.pixabay.com/photo/2017/08/06/22/00/basket-2597207_1280.jpg",
+                description: "Grand panier pratique pour le rangement du linge, design naturel.",
+                dimensions: "50x60cm",
+                livraison: "72h",
+                stock: 4
             }
         ];
         
-        // Initialiser les produits filtrés
         state.produitsFiltres = [...state.produits];
-        
-        // Afficher les produits
         afficherProduits();
+        cacherChargement();
         
         console.log('✅ Produits chargés:', state.produits.length);
         
     }, CONFIG.delaiChargement);
 }
 
-/**
- * Affiche les produits dans la grille
- */
 function afficherProduits() {
-    const grilleProduits = document.getElementById('grilleProduits');
+    const grid = document.getElementById('productsGrid');
+    if (!grid) return;
     
-    if (!grilleProduits) {
-        console.error('❌ Élément grilleProduits non trouvé');
-        return;
-    }
+    const startIndex = (state.pageCourante - 1) * CONFIG.produitsParPage;
+    const endIndex = startIndex + CONFIG.produitsParPage;
+    const produitsAAfficher = state.produitsFiltres.slice(startIndex, endIndex);
     
-    // Calculer les produits à afficher pour la page courante
-    const indexDebut = (state.pageCourante - 1) * CONFIG.produitsParPage;
-    const indexFin = indexDebut + CONFIG.produitsParPage;
-    const produitsAAfficher = state.produitsFiltres.slice(indexDebut, indexFin);
-    
-    // Vérifier s'il y a des produits à afficher
     if (produitsAAfficher.length === 0) {
-        grilleProduits.innerHTML = `
-            <div class="aucun-resultat">
-                <p>Aucun produit ne correspond à votre recherche</p>
+        grid.innerHTML = `
+            <div class="no-products" style="grid-column: 1/-1; text-align: center; padding: var(--space-xl);">
+                <p style="font-size: 1.2rem; color: var(--text-light); margin-bottom: var(--space-md);">
+                    Aucun produit ne correspond à votre recherche
+                </p>
                 <button class="btn btn-secondary" onclick="reinitialiserFiltres()">
                     Réinitialiser les filtres
                 </button>
             </div>
         `;
     } else {
-        // Générer le HTML pour chaque produit
-        grilleProduits.innerHTML = produitsAAfficher.map(produit => `
-            <div class="produit-card" data-id="${produit.id}">
-                <img src="${produit.image}" alt="${produit.nom}" class="produit-image">
-                <div class="produit-content">
-                    <h3 class="produit-title">${produit.nom}</h3>
-                    <p class="produit-description">${produit.description}</p>
-                    <div class="produit-meta">
-                        <span class="produit-dimensions">📏 ${produit.dimensions}</span>
-                        <span class="produit-livraison">🚚 ${produit.livraison}</span>
+        grid.innerHTML = produitsAAfficher.map(produit => `
+            <div class="product-card" data-id="${produit.id}">
+                ${produit.populaire ? '<span class="product-badge" style="position: absolute; top: 10px; right: 10px; background: var(--gold); color: var(--primary-green); padding: 5px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">Populaire</span>' : ''}
+                <img src="${produit.image}" alt="${produit.nom}" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">${produit.nom}</h3>
+                    <p class="product-description">${produit.description}</p>
+                    <div class="product-meta">
+                        <span>📏 ${produit.dimensions}</span>
+                        <span>🚚 ${produit.livraison}</span>
                     </div>
-                    <div class="produit-price">${produit.prix.toFixed(2)}€</div>
-                    <button class="btn btn-primary btn-ajouter-panier" data-id="${produit.id}">
+                    <div class="product-price">${produit.prix.toFixed(2)}€</div>
+                    <button class="add-to-cart" onclick="ajouterAuPanier(${produit.id})">
                         Ajouter au panier
                     </button>
                 </div>
             </div>
         `).join('');
-        
-        // Attacher les événements aux boutons "Ajouter au panier"
-        attacherEvenementsAjoutPanier();
     }
     
-    // Mettre à jour la pagination
     mettreAJourPagination();
 }
 
-/**
- * Attache les événements aux boutons d'ajout au panier
- */
-function attacherEvenementsAjoutPanier() {
-    document.querySelectorAll('.btn-ajouter-panier').forEach(bouton => {
-        bouton.addEventListener('click', function(e) {
-            const produitId = parseInt(this.getAttribute('data-id'));
-            ajouterAuPanier(produitId);
-        });
-    });
-}
-
-// ===== GESTION DES FILTRES =====
-
-/**
- * Initialise le système de filtres
- */
 function initialiserFiltres() {
     // Filtres par catégorie
-    document.querySelectorAll('.filtre-btn').forEach(bouton => {
-        bouton.addEventListener('click', function() {
-            // Retirer la classe active de tous les boutons
-            document.querySelectorAll('.filtre-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Activer le bouton cliqué
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
-            // Appliquer le filtre
-            const categorie = this.getAttribute('data-categorie');
-            filtrerProduits(categorie);
+            const filter = this.getAttribute('data-filter');
+            filtrerProduits(filter);
         });
     });
     
-    // Barre de recherche
-    const inputRecherche = document.getElementById('inputRecherche');
-    const btnRecherche = document.getElementById('btnRecherche');
+    // Recherche
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
     
-    if (inputRecherche && btnRecherche) {
-        // Recherche au clic sur le bouton
-        btnRecherche.addEventListener('click', () => {
-            appliquerRecherche(inputRecherche.value);
+    if (searchInput && searchBtn) {
+        searchBtn.addEventListener('click', () => {
+            rechercherProduits(searchInput.value);
         });
         
-        // Recherche à la saisie (avec debounce)
-        let timeoutRecherche;
-        inputRecherche.addEventListener('input', (e) => {
-            clearTimeout(timeoutRecherche);
-            timeoutRecherche = setTimeout(() => {
-                appliquerRecherche(e.target.value);
-            }, 300);
+        searchInput.addEventListener('input', (e) => {
+            if (e.target.value === '') {
+                rechercherProduits('');
+            }
+        });
+        
+        // Recherche avec Enter
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                rechercherProduits(searchInput.value);
+            }
         });
     }
 }
 
-/**
- * Filtre les produits par catégorie
- */
 function filtrerProduits(categorie) {
-    if (categorie === 'tous') {
+    if (categorie === 'all') {
         state.produitsFiltres = [...state.produits];
     } else {
-        state.produitsFiltres = state.produits.filter(produit => 
-            produit.categorie === categorie
+        state.produitsFiltres = state.produits.filter(p => p.categorie === categorie);
+    }
+    
+    state.pageCourante = 1;
+    afficherProduits();
+}
+
+function rechercherProduits(terme) {
+    if (!terme.trim()) {
+        state.produitsFiltres = [...state.produits];
+    } else {
+        const searchTerm = terme.toLowerCase();
+        state.produitsFiltres = state.produits.filter(p =>
+            p.nom.toLowerCase().includes(searchTerm) ||
+            p.description.toLowerCase().includes(searchTerm)
         );
     }
     
-    // Réinitialiser à la première page
-    state.pageCourante = 1;
-    
-    // Réafficher les produits
-    afficherProduits();
-    
-    console.log(`🔍 Filtre appliqué: ${categorie}, ${state.produitsFiltres.length} produits`);
-}
-
-/**
- * Applique la recherche sur les produits
- */
-function appliquerRecherche(terme) {
-    if (!terme.trim()) {
-        // Si la recherche est vide, réinitialiser les filtres
-        const boutonTous = document.querySelector('[data-categorie="tous"]');
-        if (boutonTous) {
-            boutonTous.click();
-        }
-        return;
-    }
-    
-    terme = terme.toLowerCase();
-    
-    state.produitsFiltres = state.produits.filter(produit =>
-        produit.nom.toLowerCase().includes(terme) ||
-        produit.description.toLowerCase().includes(terme)
-    );
-    
     state.pageCourante = 1;
     afficherProduits();
-    
-    console.log(`🔍 Recherche: "${terme}", ${state.produitsFiltres.length} résultats`);
 }
 
-/**
- * Réinitialise tous les filtres
- */
-function reinitialiserFiltres() {
-    // Réinitialiser la recherche
-    const inputRecherche = document.getElementById('inputRecherche');
-    if (inputRecherche) {
-        inputRecherche.value = '';
-    }
-    
-    // Activer le filtre "tous"
-    const boutonTous = document.querySelector('[data-categorie="tous"]');
-    if (boutonTous) {
-        boutonTous.click();
-    }
-}
-
-// ===== GESTION DE LA PAGINATION =====
-
-/**
- * Met à jour l'affichage de la pagination
- */
 function mettreAJourPagination() {
     const pagination = document.getElementById('pagination');
     if (!pagination) return;
     
     const totalPages = Math.ceil(state.produitsFiltres.length / CONFIG.produitsParPage);
     
-    // Masquer la pagination s'il n'y a qu'une page
     if (totalPages <= 1) {
         pagination.style.display = 'none';
         return;
@@ -422,7 +333,6 @@ function mettreAJourPagination() {
     prevBtn.disabled = state.pageCourante === 1;
     nextBtn.disabled = state.pageCourante === totalPages;
     
-    // Gestionnaires d'événements
     prevBtn.onclick = () => changerPage(state.pageCourante - 1);
     nextBtn.onclick = () => changerPage(state.pageCourante + 1);
     
@@ -439,9 +349,6 @@ function mettreAJourPagination() {
     }
 }
 
-/**
- * Change la page courante
- */
 function changerPage(nouvellePage) {
     state.pageCourante = nouvellePage;
     afficherProduits();
@@ -449,87 +356,47 @@ function changerPage(nouvellePage) {
     // Scroll vers le haut de la section produits
     const sectionProduits = document.getElementById('produits');
     if (sectionProduits) {
-        sectionProduits.scrollIntoView({ behavior: 'smooth' });
+        sectionProduits.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
 
-// ===== GESTION DU PANIER =====
-
-/**
- * Initialise le système de panier
- */
+// ===== PANIER =====
 function initialiserPanier() {
-    const iconePanier = document.getElementById('iconePanier');
-    const panier = document.getElementById('panier');
+    const cartBtn = document.getElementById('cartBtn');
+    const closeCart = document.getElementById('closeCart');
     const overlay = document.getElementById('overlay');
-    const closePanier = document.querySelector('.close-panier');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const checkoutBtn = document.getElementById('checkoutBtn');
     
-    if (iconePanier && panier && overlay) {
-        // Ouvrir le panier
-        iconePanier.addEventListener('click', () => {
-            panier.classList.add('ouvert');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Bloquer le scroll
-        });
-        
-        // Fermer le panier
-        if (closePanier) {
-            closePanier.addEventListener('click', fermerPanier);
-        }
-        
+    if (cartBtn && cartSidebar) {
+        cartBtn.addEventListener('click', ouvrirPanier);
+    }
+    
+    if (closeCart && overlay) {
+        closeCart.addEventListener('click', fermerPanier);
         overlay.addEventListener('click', fermerPanier);
     }
     
-    // Bouton commander
-    const btnCommander = document.getElementById('btnCommander');
-    if (btnCommander) {
-        btnCommander.addEventListener('click', passerCommande);
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', passerCommande);
     }
-}
-
-/**
- * Charge le panier depuis le localStorage
- */
-function chargerPanier() {
-    const panierSauvegarde = localStorage.getItem('panier_apa');
-    if (panierSauvegarde) {
-        try {
-            state.panier = JSON.parse(panierSauvegarde);
-            mettreAJourBadgePanier();
-        } catch (error) {
-            console.error('❌ Erreur lors du chargement du panier:', error);
-            state.panier = [];
+    
+    // Fermer le panier avec Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            fermerPanier();
         }
-    }
+    });
 }
 
-/**
- * Sauvegarde le panier dans le localStorage
- */
-function sauvegarderPanier() {
-    try {
-        localStorage.setItem('panier_apa', JSON.stringify(state.panier));
-    } catch (error) {
-        console.error('❌ Erreur lors de la sauvegarde du panier:', error);
-    }
-}
-
-/**
- * Ajoute un produit au panier
- */
 function ajouterAuPanier(produitId) {
     const produit = state.produits.find(p => p.id === produitId);
+    if (!produit) return;
     
-    if (!produit) {
-        console.error('❌ Produit non trouvé:', produitId);
-        return;
-    }
+    const existingItem = state.panier.find(item => item.id === produitId);
     
-    // Vérifier si le produit est déjà dans le panier
-    const articleExistant = state.panier.find(item => item.id === produitId);
-    
-    if (articleExistant) {
-        articleExistant.quantite += 1;
+    if (existingItem) {
+        existingItem.quantite += 1;
     } else {
         state.panier.push({
             ...produit,
@@ -537,185 +404,252 @@ function ajouterAuPanier(produitId) {
         });
     }
     
-    // Sauvegarder et mettre à jour l'interface
     sauvegarderPanier();
-    mettreAJourBadgePanier();
+    mettreAJourPanier();
     afficherNotification(`${produit.nom} ajouté au panier !`, 'success');
     
-    console.log('🛒 Produit ajouté au panier:', produit.nom);
+    // Ouvrir le panier automatiquement
+    ouvrirPanier();
 }
 
-/**
- * Met à jour le badge du panier
- */
-function mettreAJourBadgePanier() {
-    const badge = document.querySelector('.badge-panier');
-    if (badge) {
-        const totalArticles = state.panier.reduce((total, item) => total + item.quantite, 0);
-        badge.textContent = totalArticles;
+function mettreAJourPanier() {
+    // Badge
+    const cartCount = document.querySelector('.cart-count');
+    if (cartCount) {
+        const totalItems = state.panier.reduce((sum, item) => sum + item.quantite, 0);
+        cartCount.textContent = totalItems;
+    }
+    
+    // Sidebar
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    
+    if (cartItems && cartTotal) {
+        if (state.panier.length === 0) {
+            cartItems.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: var(--space-xl);">Votre panier est vide</p>';
+            cartTotal.textContent = '0,00€';
+        } else {
+            cartItems.innerHTML = state.panier.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.nom}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <h4>${item.nom}</h4>
+                        <p>${item.prix.toFixed(2)}€ x ${item.quantite}</p>
+                        <div class="cart-item-controls">
+                            <button onclick="modifierQuantite(${item.id}, -1)">-</button>
+                            <span>${item.quantite}</span>
+                            <button onclick="modifierQuantite(${item.id}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-item" onclick="supprimerDuPanier(${item.id})">🗑️</button>
+                </div>
+            `).join('');
+            
+            const total = state.panier.reduce((sum, item) => sum + (item.prix * item.quantite), 0);
+            cartTotal.textContent = `${total.toFixed(2)}€`;
+        }
     }
 }
 
-/**
- * Ferme le panier
- */
-function fermerPanier() {
-    const panier = document.getElementById('panier');
+function modifierQuantite(produitId, changement) {
+    const item = state.panier.find(item => item.id === produitId);
+    if (!item) return;
+    
+    item.quantite += changement;
+    
+    if (item.quantite <= 0) {
+        supprimerDuPanier(produitId);
+    } else {
+        sauvegarderPanier();
+        mettreAJourPanier();
+    }
+}
+
+function supprimerDuPanier(produitId) {
+    state.panier = state.panier.filter(item => item.id !== produitId);
+    sauvegarderPanier();
+    mettreAJourPanier();
+    afficherNotification('Produit retiré du panier', 'info');
+}
+
+function ouvrirPanier() {
+    const cartSidebar = document.getElementById('cartSidebar');
     const overlay = document.getElementById('overlay');
     
-    if (panier && overlay) {
-        panier.classList.remove('ouvert');
-        overlay.classList.remove('active');
-        document.body.style.overflow = ''; // Rétablir le scroll
+    if (cartSidebar && overlay) {
+        cartSidebar.classList.add('open');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
     }
 }
 
-/**
- * Passe la commande (simulation)
- */
+function fermerPanier() {
+    const cartSidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('overlay');
+    
+    if (cartSidebar && overlay) {
+        cartSidebar.classList.remove('open');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
 function passerCommande() {
     if (state.panier.length === 0) {
         afficherNotification('Votre panier est vide', 'error');
         return;
     }
     
-    afficherNotification('Commande passée avec succès !', 'success');
+    afficherNotification('Commande passée avec succès ! Redirection...', 'success');
     
-    // Vider le panier
-    state.panier = [];
-    sauvegarderPanier();
-    mettreAJourBadgePanier();
-    fermerPanier();
-    
-    console.log('✅ Commande passée');
-}
-
-// ===== GESTION DU THÈME =====
-
-/**
- * Initialise le système de thème
- */
-function initialiserTheme() {
-    const boutonTheme = document.getElementById('boutonTheme');
-    const themeSauvegarde = localStorage.getItem('theme_apa');
-    
-    // Appliquer le thème sauvegardé
-    if (themeSauvegarde) {
-        state.theme = themeSauvegarde;
-        appliquerTheme(state.theme);
-    }
-    
-    if (boutonTheme) {
-        boutonTheme.addEventListener('click', toggleTheme);
-    }
-}
-
-/**
- * Bascule entre les thèmes light et dark
- */
-function toggleTheme() {
-    state.theme = state.theme === 'light' ? 'dark' : 'light';
-    appliquerTheme(state.theme);
-    localStorage.setItem('theme_apa', state.theme);
-}
-
-/**
- * Applique le thème spécifié
- */
-function appliquerTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    
-    const iconeTheme = document.querySelector('.theme-icone');
-    if (iconeTheme) {
-        iconeTheme.textContent = theme === 'light' ? '🌙' : '☀️';
-    }
-}
-
-// ===== GESTION DU FORMULAIRE DE CONTACT =====
-
-/**
- * Initialise le formulaire de contact
- */
-function initialiserFormulaireContact() {
-    const formulaire = document.getElementById('formContact');
-    
-    if (formulaire) {
-        formulaire.addEventListener('submit', function(e) {
-            e.preventDefault();
-            envoyerFormulaireContact();
-        });
-    }
-}
-
-/**
- * Envoie le formulaire de contact (simulation)
- */
-function envoyerFormulaireContact() {
-    const formulaire = document.getElementById('formContact');
-    const boutonSubmit = formulaire.querySelector('button[type="submit"]');
-    
-    // Désactiver le bouton pendant l'envoi
-    boutonSubmit.disabled = true;
-    boutonSubmit.textContent = 'Envoi en cours...';
-    
-    // Simulation d'envoi
+    // Simulation de commande
     setTimeout(() => {
-        afficherNotification('Message envoyé avec succès !', 'success');
-        formulaire.reset();
-        
-        // Réactiver le bouton
-        boutonSubmit.disabled = false;
-        boutonSubmit.textContent = 'Envoyer mon message';
+        state.panier = [];
+        sauvegarderPanier();
+        mettreAJourPanier();
+        fermerPanier();
     }, 2000);
 }
 
-// ===== INTERACTIONS ET ANIMATIONS =====
+function sauvegarderPanier() {
+    localStorage.setItem('panier_apa', JSON.stringify(state.panier));
+}
 
-/**
- * Initialise les interactions globales
- */
-function initialiserInteractions() {
-    // Gestion du scroll pour le header
-    let dernierePositionScroll = window.scrollY;
+// ===== THÈME =====
+function changerTheme() {
+    state.theme = state.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', state.theme);
+    localStorage.setItem('theme_apa', state.theme);
+    mettreAJourBoutonTheme();
+}
+
+function mettreAJourBoutonTheme() {
+    const themeBtn = document.getElementById('themeBtn');
+    if (themeBtn) {
+        themeBtn.textContent = state.theme === 'light' ? '🌙' : '☀️';
+    }
+}
+
+// ===== FORMULAIRES =====
+function envoyerFormulaireContact() {
+    const form = document.getElementById('contactForm');
+    const button = form.querySelector('button[type="submit"]');
+    
+    button.disabled = true;
+    button.textContent = 'Envoi en cours...';
+    
+    // Simulation d'envoi
+    setTimeout(() => {
+        afficherNotification('Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.', 'success');
+        form.reset();
+        button.disabled = false;
+        button.textContent = 'Envoyer mon message';
+    }, 2000);
+}
+
+function inscrireNewsletter() {
+    const form = document.getElementById('newsletterForm');
+    const input = form.querySelector('input[type="email"]');
+    
+    // Simulation d'inscription
+    setTimeout(() => {
+        afficherNotification('Merci pour votre inscription à notre newsletter !', 'success');
+        form.reset();
+    }, 1000);
+}
+
+// ===== FAQ =====
+function initialiserFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            // Fermer tous les autres items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            
+            // Basculer l'item actuel
+            item.classList.toggle('active');
+        });
+    });
+}
+
+// ===== CAROUSEL AVIS =====
+function initialiserCarouselAvis() {
+    const prevBtn = document.getElementById('prevReview');
+    const nextBtn = document.getElementById('nextReview');
+    const dots = document.querySelectorAll('.carousel-dots .dot');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => changerAvis(-1));
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => changerAvis(1));
+    }
+    
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            state.currentReview = index;
+            mettreAJourCarouselAvis();
+        });
+    });
+    
+    // Auto-play
+    setInterval(() => {
+        changerAvis(1);
+    }, 5000);
+}
+
+function changerAvis(direction) {
+    const reviews = document.querySelectorAll('.review');
+    const totalReviews = reviews.length;
+    
+    state.currentReview = (state.currentReview + direction + totalReviews) % totalReviews;
+    mettreAJourCarouselAvis();
+}
+
+function mettreAJourCarouselAvis() {
+    const reviews = document.querySelectorAll('.review');
+    const dots = document.querySelectorAll('.carousel-dots .dot');
+    
+    reviews.forEach((review, index) => {
+        review.classList.toggle('active', index === state.currentReview);
+    });
+    
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === state.currentReview);
+    });
+}
+
+// ===== SCROLL EVENTS =====
+function initialiserScrollEvents() {
     const header = document.getElementById('header');
+    const backToTop = document.getElementById('backToTop');
     
     window.addEventListener('scroll', () => {
-        const positionActuelle = window.scrollY;
-        
-        // Ajouter/supprimer la classe scrolled selon la position
-        if (positionActuelle > 100) {
+        // Header scroll
+        if (window.scrollY > 100) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
         
-        // Cacher le header au scroll vers le bas
-        if (positionActuelle > dernierePositionScroll && positionActuelle > 200) {
-            header.style.transform = 'translateY(-100%)';
+        // Back to top
+        if (window.scrollY > 500) {
+            backToTop.classList.add('visible');
         } else {
-            header.style.transform = 'translateY(0)';
+            backToTop.classList.remove('visible');
         }
-        
-        dernierePositionScroll = positionActuelle;
     });
-    
-    // Back to top (simplifié)
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    if (scrollIndicator) {
-        scrollIndicator.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
 }
 
-// ===== SYSTÈME DE NOTIFICATIONS =====
-
-/**
- * Affiche une notification à l'utilisateur
- */
+// ===== NOTIFICATIONS =====
 function afficherNotification(message, type = 'info') {
     // Créer l'élément de notification
     const notification = document.createElement('div');
@@ -727,12 +661,12 @@ function afficherNotification(message, type = 'info') {
         </div>
     `;
     
-    // Styles basiques pour la notification
+    // Styles pour la notification
     notification.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        background: ${type === 'success' ? '#4CAF50' : '#f44336'};
+        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
         color: white;
         padding: 15px 20px;
         border-radius: 5px;
@@ -740,9 +674,9 @@ function afficherNotification(message, type = 'info') {
         z-index: 10000;
         transform: translateX(100%);
         transition: transform 0.3s ease;
+        max-width: 400px;
     `;
     
-    // Ajouter au DOM
     document.body.appendChild(notification);
     
     // Animation d'entrée
@@ -762,9 +696,6 @@ function afficherNotification(message, type = 'info') {
     }, 5000);
 }
 
-/**
- * Ferme une notification
- */
 function fermerNotification(notification) {
     notification.style.transform = 'translateX(100%)';
     setTimeout(() => {
@@ -774,8 +705,30 @@ function fermerNotification(notification) {
     }, 300);
 }
 
-// ===== EXPORT DES FONCTIONS GLOBALES =====
-// Ces fonctions doivent être accessibles depuis l'HTML
+// ===== CHARGEMENT =====
+function cacherChargement() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen) {
+        loadingScreen.style.opacity = '0';
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+        }, 500);
+    }
+}
+
+// ===== FONCTIONS GLOBALES =====
+function reinitialiserFiltres() {
+    const searchInput = document.getElementById('searchInput');
+    const allFilter = document.querySelector('[data-filter="all"]');
+    
+    if (searchInput) searchInput.value = '';
+    if (allFilter) allFilter.click();
+}
+
+// Exposer les fonctions globales
+window.ajouterAuPanier = ajouterAuPanier;
+window.supprimerDuPanier = supprimerDuPanier;
+window.modifierQuantite = modifierQuantite;
 window.reinitialiserFiltres = reinitialiserFiltres;
 
-console.log('🎨 Au Palais Des Arts - Script initialisé');
+console.log('🎨 Au Palais Des Arts - Script complètement initialisé');

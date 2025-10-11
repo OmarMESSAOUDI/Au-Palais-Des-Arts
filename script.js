@@ -1,6 +1,159 @@
-// Attendre que le DOM soit chargé
+// ===== SYSTÈME DE PANIER =====
+class Panier {
+    constructor() {
+        this.items = this.chargerPanier();
+        this.mettreAJourAffichage();
+    }
+
+    ajouterProduit(produit) {
+        const existingItem = this.items.find(item => item.id === produit.id);
+        
+        if (existingItem) {
+            existingItem.quantite++;
+        } else {
+            this.items.push({ ...produit, quantite: 1 });
+        }
+        
+        this.sauvegarderPanier();
+        this.mettreAJourAffichage();
+        this.afficherConfirmationAjout(produit.nom);
+    }
+
+    supprimerProduit(id) {
+        this.items = this.items.filter(item => item.id !== id);
+        this.sauvegarderPanier();
+        this.mettreAJourAffichage();
+    }
+
+    modifierQuantite(id, changement) {
+        const item = this.items.find(item => item.id === id);
+        if (item) {
+            item.quantite += changement;
+            if (item.quantite <= 0) {
+                this.supprimerProduit(id);
+            } else {
+                this.sauvegarderPanier();
+                this.mettreAJourAffichage();
+            }
+        }
+    }
+
+    getTotal() {
+        return this.items.reduce((total, item) => total + (item.prix * item.quantite), 0);
+    }
+
+    getNombreItems() {
+        return this.items.reduce((total, item) => total + item.quantite, 0);
+    }
+
+    viderPanier() {
+        this.items = [];
+        this.sauvegarderPanier();
+        this.mettreAJourAffichage();
+    }
+
+    sauvegarderPanier() {
+        localStorage.setItem('panierAuPalaisDesArts', JSON.stringify(this.items));
+    }
+
+    chargerPanier() {
+        const panier = localStorage.getItem('panierAuPalaisDesArts');
+        return panier ? JSON.parse(panier) : [];
+    }
+
+    mettreAJourAffichage() {
+        // Mettre à jour le badge
+        const badge = document.querySelector('.badge-panier');
+        const count = this.getNombreItems();
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'block' : 'none';
+
+        // Mettre à jour les items du panier
+        this.afficherItemsPanier();
+        
+        // Mettre à jour le total
+        document.getElementById('totalPanier').textContent = this.getTotal().toFixed(2) + '€';
+    }
+
+    afficherItemsPanier() {
+        const container = document.getElementById('panierItems');
+        container.innerHTML = '';
+
+        if (this.items.length === 0) {
+            container.innerHTML = `
+                <div class="panier-vide">
+                    <p>🛒 Votre panier est vide</p>
+                    <p>Ajoutez des créations pour commencer !</p>
+                </div>
+            `;
+            return;
+        }
+
+        this.items.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'panier-item';
+            itemElement.innerHTML = `
+                <img src="${item.image}" alt="${item.nom}">
+                <div class="panier-item-info">
+                    <div class="panier-item-nom">${item.nom}</div>
+                    <div class="panier-item-prix">${item.prix.toFixed(2)}€</div>
+                    <div class="panier-item-quantite">
+                        <button class="quantite-btn" onclick="panier.modifierQuantite('${item.id}', -1)">-</button>
+                        <span>${item.quantite}</span>
+                        <button class="quantite-btn" onclick="panier.modifierQuantite('${item.id}', 1)">+</button>
+                    </div>
+                </div>
+                <button class="supprimer-item" onclick="panier.supprimerProduit('${item.id}')">×</button>
+            `;
+            container.appendChild(itemElement);
+        });
+    }
+
+    afficherConfirmationAjout(nomProduit) {
+        afficherNotification(`✅ "${nomProduit}" ajouté au panier !`);
+    }
+}
+
+// ===== DONNÉES DES PRODUITS =====
+const produits = [
+    {
+        id: 'panier-royal',
+        nom: 'Panier Royal',
+        prix: 45.00,
+        image: 'https://via.placeholder.com/300x200/4CAF50/white?text=Panier+Royal',
+        description: 'Panier d\'exception en osier naturel'
+    },
+    {
+        id: 'corbeille-champetre',
+        nom: 'Corbeille Champêtre',
+        prix: 28.00,
+        image: 'https://via.placeholder.com/300x200/4CAF50/white?text=Corbeille+Champêtre',
+        description: 'Corbeille authentique pour décoration naturelle'
+    },
+    {
+        id: 'corbeille-elegante',
+        nom: 'Corbeille Élégante',
+        prix: 35.00,
+        image: 'https://via.placeholder.com/300x200/4CAF50/white?text=Corbeille+Élégante',
+        description: 'Osier travaillé main avec finition premium'
+    },
+    {
+        id: 'suspension-naturelle',
+        nom: 'Suspension Naturelle',
+        prix: 60.00,
+        image: 'https://via.placeholder.com/300x200/4CAF50/white?text=Suspension+Naturelle',
+        description: 'Luminaire artistique en osier'
+    }
+];
+
+// ===== INITIALISATION =====
+let panier;
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🌿 Au Palais Des Arts - Site chargé avec succès !');
+    
+    // Initialiser le panier
+    panier = new Panier();
     
     // Initialiser toutes les fonctionnalités
     initialiserAnimations();
@@ -8,9 +161,69 @@ document.addEventListener('DOMContentLoaded', function() {
     initialiserNavigation();
     initialiserFormulaire();
     initialiserEffetsImages();
+    initialiserPanierUI();
 });
 
-// Animations d'apparition
+// ===== GESTION DE L'INTERFACE PANIER =====
+function initialiserPanierUI() {
+    const iconePanier = document.getElementById('iconePanier');
+    const panierElement = document.getElementById('panier');
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+    document.body.appendChild(overlay);
+
+    // Ouvrir/fermer le panier
+    iconePanier.addEventListener('click', () => {
+        panierElement.classList.add('open');
+        overlay.classList.add('active');
+    });
+
+    document.querySelector('.close-panier').addEventListener('click', fermerPanier);
+    overlay.addEventListener('click', fermerPanier);
+
+    // Bouton commander
+    document.getElementById('btnCommander').addEventListener('click', () => {
+        if (panier.getNombreItems() === 0) {
+            afficherNotification('🛒 Votre panier est vide !', 'error');
+            return;
+        }
+        
+        afficherNotification(
+            `🎉 Commande initiée !\n\n` +
+            `Total : ${panier.getTotal().toFixed(2)}€\n` +
+            `Articles : ${panier.getNombreItems()}\n\n` +
+            `📞 Nous vous contacterons pour finaliser la commande.\n` +
+            `📧 contact@aupalaisdesarts.fr`
+        );
+        
+        fermerPanier();
+    });
+
+    function fermerPanier() {
+        panierElement.classList.remove('open');
+        overlay.classList.remove('active');
+    }
+}
+
+// ===== INTERACTIONS DES BOUTONS PRODUITS =====
+function initialiserInteractions() {
+    document.querySelectorAll('.produit button').forEach((bouton, index) => {
+        bouton.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const produit = produits[index];
+            panier.ajouterProduit(produit);
+            
+            // Animation du bouton
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 150);
+        });
+    });
+}
+
+// ===== FONCTIONS EXISTANTES (conservées) =====
 function initialiserAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -22,7 +235,6 @@ function initialiserAnimations() {
         });
     }, { threshold: 0.1 });
 
-    // Observer les éléments
     document.querySelectorAll('.produit, .valeur, .contact-item').forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(30px)';
@@ -30,36 +242,6 @@ function initialiserAnimations() {
     });
 }
 
-// Interactions des boutons produits
-function initialiserInteractions() {
-    document.querySelectorAll('.produit button').forEach(bouton => {
-        bouton.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const produit = this.closest('.produit');
-            const nomProduit = produit.querySelector('h3').textContent;
-            const prix = produit.querySelector('.prix').textContent;
-            
-            // Message personnalisé
-            afficherNotification(
-                `✨ Intéressé par le "${nomProduit}" ?\n\n` +
-                `💶 Prix : ${prix}\n\n` +
-                `📞 Contactez-nous pour commander !\n` +
-                `📧 contact@aupalaisdesarts.fr\n\n` +
-                `💎 Fabrication 100% française\n` +
-                `🚚 Livraison sous 48h`
-            );
-            
-            // Animation du bouton
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 150);
-        });
-    });
-}
-
-// Navigation fluide
 function initialiserNavigation() {
     document.querySelectorAll('nav a').forEach(lien => {
         lien.addEventListener('click', function(e) {
@@ -75,24 +257,20 @@ function initialiserNavigation() {
     });
 }
 
-// Formulaire de contact
 function initialiserFormulaire() {
     const formulaire = document.getElementById('formContact');
     
     formulaire.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Récupération des données
         const formData = new FormData(formulaire);
         const données = Object.fromEntries(formData);
         
-        // Validation
         if (!données.nom || !données.email || !données.sujet || !données.message) {
             afficherNotification('❌ Veuillez remplir tous les champs obligatoires.', 'error');
             return;
         }
         
-        // Simulation d'envoi
         afficherNotification(
             `✅ Message envoyé avec succès !\n\n` +
             `Merci ${données.nom}, nous vous recontacterons très rapidement.\n` +
@@ -101,12 +279,10 @@ function initialiserFormulaire() {
             (données.telephone ? `\n📞 ${données.telephone}` : '')
         );
         
-        // Réinitialisation du formulaire
         formulaire.reset();
     });
 }
 
-// Effets sur les images
 function initialiserEffetsImages() {
     document.querySelectorAll('.image-container').forEach(container => {
         container.addEventListener('click', function() {
@@ -122,7 +298,6 @@ function initialiserEffetsImages() {
     });
 }
 
-// Helper pour les textes des sujets
 function getSujetText(sujet) {
     const sujets = {
         'commande': 'Commande sur mesure',
@@ -133,9 +308,8 @@ function getSujetText(sujet) {
     return sujets[sujet] || sujet;
 }
 
-// Système de notifications élégant
+// ===== SYSTÈME DE NOTIFICATIONS =====
 function afficherNotification(message, type = 'success') {
-    // Couleurs selon le type
     const colors = {
         success: { bg: '#2E7D32', border: '#4CAF50' },
         error: { bg: '#D32F2F', border: '#F44336' },
@@ -144,7 +318,6 @@ function afficherNotification(message, type = 'success') {
     
     const color = colors[type] || colors.success;
     
-    // Créer la notification
     const notification = document.createElement('div');
     notification.style.cssText = `
         position: fixed;
@@ -184,12 +357,10 @@ function afficherNotification(message, type = 'success') {
     
     document.body.appendChild(notification);
     
-    // Animation d'entrée
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 100);
     
-    // Suppression automatique après 8 secondes
     setTimeout(() => {
         if (notification.parentElement) {
             notification.style.transform = 'translateX(400px)';
@@ -213,18 +384,4 @@ document.querySelectorAll('.produit').forEach(produit => {
     });
 });
 
-// Confirmation de chargement
-console.log('🚀 Script JavaScript chargé - Prêt pour les interactions !');
-
-// Service Worker pour le cache (optionnel - pour les performances)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
-        .then(function(registration) {
-            console.log('ServiceWorker registration successful');
-        })
-        .catch(function(err) {
-            console.log('ServiceWorker registration failed: ', err);
-        });
-    });
-}
+console.log('🚀 Script JavaScript avancé chargé - Panier fonctionnel !');

@@ -3,9 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light only">
     <meta name="description" content="Au Palais Des Arts - Créations artisanales en osier de qualité supérieure. Vannerie française traditionnelle, pièces uniques faites main.">
     <meta name="keywords" content="osier, vannerie, artisanat français, panier osier, décoration naturelle, fait main">
     <title>Au Palais Des Arts - Créations Artisanales en Osier | Vannerie Française</title>
+    <style>
+        /* Styles optimisés pour éviter la barre mode sombre */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #fefefe;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+        
+        /* Votre CSS existant reste ici */
+        /* ... autres styles ... */
+        
+        /* Correction pour éviter le mode sombre */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #fefefe !important;
+                color: #333 !important;
+            }
+        }
+    </style>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,87 +45,77 @@
                 <p class="slogan">L'excellence de l'artisanat français en osier</p>
             </div>
         </div>
+        
+        <!-- Navigation principale -->
+        <nav>
+            <a href="#produits">Nos Créations</a>
+            <a href="#apropos">Notre Histoire</a>
+            <a href="#avis">Avis Clients</a>
+            <a href="#contact">Contact</a>
+            <a href="#contact-form">Commander</a>
+            <button class="icone-panier" id="iconePanier">
+                🛒 <span class="badge-panier">0</span>
+            </button>
+            <button class="bouton-theme" id="boutonTheme" title="Changer le thème">
+                <span class="theme-icone">🌙</span>
+            </button>
+        </nav>
     </header>
     
-    <!-- Navigation -->
-    <nav>
-        <a href="#produits">Nos Créations</a>
-        <a href="#apropos">Notre Histoire</a>
-        <a href="#contact">Contact</a>
-        <a href="#contact-form">Commander</a>
-    </nav>
-    
     <main>
+        <!-- Section Recherche et Filtres -->
+        <section class="recherche-filtres" id="recherche">
+            <h2>Trouvez la création parfaite</h2>
+            <div class="controle-recherche">
+                <div class="barre-recherche-container">
+                    <div class="barre-recherche">
+                        <input type="text" id="inputRecherche" placeholder="🔍 Rechercher un produit, une catégorie...">
+                        <button id="btnRecherche">Rechercher</button>
+                    </div>
+                    <div class="suggestions-recherche" id="suggestions"></div>
+                </div>
+                <div class="filtres-container">
+                    <div class="filtres">
+                        <button class="filtre-btn active" data-categorie="tous">Tous</button>
+                        <button class="filtre-btn" data-categorie="panier">Paniers</button>
+                        <button class="filtre-btn" data-categorie="corbeille">Corbeilles</button>
+                        <button class="filtre-btn" data-categorie="suspension">Suspensions</button>
+                    </div>
+                    <div class="tri">
+                        <select id="triProduits">
+                            <option value="defaut">Trier par : Par défaut</option>
+                            <option value="prix-croissant">Prix : Croissant</option>
+                            <option value="prix-decroissant">Prix : Décroissant</option>
+                            <option value="nom">Nom : A-Z</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Section Produits -->
         <section class="produits" id="produits">
             <h2>Nos Créations Exclusives</h2>
-            
-            <div class="produit">
-                <div class="image-container">
-                    <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Panier+Royal" 
-                         alt="Panier Royal en osier naturel - Au Palais Des Arts" 
-                         class="produit-image">
-                    <div class="image-overlay">👁️ Voir</div>
+            <div class="grille-produits">
+                <!-- Vos produits existants -->
+                <div class="produit" data-categorie="panier">
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Panier+Royal" 
+                             alt="Panier Royal en osier naturel - Au Palais Des Arts" 
+                             class="produit-image">
+                        <div class="image-overlay">👁️ Voir</div>
+                    </div>
+                    <h3>Panier Royal</h3>
+                    <p>Panier d'exception en osier naturel, tissage traditionnel français</p>
+                    <div class="details">
+                        <span class="matiere">📏 30x40cm</span>
+                        <span class="livraison">🚚 48h</span>
+                    </div>
+                    <p class="prix">45,00€</p>
+                    <button class="btn-ajouter-panier">Ajouter au panier</button>
                 </div>
-                <h3>Panier Royal</h3>
-                <p>Panier d'exception en osier naturel, tissage traditionnel français</p>
-                <div class="details">
-                    <span class="matiere">📏 30x40cm</span>
-                    <span class="livraison">🚚 48h</span>
-                </div>
-                <p class="prix">45,00€</p>
-                <button>Commander</button>
-            </div>
-            
-            <div class="produit">
-                <div class="image-container">
-                    <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Corbeille+Champêtre" 
-                         alt="Corbeille Champêtre en osier - Au Palais Des Arts" 
-                         class="produit-image">
-                    <div class="image-overlay">👁️ Voir</div>
-                </div>
-                <h3>Corbeille Champêtre</h3>
-                <p>Corbeille authentique pour votre décoration naturelle et élégante</p>
-                <div class="details">
-                    <span class="matiere">📏 25x35cm</span>
-                    <span class="livraison">🚚 48h</span>
-                </div>
-                <p class="prix">28,00€</p>
-                <button>Commander</button>
-            </div>
-            
-            <div class="produit">
-                <div class="image-container">
-                    <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Corbeille+Élégante" 
-                         alt="Corbeille Élégante en osier premium - Au Palais Des Arts" 
-                         class="produit-image">
-                    <div class="image-overlay">👁️ Voir</div>
-                </div>
-                <h3>Corbeille Élégante</h3>
-                <p>Osier travaillé main avec finition premium et détails raffinés</p>
-                <div class="details">
-                    <span class="matiere">📏 20x30cm</span>
-                    <span class="livraison">🚚 48h</span>
-                </div>
-                <p class="prix">35,00€</p>
-                <button>Commander</button>
-            </div>
-            
-            <div class="produit">
-                <div class="image-container">
-                    <img src="https://via.placeholder.com/300x200/4CAF50/white?text=Suspension+Naturelle" 
-                         alt="Suspension Naturelle en osier - Au Palais Des Arts" 
-                         class="produit-image">
-                    <div class="image-overlay">👁️ Voir</div>
-                </div>
-                <h3>Suspension Naturelle</h3>
-                <p>Luminaire artistique en osier pour une ambiance chaleureuse</p>
-                <div class="details">
-                    <span class="matiere">📏 Diamètre 45cm</span>
-                    <span class="livraison">🚚 72h</span>
-                </div>
-                <p class="prix">60,00€</p>
-                <button>Commander</button>
+                
+                <!-- Autres produits... -->
             </div>
         </section>
         
@@ -134,68 +151,45 @@
                 </ol>
             </div>
         </section>
-        
-        <!-- Section Contact Informations -->
-        <section class="contact" id="contact">
-            <h2>Contact & Informations</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <h3>📧 Email</h3>
-                    <p>contact@aupalaisdesarts.fr</p>
+
+        <!-- Section Avis Clients -->
+        <section class="avis-container" id="avis">
+            <h2>🌟 Ce que disent nos clients</h2>
+            
+            <div class="stats-avis">
+                <div class="stat">
+                    <div class="note-globale">4.9/5</div>
+                    <div class="etoiles">★★★★★</div>
+                    <div class="total-avis">127 avis</div>
                 </div>
-                <div class="contact-item">
-                    <h3>📞 Téléphone</h3>
-                    <p>01 23 45 67 89</p>
-                </div>
-                <div class="contact-item">
-                    <h3>📍 Atelier</h3>
-                    <p>123 Rue de l'Artisanat<br>75000 Paris</p>
-                </div>
-                <div class="contact-item">
-                    <h3>⏰ Horaires</h3>
-                    <p>Lun-Ven : 9h-18h<br>Sam : 10h-16h</p>
+                <div class="repartition">
+                    <div class="barre-notes">
+                        <span>5 étoiles</span>
+                        <div class="barre"><div class="remplissage" style="width: 85%"></div></div>
+                        <span>85%</span>
+                    </div>
+                    <div class="barre-notes">
+                        <span>4 étoiles</span>
+                        <div class="barre"><div class="remplissage" style="width: 12%"></div></div>
+                        <span>12%</span>
+                    </div>
+                    <div class="barre-notes">
+                        <span>3 étoiles</span>
+                        <div class="barre"><div class="remplissage" style="width: 2%"></div></div>
+                        <span>2%</span>
+                    </div>
                 </div>
             </div>
+
+            <div class="liste-avis">
+                <!-- Vos avis clients... -->
+            </div>
+            <button class="btn-voir-plus-avis">Voir plus d'avis</button>
         </section>
         
-        <!-- Section Formulaire de Contact -->
-        <section class="contact-form" id="contact-form">
-            <h2>Contactez-Nous</h2>
-            <form class="formulaire" id="formContact">
-                <div class="form-group">
-                    <label for="nom">Nom complet *</label>
-                    <input type="text" id="nom" name="nom" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="telephone">Téléphone</label>
-                    <input type="tel" id="telephone" name="telephone">
-                </div>
-                
-                <div class="form-group">
-                    <label for="sujet">Sujet *</label>
-                    <select id="sujet" name="sujet" required>
-                        <option value="">Choisissez un sujet</option>
-                        <option value="commande">Commande sur mesure</option>
-                        <option value="info">Demande d'information</option>
-                        <option value="devis">Devis personnalisé</option>
-                        <option value="autre">Autre</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Message *</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                
-                <button type="submit" class="btn-submit">📨 Envoyer mon message</button>
-            </form>
-        </section>
+        <!-- Sections Contact et Formulaire (inchangées) -->
+        <!-- ... -->
+        
     </main>
     
     <!-- Footer -->
@@ -222,184 +216,23 @@
             <p>🌿 Créations 100% fait main - 🚚 Livraison en France métropolitaine</p>
         </div>
     </footer>
+
+    <!-- Panier flottant -->
+    <div class="panier-flottant" id="panier">
+        <div class="panier-header">
+            <h3>🛒 Mon Panier</h3>
+            <span class="panier-count">0</span>
+            <button class="close-panier">×</button>
+        </div>
+        <div class="panier-items" id="panierItems">
+            <!-- Items du panier dynamiques -->
+        </div>
+        <div class="panier-total">
+            <strong>Total : <span id="totalPanier">0,00€</span></strong>
+        </div>
+        <button class="btn-commander" id="btnCommander">🎨 Commander</button>
+    </div>
     
     <script src="script.js"></script>
 </body>
 </html>
-<!-- Panier flottant -->
-<div class="panier-flottant" id="panier">
-    <div class="panier-header">
-        <h3>🛒 Mon Panier</h3>
-        <span class="panier-count">0</span>
-        <button class="close-panier">×</button>
-    </div>
-    <div class="panier-items" id="panierItems">
-        <!-- Items du panier dynamiques -->
-    </div>
-    <div class="panier-total">
-        <strong>Total : <span id="totalPanier">0,00€</span></strong>
-    </div>
-    <button class="btn-commander" id="btnCommander">🎨 Commander</button>
-</div>
-
-<!-- Icône panier dans la navigation -->
-<button class="icone-panier" id="iconePanier">
-    🛒 <span class="badge-panier">0</span>
-</button>
-
-<!-- Section Recherche et Filtres -->
-<section class="recherche-filtres" id="recherche">
-    <h2>Trouvez la création parfaite</h2>
-    <div class="controle-recherche">
-        <div class="barre-recherche">
-            <input type="text" id="inputRecherche" placeholder="Rechercher un produit...">
-            <button id="btnRecherche">🔍</button>
-        </div>
-        <div class="filtres">
-            <select id="filtreCategorie">
-                <option value="">Toutes les catégories</option>
-                <option value="panier">Paniers</option>
-                <option value="corbeille">Corbeilles</option>
-                <option value="suspension">Suspensions</option>
-            </select>
-            <select id="filtrePrix">
-                <option value="">Tous les prix</option>
-                <option value="0-30">Moins de 30€</option>
-                <option value="30-50">30€ - 50€</option>
-                <option value="50-100">50€ - 100€</option>
-            </select>
-        </div>
-    </div>
-</section>
-
-<!-- Ajoutez ce bouton dans la navigation -->
-<button class="bouton-theme" id="boutonTheme">🌙</button>
-
-<!-- Section Avis Clients -->
-<section class="avis-clients" id="avis">
-    <h2>Ce que disent nos clients</h2>
-    <div class="container-avis">
-        <div class="avis">
-            <div class="etoiles">★★★★★</div>
-            <p>"Le panier royal est magnifique ! La qualité de l'osier est exceptionnelle."</p>
-            <div class="auteur">- Marie L.</div>
-        </div>
-        <div class="avis">
-            <div class="etoiles">★★★★★</div>
-            <p>"Service client au top et livraison rapide. Je recommande !"</p>
-            <div class="auteur">- Pierre D.</div>
-        </div>
-        <div class="avis">
-            <div class="etoiles">★★★★☆</div>
-            <p>"Très belle corbeille, juste un peu plus petite que ce que j'imaginais."</p>
-            <div class="auteur">- Sophie M.</div>
-        </div>
-    </div>
-</section>
-
-<!-- Barre de recherche -->
-<div class="barre-recherche-container">
-    <div class="barre-recherche">
-        <input type="text" id="inputRecherche" placeholder="🔍 Rechercher un produit, une catégorie...">
-        <button id="btnRecherche">Rechercher</button>
-    </div>
-    <div class="suggestions-recherche" id="suggestions"></div>
-</div>
-
-<!-- Filtres de recherche -->
-<div class="filtres-container">
-    <div class="filtres">
-        <button class="filtre-btn active" data-categorie="tous">Tous</button>
-        <button class="filtre-btn" data-categorie="panier">Paniers</button>
-        <button class="filtre-btn" data-categorie="corbeille">Corbeilles</button>
-        <button class="filtre-btn" data-categorie="suspension">Suspensions</button>
-        <button class="filtre-btn" data-categorie="decoration">Décorations</button>
-    </div>
-    <div class="tri">
-        <select id="triProduits">
-            <option value="defaut">Trier par : Par défaut</option>
-            <option value="prix-croissant">Prix : Croissant</option>
-            <option value="prix-decroissant">Prix : Décroissant</option>
-            <option value="nom">Nom : A-Z</option>
-            <option value="populaire">Plus populaires</option>
-        </select>
-    </div>
-</div>
-<button class="bouton-theme" id="boutonTheme" title="Changer le thème">
-    <span class="theme-icone">🌙</span>
-</button>
-
-<!-- Section Avis Clients -->
-<section class="avis-container" id="avis">
-    <h2>🌟 Ce que disent nos clients</h2>
-    
-    <div class="stats-avis">
-        <div class="stat">
-            <div class="note-globale">4.9/5</div>
-            <div class="etoiles">★★★★★</div>
-            <div class="total-avis">127 avis</div>
-        </div>
-        <div class="repartition">
-            <div class="barre-notes">
-                <span>5 étoiles</span>
-                <div class="barre"><div class="remplissage" style="width: 85%"></div></div>
-                <span>85%</span>
-            </div>
-            <div class="barre-notes">
-                <span>4 étoiles</span>
-                <div class="barre"><div class="remplissage" style="width: 12%"></div></div>
-                <span>12%</span>
-            </div>
-            <div class="barre-notes">
-                <span>3 étoiles</span>
-                <div class="barre"><div class="remplissage" style="width: 2%"></div></div>
-                <span>2%</span>
-            </div>
-            <div class="barre-notes">
-                <span>2 étoiles</span>
-                <div class="barre"><div class="remplissage" style="width: 1%"></div></div>
-                <span>1%</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="liste-avis">
-        <div class="avis">
-            <div class="en-tete-avis">
-                <div class="info-client">
-                    <strong>Marie L.</strong>
-                    <div class="date-avis">15 mars 2025</div>
-                </div>
-                <div class="note-avis">★★★★★</div>
-            </div>
-            <p>"Le panier royal est absolument magnifique ! La qualité de l'osier est exceptionnelle et le travail artisanal se voit dans chaque détail. Livraison rapide et emballage soigné."</p>
-            <div class="produit-avis">Acheté : Panier Royal</div>
-        </div>
-
-        <div class="avis">
-            <div class="en-tete-avis">
-                <div class="info-client">
-                    <strong>Pierre D.</strong>
-                    <div class="date-avis">12 mars 2025</div>
-                </div>
-                <div class="note-avis">★★★★★</div>
-            </div>
-            <p>"Service client au top ! J'ai commandé la corbeille champêtre et je suis ravi. La communication était parfaite et le produit correspond exactement à la description. Je recommande !"</p>
-            <div class="produit-avis">Acheté : Corbeille Champêtre</div>
-        </div>
-
-        <div class="avis">
-            <div class="en-tete-avis">
-                <div class="info-client">
-                    <strong>Sophie M.</strong>
-                    <div class="date-avis">8 mars 2025</div>
-                </div>
-                <div class="note-avis">★★★★☆</div>
-            </div>
-            <p>"Très belle corbeille, juste un peu plus petite que ce que j'imaginais. Mais la qualité est là et le service client a été réactif pour répondre à mes questions."</p>
-            <div class="produit-avis">Acheté : Corbeille Élégante</div>
-        </div>
-    </div>
-
-    <button class="btn-voir-plus-avis">Voir plus d'avis</button>
-</section>

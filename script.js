@@ -583,3 +583,214 @@ function mettreAJourBoutonTheme(theme) {
     const bouton = document.getElementById('boutonTheme');
     bouton.textContent = theme === 'clair' ? '🌙' : '☀️';
 }
+
+// ===== SYSTÈME DE RECHERCHE INTELLIGENT =====
+
+function initialiserRecherche() {
+    const inputRecherche = document.getElementById('inputRecherche');
+    const btnRecherche = document.getElementById('btnRecherche');
+    const suggestions = document.getElementById('suggestions');
+    const filtresBtns = document.querySelectorAll('.filtre-btn');
+    const selectTri = document.getElementById('triProduits');
+
+    // Recherche en temps réel
+    inputRecherche.addEventListener('input', function() {
+        const terme = this.value.toLowerCase();
+        afficherSuggestions(terme);
+        if (terme.length > 0) {
+            suggestions.style.display = 'block';
+        } else {
+            suggestions.style.display = 'none';
+        }
+    });
+
+    // Recherche au clic
+    btnRecherche.addEventListener('click', function() {
+        effectuerRecherche();
+    });
+
+    // Recherche avec Enter
+    inputRecherche.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            effectuerRecherche();
+        }
+    });
+
+    // Filtres par catégorie
+    filtresBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filtresBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            filtrerParCategorie(this.dataset.categorie);
+        });
+    });
+
+    // Tri des produits
+    selectTri.addEventListener('change', function() {
+        trierProduits(this.value);
+    });
+
+    // Fermer les suggestions en cliquant ailleurs
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.barre-recherche-container')) {
+            suggestions.style.display = 'none';
+        }
+    });
+}
+
+function afficherSuggestions(terme) {
+    const suggestions = document.getElementById('suggestions');
+    suggestions.innerHTML = '';
+
+    if (terme.length < 2) return;
+
+    const suggestionsTrouvees = [];
+    
+    // Recherche dans les produits
+    produits.forEach(produit => {
+        if (produit.nom.toLowerCase().includes(terme) || 
+            produit.description.toLowerCase().includes(terme)) {
+            suggestionsTrouvees.push(produit);
+        }
+    });
+
+    // Recherche dans les catégories
+    const categories = ['panier', 'corbeille', 'suspension', 'decoration'];
+    categories.forEach(categorie => {
+        if (categorie.includes(terme)) {
+            suggestionsTrouvees.push({
+                nom: `Catégorie: ${categorie}`,
+                type: 'categorie',
+                categorie: categorie
+            });
+        }
+    });
+
+    // Afficher les suggestions
+    suggestionsTrouvees.slice(0, 5).forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'suggestion-item';
+        div.textContent = item.type === 'categorie' ? item.nom : `${item.nom} - ${item.prix}€`;
+        div.addEventListener('click', function() {
+            if (item.type === 'categorie') {
+                document.querySelector(`[data-categorie="${item.categorie}"]`).click();
+            } else {
+                document.getElementById('inputRecherche').value = item.nom;
+                effectuerRecherche();
+            }
+            suggestions.style.display = 'none';
+        });
+        suggestions.appendChild(div);
+    });
+}
+
+function effectuerRecherche() {
+    const terme = document.getElementById('inputRecherche').value.toLowerCase();
+    const produitsElements = document.querySelectorAll('.produit');
+    let resultatsTrouves = 0;
+
+    produitsElements.forEach((element, index) => {
+        const produit = produits[index];
+        const correspond = 
+            produit.nom.toLowerCase().includes(terme) ||
+            produit.description.toLowerCase().includes(terme);
+
+        if (correspond && terme.length > 0) {
+            element.classList.remove('cache');
+            resultatsTrouves++;
+        } else if (terme.length === 0) {
+            element.classList.remove('cache');
+            resultatsTrouves++;
+        } else {
+            element.classList.add('cache');
+        }
+    });
+
+    // Afficher message si aucun résultat
+    afficherMessageResultats(resultatsTrouves, terme);
+}
+
+function filtrerParCategorie(categorie) {
+    const produitsElements = document.querySelectorAll('.produit');
+    let resultatsTrouves = 0;
+
+    produitsElements.forEach((element, index) => {
+        const produit = produits[index];
+        const correspond = 
+            categorie === 'tous' || 
+            produit.nom.toLowerCase().includes(categorie) ||
+            produit.description.toLowerCase().includes(categorie);
+
+        if (correspond) {
+            element.classList.remove('cache');
+            resultatsTrouves++;
+        } else {
+            element.classList.add('cache');
+        }
+    });
+
+    afficherMessageResultats(resultatsTrouves, categorie);
+}
+
+function trierProduits(methode) {
+    const container = document.querySelector('.produits');
+    const produitsElements = Array.from(document.querySelectorAll('.produit:not(.cache)'));
+
+    produitsElements.sort((a, b) => {
+        const indexA = Array.from(a.parentNode.children).indexOf(a);
+        const indexB = Array.from(b.parentNode.children).indexOf(b);
+        const produitA = produits[indexA];
+        const produitB = produits[indexB];
+
+        switch(methode) {
+            case 'prix-croissant':
+                return produitA.prix - produitB.prix;
+            case 'prix-decroissant':
+                return produitB.prix - produitA.prix;
+            case 'nom':
+                return produitA.nom.localeCompare(produitB.nom);
+            case 'populaire':
+                return (produitB.popularite || 0) - (produitA.popularite || 0);
+            default:
+                return indexA - indexB;
+        }
+    });
+
+    // Réorganiser les éléments
+    produitsElements.forEach(element => {
+        container.appendChild(element);
+    });
+}
+
+function afficherMessageResultats(nombre, terme) {
+    let messageExistante = document.querySelector('.aucun-resultat');
+    
+    if (nombre === 0 && terme !== 'tous') {
+        if (!messageExistante) {
+            messageExistante = document.createElement('div');
+            messageExistante.className = 'aucun-resultat';
+            messageExistante.innerHTML = `
+                <h3>🔍 Aucun résultat trouvé</h3>
+                <p>Aucun produit ne correspond à "${terme}"</p>
+                <p>Essayez avec d'autres termes ou parcourez toutes nos créations.</p>
+                <button onclick="reinitialiserRecherche()" style="margin-top: 15px; padding: 10px 20px; background: #2E7D32; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Voir tous les produits
+                </button>
+            `;
+            document.querySelector('.produits').appendChild(messageExistante);
+        }
+    } else if (messageExistante) {
+        messageExistante.remove();
+    }
+}
+
+function reinitialiserRecherche() {
+    document.getElementById('inputRecherche').value = '';
+    document.querySelectorAll('.filtre-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector('[data-categorie="tous"]').classList.add('active');
+    document.getElementById('triProduits').value = 'defaut';
+    
+    document.querySelectorAll('.produit').forEach(el => el.classList.remove('cache'));
+    document.querySelectorAll('.aucun-resultat').forEach(el => el.remove());
+    document.getElementById('suggestions').style.display = 'none';
+}

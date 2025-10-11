@@ -385,3 +385,105 @@ document.querySelectorAll('.produit').forEach(produit => {
 });
 
 console.log('🚀 Script JavaScript avancé chargé - Panier fonctionnel !');
+
+/* Section Recherche et Filtres */
+.recherche-filtres {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+}
+
+.recherche-filtres h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1B5E20;
+}
+
+.controle-recherche {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.barre-recherche {
+    display: flex;
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.barre-recherche input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid #C8E6C9;
+    border-radius: 8px 0 0 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.barre-recherche input:focus {
+    outline: none;
+    border-color: #D4AF37;
+}
+
+.barre-recherche button {
+    background: linear-gradient(135deg, #D4AF37, #B8860B);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+
+.barre-recherche button:hover {
+    background: linear-gradient(135deg, #B8860B, #DAA520);
+}
+
+.filtres {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filtres select {
+    padding: 12px 15px;
+    border: 2px solid #C8E6C9;
+    border-radius: 8px;
+    font-size: 1em;
+    background: white;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.filtres select:focus {
+    outline: none;
+    border-color: #D4AF37;
+}
+
+/* Ajustement responsive */
+@media (max-width: 768px) {
+    .controle-recherche {
+        flex-direction: column;
+    }
+    
+    .barre-recherche {
+        min-width: 100%;
+    }
+    
+    .filtres {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .filtres select {
+        flex: 1;
+        min-width: 150px;
+    }
+}

@@ -4,17 +4,426 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Au Palais Des Arts - Boutique de Paniers</title>
-    <!-- Lien vers le fichier CSS -->
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== STYLES GÉNÉRAUX ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fefefe;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* ===== EN-TÊTE PRINCIPAL ===== */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        h1 {
+            color: #f1c40f;
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .sous-titre {
+            font-size: 1.4em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        /* ===== SECTION PRÉSENTATION/HISTOIRE ===== */
+        .presentation {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #f1c40f;
+        }
+
+        .presentation h2 {
+            color: #27ae60;
+            margin-bottom: 20px;
+            font-size: 2.2em;
+            text-align: center;
+        }
+
+        .histoire {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .histoire-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .histoire-image {
+            text-align: center;
+        }
+
+        .histoire-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* ===== SECTION PANIER ===== */
+        .panier-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 5px solid #f1c40f;
+        }
+
+        .panier-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .total-panier {
+            text-align: right;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 3px solid #27ae60;
+            color: #2c3e50;
+        }
+
+        /* ===== BOUTONS ===== */
+        .btn-commander {
+            background: linear-gradient(135deg, #f1c40f, #f39c12);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(241, 196, 15, 0.3);
+        }
+
+        .btn-commander:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(241, 196, 15, 0.4);
+        }
+
+        .btn-vider-panier {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-vider-panier:hover {
+            background-color: #c0392b;
+        }
+
+        /* ===== SECTION PRODUITS ===== */
+        .produits-section {
+            margin: 50px 0;
+        }
+
+        .produits-section h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .produits-section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #27ae60, #f1c40f);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .produits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .produit {
+            border: 2px solid #f1c40f;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            background: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .produit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #27ae60, #f1c40f);
+        }
+
+        .produit:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(241, 196, 15, 0.2);
+            border-color: #27ae60;
+        }
+
+        .produit img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 2px solid #ecf0f1;
+            transition: transform 0.3s ease;
+        }
+
+        .produit:hover img {
+            transform: scale(1.05);
+        }
+
+        .produit h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .prix {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #27ae60;
+            margin: 20px 0;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            border: 2px dashed #bdc3c7;
+        }
+
+        .btn-ajouter {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-ajouter:hover {
+            background: linear-gradient(135deg, #229954, #27ae60);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(39, 174, 96, 0.4);
+        }
+
+        /* ===== SECTION AVIS CLIENTS ===== */
+        .avis-section {
+            background: linear-gradient(135deg, #f8f9fa, #ecf0f1);
+            padding: 50px 30px;
+            border-radius: 15px;
+            margin: 50px 0;
+            border: 2px solid #f1c40f;
+        }
+
+        .avis-section h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+        }
+
+        .avis-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .avis {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 4px solid #27ae60;
+        }
+
+        .avis-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .avis-etoiles {
+            color: #f1c40f;
+            font-size: 1.2em;
+            margin-right: 15px;
+        }
+
+        .avis-nom {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .avis-date {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-left: auto;
+        }
+
+        .avis-texte {
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+        }
+
+        /* ===== PIED DE PAGE ===== */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            color: #7f8c8d;
+            border-top: 3px solid #f1c40f;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        /* ===== MESSAGES ET NOTIFICATIONS ===== */
+        .message {
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .message-success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border-left: 5px solid #f1c40f;
+        }
+
+        .message-error {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border-left: 5px solid #f1c40f;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .histoire {
+                grid-template-columns: 1fr;
+            }
+            
+            .produits {
+                grid-template-columns: 1fr;
+            }
+            
+            .avis-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .panier-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .btn-vider-panier {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .produit, .avis, .presentation {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
 </head>
 <body>
     <!-- ===== EN-TÊTE PRINCIPAL ===== -->
     <header>
         <h1>Au Palais Des Arts</h1>
-        <p>Paniers artisanaux de qualité supérieure</p>
+        <p class="sous-titre">L'excellence de l'artisanat français depuis 1985</p>
+        <p>Découvrez l'authenticité et la qualité dans chaque panier</p>
     </header>
 
-    <!-- ===== SECTION DU PANIER ===== -->
+    <!-- ===== SECTION PRÉSENTATION/HISTOIRE ===== -->
+    <section class="presentation">
+        <h2>Notre Histoire</h2>
+        <div class="histoire">
+            <div class="histoire-text">
+                <p>Fondé en 1985 par la famille Moreau, <strong>Au Palais Des Arts</strong> perpétue la tradition du tissage d'osier et du travail artisanal de qualité. Notre atelier, situé au cœur de la campagne française, allie savoir-faire ancestral et innovation créative.</p>
+                
+                <p>Chaque panier est conçu avec passion et expertise, utilisant des matériaux naturels et durables. Nous sélectionnons rigoureusement chaque brin d'osier, chaque feuille de palmier, pour vous offrir des produits qui allient beauté, robustesse et fonctionnalité.</p>
+                
+                <p>Notre engagement : vous proposer des pièces uniques qui embelliront votre quotidien tout en respectant notre environnement.</p>
+                
+                <p><em>"L'artisanat n'est pas simplement un métier, c'est une transmission, une passion qui se partage de génération en génération."</em></p>
+            </div>
+            <div class="histoire-image">
+                <!-- Vous pouvez ajouter une image représentative ici -->
+                <div style="background: linear-gradient(135deg, #27ae60, #f1c40f); height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2em;">
+                    Image: Notre Atelier Artisanal
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION PANIER ===== -->
     <section class="panier-section">
         <h2>🛒 Votre Panier</h2>
         <div id="panier-items">
@@ -27,72 +436,248 @@
         <button class="btn-vider-panier" onclick="viderPanier()">🗑️ Vider le panier</button>
     </section>
 
-    <!-- ===== SECTION DES PRODUITS ===== -->
-    <section class="produits">
-        <!-- Produit 1 -->
-        <div class="produit">
-            <img src="Panier tressé rectangulaire.jpg" alt="Panier Tressé Rectangulaire">
-            <h2>Panier Tressé Rectangulaire</h2>
-            <p>Panier élégant au design rectangulaire, parfait pour le rangement et la décoration. Tressage traditionnel pour une durabilité exceptionnelle.</p>
-            <ul>
-                <li>Dimensions: 40x30x25cm</li>
-                <li>Matière: Osier naturel</li>
-                <li>Livraison: 48 heures</li>
-            </ul>
-            <p class="prix">35,00€</p>
-            <button class="btn-ajouter" onclick="ajouterAuPanier('Panier Tressé Rectangulaire', 35)">➕ Ajouter au panier</button>
-        </div>
+    <!-- ===== SECTION PRODUITS ===== -->
+    <section class="produits-section">
+        <h2>Nos Créations Exclusives</h2>
+        <div class="produits">
+            <!-- Produit 1 -->
+            <div class="produit">
+                <img src="Panier tressé rectangulaire.jpg" alt="Panier Tressé Rectangulaire">
+                <h3>Panier Tressé Rectangulaire</h3>
+                <p>Panier élégant au design rectangulaire, parfait pour le rangement et la décoration. Tressage traditionnel pour une durabilité exceptionnelle.</p>
+                <ul>
+                    <li>Dimensions: 40x30x25cm</li>
+                    <li>Matière: Osier naturel</li>
+                    <li>Livraison: 48 heures</li>
+                </ul>
+                <p class="prix">35,00€</p>
+                <button class="btn-ajouter" onclick="ajouterAuPanier('Panier Tressé Rectangulaire', 35)">➕ Ajouter au panier</button>
+            </div>
 
-        <!-- Produit 2 -->
-        <div class="produit">
-            <img src="Panier à linge double compartiment.jpg" alt="Panier à Linge Double Compartiment">
-            <h2>Panier Double Compartiment</h2>
-            <p>Innovant et pratique, ce panier à double compartiment vous permet de trier votre linge facilement. Idéal pour une organisation optimale.</p>
-            <ul>
-                <li>Dimensions: 50x40x35cm</li>
-                <li>2 compartiments séparés</li>
-                <li>Livraison: 48 heures</li>
-            </ul>
-            <p class="prix">55,00€</p>
-            <button class="btn-ajouter" onclick="ajouterAuPanier('Panier Double Compartiment', 55)">➕ Ajouter au panier</button>
-        </div>
+            <!-- Produit 2 -->
+            <div class="produit">
+                <img src="Panier à linge double compartiment.jpg" alt="Panier à Linge Double Compartiment">
+                <h3>Panier Double Compartiment</h3>
+                <p>Innovant et pratique, ce panier à double compartiment vous permet de trier votre linge facilement. Idéal pour une organisation optimale.</p>
+                <ul>
+                    <li>Dimensions: 50x40x35cm</li>
+                    <li>2 compartiments séparés</li>
+                    <li>Livraison: 48 heures</li>
+                </ul>
+                <p class="prix">55,00€</p>
+                <button class="btn-ajouter" onclick="ajouterAuPanier('Panier Double Compartiment', 55)">➕ Ajouter au panier</button>
+            </div>
 
-        <!-- Produit 3 -->
-        <div class="produit">
-            <img src="Panier à linge en feuilles de palmier.jpg" alt="Panier en Feuilles de Palmier">
-            <h2>Panier en Feuilles de Palmier</h2>
-            <p>Panier écologique fabriqué à partir de feuilles de palmier naturelles. Léger, résistant et respectueux de l'environnement.</p>
-            <ul>
-                <li>Dimensions: 45x35x30cm</li>
-                <li>Matière: Feuilles de palmier</li>
-                <li>Livraison: 48 heures</li>
-            </ul>
-            <p class="prix">42,00€</p>
-            <button class="btn-ajouter" onclick="ajouterAuPanier('Panier en Feuilles de Palmier', 42)">➕ Ajouter au panier</button>
-        </div>
+            <!-- Produit 3 -->
+            <div class="produit">
+                <img src="Panier à linge en feuilles de palmier.jpg" alt="Panier en Feuilles de Palmier">
+                <h3>Panier en Feuilles de Palmier</h3>
+                <p>Panier écologique fabriqué à partir de feuilles de palmier naturelles. Léger, résistant et respectueux de l'environnement.</p>
+                <ul>
+                    <li>Dimensions: 45x35x30cm</li>
+                    <li>Matière: Feuilles de palmier</li>
+                    <li>Livraison: 48 heures</li>
+                </ul>
+                <p class="prix">42,00€</p>
+                <button class="btn-ajouter" onclick="ajouterAuPanier('Panier en Feuilles de Palmier', 42)">➕ Ajouter au panier</button>
+            </div>
 
-        <!-- Produit 4 -->
-        <div class="produit">
-            <img src="Panier à linge rond en osier.jpg" alt="Panier Rond en Osier">
-            <h2>Panier Rond en Osier</h2>
-            <p>Panier rond traditionnel en osier de qualité supérieure. Parfait pour le rangement du linge ou comme élément décoratif chaleureux.</p>
-            <ul>
-                <li>Diamètre: 45cm - Hauteur: 35cm</li>
-                <li>Matière: Osier naturel</li>
-                <li>Livraison: 48 heures</li>
-            </ul>
-            <p class="prix">38,00€</p>
-            <button class="btn-ajouter" onclick="ajouterAuPanier('Panier Rond en Osier', 38)">➕ Ajouter au panier</button>
+            <!-- Produit 4 -->
+            <div class="produit">
+                <img src="Panier à linge rond en osier.jpg" alt="Panier Rond en Osier">
+                <h3>Panier Rond en Osier</h3>
+                <p>Panier rond traditionnel en osier de qualité supérieure. Parfait pour le rangement du linge ou comme élément décoratif chaleureux.</p>
+                <ul>
+                    <li>Diamètre: 45cm - Hauteur: 35cm</li>
+                    <li>Matière: Osier naturel</li>
+                    <li>Livraison: 48 heures</li>
+                </ul>
+                <p class="prix">38,00€</p>
+                <button class="btn-ajouter" onclick="ajouterAuPanier('Panier Rond en Osier', 38)">➕ Ajouter au panier</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION AVIS CLIENTS ===== -->
+    <section class="avis-section">
+        <h2>👥 Ce que disent nos clients</h2>
+        <div class="avis-container">
+            <!-- Avis 1 -->
+            <div class="avis">
+                <div class="avis-header">
+                    <div class="avis-etoiles">★★★★★</div>
+                    <div class="avis-nom">Marie L.</div>
+                    <div class="avis-date">15/10/2024</div>
+                </div>
+                <div class="avis-texte">
+                    "Le panier rectangulaire est absolument magnifique ! La qualité de tissage est exceptionnelle. Il est à la fois solide et esthétique. Livraison rapide et emballage soigné."
+                </div>
+            </div>
+
+            <!-- Avis 2 -->
+            <div class="avis">
+                <div class="avis-header">
+                    <div class="avis-etoiles">★★★★★</div>
+                    <div class="avis-nom">Pierre D.</div>
+                    <div class="avis-date">12/10/2024</div>
+                </div>
+                <div class="avis-texte">
+                    "J'ai offert le panier double compartiment à ma femme et elle en est ravie. Pratique et élégant, il trône maintenant dans notre chambre. Un achat que je recommande !"
+                </div>
+            </div>
+
+            <!-- Avis 3 -->
+            <div class="avis">
+                <div class="avis-header">
+                    <div class="avis-etoiles">★★★★☆</div>
+                    <div class="avis-nom">Sophie M.</div>
+                    <div class="avis-date">08/10/2024</div>
+                </div>
+                <div class="avis-texte">
+                    "Très beau panier en feuilles de palmier, léger et résistant. Le côté écologique est appréciable. Petit bémol : une légode odeur au début, mais qui part rapidement."
+                </div>
+            </div>
+
+            <!-- Avis 4 -->
+            <div class="avis">
+                <div class="avis-header">
+                    <div class="avis-etoiles">★★★★★</div>
+                    <div class="avis-nom">Jean P.</div>
+                    <div class="avis-date">05/10/2024</div>
+                </div>
+                <div class="avis-texte">
+                    "Commandé le panier rond pour ma salle de bain. Exactement comme sur les photos, même mieux en vrai ! Le service client est très réactif. Je reviendrai !"
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- ===== PIED DE PAGE ===== -->
     <footer>
-        <p>&copy; 2025 Au Palais Des Arts - Tous droits réservés</p>
-        <p>Artisanat français de qualité</p>
+        <p>&copy; 1985-2024 Au Palais Des Arts - Tous droits réservés</p>
+        <p>Artisanat français d'exception - Made with ❤️ in France</p>
+        <p>📞 01 23 45 67 89 - ✉️ contact@aupalaisdesarts.fr</p>
     </footer>
 
-    <!-- Lien vers le fichier JavaScript -->
-    <script src="script.js"></script>
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // Variables globales
+        let panier = [];
+
+        // Fonction pour ajouter un produit au panier
+        function ajouterAuPanier(nom, prix) {
+            const articleExist = panier.find(item => item.nom === nom);
+            
+            if (articleExist) {
+                articleExist.quantite++;
+            } else {
+                panier.push({
+                    nom: nom,
+                    prix: prix,
+                    quantite: 1
+                });
+            }
+            
+            mettreAJourPanier();
+            afficherMessage(`${nom} ajouté au panier !`, 'success');
+        }
+
+        // Fonction pour mettre à jour l'affichage du panier
+        function mettreAJourPanier() {
+            const panierItems = document.getElementById('panier-items');
+            const totalPanier = document.getElementById('total-panier');
+            const panierVide = document.getElementById('panier-vide');
+            
+            panierItems.innerHTML = '';
+            
+            if (panier.length === 0) {
+                panierItems.innerHTML = '<p id="panier-vide">Votre panier est vide</p>';
+                totalPanier.textContent = '0.00';
+                return;
+            }
+            
+            let total = 0;
+            
+            panier.forEach((article, index) => {
+                const sousTotal = article.prix * article.quantite;
+                total += sousTotal;
+                
+                const articleElement = document.createElement('div');
+                articleElement.className = 'panier-item';
+                articleElement.innerHTML = `
+                    <div>
+                        <strong>${article.nom}</strong><br>
+                        <small>${article.prix}€ x ${article.quantite}</small>
+                    </div>
+                    <div>
+                        <strong>${sousTotal.toFixed(2)}€</strong>
+                        <button onclick="supprimerArticle(${index})" style="background:#e74c3c; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">❌</button>
+                    </div>
+                `;
+                
+                panierItems.appendChild(articleElement);
+            });
+            
+            totalPanier.textContent = total.toFixed(2);
+        }
+
+        // Fonction pour supprimer un article du panier
+        function supprimerArticle(index) {
+            if (index >= 0 && index < panier.length) {
+                const nomArticle = panier[index].nom;
+                panier.splice(index, 1);
+                mettreAJourPanier();
+                afficherMessage(`${nomArticle} supprimé du panier`, 'success');
+            }
+        }
+
+        // Fonction pour vider le panier
+        function viderPanier() {
+            if (panier.length === 0) {
+                afficherMessage('Le panier est déjà vide', 'error');
+                return;
+            }
+            
+            const nbArticles = panier.length;
+            panier = [];
+            mettreAJourPanier();
+            afficherMessage(`Panier vidé (${nbArticles} article(s) supprimé(s))`, 'success');
+        }
+
+        // Fonction pour passer commande
+        function passerCommande() {
+            if (panier.length === 0) {
+                afficherMessage('Votre panier est vide', 'error');
+                return;
+            }
+            
+            const total = panier.reduce((sum, article) => sum + (article.prix * article.quantite), 0);
+            afficherMessage(`✅ Commande passée avec succès ! Total: ${total.toFixed(2)}€. Merci pour votre confiance !`, 'success');
+            
+            panier = [];
+            mettreAJourPanier();
+        }
+
+        // Fonction pour afficher des messages
+        function afficherMessage(message, type) {
+            const messageElement = document.createElement('div');
+            messageElement.className = `message message-${type}`;
+            messageElement.textContent = message;
+            
+            document.body.insertBefore(messageElement, document.body.firstChild);
+            
+            setTimeout(() => {
+                if (messageElement.parentNode) {
+                    messageElement.remove();
+                }
+            }, 4000);
+        }
+
+        // Initialisation au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            mettreAJourPanier();
+            afficherMessage('Bienvenue chez Au Palais Des Arts ! 🎉', 'success');
+        });
+    </script>
 </body>
 </html>

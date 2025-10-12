@@ -1,257 +1,301 @@
-// ============================================= //
-// VARIABLES GLOBALES - Données partagées       //
-// ============================================= //
+// ===== VARIABLES GLOBALES =====
+let panier = JSON.parse(localStorage.getItem('panier')) || [];
 
-// Tableau pour stocker tous les articles du panier
-let panier = [];
-
-// ============================================= //
-// FONCTIONS DU PANIER - Gestion des articles   //
-// ============================================= //
+// ===== FONCTIONS PANIER =====
 
 /**
- * Fonction pour ajouter un produit au panier
- * @param {string} nom - Le nom du produit
- * @param {number} prix - Le prix du produit
+ * Ajoute un produit au panier
+ * @param {string} nom - Nom du produit
+ * @param {number} prix - Prix du produit
  */
 function ajouterAuPanier(nom, prix) {
-    console.log(`Tentative d'ajout: ${nom} à ${prix}€`);
+    console.log(`Ajout au panier: ${nom} - ${prix}€`);
     
-    // Vérifier si l'article est déjà dans le panier
-    const articleExist = panier.find(item => item.nom === nom);
+    // Vérifier si le produit existe déjà dans le panier
+    const produitExistant = panier.find(item => item.nom === nom);
     
-    if (articleExist) {
-        // Si l'article existe déjà, augmenter la quantité
-        articleExist.quantite++;
+    if (produitExistant) {
+        // Si le produit existe, augmenter la quantité
+        produitExistant.quantite += 1;
         console.log(`Quantité augmentée pour: ${nom}`);
     } else {
-        // Sinon, ajouter un nouvel article au panier
+        // Sinon, ajouter un nouveau produit
         panier.push({
             nom: nom,
             prix: prix,
             quantite: 1
         });
-        console.log(`Nouvel article ajouté: ${nom}`);
+        console.log(`Nouveau produit ajouté: ${nom}`);
     }
     
-    // Mettre à jour l'affichage du panier
+    // Sauvegarder et mettre à jour l'affichage
+    sauvegarderPanier();
     mettreAJourPanier();
     
-    // Afficher une notification de confirmation
+    // Afficher un message de confirmation
     afficherMessage(`${nom} ajouté au panier !`, 'success');
 }
 
 /**
- * Fonction pour mettre à jour l'affichage du panier
- * Cette fonction est appelée à chaque modification du panier
+ * Retire un produit du panier
+ * @param {string} nom - Nom du produit à retirer
  */
-function mettreAJourPanier() {
-    console.log("Mise à jour de l'affichage du panier");
+function retirerDuPanier(nom) {
+    console.log(`Retrait du panier: ${nom}`);
     
-    // Récupérer les éléments HTML
-    const panierItems = document.getElementById('panier-items');
-    const totalPanier = document.getElementById('total-panier');
-    const panierVide = document.getElementById('panier-vide');
-    
-    // Vider l'affichage actuel du panier
-    panierItems.innerHTML = '';
-    
-    // Vérifier si le panier est vide
-    if (panier.length === 0) {
-        // Afficher le message "panier vide"
-        panierItems.innerHTML = '<p id="panier-vide">Votre panier est vide</p>';
-        totalPanier.textContent = '0.00';
-        console.log("Panier vide affiché");
-        return;
-    }
-    
-    // Initialiser le total à 0
-    let total = 0;
-    
-    // Parcourir tous les articles du panier
-    panier.forEach((article, index) => {
-        // Calculer le sous-total pour cet article
-        const sousTotal = article.prix * article.quantite;
-        // Ajouter au total général
-        total += sousTotal;
-        
-        // Créer un élément HTML pour cet article
-        const articleElement = document.createElement('div');
-        articleElement.className = 'panier-item';
-        articleElement.innerHTML = `
-            <div>
-                <strong>${article.nom}</strong><br>
-                <small>${article.prix}€ x ${article.quantite}</small>
-            </div>
-            <div>
-                <strong>${sousTotal.toFixed(2)}€</strong>
-                <button onclick="supprimerArticle(${index})">❌</button>
-            </div>
-        `;
-        
-        // Ajouter l'article au panier affiché
-        panierItems.appendChild(articleElement);
-    });
-    
-    // Mettre à jour l'affichage du total
-    totalPanier.textContent = total.toFixed(2);
-    console.log(`Total mis à jour: ${total.toFixed(2)}€`);
+    panier = panier.filter(item => item.nom !== nom);
+    sauvegarderPanier();
+    mettreAJourPanier();
+    afficherMessage('Article retiré du panier', 'success');
 }
 
 /**
- * Fonction pour supprimer un article du panier
- * @param {number} index - L'index de l'article à supprimer
+ * Modifie la quantité d'un produit dans le panier
+ * @param {string} nom - Nom du produit
+ * @param {number} changement - Changement de quantité (+1 ou -1)
  */
-function supprimerArticle(index) {
-    console.log(`Suppression de l'article à l'index: ${index}`);
+function modifierQuantite(nom, changement) {
+    console.log(`Modification quantité: ${nom} - changement: ${changement}`);
     
-    // Vérifier que l'index est valide
-    if (index >= 0 && index < panier.length) {
-        const nomArticle = panier[index].nom;
-        // Supprimer l'article du panier
-        panier.splice(index, 1);
-        // Mettre à jour l'affichage
-        mettreAJourPanier();
-        // Afficher une notification
-        afficherMessage(`${nomArticle} supprimé du panier`, 'success');
-    } else {
-        console.error("Index invalide pour la suppression");
+    const produit = panier.find(item => item.nom === nom);
+    
+    if (produit) {
+        produit.quantite += changement;
+        
+        // Si la quantité devient 0 ou moins, retirer le produit
+        if (produit.quantite <= 0) {
+            retirerDuPanier(nom);
+        } else {
+            sauvegarderPanier();
+            mettreAJourPanier();
+        }
     }
 }
 
 /**
- * Fonction pour vider complètement le panier
+ * Vide complètement le panier
  */
 function viderPanier() {
-    console.log("Tentative de vidage du panier");
+    console.log('Vidage du panier');
     
-    // Vérifier si le panier est déjà vide
     if (panier.length === 0) {
         afficherMessage('Le panier est déjà vide', 'error');
         return;
     }
     
-    // Sauvegarder le nombre d'articles pour le message
-    const nbArticles = panier.length;
-    
-    // Vider le tableau panier
+    const nbArticles = panier.reduce((total, item) => total + item.quantite, 0);
     panier = [];
-    
-    // Mettre à jour l'affichage
+    sauvegarderPanier();
     mettreAJourPanier();
-    
-    // Afficher une notification
     afficherMessage(`Panier vidé (${nbArticles} article(s) supprimé(s))`, 'success');
 }
 
-// ============================================= //
-// FONCTION COMMANDE - Traitement des commandes //
-// ============================================= //
+/**
+ * Sauvegarde le panier dans le localStorage
+ */
+function sauvegarderPanier() {
+    localStorage.setItem('panier', JSON.stringify(panier));
+    console.log('Panier sauvegardé dans le localStorage');
+}
 
 /**
- * Fonction pour simuler le passage d'une commande
+ * Met à jour l'affichage du panier
  */
-function passerCommande() {
-    console.log("Tentative de passage de commande");
+function mettreAJourPanier() {
+    console.log('Mise à jour de l\'affichage du panier');
+    
+    const panierItems = document.getElementById('panier-items');
+    const totalPanier = document.getElementById('total-panier');
+    const panierCount = document.getElementById('panier-count');
+    
+    // Vider l'affichage actuel
+    panierItems.innerHTML = '';
     
     // Vérifier si le panier est vide
+    if (panier.length === 0) {
+        panierItems.innerHTML = '<p class="panier-vide">Votre panier est vide</p>';
+        totalPanier.textContent = '0,00€';
+        panierCount.textContent = '0 article(s)';
+        return;
+    }
+    
+    let total = 0;
+    let totalArticles = 0;
+    
+    // Parcourir tous les articles du panier
+    panier.forEach(item => {
+        const sousTotal = item.prix * item.quantite;
+        total += sousTotal;
+        totalArticles += item.quantite;
+        
+        // Créer l'élément HTML pour cet article
+        const itemElement = document.createElement('div');
+        itemElement.className = 'panier-item';
+        itemElement.innerHTML = `
+            <div class="panier-item-info">
+                <h4>${item.nom}</h4>
+                <p>${item.prix}€ x ${item.quantite}</p>
+            </div>
+            <div class="panier-item-controls">
+                <button class="btn-quantity" onclick="modifierQuantite('${item.nom}', -1)" aria-label="Réduire la quantité">-</button>
+                <span style="margin: 0 10px; font-weight: bold; min-width: 20px; text-align: center;">${item.quantite}</span>
+                <button class="btn-quantity" onclick="modifierQuantite('${item.nom}', 1)" aria-label="Augmenter la quantité">+</button>
+                <button class="btn-remove" onclick="retirerDuPanier('${item.nom}')" aria-label="Supprimer l'article">🗑️</button>
+            </div>
+            <div style="font-weight: bold; min-width: 80px; text-align: right;">${sousTotal.toFixed(2)}€</div>
+        `;
+        
+        panierItems.appendChild(itemElement);
+    });
+    
+    // Mettre à jour le total et le compteur
+    totalPanier.textContent = `${total.toFixed(2)}€`;
+    panierCount.textContent = `${totalArticles} article(s)`;
+    
+    console.log(`Panier mis à jour: ${totalArticles} articles, total: ${total.toFixed(2)}€`);
+}
+
+/**
+ * Passe la commande (simulation)
+ */
+function passerCommande() {
+    console.log('Tentative de commande');
+    
     if (panier.length === 0) {
         afficherMessage('Votre panier est vide', 'error');
         return;
     }
     
-    // Calculer le total de la commande
-    const total = panier.reduce((sum, article) => sum + (article.prix * article.quantite), 0);
+    const total = panier.reduce((sum, item) => sum + (item.prix * item.quantite), 0);
     
     // Afficher un message de confirmation
-    afficherMessage(`✅ Commande passée avec succès ! Total: ${total.toFixed(2)}€`, 'success');
+    afficherMessage(`✅ Commande passée avec succès ! Total: ${total.toFixed(2)}€. Merci pour votre confiance !`, 'success');
     
-    // Réinitialiser le panier après la commande
-    panier = [];
-    mettreAJourPanier();
-    
-    console.log("Commande traitée avec succès");
-    
-    // Ici, vous pourriez ajouter:
-    // - Redirection vers une page de paiement
-    // - Envoi des données à un serveur
-    // - Sauvegarde dans le localStorage
-    // window.location.href = 'paiement.html';
+    // Simulation de réinitialisation du panier après commande
+    console.log('Commande traitée, réinitialisation du panier dans 3 secondes');
+    setTimeout(() => {
+        panier = [];
+        sauvegarderPanier();
+        mettreAJourPanier();
+        console.log('Panier réinitialisé après commande');
+    }, 3000);
 }
 
-// ============================================= //
-// FONCTIONS UTILITAIRES - Outils divers        //
-// ============================================= //
+// ===== FONCTIONS UTILITAIRES =====
 
 /**
- * Fonction pour afficher des messages temporaires
- * @param {string} message - Le message à afficher
- * @param {string} type - Le type de message ('success' ou 'error')
+ * Affiche un message temporaire à l'utilisateur
+ * @param {string} message - Message à afficher
+ * @param {string} type - Type de message ('success' ou 'error')
  */
 function afficherMessage(message, type) {
     console.log(`Message ${type}: ${message}`);
     
-    // Créer un élément de message
+    // Supprimer les messages existants
+    document.querySelectorAll('.message').forEach(msg => {
+        msg.classList.remove('show');
+        setTimeout(() => {
+            if (msg.parentNode) {
+                msg.remove();
+            }
+        }, 300);
+    });
+    
+    // Créer le nouvel élément message
     const messageElement = document.createElement('div');
     messageElement.className = `message message-${type}`;
     messageElement.textContent = message;
     
-    // Ajouter le message au début du body
-    document.body.insertBefore(messageElement, document.body.firstChild);
+    // Ajouter au DOM
+    document.body.appendChild(messageElement);
     
-    // Supprimer le message après 3 secondes
+    // Animation d'entrée
+    setTimeout(() => messageElement.classList.add('show'), 100);
+    
+    // Suppression automatique après 4 secondes
     setTimeout(() => {
-        if (messageElement.parentNode) {
-            messageElement.remove();
-            console.log("Message supprimé");
-        }
-    }, 3000);
+        messageElement.classList.remove('show');
+        setTimeout(() => {
+            if (messageElement.parentNode) {
+                messageElement.remove();
+            }
+        }, 300);
+    }, 4000);
 }
 
-// ============================================= //
-// INITIALISATION - Code exécuté au démarrage  //
-// ============================================= //
+// ===== OBSERVATEUR D'INTERSECTION POUR LES ANIMATIONS =====
 
 /**
- * Fonction d'initialisation exécutée au chargement de la page
+ * Initialise l'observateur d'intersection pour les animations
  */
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("Page chargée - Initialisation");
+function initialiserAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observer les cartes produits
+    document.querySelectorAll('.produit-card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+    });
+
+    // Observer les cartes avis
+    document.querySelectorAll('.avis-card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+    });
+}
+
+// ===== INITIALISATION =====
+
+/**
+ * Initialise l'application au chargement de la page
+ */
+function initialiserApplication() {
+    console.log('Initialisation de l\'application');
     
-    // Mettre à jour l'affichage du panier au chargement
+    // Mettre à jour l'affichage du panier
     mettreAJourPanier();
     
-    // Ajouter un message de bienvenue
-    afficherMessage('Bienvenue dans notre boutique !', 'success');
+    // Initialiser les animations
+    initialiserAnimations();
     
-    // Ici vous pourriez aussi:
-    // - Charger le panier depuis le localStorage
-    // - Vérifier l'authentification utilisateur
-    // - Charger des données depuis une API
-});
-
-// ============================================= //
-// FONCTIONNALITÉS AVANCÉES - Pour plus tard   //
-// ============================================= //
-
-/**
- * Fonction pour sauvegarder le panier dans le localStorage
- * (À implémenter si besoin de persistance)
- */
-function sauvegarderPanier() {
-    localStorage.setItem('panier', JSON.stringify(panier));
-    console.log("Panier sauvegardé");
+    // Afficher un message de bienvenue
+    setTimeout(() => {
+        afficherMessage('Bienvenue chez Au Palais Des Arts ! 🎉', 'success');
+    }, 1000);
+    
+    console.log('Application initialisée avec succès');
 }
 
+// Démarrer l'application quand la page est chargée
+document.addEventListener('DOMContentLoaded', initialiserApplication);
+
+// ===== FONCTIONS DE DÉBOGAGE =====
+
 /**
- * Fonction pour charger le panier depuis le localStorage
- * (À implémenter si besoin de persistance)
+ * Affiche l'état actuel du panier dans la console (pour débogage)
  */
-function chargerPanier() {
-    const panierSauvegarde = localStorage.getItem('panier');
-    if (panierSauvegarde) {
-        panier = JSON.parse(panierSauvegarde);
-        mettreAJourPanier();
-        console.log("Panier chargé depuis le localStorage");
-    }
+function debugPanier() {
+    console.log('=== DÉBOGAGE PANIER ===');
+    console.log('Articles:', panier);
+    console.log('Total articles:', panier.reduce((sum, item) => sum + item.quantite, 0));
+    console.log('Total prix:', panier.reduce((sum, item) => sum + (item.prix * item.quantite), 0));
+    console.log('LocalStorage:', localStorage.getItem('panier'));
+    console.log('=====================');
 }
+
+// Exposer la fonction de débogage globalement (optionnel)
+window.debugPanier = debugPanier;

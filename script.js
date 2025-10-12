@@ -33,7 +33,7 @@ function ajouterAuPanier(nom, prix) {
     mettreAJourPanier();
     
     // Afficher un message de confirmation
-    afficherMessage(`${nom} ajouté au panier !`, 'success');
+    afficherNotification(`${nom} ajouté au panier !`, 'success');
 }
 
 /**
@@ -46,7 +46,7 @@ function retirerDuPanier(nom) {
     panier = panier.filter(item => item.nom !== nom);
     sauvegarderPanier();
     mettreAJourPanier();
-    afficherMessage('Article retiré du panier', 'success');
+    afficherNotification('Article retiré du panier', 'success');
 }
 
 /**
@@ -79,7 +79,7 @@ function viderPanier() {
     console.log('Vidage du panier');
     
     if (panier.length === 0) {
-        afficherMessage('Le panier est déjà vide', 'error');
+        afficherNotification('Le panier est déjà vide', 'error');
         return;
     }
     
@@ -87,7 +87,7 @@ function viderPanier() {
     panier = [];
     sauvegarderPanier();
     mettreAJourPanier();
-    afficherMessage(`Panier vidé (${nbArticles} article(s) supprimé(s))`, 'success');
+    afficherNotification(`Panier vidé (${nbArticles} article(s) supprimé(s))`, 'success');
 }
 
 /**
@@ -107,6 +107,7 @@ function mettreAJourPanier() {
     const panierItems = document.getElementById('panier-items');
     const totalPanier = document.getElementById('total-panier');
     const panierCount = document.getElementById('panier-count');
+    const cartCount = document.querySelector('.cart-count');
     
     // Vider l'affichage actuel
     panierItems.innerHTML = '';
@@ -116,6 +117,7 @@ function mettreAJourPanier() {
         panierItems.innerHTML = '<p class="panier-vide">Votre panier est vide</p>';
         totalPanier.textContent = '0,00€';
         panierCount.textContent = '0 article(s)';
+        if (cartCount) cartCount.textContent = '0';
         return;
     }
     
@@ -151,6 +153,7 @@ function mettreAJourPanier() {
     // Mettre à jour le total et le compteur
     totalPanier.textContent = `${total.toFixed(2)}€`;
     panierCount.textContent = `${totalArticles} article(s)`;
+    if (cartCount) cartCount.textContent = totalArticles;
     
     console.log(`Panier mis à jour: ${totalArticles} articles, total: ${total.toFixed(2)}€`);
 }
@@ -162,14 +165,14 @@ function passerCommande() {
     console.log('Tentative de commande');
     
     if (panier.length === 0) {
-        afficherMessage('Votre panier est vide', 'error');
+        afficherNotification('Votre panier est vide', 'error');
         return;
     }
     
     const total = panier.reduce((sum, item) => sum + (item.prix * item.quantite), 0);
     
     // Afficher un message de confirmation
-    afficherMessage(`✅ Commande passée avec succès ! Total: ${total.toFixed(2)}€. Merci pour votre confiance !`, 'success');
+    afficherNotification(`✅ Commande passée avec succès ! Total: ${total.toFixed(2)}€. Merci pour votre confiance !`, 'success');
     
     // Simulation de réinitialisation du panier après commande
     console.log('Commande traitée, réinitialisation du panier dans 3 secondes');
@@ -184,49 +187,35 @@ function passerCommande() {
 // ===== FONCTIONS UTILITAIRES =====
 
 /**
- * Affiche un message temporaire à l'utilisateur
+ * Affiche une notification temporaire
  * @param {string} message - Message à afficher
- * @param {string} type - Type de message ('success' ou 'error')
+ * @param {string} type - Type de notification ('success' ou 'error')
  */
-function afficherMessage(message, type) {
-    console.log(`Message ${type}: ${message}`);
+function afficherNotification(message, type) {
+    console.log(`Notification ${type}: ${message}`);
     
-    // Supprimer les messages existants
-    document.querySelectorAll('.message').forEach(msg => {
-        msg.classList.remove('show');
-        setTimeout(() => {
-            if (msg.parentNode) {
-                msg.remove();
-            }
-        }, 300);
-    });
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
     
-    // Créer le nouvel élément message
-    const messageElement = document.createElement('div');
-    messageElement.className = `message message-${type}`;
-    messageElement.textContent = message;
-    
-    // Ajouter au DOM
-    document.body.appendChild(messageElement);
+    document.getElementById('notificationContainer').appendChild(notification);
     
     // Animation d'entrée
-    setTimeout(() => messageElement.classList.add('show'), 100);
+    setTimeout(() => notification.classList.add('show'), 100);
     
     // Suppression automatique après 4 secondes
     setTimeout(() => {
-        messageElement.classList.remove('show');
+        notification.classList.remove('show');
         setTimeout(() => {
-            if (messageElement.parentNode) {
-                messageElement.remove();
+            if (notification.parentNode) {
+                notification.remove();
             }
         }, 300);
     }, 4000);
 }
 
-// ===== OBSERVATEUR D'INTERSECTION POUR LES ANIMATIONS =====
-
 /**
- * Initialise l'observateur d'intersection pour les animations
+ * Initialise les animations au défilement
  */
 function initialiserAnimations() {
     const observer = new IntersectionObserver((entries) => {
@@ -242,7 +231,7 @@ function initialiserAnimations() {
     });
 
     // Observer les cartes produits
-    document.querySelectorAll('.produit-card').forEach(card => {
+    document.querySelectorAll('.product-card').forEach(card => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -258,6 +247,21 @@ function initialiserAnimations() {
     });
 }
 
+/**
+ * Initialise la navigation mobile
+ */
+function initialiserNavigationMobile() {
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    }
+}
+
 // ===== INITIALISATION =====
 
 /**
@@ -266,36 +270,27 @@ function initialiserAnimations() {
 function initialiserApplication() {
     console.log('Initialisation de l\'application');
     
+    // Cacher l'écran de chargement
+    setTimeout(() => {
+        document.getElementById('loadingScreen').classList.add('hidden');
+    }, 2000);
+    
     // Mettre à jour l'affichage du panier
     mettreAJourPanier();
     
     // Initialiser les animations
     initialiserAnimations();
     
+    // Initialiser la navigation mobile
+    initialiserNavigationMobile();
+    
     // Afficher un message de bienvenue
     setTimeout(() => {
-        afficherMessage('Bienvenue chez Au Palais Des Arts ! 🎉', 'success');
-    }, 1000);
+        afficherNotification('Bienvenue chez Au Palais Des Arts ! 🎉', 'success');
+    }, 2500);
     
     console.log('Application initialisée avec succès');
 }
 
 // Démarrer l'application quand la page est chargée
 document.addEventListener('DOMContentLoaded', initialiserApplication);
-
-// ===== FONCTIONS DE DÉBOGAGE =====
-
-/**
- * Affiche l'état actuel du panier dans la console (pour débogage)
- */
-function debugPanier() {
-    console.log('=== DÉBOGAGE PANIER ===');
-    console.log('Articles:', panier);
-    console.log('Total articles:', panier.reduce((sum, item) => sum + item.quantite, 0));
-    console.log('Total prix:', panier.reduce((sum, item) => sum + (item.prix * item.quantite), 0));
-    console.log('LocalStorage:', localStorage.getItem('panier'));
-    console.log('=====================');
-}
-
-// Exposer la fonction de débogage globalement (optionnel)
-window.debugPanier = debugPanier;

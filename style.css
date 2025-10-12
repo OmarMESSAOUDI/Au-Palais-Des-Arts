@@ -2,144 +2,116 @@
 /* STYLES GÉNÉRAUX - Configuration de base      */
 /* ============================================= */
 
-/* Reset des marges et padding par défaut */
 * {
     margin: 0;
     padding: 0;
-    /* Inclure les bordures dans le calcul des dimensions */
     box-sizing: border-box;
 }
 
-/* Styles du corps de la page */
 body {
-    /* Police de caractères */
-    font-family: Arial, sans-serif;
-    /* Largeur maximale du contenu */
+    font-family: 'Arial', sans-serif;
     max-width: 1200px;
-    /* Centrer la page */
     margin: 0 auto;
-    /* Espacement intérieur */
     padding: 20px;
-    /* Couleur de fond */
-    background-color: #f9f9f9;
-    /* Hauteur de ligne pour meilleure lisibilité */
+    background-color: #fefefe;
     line-height: 1.6;
 }
 
 /* ============================================= */
-/* EN-TÊTE - Section titre principal            */
+/* EN-TÊTE - Avec couleurs doré et vert         */
 /* ============================================= */
 
 header {
-    /* Centrer le texte */
     text-align: center;
-    /* Espace en bas */
     margin-bottom: 40px;
-    /* Espacement intérieur */
-    padding: 20px;
-    /* Fond blanc */
-    background: white;
-    /* Coins arrondis */
-    border-radius: 8px;
-    /* Ombre légère */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 30px;
+    background: linear-gradient(135deg, #27ae60, #2ecc71); /* Dégradé vert */
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
 }
 
-/* Titre principal */
 h1 {
-    /* Couleur du texte */
-    color: #2c3e50;
-    /* Espace en bas */
+    color: #f1c40f; /* Doré */
+    font-size: 2.8em;
     margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 1.3em;
+    color: white;
+    opacity: 0.9;
 }
 
 /* ============================================= */
-/* SECTION PANIER - Affichage du panier         */
+/* SECTION PANIER - Style amélioré              */
 /* ============================================= */
 
 .panier-section {
-    /* Fond blanc */
     background: white;
-    /* Espacement intérieur */
-    padding: 20px;
-    /* Coins arrondis */
-    border-radius: 8px;
-    /* Espace en bas */
+    padding: 25px;
+    border-radius: 10px;
     margin-bottom: 30px;
-    /* Ombre légère */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-left: 5px solid #f1c40f; /* Bordure dorée à gauche */
 }
 
-/* Chaque article dans le panier */
 .panier-item {
-    /* Disposition flexible */
     display: flex;
-    /* Espace entre les éléments */
     justify-content: space-between;
-    /* Alignement vertical au centre */
     align-items: center;
-    /* Espacement vertical */
-    padding: 10px 0;
-    /* Ligne de séparation */
-    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+    border-bottom: 1px solid #ecf0f1;
 }
 
-/* Total du panier */
 .total-panier {
-    /* Aligner le texte à droite */
     text-align: right;
-    /* Taille de police */
-    font-size: 1.2em;
-    /* Texte en gras */
+    font-size: 1.4em;
     font-weight: bold;
-    /* Espace au-dessus */
-    margin-top: 15px;
-    /* Espacement intérieur haut */
-    padding-top: 15px;
-    /* Bordure colorée en haut */
-    border-top: 2px solid #3498db;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 3px solid #27ae60; /* Ligne verte */
+    color: #2c3e50;
 }
 
 /* ============================================= */
-/* BOUTONS - Styles des différents boutons      */
+/* BOUTONS - Couleurs doré et vert              */
 /* ============================================= */
 
-/* Bouton pour passer commande */
 .btn-commander {
-    /* Couleur de fond verte */
-    background-color: #27ae60;
-    /* Texte blanc */
+    background: linear-gradient(135deg, #f1c40f, #f39c12); /* Dégradé doré */
     color: white;
-    /* Pas de bordure */
     border: none;
-    /* Espacement intérieur */
-    padding: 12px 25px;
-    /* Coins arrondis */
-    border-radius: 5px;
-    /* Curseur pointeur */
+    padding: 15px 30px;
+    border-radius: 8px;
     cursor: pointer;
-    /* Taille de police */
-    font-size: 1.1em;
-    /* Espace au-dessus */
+    font-size: 1.2em;
+    font-weight: bold;
     margin-top: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(241, 196, 15, 0.3);
 }
 
-/* Bouton pour vider le panier */
+.btn-commander:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(241, 196, 15, 0.4);
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
 .btn-vider-panier {
-    /* Couleur de fond rouge */
     background-color: #e74c3c;
-    /* Texte blanc */
     color: white;
-    /* Pas de bordure */
     border: none;
-    /* Espacement intérieur */
-    padding: 8px 15px;
-    /* Coins arrondis */
-    border-radius: 5px;
-    /* Curseur pointeur */
+    padding: 10px 20px;
+    border-radius: 6px;
     cursor: pointer;
-    /* Espace à gauche */
-    margin-left: 10px;
+    margin-left: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-vider-panier:hover {
+    background-color: #c0392b;
 }
 
 /* ============================================= */
@@ -147,41 +119,41 @@ h1 {
 /* ============================================= */
 
 .produits {
-    /* Disposition en grille */
     display: grid;
-    /* Colonnes responsives - minimum 300px */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    /* Espace entre les éléments */
     gap: 30px;
-    /* Espace au-dessus */
     margin-top: 40px;
 }
 
 /* ============================================= */
-/* CARTE PRODUIT - Style de chaque produit      */
+/* CARTE PRODUIT - Style amélioré               */
 /* ============================================= */
 
 .produit {
-    /* Bordure grise */
-    border: 1px solid #ddd;
-    /* Espacement intérieur */
-    padding: 20px;
-    /* Coins arrondis */
-    border-radius: 8px;
-    /* Centrer le texte */
+    border: 2px solid #f1c40f; /* Bordure dorée */
+    padding: 25px;
+    border-radius: 12px;
     text-align: center;
-    /* Fond blanc */
     background: white;
-    /* Animation fluide pour les transformations */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Effet au survol d'un produit */
+.produit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #27ae60, #f1c40f); /* Barre colorée en haut */
+}
+
 .produit:hover {
-    /* Déplacer vers le haut */
-    transform: translateY(-5px);
-    /* Ombre plus prononcée */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(241, 196, 15, 0.2);
+    border-color: #27ae60; /* Change la bordure en vert au survol */
 }
 
 /* ============================================= */
@@ -189,133 +161,173 @@ h1 {
 /* ============================================= */
 
 .produit img {
-    /* Prendre toute la largeur */
     width: 100%;
-    /* Hauteur fixe */
-    height: 200px;
-    /* Adapter l'image sans déformation */
+    height: 220px;
     object-fit: cover;
-    /* Coins légèrement arrondis */
-    border-radius: 4px;
-    /* Espace en bas */
-    margin-bottom: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 2px solid #ecf0f1;
+    transition: transform 0.3s ease;
+}
+
+.produit:hover img {
+    transform: scale(1.05);
 }
 
 /* ============================================= */
-/* PRIX - Style des prix des produits           */
+/* PRIX - Style avec couleur verte              */
 /* ============================================= */
 
 .prix {
-    /* Taille de police agrandie */
-    font-size: 1.4em;
-    /* Texte en gras */
+    font-size: 1.6em;
     font-weight: bold;
-    /* Couleur verte */
-    color: #27ae60;
-    /* Espace autour */
-    margin: 15px 0;
+    color: #27ae60; /* Vert */
+    margin: 20px 0;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 6px;
+    border: 2px dashed #bdc3c7;
 }
 
 /* ============================================= */
-/* BOUTON AJOUTER PANIER - Style spécifique     */
+/* BOUTON AJOUTER PANIER - Style vert           */
 /* ============================================= */
 
 .btn-ajouter {
-    /* Couleur de fond bleue */
-    background-color: #3498db;
-    /* Texte blanc */
+    background: linear-gradient(135deg, #27ae60, #2ecc71); /* Dégradé vert */
     color: white;
-    /* Pas de bordure */
     border: none;
-    /* Espacement intérieur */
-    padding: 10px 20px;
-    /* Coins arrondis */
-    border-radius: 4px;
-    /* Curseur pointeur */
+    padding: 12px 25px;
+    border-radius: 6px;
     cursor: pointer;
-    /* Taille de police normale */
-    font-size: 1em;
-    /* Animation fluide pour la couleur de fond */
-    transition: background-color 0.3s ease;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
 }
 
-/* Effet au survol du bouton */
 .btn-ajouter:hover {
-    /* Couleur de fond plus foncée */
-    background-color: #2980b9;
+    background: linear-gradient(135deg, #229954, #27ae60);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(39, 174, 96, 0.4);
 }
 
 /* ============================================= */
-/* PIED DE PAGE - Section finale               */
+/* PIED DE PAGE - Style cohérent                */
 /* ============================================= */
 
 footer {
-    /* Centrer le texte */
     text-align: center;
-    /* Grand espace au-dessus */
-    margin-top: 50px;
-    /* Espacement intérieur */
-    padding: 20px;
-    /* Couleur de texte grise */
+    margin-top: 60px;
+    padding: 25px;
     color: #7f8c8d;
-    /* Ligne de séparation en haut */
-    border-top: 1px solid #ddd;
+    border-top: 3px solid #f1c40f; /* Ligne dorée */
+    background: #f8f9fa;
+    border-radius: 8px;
 }
 
 /* ============================================= */
-/* MESSAGES - Notifications et alertes         */
+/* MESSAGES - Notifications stylisées           */
 /* ============================================= */
 
 .message {
-    /* Espacement intérieur */
-    padding: 10px;
-    /* Petits espaces verticaux */
-    margin: 10px 0;
-    /* Coins arrondis */
-    border-radius: 4px;
-    /* Centrer le texte */
+    padding: 15px 20px;
+    margin: 15px 0;
+    border-radius: 8px;
     text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* Message de succès (vert) */
 .message-success {
-    /* Fond vert très clair */
-    background-color: #d4edda;
-    /* Texte vert foncé */
-    color: #155724;
-    /* Bordure verte claire */
-    border: 1px solid #c3e6cb;
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: white;
+    border-left: 5px solid #f1c40f; /* Accent doré */
 }
 
-/* Message d'erreur (rouge) */
 .message-error {
-    /* Fond rouge très clair */
-    background-color: #f8d7da;
-    /* Texte rouge foncé */
-    color: #721c24;
-    /* Bordure rouge claire */
-    border: 1px solid #f5c6cb;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    border-left: 5px solid #f1c40f; /* Accent doré */
 }
 
 /* ============================================= */
-/* RESPONSIVE DESIGN - Adaptation mobile       */
+/* RESPONSIVE DESIGN - Adaptation mobile        */
 /* ============================================= */
 
 @media (max-width: 768px) {
-    /* Sur mobile, une seule colonne */
     .produits {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
     
-    /* Sur mobile, empiler les éléments du panier */
     .panier-item {
         flex-direction: column;
         align-items: flex-start;
+        gap: 10px;
     }
     
-    /* Ajuster le bouton vider panier sur mobile */
     .btn-vider-panier {
         margin-left: 0;
         margin-top: 10px;
     }
+    
+    header {
+        padding: 20px 15px;
+    }
+    
+    h1 {
+        font-size: 2.2em;
+    }
+}
+
+/* ============================================= */
+/* ANIMATIONS DE CHARGEMENT - Pour le site      */
+/* ============================================= */
+
+/* Animation de fade-in au chargement */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.produit {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.produit:nth-child(1) { animation-delay: 0.1s; }
+.produit:nth-child(2) { animation-delay: 0.2s; }
+.produit:nth-child(3) { animation-delay: 0.3s; }
+.produit:nth-child(4) { animation-delay: 0.4s; }
+
+.panier-section {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* ============================================= */
+/* ÉTATS DES BOUTONS - Feedback visuel          */
+/* ============================================= */
+
+.btn-ajouter:active {
+    transform: scale(0.98);
+}
+
+.btn-commander:active {
+    transform: scale(0.98);
+}
+
+/* Style pour les boutons de suppression dans le panier */
+.panier-item button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.panier-item button:hover {
+    background: #c0392b;
 }

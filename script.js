@@ -1,587 +1,257 @@
-// ===== CONFIGURATION =====
-const CONFIG = {
-    produitsParPage: 6,
-    delaiChargement: 1000
-};
+// ============================================= //
+// VARIABLES GLOBALES - Données partagées       //
+// ============================================= //
 
-// ===== ÉTAT GLOBAL =====
-let state = {
-    panier: [],
-    produits: [],
-    produitsFiltres: [],
-    pageCourante: 1,
-    theme: 'light',
-    currentReview: 0
-};
+// Tableau pour stocker tous les articles du panier
+let panier = [];
 
-// ===== INITIALISATION =====
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Initialisation du site Au Palais Des Arts');
-    
-    initialiserApplication();
-    chargerProduits();
-    initialiserEvenements();
-});
+// ============================================= //
+// FONCTIONS DU PANIER - Gestion des articles   //
+// ============================================= //
 
-function initialiserApplication() {
-    // Charger le panier depuis le localStorage
-    const panierSauvegarde = localStorage.getItem('panier_apa');
-    if (panierSauvegarde) {
-        state.panier = JSON.parse(panierSauvegarde);
-        mettreAJourPanier();
-    }
+/**
+ * Fonction pour ajouter un produit au panier
+ * @param {string} nom - Le nom du produit
+ * @param {number} prix - Le prix du produit
+ */
+function ajouterAuPanier(nom, prix) {
+    console.log(`Tentative d'ajout: ${nom} à ${prix}€`);
     
-    // Charger le thème
-    const themeSauvegarde = localStorage.getItem('theme_apa');
-    if (themeSauvegarde) {
-        state.theme = themeSauvegarde;
-        document.documentElement.setAttribute('data-theme', state.theme);
-        mettreAJourBoutonTheme();
-    }
-}
-
-function initialiserEvenements() {
-    // Navigation mobile
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
+    // Vérifier si l'article est déjà dans le panier
+    const articleExist = panier.find(item => item.nom === nom);
     
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            this.classList.toggle('active');
-        });
-    }
-    
-    // Panier
-    initialiserPanier();
-    
-    // Thème
-    const themeBtn = document.getElementById('themeBtn');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', changerTheme);
-    }
-    
-    // Filtres produits
-    initialiserFiltres();
-    
-    // Formulaire contact
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            envoyerFormulaireContact();
-        });
-    }
-    
-    // Scroll events
-    initialiserScrollEvents();
-}
-
-// ===== PRODUITS =====
-function chargerProduits() {
-    console.log('📦 Chargement des produits...');
-    
-    // Simuler un chargement asynchrone
-    setTimeout(() => {
-        // Données des produits avec de VRAIES images d'osier qui fonctionnent
-        state.produits = [
-            {
-                id: 1,
-                nom: "Panier Royal en Osier",
-                prix: 45.00,
-                categorie: "panier",
-                image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-                description: "Panier d'exception en osier naturel, tissage traditionnel français. Parfait pour le rangement ou la décoration.",
-                dimensions: "30x40cm",
-                livraison: "48h",
-                stock: 15,
-                populaire: true
-            },
-            {
-                id: 2,
-                nom: "Corbeille Champêtre",
-                prix: 28.00,
-                categorie: "corbeille",
-                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-                description: "Corbeille authentique pour votre décoration naturelle. Idéale pour les fruits ou le rangement.",
-                dimensions: "25x35cm",
-                livraison: "48h",
-                stock: 8
-            },
-            {
-                id: 3,
-                nom: "Panier Jardin Rustique",
-                prix: 38.00,
-                categorie: "panier",
-                image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-                description: "Panier robuste idéal pour le jardin, les courses ou la décoration campagne.",
-                dimensions: "35x45cm",
-                livraison: "48h",
-                stock: 12
-            },
-            {
-                id: 4,
-                nom: "Corbeille à Fruits Élégante",
-                prix: 32.00,
-                categorie: "corbeille",
-                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-                description: "Corbeille raffinée pour présenter vos fruits avec élégance et style naturel.",
-                dimensions: "28x38cm",
-                livraison: "48h",
-                stock: 10
-            },
-            {
-                id: 5,
-                nom: "Suspension Naturelle",
-                prix: 65.00,
-                categorie: "decoration",
-                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-                description: "Luminaire artistique en osier pour une ambiance chaleureuse et naturelle.",
-                dimensions: "Diamètre 45cm",
-                livraison: "72h",
-                stock: 5
-            },
-            {
-                id: 6,
-                nom: "Panier Pique-nique",
-                prix: 55.00,
-                categorie: "panier",
-                image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80",
-                description: "Panier spacieux avec anses renforcées, parfait pour vos pique-niques.",
-                dimensions: "40x50cm",
-                livraison: "48h",
-                stock: 7
-            }
-        ];
-        
-        state.produitsFiltres = [...state.produits];
-        afficherProduits();
-        cacherChargement();
-        
-        console.log('✅ Produits chargés:', state.produits.length);
-        
-    }, CONFIG.delaiChargement);
-}
-
-function afficherProduits() {
-    const grid = document.getElementById('productsGrid');
-    if (!grid) return;
-    
-    const startIndex = (state.pageCourante - 1) * CONFIG.produitsParPage;
-    const endIndex = startIndex + CONFIG.produitsParPage;
-    const produitsAAfficher = state.produitsFiltres.slice(startIndex, endIndex);
-    
-    if (produitsAAfficher.length === 0) {
-        grid.innerHTML = `
-            <div class="no-products" style="grid-column: 1/-1; text-align: center; padding: var(--space-xl);">
-                <p style="font-size: 1.2rem; color: var(--text-light); margin-bottom: var(--space-md);">
-                    Aucun produit ne correspond à votre recherche
-                </p>
-                <button class="btn btn-secondary" onclick="reinitialiserFiltres()">
-                    Réinitialiser les filtres
-                </button>
-            </div>
-        `;
+    if (articleExist) {
+        // Si l'article existe déjà, augmenter la quantité
+        articleExist.quantite++;
+        console.log(`Quantité augmentée pour: ${nom}`);
     } else {
-        grid.innerHTML = produitsAAfficher.map(produit => `
-            <div class="product-card" data-id="${produit.id}">
-                ${produit.populaire ? '<span class="product-badge" style="position: absolute; top: 10px; right: 10px; background: var(--gold); color: var(--primary-green); padding: 5px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">Populaire</span>' : ''}
-                <img src="${produit.image}" alt="${produit.nom}" class="product-image">
-                <div class="product-content">
-                    <h3 class="product-title">${produit.nom}</h3>
-                    <p class="product-description">${produit.description}</p>
-                    <div class="product-meta">
-                        <span>📏 ${produit.dimensions}</span>
-                        <span>🚚 ${produit.livraison}</span>
-                    </div>
-                    <div class="product-price">${produit.prix.toFixed(2)}€</div>
-                    <button class="add-to-cart" onclick="ajouterAuPanier(${produit.id})">
-                        Ajouter au panier
-                    </button>
-                </div>
-            </div>
-        `).join('');
-    }
-    
-    mettreAJourPagination();
-}
-
-function initialiserFiltres() {
-    // Filtres par catégorie
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            const filter = this.getAttribute('data-filter');
-            filtrerProduits(filter);
-        });
-    });
-    
-    // Recherche
-    const searchInput = document.getElementById('searchInput');
-    const searchBtn = document.getElementById('searchBtn');
-    
-    if (searchInput && searchBtn) {
-        searchBtn.addEventListener('click', () => {
-            rechercherProduits(searchInput.value);
-        });
-        
-        searchInput.addEventListener('input', (e) => {
-            if (e.target.value === '') {
-                rechercherProduits('');
-            }
-        });
-    }
-}
-
-function filtrerProduits(categorie) {
-    if (categorie === 'all') {
-        state.produitsFiltres = [...state.produits];
-    } else {
-        state.produitsFiltres = state.produits.filter(p => p.categorie === categorie);
-    }
-    
-    state.pageCourante = 1;
-    afficherProduits();
-}
-
-function rechercherProduits(terme) {
-    if (!terme.trim()) {
-        state.produitsFiltres = [...state.produits];
-    } else {
-        const searchTerm = terme.toLowerCase();
-        state.produitsFiltres = state.produits.filter(p =>
-            p.nom.toLowerCase().includes(searchTerm) ||
-            p.description.toLowerCase().includes(searchTerm)
-        );
-    }
-    
-    state.pageCourante = 1;
-    afficherProduits();
-}
-
-function mettreAJourPagination() {
-    const pagination = document.getElementById('pagination');
-    if (!pagination) return;
-    
-    const totalPages = Math.ceil(state.produitsFiltres.length / CONFIG.produitsParPage);
-    
-    if (totalPages <= 1) {
-        pagination.style.display = 'none';
-        return;
-    }
-    
-    pagination.style.display = 'flex';
-    
-    // Boutons précédent/suivant
-    const prevBtn = pagination.querySelector('.prev');
-    const nextBtn = pagination.querySelector('.next');
-    
-    prevBtn.disabled = state.pageCourante === 1;
-    nextBtn.disabled = state.pageCourante === totalPages;
-    
-    prevBtn.onclick = () => changerPage(state.pageCourante - 1);
-    nextBtn.onclick = () => changerPage(state.pageCourante + 1);
-    
-    // Numéros de page
-    const pageNumbers = pagination.querySelector('.page-numbers');
-    pageNumbers.innerHTML = '';
-    
-    for (let i = 1; i <= totalPages; i++) {
-        const pageBtn = document.createElement('button');
-        pageBtn.className = `page-number ${i === state.pageCourante ? 'active' : ''}`;
-        pageBtn.textContent = i;
-        pageBtn.onclick = () => changerPage(i);
-        pageNumbers.appendChild(pageBtn);
-    }
-}
-
-function changerPage(nouvellePage) {
-    state.pageCourante = nouvellePage;
-    afficherProduits();
-    
-    // Scroll vers le haut de la section produits
-    const sectionProduits = document.getElementById('produits');
-    if (sectionProduits) {
-        sectionProduits.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-}
-
-// ===== PANIER =====
-function initialiserPanier() {
-    const cartBtn = document.getElementById('cartBtn');
-    const closeCart = document.getElementById('closeCart');
-    const overlay = document.getElementById('overlay');
-    const cartSidebar = document.getElementById('cartSidebar');
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    
-    if (cartBtn && cartSidebar) {
-        cartBtn.addEventListener('click', ouvrirPanier);
-    }
-    
-    if (closeCart && overlay) {
-        closeCart.addEventListener('click', fermerPanier);
-        overlay.addEventListener('click', fermerPanier);
-    }
-    
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', passerCommande);
-    }
-}
-
-function ajouterAuPanier(produitId) {
-    const produit = state.produits.find(p => p.id === produitId);
-    if (!produit) return;
-    
-    const existingItem = state.panier.find(item => item.id === produitId);
-    
-    if (existingItem) {
-        existingItem.quantite += 1;
-    } else {
-        state.panier.push({
-            ...produit,
+        // Sinon, ajouter un nouvel article au panier
+        panier.push({
+            nom: nom,
+            prix: prix,
             quantite: 1
         });
+        console.log(`Nouvel article ajouté: ${nom}`);
     }
     
-    sauvegarderPanier();
+    // Mettre à jour l'affichage du panier
     mettreAJourPanier();
-    afficherNotification(`${produit.nom} ajouté au panier !`, 'success');
     
-    // Ouvrir le panier automatiquement
-    ouvrirPanier();
+    // Afficher une notification de confirmation
+    afficherMessage(`${nom} ajouté au panier !`, 'success');
 }
 
+/**
+ * Fonction pour mettre à jour l'affichage du panier
+ * Cette fonction est appelée à chaque modification du panier
+ */
 function mettreAJourPanier() {
-    // Badge
-    const cartCount = document.querySelector('.cart-count');
-    if (cartCount) {
-        const totalItems = state.panier.reduce((sum, item) => sum + item.quantite, 0);
-        cartCount.textContent = totalItems;
-    }
+    console.log("Mise à jour de l'affichage du panier");
     
-    // Sidebar
-    const cartItems = document.getElementById('cartItems');
-    const cartTotal = document.getElementById('cartTotal');
+    // Récupérer les éléments HTML
+    const panierItems = document.getElementById('panier-items');
+    const totalPanier = document.getElementById('total-panier');
+    const panierVide = document.getElementById('panier-vide');
     
-    if (cartItems && cartTotal) {
-        if (state.panier.length === 0) {
-            cartItems.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: var(--space-xl);">Votre panier est vide</p>';
-            cartTotal.textContent = '0,00€';
-        } else {
-            cartItems.innerHTML = state.panier.map(item => `
-                <div class="cart-item">
-                    <img src="${item.image}" alt="${item.nom}" class="cart-item-image">
-                    <div class="cart-item-details">
-                        <h4>${item.nom}</h4>
-                        <p>${item.prix.toFixed(2)}€ x ${item.quantite}</p>
-                        <div class="cart-item-controls">
-                            <button onclick="modifierQuantite(${item.id}, -1)">-</button>
-                            <span>${item.quantite}</span>
-                            <button onclick="modifierQuantite(${item.id}, 1)">+</button>
-                        </div>
-                    </div>
-                    <button class="remove-item" onclick="supprimerDuPanier(${item.id})">🗑️</button>
-                </div>
-            `).join('');
-            
-            const total = state.panier.reduce((sum, item) => sum + (item.prix * item.quantite), 0);
-            cartTotal.textContent = `${total.toFixed(2)}€`;
-        }
-    }
-}
-
-function modifierQuantite(produitId, changement) {
-    const item = state.panier.find(item => item.id === produitId);
-    if (!item) return;
+    // Vider l'affichage actuel du panier
+    panierItems.innerHTML = '';
     
-    item.quantite += changement;
-    
-    if (item.quantite <= 0) {
-        supprimerDuPanier(produitId);
-    } else {
-        sauvegarderPanier();
-        mettreAJourPanier();
-    }
-}
-
-function supprimerDuPanier(produitId) {
-    state.panier = state.panier.filter(item => item.id !== produitId);
-    sauvegarderPanier();
-    mettreAJourPanier();
-    afficherNotification('Produit retiré du panier', 'info');
-}
-
-function ouvrirPanier() {
-    const cartSidebar = document.getElementById('cartSidebar');
-    const overlay = document.getElementById('overlay');
-    
-    if (cartSidebar && overlay) {
-        cartSidebar.classList.add('open');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function fermerPanier() {
-    const cartSidebar = document.getElementById('cartSidebar');
-    const overlay = document.getElementById('overlay');
-    
-    if (cartSidebar && overlay) {
-        cartSidebar.classList.remove('open');
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-function passerCommande() {
-    if (state.panier.length === 0) {
-        afficherNotification('Votre panier est vide', 'error');
+    // Vérifier si le panier est vide
+    if (panier.length === 0) {
+        // Afficher le message "panier vide"
+        panierItems.innerHTML = '<p id="panier-vide">Votre panier est vide</p>';
+        totalPanier.textContent = '0.00';
+        console.log("Panier vide affiché");
         return;
     }
     
-    afficherNotification('Commande passée avec succès ! Redirection...', 'success');
+    // Initialiser le total à 0
+    let total = 0;
     
-    // Simulation de commande
-    setTimeout(() => {
-        state.panier = [];
-        sauvegarderPanier();
+    // Parcourir tous les articles du panier
+    panier.forEach((article, index) => {
+        // Calculer le sous-total pour cet article
+        const sousTotal = article.prix * article.quantite;
+        // Ajouter au total général
+        total += sousTotal;
+        
+        // Créer un élément HTML pour cet article
+        const articleElement = document.createElement('div');
+        articleElement.className = 'panier-item';
+        articleElement.innerHTML = `
+            <div>
+                <strong>${article.nom}</strong><br>
+                <small>${article.prix}€ x ${article.quantite}</small>
+            </div>
+            <div>
+                <strong>${sousTotal.toFixed(2)}€</strong>
+                <button onclick="supprimerArticle(${index})">❌</button>
+            </div>
+        `;
+        
+        // Ajouter l'article au panier affiché
+        panierItems.appendChild(articleElement);
+    });
+    
+    // Mettre à jour l'affichage du total
+    totalPanier.textContent = total.toFixed(2);
+    console.log(`Total mis à jour: ${total.toFixed(2)}€`);
+}
+
+/**
+ * Fonction pour supprimer un article du panier
+ * @param {number} index - L'index de l'article à supprimer
+ */
+function supprimerArticle(index) {
+    console.log(`Suppression de l'article à l'index: ${index}`);
+    
+    // Vérifier que l'index est valide
+    if (index >= 0 && index < panier.length) {
+        const nomArticle = panier[index].nom;
+        // Supprimer l'article du panier
+        panier.splice(index, 1);
+        // Mettre à jour l'affichage
         mettreAJourPanier();
-        fermerPanier();
-    }, 2000);
+        // Afficher une notification
+        afficherMessage(`${nomArticle} supprimé du panier`, 'success');
+    } else {
+        console.error("Index invalide pour la suppression");
+    }
 }
 
+/**
+ * Fonction pour vider complètement le panier
+ */
+function viderPanier() {
+    console.log("Tentative de vidage du panier");
+    
+    // Vérifier si le panier est déjà vide
+    if (panier.length === 0) {
+        afficherMessage('Le panier est déjà vide', 'error');
+        return;
+    }
+    
+    // Sauvegarder le nombre d'articles pour le message
+    const nbArticles = panier.length;
+    
+    // Vider le tableau panier
+    panier = [];
+    
+    // Mettre à jour l'affichage
+    mettreAJourPanier();
+    
+    // Afficher une notification
+    afficherMessage(`Panier vidé (${nbArticles} article(s) supprimé(s))`, 'success');
+}
+
+// ============================================= //
+// FONCTION COMMANDE - Traitement des commandes //
+// ============================================= //
+
+/**
+ * Fonction pour simuler le passage d'une commande
+ */
+function passerCommande() {
+    console.log("Tentative de passage de commande");
+    
+    // Vérifier si le panier est vide
+    if (panier.length === 0) {
+        afficherMessage('Votre panier est vide', 'error');
+        return;
+    }
+    
+    // Calculer le total de la commande
+    const total = panier.reduce((sum, article) => sum + (article.prix * article.quantite), 0);
+    
+    // Afficher un message de confirmation
+    afficherMessage(`✅ Commande passée avec succès ! Total: ${total.toFixed(2)}€`, 'success');
+    
+    // Réinitialiser le panier après la commande
+    panier = [];
+    mettreAJourPanier();
+    
+    console.log("Commande traitée avec succès");
+    
+    // Ici, vous pourriez ajouter:
+    // - Redirection vers une page de paiement
+    // - Envoi des données à un serveur
+    // - Sauvegarde dans le localStorage
+    // window.location.href = 'paiement.html';
+}
+
+// ============================================= //
+// FONCTIONS UTILITAIRES - Outils divers        //
+// ============================================= //
+
+/**
+ * Fonction pour afficher des messages temporaires
+ * @param {string} message - Le message à afficher
+ * @param {string} type - Le type de message ('success' ou 'error')
+ */
+function afficherMessage(message, type) {
+    console.log(`Message ${type}: ${message}`);
+    
+    // Créer un élément de message
+    const messageElement = document.createElement('div');
+    messageElement.className = `message message-${type}`;
+    messageElement.textContent = message;
+    
+    // Ajouter le message au début du body
+    document.body.insertBefore(messageElement, document.body.firstChild);
+    
+    // Supprimer le message après 3 secondes
+    setTimeout(() => {
+        if (messageElement.parentNode) {
+            messageElement.remove();
+            console.log("Message supprimé");
+        }
+    }, 3000);
+}
+
+// ============================================= //
+// INITIALISATION - Code exécuté au démarrage  //
+// ============================================= //
+
+/**
+ * Fonction d'initialisation exécutée au chargement de la page
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Page chargée - Initialisation");
+    
+    // Mettre à jour l'affichage du panier au chargement
+    mettreAJourPanier();
+    
+    // Ajouter un message de bienvenue
+    afficherMessage('Bienvenue dans notre boutique !', 'success');
+    
+    // Ici vous pourriez aussi:
+    // - Charger le panier depuis le localStorage
+    // - Vérifier l'authentification utilisateur
+    // - Charger des données depuis une API
+});
+
+// ============================================= //
+// FONCTIONNALITÉS AVANCÉES - Pour plus tard   //
+// ============================================= //
+
+/**
+ * Fonction pour sauvegarder le panier dans le localStorage
+ * (À implémenter si besoin de persistance)
+ */
 function sauvegarderPanier() {
-    localStorage.setItem('panier_apa', JSON.stringify(state.panier));
+    localStorage.setItem('panier', JSON.stringify(panier));
+    console.log("Panier sauvegardé");
 }
 
-// ===== THÈME =====
-function changerTheme() {
-    state.theme = state.theme === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', state.theme);
-    localStorage.setItem('theme_apa', state.theme);
-    mettreAJourBoutonTheme();
-}
-
-function mettreAJourBoutonTheme() {
-    const themeBtn = document.getElementById('themeBtn');
-    if (themeBtn) {
-        themeBtn.textContent = state.theme === 'light' ? '🌙' : '☀️';
+/**
+ * Fonction pour charger le panier depuis le localStorage
+ * (À implémenter si besoin de persistance)
+ */
+function chargerPanier() {
+    const panierSauvegarde = localStorage.getItem('panier');
+    if (panierSauvegarde) {
+        panier = JSON.parse(panierSauvegarde);
+        mettreAJourPanier();
+        console.log("Panier chargé depuis le localStorage");
     }
 }
-
-// ===== FORMULAIRES =====
-function envoyerFormulaireContact() {
-    const form = document.getElementById('contactForm');
-    const button = form.querySelector('button[type="submit"]');
-    
-    button.disabled = true;
-    button.textContent = 'Envoi en cours...';
-    
-    // Simulation d'envoi
-    setTimeout(() => {
-        afficherNotification('Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.', 'success');
-        form.reset();
-        button.disabled = false;
-        button.textContent = 'Envoyer mon message';
-    }, 2000);
-}
-
-// ===== SCROLL EVENTS =====
-function initialiserScrollEvents() {
-    const header = document.getElementById('header');
-    
-    window.addEventListener('scroll', () => {
-        // Header scroll
-        if (window.scrollY > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-}
-
-// ===== NOTIFICATIONS =====
-function afficherNotification(message, type = 'info') {
-    // Créer l'élément de notification
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span class="notification-message">${message}</span>
-            <button class="notification-close">×</button>
-        </div>
-    `;
-    
-    // Styles pour la notification
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
-        color: white;
-        padding: 15px 20px;
-        border-radius: 5px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        z-index: 10000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        max-width: 400px;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Animation d'entrée
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Bouton de fermeture
-    const closeBtn = notification.querySelector('.notification-close');
-    closeBtn.addEventListener('click', () => {
-        fermerNotification(notification);
-    });
-    
-    // Fermeture automatique après 5 secondes
-    setTimeout(() => {
-        fermerNotification(notification);
-    }, 5000);
-}
-
-function fermerNotification(notification) {
-    notification.style.transform = 'translateX(100%)';
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-        }
-    }, 300);
-}
-
-// ===== CHARGEMENT =====
-function cacherChargement() {
-    const loadingScreen = document.getElementById('loadingScreen');
-    if (loadingScreen) {
-        loadingScreen.style.opacity = '0';
-        setTimeout(() => {
-            loadingScreen.style.display = 'none';
-        }, 500);
-    }
-}
-
-// ===== FONCTIONS GLOBALES =====
-function reinitialiserFiltres() {
-    const searchInput = document.getElementById('searchInput');
-    const allFilter = document.querySelector('[data-filter="all"]');
-    
-    if (searchInput) searchInput.value = '';
-    if (allFilter) allFilter.click();
-}
-
-// Exposer les fonctions globales
-window.ajouterAuPanier = ajouterAuPanier;
-window.supprimerDuPanier = supprimerDuPanier;
-window.modifierQuantite = modifierQuantite;
-window.reinitialiserFiltres = reinitialiserFiltres;
-
-console.log('🎨 Au Palais Des Arts - Script complètement initialisé');

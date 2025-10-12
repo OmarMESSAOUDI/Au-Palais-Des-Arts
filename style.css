@@ -426,6 +426,10 @@ header {
     transform: translateY(-2px);
 }
 
+.btn-full {
+    width: 100%;
+}
+
 /* ===== PRÉSENTATION ===== */
 .presentation {
     background: var(--white);
@@ -445,10 +449,43 @@ header {
 
 .histoire-text p {
     font-size: 1.1rem;
-    line-height: 1.8;
+    line-height: 1.7;
     color: var(--text-light);
     margin-bottom: var(--space-lg);
     text-align: center;
+}
+
+/* Origine Maroc */
+.origine-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-md);
+    margin: var(--space-lg) 0;
+}
+
+.origine-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--cream);
+    border-radius: var(--radius);
+    border: 2px solid var(--light-gold);
+}
+
+.origine-icon {
+    font-size: 2rem;
+}
+
+.origine-badge h4 {
+    color: var(--primary-green);
+    margin-bottom: var(--space-xs);
+}
+
+.origine-badge p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin: 0;
 }
 
 .valeurs-grid {
@@ -668,9 +705,20 @@ header {
 .product-meta {
     display: flex;
     justify-content: space-between;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
     font-size: 0.9rem;
     color: var(--text-light);
+}
+
+.product-origin {
+    text-align: center;
+    color: var(--primary-green);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: var(--space-md);
+    background: var(--light-gold);
+    padding: var(--space-xs);
+    border-radius: var(--radius);
 }
 
 .product-price {
@@ -689,6 +737,164 @@ header {
     width: 100%;
     padding: var(--space-md);
     font-size: 1rem;
+}
+
+/* ===== CRÉATION SUR MESURE ===== */
+.creation-sur-mesure {
+    background: var(--white);
+}
+
+.creation-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.creation-text h3 {
+    color: var(--primary-green);
+    font-size: 1.8rem;
+    margin-bottom: var(--space-md);
+}
+
+.creation-text p {
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+}
+
+.avantages-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.avantage {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--cream);
+    border-radius: var(--radius);
+    border-left: 4px solid var(--gold);
+}
+
+.avantage-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.avantage h4 {
+    color: var(--primary-green);
+    margin-bottom: var(--space-xs);
+}
+
+.avantage p {
+    color: var(--text-light);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Formulaire création sur mesure */
+.creation-form-container {
+    background: var(--cream);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--light-gold);
+}
+
+.creation-form h4 {
+    color: var(--primary-green);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    font-size: 1.3rem;
+}
+
+.creation-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: var(--space-xs);
+    font-weight: 600;
+    color: var(--primary-green);
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: var(--space-sm);
+    border: 2px solid #ddd;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-green);
+}
+
+.checkbox-group {
+    margin: var(--space-md) 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    cursor: pointer;
+    font-weight: normal;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 3px;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* ===== AVIS ===== */
@@ -960,6 +1166,15 @@ header {
         flex-direction: column;
     }
 
+    .creation-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
     .contact-info {
         grid-template-columns: 1fr;
     }
@@ -971,6 +1186,19 @@ header {
 
     .section-header h2 {
         font-size: 2rem;
+    }
+
+    .origine-info {
+        grid-template-columns: 1fr;
+    }
+
+    .creation-form-container {
+        padding: var(--space-lg);
+    }
+
+    .avantage {
+        flex-direction: column;
+        text-align: center;
     }
 }
 
@@ -1004,5 +1232,14 @@ header {
 
     .panier-item-controls {
         align-self: flex-end;
+    }
+
+    .origine-badge {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .creation-form-container {
+        padding: var(--space-md);
     }
 }

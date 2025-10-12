@@ -280,7 +280,7 @@
         </div>
     </section>
 
-    <!-- Section Contact -->
+      <!-- Section Contact -->
     <section class="contact section-padding" id="contact">
         <div class="container">
             <div class="section-header">
@@ -310,38 +310,42 @@
                             <p>123 Rue de l'Artisanat<br>75000 Paris</p>
                         </div>
                     </div>
+                    <div class="origine">
+                        <h3>Origine de nos produits</h3>
+                        <p>Tous nos produits sont <strong>fabriqués à la main au Maroc</strong> par des artisans locaux, perpétuant un savoir-faire ancestral et <strong>100% artisanal</strong>.</p>
+                    </div>
                 </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Nom complet *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Téléphone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Sujet *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Choisissez un sujet</option>
+                            <option value="information">Demande d'information</option>
+                            <option value="custom">Création sur mesure</option>
+                            <option value="other">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Décrivez votre projet ou votre demande..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Envoyer le message</button>
+                </form>
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Au Palais Des Arts</h3>
-                    <p>Artisanat français d'exception depuis 1985</p>
-                    <div class="trust-badges">
-                        <span class="trust-badge">🌿 100% Fait main</span>
-                        <span class="trust-badge">🚚 Livraison France</span>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Navigation</h3>
-                    <ul>
-                        <li><a href="#produits">Nos créations</a></li>
-                        <li><a href="#histoire">Notre histoire</a></li>
-                        <li><a href="#avis">Avis clients</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Au Palais Des Arts. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
 
     <!-- Messages de notification -->
     <div id="notificationContainer"></div>

@@ -262,6 +262,67 @@ function initialiserNavigationMobile() {
     }
 }
 
+// ===== GESTION FORMULAIRE CRÉATION SUR MESURE =====
+
+/**
+ * Initialise le formulaire de création sur mesure
+ */
+function initialiserFormulaireCreation() {
+    const formulaire = document.getElementById('creationForm');
+    if (formulaire) {
+        formulaire.addEventListener('submit', function(e) {
+            e.preventDefault();
+            envoyerDemandeCreation();
+        });
+    }
+}
+
+/**
+ * Envoie la demande de création sur mesure
+ */
+function envoyerDemandeCreation() {
+    const formulaire = document.getElementById('creationForm');
+    const btnSubmit = formulaire.querySelector('button[type="submit"]');
+    
+    // Récupérer les données du formulaire
+    const formData = new FormData(formulaire);
+    const data = {
+        nom: formData.get('nom'),
+        email: formData.get('email'),
+        telephone: formData.get('telephone'),
+        type: formData.get('type'),
+        dimensions: formData.get('dimensions'),
+        description: formData.get('description'),
+        budget: formData.get('budget')
+    };
+    
+    console.log('Demande de création sur mesure:', data);
+    
+    // Simulation d'envoi
+    btnSubmit.disabled = true;
+    btnSubmit.innerHTML = '⏳ Envoi en cours...';
+    
+    setTimeout(() => {
+        // Réinitialiser le formulaire
+        formulaire.reset();
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = '🎨 Envoyer ma demande de création sur mesure';
+        
+        // Afficher confirmation
+        afficherNotification('✅ Votre demande de création sur mesure a été envoyée ! Nos artisans marocains étudieront votre projet et vous recontacteront sous 48h.', 'success');
+        
+        // Log pour débogage
+        console.log('Demande de création envoyée avec succès');
+    }, 2000);
+}
+
+/**
+ * Initialise tous les formulaires
+ */
+function initialiserFormulaires() {
+    initialiserFormulaireCreation();
+}
+
 // ===== INITIALISATION =====
 
 /**
@@ -284,9 +345,12 @@ function initialiserApplication() {
     // Initialiser la navigation mobile
     initialiserNavigationMobile();
     
+    // Initialiser les formulaires
+    initialiserFormulaires();
+    
     // Afficher un message de bienvenue
     setTimeout(() => {
-        afficherNotification('Bienvenue chez Au Palais Des Arts ! 🎉', 'success');
+        afficherNotification('Bienvenue chez Au Palais Des Arts ! Découvrez nos créations 100% faites main au Maroc 🎨', 'success');
     }, 2500);
     
     console.log('Application initialisée avec succès');
@@ -294,3 +358,20 @@ function initialiserApplication() {
 
 // Démarrer l'application quand la page est chargée
 document.addEventListener('DOMContentLoaded', initialiserApplication);
+
+// ===== FONCTIONS DE DÉBOGAGE =====
+
+/**
+ * Affiche l'état actuel du panier dans la console (pour débogage)
+ */
+function debugPanier() {
+    console.log('=== DÉBOGAGE PANIER ===');
+    console.log('Articles:', panier);
+    console.log('Total articles:', panier.reduce((sum, item) => sum + item.quantite, 0));
+    console.log('Total prix:', panier.reduce((sum, item) => sum + (item.prix * item.quantite), 0));
+    console.log('LocalStorage:', localStorage.getItem('panier'));
+    console.log('=====================');
+}
+
+// Exposer la fonction de débogage globalement (optionnel)
+window.debugPanier = debugPanier;

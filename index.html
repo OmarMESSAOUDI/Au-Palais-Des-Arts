@@ -1,304 +1,429 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Au Palais Des Arts - Créations en Osier Français</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Au Palais Des Arts - Boutique</title>
+    
+    <style>
+        /* ===== STYLES GÉNÉRAUX ===== */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            line-height: 1.6;
+        }
+
+        /* ===== EN-TÊTE ===== */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        /* ===== SECTION PANIER ===== */
+        .panier-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .panier-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .total-panier {
+            text-align: right;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #3498db;
+        }
+
+        /* ===== BOUTONS PANIER ===== */
+        .btn-commander {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        .btn-vider-panier {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        /* ===== GRILLE DES PRODUITS ===== */
+        .produits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        /* ===== CARTE PRODUIT INDIVIDUELLE ===== */
+        .produit {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            background: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .produit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* ===== IMAGES DES PRODUITS ===== */
+        .produit img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        /* ===== PRIX DES PRODUITS ===== */
+        .prix {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #27ae60;
+            margin: 15px 0;
+        }
+
+        /* ===== BOUTON AJOUTER AU PANIER ===== */
+        .btn-ajouter {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-ajouter:hover {
+            background-color: #2980b9;
+        }
+
+        /* ===== PIED DE PAGE ===== */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #7f8c8d;
+            border-top: 1px solid #ddd;
+        }
+
+        /* ===== MESSAGES ET NOTIFICATIONS ===== */
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .message-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .produits {
+                grid-template-columns: 1fr;
+            }
+            
+            .panier-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .btn-vider-panier {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div id="loadingScreen" class="loading-screen">
-        <div class="loading-content">
-            <div class="loading-logo">🧺</div>
-            <h1>Au Palais Des Arts</h1>
-            <p>Chargement de l'artisanat français...</p>
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Header -->
-    <header id="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <span class="logo-icon">🧺</span>
-                    <div class="logo-text">
-                        <h1>Au Palais Des Arts</h1>
-                        <p>Artisanat français d'exception</p>
-                    </div>
-                </div>
-                
-                <nav class="nav">
-                    <button class="nav-toggle" id="navToggle">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <div class="nav-menu" id="navMenu">
-                        <a href="#produits" class="nav-link">Nos Créations</a>
-                        <a href="#histoire" class="nav-link">Notre Histoire</a>
-                        <a href="#avis" class="nav-link">Avis Clients</a>
-                        <a href="#contact" class="nav-link">Contact</a>
-                        <div class="nav-actions">
-                            <button class="cart-btn" id="cartBtn">
-                                🛒 <span class="cart-count">0</span>
-                            </button>
-                            <button class="theme-btn" id="themeBtn">🌙</button>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
+    <!-- ===== EN-TÊTE PRINCIPAL ===== -->
+    <header>
+        <h1>Au Palais Des Arts</h1>
+        <p>Découvrez nos paniers artisanaux de qualité</p>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>L'Art de la Vannerie Française</h1>
-                    <p>Découvrez nos créations uniques en osier, façonnées avec passion depuis 1985</p>
-                    <div class="hero-buttons">
-                        <a href="#produits" class="btn btn-primary">Découvrir nos créations</a>
-                        <a href="#histoire" class="btn btn-secondary">Notre histoire</a>
-                    </div>
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <span class="number">38</span>
-                            <span class="label">Ans d'expertise</span>
-                        </div>
-                        <div class="stat">
-                            <span class="number">5000+</span>
-                            <span class="label">Créations vendues</span>
-                        </div>
-                        <div class="stat">
-                            <span class="number">4.9</span>
-                            <span class="label">/5 Satisfaction</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Panier en osier artisanal traditionnel français">
-                </div>
-            </div>
+    <!-- ===== SECTION DU PANIER ===== -->
+    <section class="panier-section">
+        <h2>🛒 Votre Panier</h2>
+        <div id="panier-items">
+            <!-- Les articles du panier apparaîtront ici dynamiquement -->
+            <p id="panier-vide">Votre panier est vide</p>
+        </div>
+        <div class="total-panier">
+            Total: <span id="total-panier">0.00</span>€
+        </div>
+        <button class="btn-commander" onclick="passerCommande()">🚀 Passer la commande</button>
+        <button class="btn-vider-panier" onclick="viderPanier()">🗑️ Vider le panier</button>
+    </section>
+
+    <!-- ===== SECTION DES PRODUITS ===== -->
+    <section class="produits">
+        <!-- ===== PRODUIT 1 ===== -->
+        <div class="produit">
+            <img src="Panier tressé rectangulaire.jpg" alt="Panier Tressé Rectangulaire">
+            <h2>Panier Tressé Rectangulaire</h2>
+            <p>Panier élégant au design rectangulaire, parfait pour le rangement et la décoration.</p>
+            <ul>
+                <li>Dimensions: 40x30x25cm</li>
+                <li>Matière: Osier naturel</li>
+                <li>Livraison: 48 heures</li>
+            </ul>
+            <p class="prix">35,00€</p>
+            <button class="btn-ajouter" onclick="ajouterAuPanier('Panier Tressé Rectangulaire', 35)">
+                ➕ Ajouter au panier
+            </button>
+        </div>
+
+        <!-- ===== PRODUIT 2 ===== -->
+        <div class="produit">
+            <img src="Panier à linge double compartiment.jpg" alt="Panier à Linge Double Compartiment">
+            <h2>Panier Double Compartiment</h2>
+            <p>Innovant et pratique avec double compartiment pour trier votre linge facilement.</p>
+            <ul>
+                <li>Dimensions: 50x40x35cm</li>
+                <li>2 compartiments séparés</li>
+                <li>Livraison: 48 heures</li>
+            </ul>
+            <p class="prix">55,00€</p>
+            <button class="btn-ajouter" onclick="ajouterAuPanier('Panier Double Compartiment', 55)">
+                ➕ Ajouter au panier
+            </button>
+        </div>
+
+        <!-- ===== PRODUIT 3 ===== -->
+        <div class="produit">
+            <img src="Panier à linge en feuilles de palmier.jpg" alt="Panier en Feuilles de Palmier">
+            <h2>Panier en Feuilles de Palmier</h2>
+            <p>Panier écologique fabriqué à partir de feuilles de palmier naturelles.</p>
+            <ul>
+                <li>Dimensions: 45x35x30cm</li>
+                <li>Matière: Feuilles de palmier</li>
+                <li>Livraison: 48 heures</li>
+            </ul>
+            <p class="prix">42,00€</p>
+            <button class="btn-ajouter" onclick="ajouterAuPanier('Panier en Feuilles de Palmier', 42)">
+                ➕ Ajouter au panier
+            </button>
+        </div>
+
+        <!-- ===== PRODUIT 4 ===== -->
+        <div class="produit">
+            <img src="Panier à linge rond en osier.jpg" alt="Panier Rond en Osier">
+            <h2>Panier Rond en Osier</h2>
+            <p>Panier rond traditionnel en osier de qualité supérieure pour rangement ou décoration.</p>
+            <ul>
+                <li>Diamètre: 45cm - Hauteur: 35cm</li>
+                <li>Matière: Osier naturel</li>
+                <li>Livraison: 48 heures</li>
+            </ul>
+            <p class="prix">38,00€</p>
+            <button class="btn-ajouter" onclick="ajouterAuPanier('Panier Rond en Osier', 38)">
+                ➕ Ajouter au panier
+            </button>
         </div>
     </section>
 
-    <!-- Produits Section -->
-    <section class="produits" id="produits">
-        <div class="container">
-            <div class="section-header">
-                <h2>Nos Créations en Osier</h2>
-                <p>Pièces uniques faites main avec des techniques ancestrales</p>
-            </div>
-
-            <!-- Filtres -->
-            <div class="filters">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Rechercher un produit...">
-                    <button id="searchBtn">🔍</button>
-                </div>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">Tous</button>
-                    <button class="filter-btn" data-filter="panier">Paniers</button>
-                    <button class="filter-btn" data-filter="corbeille">Corbeilles</button>
-                    <button class="filter-btn" data-filter="decoration">Décorations</button>
-                </div>
-            </div>
-
-            <!-- Grille Produits -->
-            <div class="products-grid" id="productsGrid">
-                <!-- Les produits seront injectés ici par JavaScript -->
-            </div>
-
-            <!-- Pagination -->
-            <div class="pagination" id="pagination">
-                <button class="page-btn prev" disabled>‹ Précédent</button>
-                <div class="page-numbers"></div>
-                <button class="page-btn next">Suivant ›</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Histoire Section -->
-    <section class="histoire" id="histoire">
-        <div class="container">
-            <div class="section-header">
-                <h2>Notre Histoire</h2>
-                <p>38 ans de passion pour l'artisanat français</p>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="year">1985</div>
-                    <div class="content">
-                        <h3>Création de l'atelier</h3>
-                        <p>Fondation de l'atelier Au Palais Des Arts dans le Marais par Jean-Pierre Martin</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="year">1995</div>
-                    <div class="content">
-                        <h3>Reconnaissance Nationale</h3>
-                        <p>Obtention du label "Entreprise du Patrimoine Vivant"</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="year">2010</div>
-                    <div class="content">
-                        <h3>Transmission Familiale</h3>
-                        <p>Sophie Martin reprend l'atelier et modernise la production</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Valeurs -->
-            <div class="valeurs">
-                <div class="valeur-card">
-                    <div class="valeur-icon">🌱</div>
-                    <h3>Éco-responsable</h3>
-                    <p>Osier 100% naturel provenant de cultures durables françaises</p>
-                </div>
-                <div class="valeur-card">
-                    <div class="valeur-icon">👐</div>
-                    <h3>Fait Main</h3>
-                    <p>Chaque pièce unique créée avec des techniques ancestrales</p>
-                </div>
-                <div class="valeur-card">
-                    <div class="valeur-icon">🇫🇷</div>
-                    <h3>Made in France</h3>
-                    <p>Fabrication 100% française dans notre atelier parisien</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Avis Section -->
-    <section class="avis" id="avis">
-        <div class="container">
-            <div class="section-header">
-                <h2>Avis Clients</h2>
-                <p>Ce que disent nos clients satisfaits</p>
-            </div>
-
-            <!-- Carousel Avis -->
-            <div class="reviews-carousel">
-                <div class="review active">
-                    <div class="review-content">
-                        <div class="stars">★★★★★</div>
-                        <p>"Le panier royal est absolument magnifique ! La qualité de l'osier est exceptionnelle et le travail artisanal se voit dans chaque détail."</p>
-                        <div class="client-info">
-                            <div class="client-avatar">M</div>
-                            <div class="client-details">
-                                <div class="client-name">Marie L.</div>
-                                <div class="review-date">15 mars 2024</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="review">
-                    <div class="review-content">
-                        <div class="stars">★★★★★</div>
-                        <p>"Service client au top ! J'ai commandé la corbeille champêtre et je suis ravi. La communication était parfaite."</p>
-                        <div class="client-info">
-                            <div class="client-avatar">P</div>
-                            <div class="client-details">
-                                <div class="client-name">Pierre D.</div>
-                                <div class="review-date">12 mars 2024</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2>Contactez-nous</h2>
-                <p>Une question ? Un projet sur mesure ?</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="icon">📧</div>
-                        <div class="details">
-                            <h3>Email</h3>
-                            <p>contact@aupalaisdesarts.fr</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="icon">📍</div>
-                        <div class="details">
-                            <h3>Atelier</h3>
-                            <p>123 Rue de l'Artisanat<br>75000 Paris</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Nom complet *</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message *</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Envoyer mon message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Au Palais Des Arts</h3>
-                    <p>Artisanat français d'exception depuis 1985</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Navigation</h3>
-                    <ul>
-                        <li><a href="#produits">Nos Créations</a></li>
-                        <li><a href="#histoire">Notre Histoire</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Au Palais Des Arts - Artisanat Français d'Excellence</p>
-            </div>
-        </div>
+    <!-- ===== PIED DE PAGE ===== -->
+    <footer>
+        <p>&copy; 2025 Au Palais Des Arts - Tous droits réservés</p>
+        <p>Artisanat français de qualité</p>
     </footer>
 
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3>🛒 Mon Panier</h3>
-            <button class="close-cart" id="closeCart">×</button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <!-- Items du panier -->
-        </div>
-        <div class="cart-total">
-            <strong>Total : <span id="cartTotal">0,00€</span></strong>
-        </div>
-        <button class="btn btn-primary checkout-btn" id="checkoutBtn">Commander</button>
-    </div>
+    <script>
+        // ===== VARIABLES GLOBALES =====
+        let panier = []; // Tableau pour stocker les articles du panier
 
-    <!-- Overlay -->
-    <div class="overlay" id="overlay"></div>
+        // ===== FONCTION POUR AJOUTER UN ARTICLE AU PANIER =====
+        function ajouterAuPanier(nom, prix) {
+            // Vérifier si l'article est déjà dans le panier
+            const articleExist = panier.find(item => item.nom === nom);
+            
+            if (articleExist) {
+                // Si l'article existe déjà, augmenter la quantité
+                articleExist.quantite++;
+            } else {
+                // Sinon, ajouter un nouvel article
+                panier.push({
+                    nom: nom,
+                    prix: prix,
+                    quantite: 1
+                });
+            }
+            
+            // Mettre à jour l'affichage du panier
+            mettreAJourPanier();
+            
+            // Afficher une notification
+            afficherMessage(`${nom} ajouté au panier !`, 'success');
+        }
 
-    <script src="script.js"></script>
+        // ===== FONCTION POUR METTRE À JOUR L'AFFICHAGE DU PANIER =====
+        function mettreAJourPanier() {
+            const panierItems = document.getElementById('panier-items');
+            const totalPanier = document.getElementById('total-panier');
+            const panierVide = document.getElementById('panier-vide');
+            
+            // Vider l'affichage actuel
+            panierItems.innerHTML = '';
+            
+            // Vérifier si le panier est vide
+            if (panier.length === 0) {
+                panierItems.innerHTML = '<p id="panier-vide">Votre panier est vide</p>';
+                totalPanier.textContent = '0.00';
+                return;
+            }
+            
+            // Calculer le total
+            let total = 0;
+            
+            // Afficher chaque article du panier
+            panier.forEach((article, index) => {
+                const sousTotal = article.prix * article.quantite;
+                total += sousTotal;
+                
+                const articleElement = document.createElement('div');
+                articleElement.className = 'panier-item';
+                articleElement.innerHTML = `
+                    <div>
+                        <strong>${article.nom}</strong><br>
+                        <small>${article.prix}€ x ${article.quantite}</small>
+                    </div>
+                    <div>
+                        <strong>${sousTotal.toFixed(2)}€</strong>
+                        <button onclick="supprimerArticle(${index})">❌</button>
+                    </div>
+                `;
+                
+                panierItems.appendChild(articleElement);
+            });
+            
+            // Mettre à jour le total
+            totalPanier.textContent = total.toFixed(2);
+        }
+
+        // ===== FONCTION POUR SUPPRIMER UN ARTICLE DU PANIER =====
+        function supprimerArticle(index) {
+            // Supprimer l'article du panier
+            panier.splice(index, 1);
+            
+            // Mettre à jour l'affichage
+            mettreAJourPanier();
+            
+            // Afficher une notification
+            afficherMessage('Article supprimé du panier', 'success');
+        }
+
+        // ===== FONCTION POUR VIDER COMPLÈTEMENT LE PANIER =====
+        function viderPanier() {
+            // Vérifier si le panier est déjà vide
+            if (panier.length === 0) {
+                afficherMessage('Le panier est déjà vide', 'error');
+                return;
+            }
+            
+            // Vider le panier
+            panier = [];
+            
+            // Mettre à jour l'affichage
+            mettreAJourPanier();
+            
+            // Afficher une notification
+            afficherMessage('Panier vidé', 'success');
+        }
+
+        // ===== FONCTION POUR PASSER COMMANDE =====
+        function passerCommande() {
+            // Vérifier si le panier est vide
+            if (panier.length === 0) {
+                afficherMessage('Votre panier est vide', 'error');
+                return;
+            }
+            
+            // Simuler un processus de commande
+            const total = panier.reduce((sum, article) => sum + (article.prix * article.quantite), 0);
+            
+            // Afficher un message de confirmation
+            afficherMessage(`✅ Commande passée avec succès ! Total: ${total.toFixed(2)}€`, 'success');
+            
+            // Réinitialiser le panier après la commande
+            panier = [];
+            mettreAJourPanier();
+            
+            // Ici, vous pourriez rediriger vers une page de paiement
+            // window.location.href = 'paiement.html';
+        }
+
+        // ===== FONCTION POUR AFFICHER DES MESSAGES =====
+        function afficherMessage(message, type) {
+            // Créer un élément de message
+            const messageElement = document.createElement('div');
+            messageElement.className = `message message-${type}`;
+            messageElement.textContent = message;
+            
+            // Ajouter le message au début du body
+            document.body.insertBefore(messageElement, document.body.firstChild);
+            
+            // Supprimer le message après 3 secondes
+            setTimeout(() => {
+                messageElement.remove();
+            }, 3000);
+        }
+
+        // ===== INITIALISATION AU CHARGEMENT DE LA PAGE =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mettre à jour l'affichage du panier au chargement
+            mettreAJourPanier();
+            
+            // Ajouter un message de bienvenue
+            afficherMessage('Bienvenue dans notre boutique !', 'success');
+        });
+    </script>
 </body>
 </html>

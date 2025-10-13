@@ -64,7 +64,7 @@
                     <p>Découvrez nos créations uniques en osier, 100% faites main au Maroc par des artisans passionnés</p>
                     <div class="hero-buttons">
                         <a href="#produits" class="btn btn-primary">Découvrir nos créations</a>
-                        <a href="#sur-mesure" class="btn btn-secondary">Projet sur mesure</a>
+                        <a href="#histoire" class="btn btn-secondary">Notre Histoire</a>
                     </div>
                     <div class="hero-stats">
                         <div class="stat">
@@ -93,7 +93,7 @@
     </section>
 
     <!-- Section Présentation -->
-    <section class="presentation section-padding">
+    <section class="presentation section-padding" id="histoire">
         <div class="container">
             <div class="section-header">
                 <h2>Notre Histoire</h2>
@@ -145,24 +145,6 @@
         </div>
     </section>
 
-    <!-- Section Panier -->
-    <section class="panier-section container">
-        <div class="panier-header">
-            <h2>🛒 Votre Panier</h2>
-            <span id="panier-count">0 article(s)</span>
-        </div>
-        <div class="panier-items" id="panier-items">
-            <p class="panier-vide">Votre panier est vide</p>
-        </div>
-        <div class="panier-total">
-            Total : <span id="total-panier">0,00€</span>
-        </div>
-        <div class="panier-actions">
-            <button class="btn btn-danger" onclick="viderPanier()">🗑️ Vider le panier</button>
-            <button class="btn btn-success" onclick="passerCommande()">🚀 Commander</button>
-        </div>
-    </section>
-
     <!-- Section Produits -->
     <section class="produits section-padding" id="produits">
         <div class="container">
@@ -175,7 +157,9 @@
                 <!-- Produit 1 -->
                 <div class="product-card">
                     <div class="product-badge">Populaire</div>
-                    <img src="Panier tressé rectangulaire.jpg" alt="Panier Tressé Rectangulaire fait main au Maroc" class="product-image">
+                    <div class="product-image-container">
+                        <div class="product-image-placeholder">🖼️ Panier Tressé Rectangulaire</div>
+                    </div>
                     <div class="product-content">
                         <h3 class="product-title">Panier Tressé Rectangulaire</h3>
                         <p class="product-description">Panier élégant au design rectangulaire, parfait pour le rangement et la décoration. Tressage traditionnel marocain pour une durabilité exceptionnelle.</p>
@@ -194,7 +178,9 @@
                 <!-- Produit 2 -->
                 <div class="product-card">
                     <div class="product-badge">Innovant</div>
-                    <img src="Panier à linge double compartiment.jpg" alt="Panier à Linge Double Compartiment fait main au Maroc" class="product-image">
+                    <div class="product-image-container">
+                        <div class="product-image-placeholder">🖼️ Panier Double Compartiment</div>
+                    </div>
                     <div class="product-content">
                         <h3 class="product-title">Panier Double Compartiment</h3>
                         <p class="product-description">Innovant et pratique, ce panier à double compartiment vous permet de trier votre linge facilement. Idéal pour une organisation optimale.</p>
@@ -213,7 +199,9 @@
                 <!-- Produit 3 -->
                 <div class="product-card">
                     <div class="product-badge">Écologique</div>
-                    <img src="Panier à linge en feuilles de palmier.jpg" alt="Panier en Feuilles de Palmier fait main au Maroc" class="product-image">
+                    <div class="product-image-container">
+                        <div class="product-image-placeholder">🖼️ Panier en Feuilles de Palmier</div>
+                    </div>
                     <div class="product-content">
                         <h3 class="product-title">Panier en Feuilles de Palmier</h3>
                         <p class="product-description">Panier écologique fabriqué à partir de feuilles de palmier naturelles. Léger, résistant et respectueux de l'environnement.</p>
@@ -232,7 +220,9 @@
                 <!-- Produit 4 -->
                 <div class="product-card">
                     <div class="product-badge">Classique</div>
-                    <img src="Panier à linge rond en osier.jpg" alt="Panier Rond en Osier fait main au Maroc" class="product-image">
+                    <div class="product-image-container">
+                        <div class="product-image-placeholder">🖼️ Panier Rond en Osier</div>
+                    </div>
                     <div class="product-content">
                         <h3 class="product-title">Panier Rond en Osier</h3>
                         <p class="product-description">Panier rond traditionnel en osier de qualité supérieure. Parfait pour le rangement du linge ou comme élément décoratif chaleureux.</p>
@@ -479,6 +469,28 @@
             </div>
         </div>
     </footer>
+
+    <!-- Panier Modal -->
+    <div id="panierModal" class="panier-modal">
+        <div class="panier-modal-content">
+            <div class="panier-modal-header">
+                <h2>🛒 Votre Panier</h2>
+                <button class="close-panier" id="closePanier">&times;</button>
+            </div>
+            <div class="panier-modal-body">
+                <div id="panier-items" class="panier-items">
+                    <p class="panier-vide">Votre panier est vide</p>
+                </div>
+                <div class="panier-total">
+                    Total : <span id="total-panier">0,00€</span>
+                </div>
+            </div>
+            <div class="panier-modal-actions">
+                <button class="btn btn-danger" onclick="viderPanier()">🗑️ Vider le panier</button>
+                <button class="btn btn-success" onclick="passerCommande()">🚀 Commander</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Messages de notification -->
     <div id="notificationContainer"></div>

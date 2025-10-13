@@ -30,8 +30,8 @@
     --shadow-lg: 0 8px 24px rgba(0,0,0,0.2);
 }
 
-/* ===== RESET ===== */
-* {
+/* ===== RESET AMÉLIORÉ ===== */
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -39,6 +39,7 @@
 
 html {
     scroll-behavior: smooth;
+    height: 100%;
 }
 
 body {
@@ -47,6 +48,18 @@ body {
     color: var(--text-dark);
     background-color: var(--cream);
     overflow-x: hidden;
+    min-height: 100%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
 }
 
 .container {
@@ -290,12 +303,14 @@ header {
     line-height: 1.1;
     margin-bottom: var(--space-md);
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    max-width: 90%;
 }
 
 .hero-text p {
     font-size: 1.2rem;
     margin-bottom: var(--space-lg);
     opacity: 0.9;
+    max-width: 90%;
 }
 
 .hero-buttons {
@@ -342,6 +357,7 @@ header {
     position: absolute;
     font-size: 3rem;
     animation: float 3s ease-in-out infinite;
+    will-change: transform;
 }
 
 .floating-element:nth-child(1) {
@@ -381,6 +397,7 @@ header {
     transition: all 0.3s ease;
     font-size: 1rem;
     gap: 8px;
+    min-height: 44px;
 }
 
 .btn-primary {
@@ -518,18 +535,38 @@ header {
     font-size: 0.9rem;
 }
 
-/* ===== PANIER ===== */
-.panier-section {
+/* ===== PANIER MODAL ===== */
+.panier-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    backdrop-filter: blur(5px);
+}
+
+.panier-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panier-modal-content {
     background: var(--white);
     padding: var(--space-lg);
     border-radius: var(--radius-lg);
-    margin: var(--space-lg) auto;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
     border-left: 5px solid var(--gold);
-    max-width: 1000px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
-.panier-header {
+.panier-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -538,17 +575,22 @@ header {
     border-bottom: 2px solid var(--light-gray);
 }
 
-.panier-header h2 {
+.panier-modal-header h2 {
     color: var(--primary-green);
     margin: 0;
 }
 
-#panier-count {
-    font-weight: bold;
+.close-panier {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
+
+.close-panier:hover {
     color: var(--primary-green);
-    background: var(--light-gray);
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: 20px;
 }
 
 .panier-items {
@@ -635,7 +677,7 @@ header {
     color: var(--primary-green);
 }
 
-.panier-actions {
+.panier-modal-actions {
     display: flex;
     gap: var(--space-md);
     justify-content: flex-end;
@@ -657,7 +699,7 @@ header {
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow);
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
 }
 
@@ -679,11 +721,22 @@ header {
     z-index: 2;
 }
 
-.product-image {
+.product-image-container {
     width: 100%;
     height: 250px;
-    object-fit: cover;
+    background: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-bottom: 3px solid var(--gold);
+}
+
+.product-image-placeholder {
+    color: var(--text-light);
+    font-style: italic;
+    text-align: center;
+    padding: var(--space-md);
+    font-size: 1.1rem;
 }
 
 .product-content {
@@ -1122,6 +1175,12 @@ header {
 
     .hero-text h1 {
         font-size: 2.5rem;
+        max-width: 100%;
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+        max-width: 100%;
     }
 
     .hero-buttons {
@@ -1162,7 +1221,7 @@ header {
         grid-template-columns: 1fr;
     }
 
-    .panier-actions {
+    .panier-modal-actions {
         flex-direction: column;
     }
 
@@ -1219,9 +1278,9 @@ header {
         padding: var(--space-lg) 0;
     }
 
-    .panier-section {
+    .panier-modal-content {
         padding: var(--space-md);
-        margin: var(--space-md) auto;
+        margin: var(--space-md);
     }
 
     .panier-item {
@@ -1241,5 +1300,23 @@ header {
 
     .creation-form-container {
         padding: var(--space-md);
+    }
+}
+
+/* Réduction des animations pour les préférences utilisateur */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Support des très grands écrans */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
     }
 }

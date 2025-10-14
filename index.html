@@ -414,51 +414,48 @@
                 <h2>Avis Clients</h2>
                 <p>Ce que disent nos clients satisfaits</p>
             </div>
-            <div class="avis-grid" id="avis-container">
-                <!-- Les avis seront générés dynamiquement par JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Ajout d'Avis -->
-    <section class="ajout-avis section-padding" id="ajout-avis">
-        <div class="container">
-            <div class="section-header">
-                <h2>Laissez votre avis</h2>
-                <p>Partagez votre expérience avec nos créations artisanales</p>
-            </div>
-            <div class="ajout-avis-content">
-                <form class="avis-form" id="avisForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="avis-nom">Votre nom *</label>
-                            <input type="text" id="avis-nom" name="nom" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="avis-note">Note *</label>
-                            <div class="note-selection">
-                                <div class="etoiles" id="etoiles">
-                                    <span class="etoile" data-note="1">☆</span>
-                                    <span class="etoile" data-note="2">☆</span>
-                                    <span class="etoile" data-note="3">☆</span>
-                                    <span class="etoile" data-note="4">☆</span>
-                                    <span class="etoile" data-note="5">☆</span>
-                                </div>
-                                <input type="hidden" id="avis-note" name="note" required>
-                                <div class="note-text" id="note-text">Sélectionnez une note</div>
+            <div class="avis-grid">
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-client">
+                            <div class="client-avatar">M</div>
+                            <div>
+                                <h4>Marie L.</h4>
+                                <div class="avis-rating">★★★★★</div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="avis-commentaire">Votre commentaire *</label>
-                        <textarea id="avis-commentaire" name="commentaire" rows="5" required placeholder="Partagez votre expérience avec nos produits..."></textarea>
+                    <p class="avis-text">"Le panier rectangulaire est absolument magnifique ! La qualité de tissage est exceptionnelle. Savoir qu'il est fait main au Maroc ajoute une valeur sentimentale. Livraison rapide et emballage soigné."</p>
+                    <div class="avis-date">15/10/2024</div>
+                </div>
+
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-client">
+                            <div class="client-avatar">P</div>
+                            <div>
+                                <h4>Pierre D.</h4>
+                                <div class="avis-rating">★★★★★</div>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <button type="submit" class="btn btn-primary btn-full">
-                        📝 Publier mon avis
-                    </button>
-                </form>
+                    <p class="avis-text">"J'ai offert le panier double compartiment à ma femme et elle en est ravie. Pratique et élégant, il trône maintenant dans notre chambre. La qualité artisanale marocaine est remarquable !"</p>
+                    <div class="avis-date">12/10/2024</div>
+                </div>
+
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-client">
+                            <div class="client-avatar">S</div>
+                            <div>
+                                <h4>Sophie M.</h4>
+                                <div class="avis-rating">★★★★☆</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="avis-text">"Très beau panier en feuilles de palmier, léger et résistant. Le côté écologique et l'origine marocaine sont appréciables. Petit bémol : une légère odeur au début, mais qui part rapidement."</p>
+                    <div class="avis-date">08/10/2024</div>
+                </div>
             </div>
         </div>
     </section>
@@ -554,7 +551,7 @@
             </div>
             <div class="panier-modal-actions">
                 <button class="btn btn-danger" id="viderPanierBtn">🗑️ Vider le panier</button>
-                <button class="btn btn-success" id="commanderBtn">🚀 Passer au paiement</button>
+                <button class="btn btn-success" id="commanderBtn">🚀 Commander</button>
             </div>
         </div>
     </div>

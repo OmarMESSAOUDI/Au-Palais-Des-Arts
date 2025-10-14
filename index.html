@@ -3,807 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Au Palais Des Arts - Créations Artisanales en Osier du Maroc</title>
-    <meta name="description" content="Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains. Vannerie traditionnelle de qualité supérieure.">
-    <link rel="stylesheet" href="style.css">
+    <title>Formulaire d'avis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+        
+        .review-form {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        .rating-section {
+            margin-bottom: 25px;
+        }
+        
+        .rating-label {
+            margin-bottom: 15px;
+        }
+        
+        .rating-stars {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .star {
+            font-size: 32px;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .star:hover,
+        .star.active {
+            color: #f39c12;
+        }
+        
+        .rating-text {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .char-count {
+            text-align: right;
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .submit-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 600px) {
+            .review-form {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div id="loadingScreen" class="loading-screen">
-        <div class="loading-content">
-            <div class="loading-logo">🧺</div>
-            <h1>Au Palais Des Arts</h1>
-            <p>Chargement de l'artisanat marocain...</p>
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
+    <div class="container">
+        <header>
+            <h1>Laissez votre avis</h1>
+            <p class="subtitle">Votre opinion compte pour nous</p>
+        </header>
+        
+        <form class="review-form" id="reviewForm">
+            <div class="form-group">
+                <label for="name">Votre nom <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required placeholder="Entrez votre nom complet">
             </div>
-        </div>
+            
+            <div class="form-group">
+                <label for="email">Votre email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="exemple@email.com">
+            </div>
+            
+            <div class="rating-section">
+                <label class="rating-label">Note <span class="required">*</span></label>
+                <div class="rating-stars" id="ratingStars">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+                <div class="rating-text" id="ratingText">Cliquez sur les étoiles pour noter</div>
+                <input type="hidden" id="rating" name="rating" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="experience">Partagez votre expérience</label>
+                <textarea id="experience" name="experience" placeholder="Décrivez votre expérience en détail..."></textarea>
+                <div class="char-count"><span id="charCount">0</span>/500 caractères</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="review">Votre avis <span class="required">*</span></label>
+                <textarea id="review" name="review" required placeholder="Que pensez-vous de notre produit/service?"></textarea>
+                <div class="char-count"><span id="reviewCharCount">0</span>/1000 caractères</div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Publier mon avis</button>
+            
+            <div class="form-footer">
+                <p>Tous les champs marqués d'un <span class="required">*</span> sont obligatoires</p>
+            </div>
+        </form>
     </div>
 
-    <!-- Header -->
-    <header id="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <span class="logo-icon">🌿</span>
-                    <div class="logo-text">
-                        <h1>Au Palais Des Arts</h1>
-                        <p>Artisanat marocain d'exception</p>
-                    </div>
-                </div>
-                
-                <nav class="nav">
-                    <button class="nav-toggle" id="navToggle" aria-label="Menu navigation">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <div class="nav-menu" id="navMenu">
-                        <a href="#produits" class="nav-link">Nos Créations</a>
-                        <a href="#histoire" class="nav-link">Notre Histoire</a>
-                        <a href="#sur-mesure" class="nav-link">Création sur Mesure</a>
-                        <a href="#avis" class="nav-link">Avis Clients</a>
-                        <a href="#contact" class="nav-link">Contact</a>
-                        <div class="nav-actions">
-                            <button class="cart-btn" id="cartBtn" aria-label="Ouvrir le panier">
-                                🛒 <span class="cart-count">0</span>
-                            </button>
-                            <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
-                                🌙
-                            </button>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <!-- Navigation Rapide -->
-    <div class="quick-nav">
-        <button class="quick-nav-btn" onclick="scrollToTop()" title="Retour en haut">↑</button>
-        <button class="quick-nav-btn" onclick="ouvrirPanierRapide()" title="Panier">🛒</button>
-        <button class="quick-nav-btn" onclick="toggleTheme()" title="Changer le thème">🌙</button>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>L'Art de la Vannerie Marocaine</h1>
-                    <p>Découvrez nos créations uniques en osier, 100% faites main au Maroc par des artisans passionnés</p>
-                    <div class="hero-buttons">
-                        <a href="#produits" class="btn btn-primary">Découvrir nos créations</a>
-                        <a href="#histoire" class="btn btn-secondary">Notre Histoire</a>
-                    </div>
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <span class="number">38</span>
-                            <span class="label">Ans d'expertise</span>
-                        </div>
-                        <div class="stat">
-                            <span class="number">5000+</span>
-                            <span class="label">Créations vendues</span>
-                        </div>
-                        <div class="stat">
-                            <span class="number">4.9</span>
-                            <span class="label">/5 Satisfaction</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <div class="hero-visual">
-                        <div class="floating-element">🌿</div>
-                        <div class="floating-element">🧺</div>
-                        <div class="floating-element">🇲🇦</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Présentation -->
-    <section class="presentation section-padding" id="histoire">
-        <div class="container">
-            <div class="section-header">
-                <h2>Notre Histoire</h2>
-                <p>Transmettre l'excellence artisanale marocaine depuis trois générations</p>
-            </div>
-            <div class="histoire-content">
-                <div class="histoire-text">
-                    <h3>Un Savoir-Faire Ancestral du Maroc</h3>
-                    <p>Fondé en 1985 par la famille Martin, <strong>Au Palais Des Arts</strong> perpétue la tradition du tissage d'osier et du travail artisanal de qualité. <strong>Nos créations sont entièrement fabriquées au Maroc</strong> par des artisans locaux qui maîtrisent des techniques ancestrales.</p>
-                    
-                    <div class="origine-info">
-                        <div class="origine-badge">
-                            <span class="origine-icon">🇲🇦</span>
-                            <div>
-                                <h4>Origine Marocaine</h4>
-                                <p>100% fait main au Maroc par des artisans locaux</p>
-                            </div>
-                        </div>
-                        <div class="origine-badge">
-                            <span class="origine-icon">👐</span>
-                            <div>
-                                <h4>100% Artisanal</h4>
-                                <p>Techniques traditionnelles transmises de génération en génération</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <p>Chaque panier est conçu avec passion et expertise, utilisant des matériaux naturels et durables provenant des régions marocaines. Nous collaborons étroitement avec des coopératives d'artisans qui préservent ce savoir-faire unique.</p>
-                    
-                    <div class="valeurs-grid">
-                        <div class="valeur-card">
-                            <div class="valeur-icon">🌱</div>
-                            <h4>Éco-responsable</h4>
-                            <p>Osier 100% naturel de cultures durables marocaines</p>
-                        </div>
-                        <div class="valeur-card">
-                            <div class="valeur-icon">👐</div>
-                            <h4>Fait Main</h4>
-                            <p>Techniques ancestrales marocaines transmises</p>
-                        </div>
-                        <div class="valeur-card">
-                            <div class="valeur-icon">🇲🇦</div>
-                            <h4>Origine Maroc</h4>
-                            <p>Fabriqué au Maroc par des artisans locaux</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Filtres Produits -->
-    <section class="filtres-section">
-        <div class="container">
-            <div class="filtres-content">
-                <h3>Filtrer par catégorie</h3>
-                <div class="filtres-buttons">
-                    <button class="filtre-btn active" data-filtre="tous">Tous les produits</button>
-                    <button class="filtre-btn" data-filtre="populaire">Populaires</button>
-                    <button class="filtre-btn" data-filtre="ecologique">Écologiques</button>
-                    <button class="filtre-btn" data-filtre="classique">Classiques</button>
-                    <button class="filtre-btn" data-filtre="innovant">Innovants</button>
-                </div>
-                <div class="filtre-recherche">
-                    <input type="text" id="rechercheProduits" placeholder="🔍 Rechercher un produit...">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Produits -->
-    <section class="produits section-padding" id="produits">
-        <div class="container">
-            <div class="section-header">
-                <h2>Nos Créations en Osier du Maroc</h2>
-                <p>Pièces uniques faites main avec des techniques ancestrales marocaines</p>
-            </div>
-
-            <div class="products-grid" id="productsGrid">
-                <!-- Les produits seront générés dynamiquement par JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Panier -->
-    <section class="panier-section section-padding" id="panier">
-        <div class="container">
-            <div class="section-header">
-                <h2>Votre Panier</h2>
-                <p>Revoyez vos articles avant de finaliser votre commande</p>
-            </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestion du système de notation par étoiles
+            const stars = document.querySelectorAll('.star');
+            const ratingInput = document.getElementById('rating');
+            const ratingText = document.getElementById('ratingText');
             
-            <div class="panier-content">
-                <div class="panier-header">
-                    <h3>🛒 Votre Sélection</h3>
-                    <span id="panier-count">0 article(s)</span>
-                </div>
-                <div class="panier-items" id="panier-items">
-                    <p class="panier-vide">Votre panier est vide</p>
-                </div>
-                <div class="panier-total">
-                    Total : <span id="total-panier">0,00€</span>
-                </div>
-                <div class="panier-actions">
-                    <button class="btn btn-secondary" onclick="continuerAchats()">← Continuer mes achats</button>
-                    <button class="btn btn-danger" onclick="viderPanier()">🗑️ Vider le panier</button>
-                    <button class="btn btn-success" onclick="passerCommande()">🚀 Procéder au paiement</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Paiement -->
-    <section class="paiement-section section-padding" id="paiement" style="display: none;">
-        <div class="container">
-            <div class="section-header">
-                <h2>Finaliser votre Commande</h2>
-                <p>Un dernier pas pour recevoir vos créations artisanales</p>
-            </div>
-            
-            <div class="paiement-content">
-                <div class="paiement-grid">
-                    <div class="recap-commande">
-                        <h3>Récapitulatif de commande</h3>
-                        <div id="recap-panier"></div>
-                        <div class="recap-total">
-                            <strong>Total: <span id="recap-total">0,00€</span></strong>
-                        </div>
-                    </div>
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const value = this.getAttribute('data-value');
+                    ratingInput.value = value;
                     
-                    <div class="formulaire-paiement">
-                        <h3>Informations de livraison</h3>
-                        <form id="formulairePaiement" class="paiement-form">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="prenom">Prénom *</label>
-                                    <input type="text" id="prenom" name="prenom" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="nom">Nom *</label>
-                                    <input type="text" id="nom" name="nom" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="telephone">Téléphone *</label>
-                                <input type="tel" id="telephone" name="telephone" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="adresse">Adresse *</label>
-                                <input type="text" id="adresse" name="adresse" required>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="code-postal">Code Postal *</label>
-                                    <input type="text" id="code-postal" name="code-postal" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="ville">Ville *</label>
-                                    <input type="text" id="ville" name="ville" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="pays">Pays *</label>
-                                <select id="pays" name="pays" required>
-                                    <option value="">Choisissez votre pays</option>
-                                    <option value="france">France</option>
-                                    <option value="belgique">Belgique</option>
-                                    <option value="suisse">Suisse</option>
-                                    <option value="luxembourg">Luxembourg</option>
-                                </select>
-                            </div>
-                            
-                            <h4>Méthode de paiement</h4>
-                            <div class="methodes-paiement">
-                                <label class="methode-paiement">
-                                    <input type="radio" name="paiement" value="carte" checked>
-                                    <span class="checkmark"></span>
-                                    <span class="methode-texte">💳 Carte bancaire</span>
-                                </label>
-                                
-                                <label class="methode-paiement">
-                                    <input type="radio" name="paiement" value="paypal">
-                                    <span class="checkmark"></span>
-                                    <span class="methode-texte">🔵 PayPal</span>
-                                </label>
-                                
-                                <label class="methode-paiement">
-                                    <input type="radio" name="paiement" value="virement">
-                                    <span class="checkmark"></span>
-                                    <span class="methode-texte">🏦 Virement bancaire</span>
-                                </label>
-                            </div>
-                            
-                            <div class="actions-paiement">
-                                <button type="button" class="btn btn-secondary" onclick="retourAuPanier()">
-                                    ← Retour au panier
-                                </button>
-                                <button type="submit" class="btn btn-success">
-                                    💳 Payer maintenant
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Confirmation -->
-    <section class="confirmation-section section-padding" id="confirmation" style="display: none;">
-        <div class="container">
-            <div class="confirmation-content">
-                <div class="confirmation-icon">🎉</div>
-                <h2>Commande Confirmée !</h2>
-                <p class="confirmation-message">Merci pour votre achat. Votre commande a été traitée avec succès.</p>
-                
-                <div class="details-commande">
-                    <h3>Détails de votre commande</h3>
-                    <div id="details-commande"></div>
-                    <div class="numero-commande">
-                        <strong>Numéro de commande: <span id="numero-commande">---</span></strong>
-                    </div>
-                </div>
-                
-                <div class="confirmation-actions">
-                    <button class="btn btn-primary" onclick="retourAccueil()">
-                        🏠 Retour à l'accueil
-                    </button>
-                    <button class="btn btn-secondary" onclick="imprimerConfirmation()">
-                        🖨️ Imprimer la confirmation
-                    </button>
-                    <button class="btn btn-success" onclick="suivreCommande()">
-                        📦 Suivre ma commande
-                    </button>
-                </div>
-                
-                <div class="info-livraison">
-                    <p>📧 Un email de confirmation vous a été envoyé.</p>
-                    <p>🚚 Livraison estimée: 3-5 jours ouvrables</p>
-                    <p>📞 Service client: 01 23 45 67 89</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Suivi Commande -->
-    <section class="suivi-section section-padding" id="suivi" style="display: none;">
-        <div class="container">
-            <div class="section-header">
-                <h2>Suivi de Commande</h2>
-                <p>Suivez l'évolution de votre commande en temps réel</p>
-            </div>
-            
-            <div class="suivi-content">
-                <div class="timeline">
-                    <div class="etape etape-active">
-                        <div class="etape-icon">📦</div>
-                        <div class="etape-content">
-                            <h4>Commande confirmée</h4>
-                            <p>Votre commande a été validée</p>
-                            <span class="etape-date">Aujourd'hui, 10:30</span>
-                        </div>
-                    </div>
-                    <div class="etape">
-                        <div class="etape-icon">👨‍🎨</div>
-                        <div class="etape-content">
-                            <h4>En préparation</h4>
-                            <p>Nos artisans préparent votre commande</p>
-                            <span class="etape-date">Estimation: Demain</span>
-                        </div>
-                    </div>
-                    <div class="etape">
-                        <div class="etape-icon">🚚</div>
-                        <div class="etape-content">
-                            <h4>Expédiée</h4>
-                            <p>Votre commande a été expédiée</p>
-                            <span class="etape-date">Estimation: 2-3 jours</span>
-                        </div>
-                    </div>
-                    <div class="etape">
-                        <div class="etape-icon">🏠</div>
-                        <div class="etape-content">
-                            <h4>Livrée</h4>
-                            <p>Votre commande a été livrée</p>
-                            <span class="etape-date">Estimation: 5-7 jours</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="suivi-actions">
-                    <button class="btn btn-primary" onclick="retourAccueil()">
-                        🏠 Retour à l'accueil
-                    </button>
-                    <button class="btn btn-secondary" onclick="contacterSupport()">
-                        📞 Contacter le support
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Création sur Mesure -->
-    <section class="creation-sur-mesure section-padding" id="sur-mesure">
-        <div class="container">
-            <div class="section-header">
-                <h2>Création sur Mesure</h2>
-                <p>Votre projet unique, réalisé par nos artisans marocains</p>
-            </div>
-            
-            <div class="creation-content">
-                <div class="creation-text">
-                    <h3>Votre Vision, Notre Savoir-Faire</h3>
-                    <p>Vous avez un projet spécifique ? Une idée unique ? Nos artisans marocains peuvent créer <strong>votre pièce sur mesure</strong> selon vos envies et besoins.</p>
+                    // Mettre à jour l'affichage des étoiles
+                    stars.forEach(s => {
+                        if (s.getAttribute('data-value') <= value) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
                     
-                    <div class="avantages-list">
-                        <div class="avantage">
-                            <span class="avantage-icon">🎨</span>
-                            <div>
-                                <h4>Design Personnalisé</h4>
-                                <p>Dimensions, formes et couleurs adaptées à vos besoins</p>
-                            </div>
-                        </div>
-                        <div class="avantage">
-                            <span class="avantage-icon">👨‍🎨</span>
-                            <div>
-                                <h4>Expertise Marocaine</h4>
-                                <p>Réalisé par nos artisans expérimentés au Maroc</p>
-                            </div>
-                        </div>
-                        <div class="avantage">
-                            <span class="avantage-icon">⏱️</span>
-                            <div>
-                                <h4>Accompagnement</h4>
-                                <p>Suivi personnalisé de votre projet jusqu'à la livraison</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    // Mettre à jour le texte de la note
+                    const ratings = {
+                        1: "Mauvais",
+                        2: "Passable",
+                        3: "Moyen",
+                        4: "Bon",
+                        5: "Excellent"
+                    };
+                    
+                    ratingText.textContent = `Vous avez donné une note de ${value}/5 - ${ratings[value]}`;
+                });
                 
-                <div class="creation-form-container">
-                    <form class="creation-form" id="creationForm">
-                        <h4>Parlez-nous de votre projet</h4>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="creation-nom">Nom complet *</label>
-                                <input type="text" id="creation-nom" name="nom" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="creation-email">Email *</label>
-                                <input type="email" id="creation-email" name="email" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="creation-telephone">Téléphone</label>
-                            <input type="tel" id="creation-telephone" name="telephone">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="creation-type">Type de création *</label>
-                            <select id="creation-type" name="type" required>
-                                <option value="">Choisissez le type</option>
-                                <option value="panier">Panier sur mesure</option>
-                                <option value="corbeille">Corbeille personnalisée</option>
-                                <option value="decoration">Décoration intérieure</option>
-                                <option value="mobilier">Mobilier en osier</option>
-                                <option value="autre">Autre projet</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="creation-dimensions">Dimensions souhaitées</label>
-                            <input type="text" id="creation-dimensions" name="dimensions" placeholder="Ex: 40x30x25cm">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="creation-description">Description de votre projet *</label>
-                            <textarea id="creation-description" name="description" rows="5" required placeholder="Décrivez en détail votre projet, vos attentes, l'usage prévu..."></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="creation-budget">Budget estimatif</label>
-                            <input type="text" id="creation-budget" name="budget" placeholder="Ex: 50-100€">
-                        </div>
-                        
-                        <div class="form-group checkbox-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="origine" required>
-                                <span class="checkmark"></span>
-                                Je comprends que mes créations seront fabriquées au Maroc par des artisans locaux *
-                            </label>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary btn-full">
-                            🎨 Envoyer ma demande de création sur mesure
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Avis -->
-    <section class="avis section-padding" id="avis">
-        <div class="container">
-            <div class="section-header">
-                <h2>Avis Clients</h2>
-                <p>Ce que disent nos clients satisfaits</p>
-            </div>
-            <div class="avis-grid">
-                <div class="avis-card">
-                    <div class="avis-header">
-                        <div class="avis-client">
-                            <div class="client-avatar">M</div>
-                            <div>
-                                <h4>Marie L.</h4>
-                                <div class="avis-rating">★★★★★</div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="avis-text">"Le panier rectangulaire est absolument magnifique ! La qualité de tissage est exceptionnelle. Savoir qu'il est fait main au Maroc ajoute une valeur sentimentale. Livraison rapide et emballage soigné."</p>
-                    <div class="avis-date">15/10/2024</div>
-                </div>
-
-                <div class="avis-card">
-                    <div class="avis-header">
-                        <div class="avis-client">
-                            <div class="client-avatar">P</div>
-                            <div>
-                                <h4>Pierre D.</h4>
-                                <div class="avis-rating">★★★★★</div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="avis-text">"J'ai offert le panier double compartiment à ma femme et elle en est ravie. Pratique et élégant, il trône maintenant dans notre chambre. La qualité artisanale marocaine est remarquable !"</p>
-                    <div class="avis-date">12/10/2024</div>
-                </div>
-
-                <div class="avis-card">
-                    <div class="avis-header">
-                        <div class="avis-client">
-                            <div class="client-avatar">S</div>
-                            <div>
-                                <h4>Sophie M.</h4>
-                                <div class="avis-rating">★★★★☆</div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="avis-text">"Très beau panier en feuilles de palmier, léger et résistant. Le côté écologique et l'origine marocaine sont appréciables. Petit bémol : une légère odeur au début, mais qui part rapidement."</p>
-                    <div class="avis-date">08/10/2024</div>
-                </div>
-            </div>
+                // Effet de survol
+                star.addEventListener('mouseover', function() {
+                    const value = this.getAttribute('data-value');
+                    
+                    stars.forEach(s => {
+                        if (s.getAttribute('data-value') <= value) {
+                            s.style.color = '#f39c12';
+                        } else {
+                            s.style.color = '#ddd';
+                        }
+                    });
+                });
+                
+                star.addEventListener('mouseout', function() {
+                    const currentRating = ratingInput.value;
+                    
+                    stars.forEach(s => {
+                        if (currentRating && s.getAttribute('data-value') <= currentRating) {
+                            s.style.color = '#f39c12';
+                        } else {
+                            s.style.color = '#ddd';
+                        }
+                    });
+                });
+            });
             
-            <!-- Formulaire d'avis -->
-            <div class="ajout-avis">
-                <h3>Laissez votre avis</h3>
-                <form class="avis-form" id="avisForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="avis-nom">Votre nom *</label>
-                            <input type="text" id="avis-nom" name="nom" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="avis-email">Votre email *</label>
-                            <input type="email" id="avis-email" name="email" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="avis-note">Note *</label>
-                        <div class="note-etoiles">
-                            <span class="etoile" data-note="1">★</span>
-                            <span class="etoile" data-note="2">★</span>
-                            <span class="etoile" data-note="3">★</span>
-                            <span class="etoile" data-note="4">★</span>
-                            <span class="etoile" data-note="5">★</span>
-                        </div>
-                        <input type="hidden" id="avis-note" name="note" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="avis-message">Votre avis *</label>
-                        <textarea id="avis-message" name="message" rows="4" required placeholder="Partagez votre expérience..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">📝 Publier mon avis</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section FAQ -->
-    <section class="faq-section section-padding" id="faq">
-        <div class="container">
-            <div class="section-header">
-                <h2>Questions Fréquentes</h2>
-                <p>Trouvez rapidement des réponses à vos questions</p>
-            </div>
+            // Compteur de caractères pour les textareas
+            const experienceTextarea = document.getElementById('experience');
+            const reviewTextarea = document.getElementById('review');
+            const charCount = document.getElementById('charCount');
+            const reviewCharCount = document.getElementById('reviewCharCount');
             
-            <div class="faq-content">
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>📦 Quel est le délai de livraison ?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-reponse">
-                        <p>La livraison standard prend 3 à 5 jours ouvrables en France métropolitaine. Pour les créations sur mesure, comptez 2 à 3 semaines de fabrication + le délai de livraison.</p>
-                    </div>
-                </div>
+            experienceTextarea.addEventListener('input', function() {
+                charCount.textContent = this.value.length;
                 
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>🇲🇦 Les produits sont-ils vraiment faits main au Maroc ?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-reponse">
-                        <p>Absolument ! Toutes nos créations sont 100% faites main au Maroc par des artisans locaux qui perpétuent des techniques ancestrales. Nous travaillons en direct avec des coopératives artisanales.</p>
-                    </div>
-                </div>
+                if (this.value.length > 500) {
+                    charCount.style.color = '#e74c3c';
+                } else {
+                    charCount.style.color = '#7f8c8d';
+                }
+            });
+            
+            reviewTextarea.addEventListener('input', function() {
+                reviewCharCount.textContent = this.value.length;
                 
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>🌿 Les matériaux sont-ils écologiques ?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-reponse">
-                        <p>Oui, nous utilisons exclusivement de l'osier naturel provenant de cultures durables et des feuilles de palmier récoltées de manière responsable. Tous nos matériaux sont biodégradables.</p>
-                    </div>
-                </div>
+                if (this.value.length > 1000) {
+                    reviewCharCount.style.color = '#e74c3c';
+                } else {
+                    reviewCharCount.style.color = '#7f8c8d';
+                }
+            });
+            
+            // Validation du formulaire
+            const form = document.getElementById('reviewForm');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
                 
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>🔄 Quelle est votre politique de retour ?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-reponse">
-                        <p>Vous disposez de 14 jours pour retourner un article non personnalisé et non utilisé. Les frais de retour sont à votre charge, sauf en cas d'erreur de notre part.</p>
-                    </div>
-                </div>
+                // Vérifier que la note a été donnée
+                if (!ratingInput.value) {
+                    alert('Veuillez donner une note en cliquant sur les étoiles');
+                    return;
+                }
                 
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>🎨 Peut-on personnaliser les couleurs ?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-reponse">
-                        <p>Oui ! Pour les créations sur mesure, nous pouvons adapter les couleurs selon vos préférences. Contactez-nous pour discuter de votre projet personnalisé.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Contact -->
-    <section class="contact section-padding" id="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2>Contactez-nous</h2>
-                <p>Une question ? Un projet sur mesure ?</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="icon">📧</div>
-                        <div class="details">
-                            <h3>Email</h3>
-                            <p>contact@aupalaisdesarts.fr</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="icon">📞</div>
-                        <div class="details">
-                            <h3>Téléphone</h3>
-                            <p>01 23 45 67 89</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="icon">📍</div>
-                        <div class="details">
-                            <h3>Atelier Partenaire</h3>
-                            <p>Coopérative d'artisans<br>Marrakech, Maroc</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="icon">🕒</div>
-                        <div class="details">
-                            <h3>Horaires</h3>
-                            <p>Lun-Ven: 9h-18h<br>Sam: 10h-17h</p>
-                        </div>
-                    </div>
-                </div>
+                // Vérifier que l'avis ne dépasse pas la limite
+                if (reviewTextarea.value.length > 1000) {
+                    alert('Votre avis dépasse la limite de 1000 caractères');
+                    return;
+                }
                 
-                <!-- Carte -->
-                <div class="contact-map">
-                    <div class="map-placeholder">
-                        <div class="map-icon">🗺️</div>
-                        <p>Notre atelier partenaire à Marrakech, Maroc</p>
-                        <small>Coopérative d'artisans - Zone artisanale</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="newsletter-section">
-        <div class="container">
-            <div class="newsletter-content">
-                <div class="newsletter-text">
-                    <h3>🌿 Restez informé</h3>
-                    <p>Recevez nos nouvelles créations et offres exclusives</p>
-                </div>
-                <form class="newsletter-form" id="newsletterForm">
-                    <input type="email" placeholder="Votre email" required>
-                    <button type="submit" class="btn btn-primary">S'abonner</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Au Palais Des Arts</h3>
-                    <p>Artisanat marocain d'exception depuis 1985</p>
-                    <div class="trust-badges">
-                        <span class="trust-badge">🌿 100% Fait main</span>
-                        <span class="trust-badge">🇲🇦 Fabriqué au Maroc</span>
-                        <span class="trust-badge">🚚 Livraison France</span>
-                    </div>
-                    <div class="social-links">
-                        <a href="#" class="social-link" aria-label="Facebook">📘</a>
-                        <a href="#" class="social-link" aria-label="Instagram">📷</a>
-                        <a href="#" class="social-link" aria-label="Pinterest">📌</a>
-                        <a href="#" class="social-link" aria-label="YouTube">📺</a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Navigation</h3>
-                    <ul>
-                        <li><a href="#produits">Nos créations</a></li>
-                        <li><a href="#histoire">Notre histoire</a></li>
-                        <li><a href="#sur-mesure">Création sur mesure</a></li>
-                        <li><a href="#avis">Avis clients</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Engagements</h3>
-                    <ul>
-                        <li>✓ 100% Fait main au Maroc</li>
-                        <li>✓ Artisanat traditionnel</li>
-                        <li>✓ Matériaux naturels</li>
-                        <li>✓ Développement durable</li>
-                        <li>✓ Commerce équitable</li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Paiements Sécurisés</h3>
-                    <div class="paiement-methodes">
-                        <span class="paiement-methode">💳</span>
-                        <span class="paiement-methode">🔵</span>
-                        <span class="paiement-methode">🏦</span>
-                        <span class="paiement-methode">📱</span>
-                    </div>
-                    <div class="security-badges">
-                        <span class="security-badge">🔒 Paiement sécurisé</span>
-                        <span class="security-badge">📧 Confirmation email</span>
-                        <span class="security-badge">🚚 Livraison suivie</span>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Au Palais Des Arts. Artisanat marocain - Tous droits réservés.</p>
-                <div class="footer-links">
-                    <a href="#">Mentions légales</a>
-                    <a href="#">Politique de confidentialité</a>
-                    <a href="#">Conditions générales</a>
-                    <a href="#">Cookies</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Messages de notification -->
-    <div id="notificationContainer"></div>
-
-    <script src="script.js"></script>
+                // Si tout est valide, on peut soumettre le formulaire
+                alert('Merci pour votre avis ! Il a été enregistré avec succès.');
+                form.reset();
+                
+                // Réinitialiser les étoiles
+                stars.forEach(s => s.classList.remove('active'));
+                ratingText.textContent = 'Cliquez sur les étoiles pour noter';
+                charCount.textContent = '0';
+                reviewCharCount.textContent = '0';
+            });
+        });
+    </script>
 </body>
 </html>

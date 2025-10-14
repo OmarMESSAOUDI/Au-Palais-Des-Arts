@@ -1,1324 +1,501 @@
-/* ===== VARIABLES COULEURS VERT & DORÉ ===== */
-:root {
-    /* Couleurs principales */
-    --primary-green: #2d5016;      /* Vert foncé principal */
-    --secondary-green: #4a7c3a;    /* Vert medium */
-    --light-green: #8a9a5b;        /* Vert clair */
-    --gold: #d4af37;               /* Doré principal */
-    --light-gold: #f4e4a0;         /* Doré clair */
-    
-    /* Couleurs neutres */
-    --cream: #faf3e0;              /* Fond crème */
-    --white: #ffffff;
-    --light-gray: #f5f5f5;
-    --text-dark: #2c2c2c;
-    --text-light: #666666;
-    
-    /* Espacements */
-    --space-xs: 0.5rem;
-    --space-sm: 1rem;
-    --space-md: 1.5rem;
-    --space-lg: 2rem;
-    --space-xl: 3rem;
-    
-    /* Bordures */
-    --radius: 8px;
-    --radius-lg: 12px;
-
-    /* Ombres */
-    --shadow: 0 4px 12px rgba(0,0,0,0.15);
-    --shadow-lg: 0 8px 24px rgba(0,0,0,0.2);
-}
-
-/* ===== RESET AMÉLIORÉ ===== */
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-    height: 100%;
-}
-
-body {
-    font-family: 'Georgia', 'Times New Roman', serif;
-    line-height: 1.6;
-    color: var(--text-dark);
-    background-color: var(--cream);
-    overflow-x: hidden;
-    min-height: 100%;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-button:focus-visible,
-a:focus-visible {
-    outline: 2px solid var(--gold);
-    outline-offset: 2px;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-md);
-}
-
-.section-padding {
-    padding: var(--space-xl) 0;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: var(--space-xl);
-}
-
-.section-header h2 {
-    font-size: 2.5rem;
-    color: var(--primary-green);
-    margin-bottom: var(--space-md);
-    position: relative;
-}
-
-.section-header h2::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary-green), var(--gold));
-    margin: var(--space-md) auto;
-    border-radius: 2px;
-}
-
-.section-header p {
-    font-size: 1.2rem;
-    color: var(--text-light);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* ===== LOADING SCREEN ===== */
-.loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--primary-green);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    color: white;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.loading-screen.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.loading-content {
-    text-align: center;
-}
-
-.loading-logo {
-    font-size: 4rem;
-    margin-bottom: var(--space-md);
-    animation: pulse 2s infinite;
-}
-
-.loading-bar {
-    width: 200px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 2px;
-    overflow: hidden;
-    margin: var(--space-md) auto;
-}
-
-.loading-progress {
-    height: 100%;
-    background: var(--gold);
-    width: 0%;
-    animation: loading 2s ease-in-out forwards;
-}
-
-@keyframes loading {
-    to { width: 100%; }
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-/* ===== HEADER ===== */
-header {
-    background: var(--primary-green);
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow);
-}
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-sm) 0;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-}
-
-.logo-icon {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    flex-shrink: 0;
-}
-
-.logo-text h1 {
-    font-size: 1.5rem;
-    margin-bottom: 2px;
-}
-
-.logo-text p {
-    font-size: 0.8rem;
-    opacity: 0.9;
-}
-
-/* Navigation */
-.nav-toggle {
-    display: none;
-    flex-direction: column;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: var(--space-xs);
-}
-
-.nav-toggle span {
-    width: 25px;
-    height: 3px;
-    background: white;
-    margin: 2px 0;
-    transition: 0.3s;
-}
-
-.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-}
-
-.nav-link {
-    color: white;
-    text-decoration: none;
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--radius);
-    transition: background 0.3s ease;
-    font-weight: 500;
-}
-
-.nav-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    margin-left: var(--space-md);
-}
-
-.cart-btn {
-    position: relative;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: var(--space-xs);
-    border-radius: var(--radius);
-    transition: background 0.3s ease;
-}
-
-.cart-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.cart-count {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: var(--gold);
-    color: var(--primary-green);
-    font-size: 0.7rem;
-    padding: 2px 6px;
-    border-radius: 50%;
-    font-weight: bold;
-    min-width: 18px;
-    text-align: center;
-}
-
-/* ===== HERO SECTION ===== */
-.hero {
-    background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
-    color: white;
-    padding: 120px 0 80px;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
-    align-items: center;
-}
-
-.hero-text h1 {
-    font-size: 3.5rem;
-    line-height: 1.1;
-    margin-bottom: var(--space-md);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    max-width: 90%;
-}
-
-.hero-text p {
-    font-size: 1.2rem;
-    margin-bottom: var(--space-lg);
-    opacity: 0.9;
-    max-width: 90%;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: var(--space-md);
-    margin-bottom: var(--space-xl);
-}
-
-.hero-stats {
-    display: flex;
-    gap: var(--space-xl);
-}
-
-.stat {
-    text-align: center;
-}
-
-.number {
-    display: block;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: var(--space-xs);
-    color: var(--gold);
-}
-
-.label {
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
-
-.hero-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.hero-visual {
-    position: relative;
-    width: 300px;
-    height: 300px;
-}
-
-.floating-element {
-    position: absolute;
-    font-size: 3rem;
-    animation: float 3s ease-in-out infinite;
-    will-change: transform;
-}
-
-.floating-element:nth-child(1) {
-    top: 20%;
-    left: 10%;
-    animation-delay: 0s;
-}
-
-.floating-element:nth-child(2) {
-    top: 50%;
-    right: 20%;
-    animation-delay: 1s;
-}
-
-.floating-element:nth-child(3) {
-    bottom: 20%;
-    left: 30%;
-    animation-delay: 2s;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-}
-
-/* ===== BOUTONS ===== */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-sm) var(--space-lg);
-    border: none;
-    border-radius: var(--radius);
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    gap: 8px;
-    min-height: 44px;
-}
-
-.btn-primary {
-    background: var(--gold);
-    color: var(--primary-green);
-}
-
-.btn-primary:hover {
-    background: var(--light-gold);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
-
-.btn-secondary {
-    background: transparent;
-    color: white;
-    border: 2px solid white;
-}
-
-.btn-secondary:hover {
-    background: white;
-    color: var(--primary-green);
-    transform: translateY(-2px);
-}
-
-.btn-success {
-    background: #27ae60;
-    color: white;
-}
-
-.btn-success:hover {
-    background: #229954;
-    transform: translateY(-2px);
-}
-
-.btn-danger {
-    background: #e74c3c;
-    color: white;
-}
-
-.btn-danger:hover {
-    background: #c0392b;
-    transform: translateY(-2px);
-}
-
-.btn-full {
-    width: 100%;
-}
-
-/* ===== PRÉSENTATION ===== */
-.presentation {
-    background: var(--white);
-}
-
-.histoire-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.histoire-text h3 {
-    font-size: 2rem;
-    color: var(--primary-green);
-    margin-bottom: var(--space-md);
-    text-align: center;
-}
-
-.histoire-text p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: var(--text-light);
-    margin-bottom: var(--space-lg);
-    text-align: center;
-}
-
-/* Origine Maroc */
-.origine-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-md);
-    margin: var(--space-lg) 0;
-}
-
-.origine-badge {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-md);
-    background: var(--cream);
-    border-radius: var(--radius);
-    border: 2px solid var(--light-gold);
-}
-
-.origine-icon {
-    font-size: 2rem;
-}
-
-.origine-badge h4 {
-    color: var(--primary-green);
-    margin-bottom: var(--space-xs);
-}
-
-.origine-badge p {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    margin: 0;
-}
-
-.valeurs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-lg);
-    margin-top: var(--space-xl);
-}
-
-.valeur-card {
-    text-align: center;
-    padding: var(--space-lg);
-    background: var(--cream);
-    border-radius: var(--radius-lg);
-    border: 2px solid var(--light-gold);
-}
-
-.valeur-icon {
-    font-size: 2.5rem;
-    margin-bottom: var(--space-md);
-}
-
-.valeur-card h4 {
-    color: var(--primary-green);
-    margin-bottom: var(--space-sm);
-}
-
-.valeur-card p {
-    color: var(--text-light);
-    font-size: 0.9rem;
-}
-
-/* ===== PANIER MODAL ===== */
-.panier-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1001;
-    backdrop-filter: blur(5px);
-}
-
-.panier-modal.show {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.panier-modal-content {
-    background: var(--white);
-    padding: var(--space-lg);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    border-left: 5px solid var(--gold);
-    max-width: 600px;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.panier-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-md);
-    border-bottom: 2px solid var(--light-gray);
-}
-
-.panier-modal-header h2 {
-    color: var(--primary-green);
-    margin: 0;
-}
-
-.close-panier {
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: var(--text-light);
-    transition: color 0.3s ease;
-}
-
-.close-panier:hover {
-    color: var(--primary-green);
-}
-
-.panier-items {
-    margin-bottom: var(--space-lg);
-}
-
-.panier-vide {
-    text-align: center;
-    color: var(--text-light);
-    font-style: italic;
-    padding: var(--space-xl) 0;
-}
-
-.panier-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-md) 0;
-    border-bottom: 1px solid var(--light-gray);
-    gap: var(--space-md);
-}
-
-.panier-item:last-child {
-    border-bottom: none;
-}
-
-.panier-item-info {
-    flex: 1;
-}
-
-.panier-item-info h4 {
-    color: var(--primary-green);
-    margin-bottom: var(--space-xs);
-}
-
-.panier-item-controls {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-}
-
-.btn-quantity {
-    background: var(--primary-green);
-    color: white;
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.btn-quantity:hover {
-    background: var(--secondary-green);
-    transform: scale(1.1);
-}
-
-.btn-remove {
-    background: #e74c3c;
-    color: white;
-    border: none;
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--radius);
-    cursor: pointer;
-    margin-left: var(--space-sm);
-    transition: all 0.3s ease;
-}
-
-.btn-remove:hover {
-    background: #c0392b;
-    transform: scale(1.05);
-}
-
-.panier-total {
-    text-align: right;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: var(--space-lg) 0;
-    padding-top: var(--space-md);
-    border-top: 3px solid var(--primary-green);
-    color: var(--primary-green);
-}
-
-.panier-modal-actions {
-    display: flex;
-    gap: var(--space-md);
-    justify-content: flex-end;
-}
-
-/* ===== PRODUITS ===== */
-.produits {
-    background: var(--cream);
-}
-
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--space-lg);
-}
-
-.product-card {
-    background: var(--white);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-}
-
-.product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-lg);
-}
-
-.product-badge {
-    position: absolute;
-    top: var(--space-md);
-    right: var(--space-md);
-    background: var(--gold);
-    color: var(--primary-green);
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    z-index: 2;
-}
-
-.product-image-container {
-    width: 100%;
-    height: 250px;
-    background: var(--light-gray);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 3px solid var(--gold);
-    overflow: hidden;
-}
-
-.product-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.product-card:hover .product-image {
-    transform: scale(1.05);
-}
-
-.product-content {
-    padding: var(--space-lg);
-}
-
-.product-title {
-    font-size: 1.3rem;
-    color: var(--primary-green);
-    margin-bottom: var(--space-sm);
-}
-
-.product-description {
-    color: var(--text-light);
-    margin-bottom: var(--space-md);
-    line-height: 1.5;
-}
-
-.product-meta {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: var(--space-sm);
-    font-size: 0.9rem;
-    color: var(--text-light);
-}
-
-.product-origin {
-    text-align: center;
-    color: var(--primary-green);
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-bottom: var(--space-md);
-    background: var(--light-gold);
-    padding: var(--space-xs);
-    border-radius: var(--radius);
-}
-
-.product-price {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--primary-green);
-    text-align: center;
-    margin: var(--space-md) 0;
-    background: var(--cream);
-    padding: var(--space-md);
-    border-radius: var(--radius);
-    border: 2px dashed var(--gold);
-}
-
-.add-to-cart {
-    width: 100%;
-    padding: var(--space-md);
-    font-size: 1rem;
-}
-
-/* ===== CRÉATION SUR MESURE ===== */
-.creation-sur-mesure {
-    background: var(--white);
-}
-
-.creation-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
-    align-items: start;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.creation-text h3 {
-    color: var(--primary-green);
-    font-size: 1.8rem;
-    margin-bottom: var(--space-md);
-}
-
-.creation-text p {
-    color: var(--text-light);
-    line-height: 1.7;
-    margin-bottom: var(--space-lg);
-}
-
-.avantages-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-}
-
-.avantage {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-md);
-    padding: var(--space-md);
-    background: var(--cream);
-    border-radius: var(--radius);
-    border-left: 4px solid var(--gold);
-}
-
-.avantage-icon {
-    font-size: 1.5rem;
-    flex-shrink: 0;
-}
-
-.avantage h4 {
-    color: var(--primary-green);
-    margin-bottom: var(--space-xs);
-}
-
-.avantage p {
-    color: var(--text-light);
-    margin: 0;
-    font-size: 0.9rem;
-}
-
-/* Formulaire création sur mesure */
-.creation-form-container {
-    background: var(--cream);
-    padding: var(--space-xl);
-    border-radius: var(--radius-lg);
-    border: 2px solid var(--light-gold);
-}
-
-.creation-form h4 {
-    color: var(--primary-green);
-    text-align: center;
-    margin-bottom: var(--space-lg);
-    font-size: 1.3rem;
-}
-
-.creation-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-md);
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    margin-bottom: var(--space-xs);
-    font-weight: 600;
-    color: var(--primary-green);
-    font-size: 0.9rem;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    padding: var(--space-sm);
-    border: 2px solid #ddd;
-    border-radius: var(--radius);
-    font-size: 1rem;
-    font-family: inherit;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-green);
-}
-
-.checkbox-group {
-    margin: var(--space-md) 0;
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-sm);
-    cursor: pointer;
-    font-weight: normal;
-    color: var(--text-light);
-    font-size: 0.9rem;
-}
-
-.checkbox-label input[type="checkbox"] {
-    display: none;
-}
-
-.checkmark {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ddd;
-    border-radius: 3px;
-    position: relative;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-}
-
-.checkbox-label input[type="checkbox"]:checked + .checkmark {
-    background: var(--primary-green);
-    border-color: var(--primary-green);
-}
-
-.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
-    content: '✓';
-    position: absolute;
-    color: white;
-    font-size: 14px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* ===== AVIS ===== */
-.avis {
-    background: var(--white);
-}
-
-.avis-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--space-lg);
-}
-
-.avis-card {
-    background: var(--cream);
-    padding: var(--space-lg);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow);
-    border-left: 4px solid var(--gold);
-    transition: all 0.3s ease;
-}
-
-.avis-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-}
-
-.avis-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: var(--space-md);
-}
-
-.avis-client {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-}
-
-.client-avatar {
-    width: 50px;
-    height: 50px;
-    background: var(--primary-green);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 1.2rem;
-}
-
-.avis-rating {
-    color: var(--gold);
-    font-size: 1.2rem;
-}
-
-.avis-text {
-    line-height: 1.7;
-    color: var(--text-light);
-    font-style: italic;
-    margin-bottom: var(--space-md);
-}
-
-.avis-date {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    text-align: right;
-}
-
-/* ===== CONTACT ===== */
-.contact {
-    background: var(--cream);
-}
-
-.contact-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.contact-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-lg);
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-lg);
-    background: var(--white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
-}
-
-.contact-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-}
-
-.contact-item .icon {
-    font-size: 2rem;
-}
-
-.details h3 {
-    color: var(--primary-green);
-    margin-bottom: var(--space-xs);
-}
-
-/* ===== FOOTER ===== */
-.footer {
-    background: var(--primary-green);
-    color: white;
-    padding: var(--space-xl) 0 var(--space-lg);
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-xl);
-    margin-bottom: var(--space-lg);
-}
-
-.footer-section h3 {
-    margin-bottom: var(--space-md);
-    color: var(--gold);
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section ul li {
-    margin-bottom: var(--space-xs);
-}
-
-.footer-section a {
-    color: white;
-    text-decoration: none;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-}
-
-.footer-section a:hover {
-    opacity: 1;
-}
-
-.trust-badges {
-    margin-top: var(--space-md);
-}
-
-.trust-badge {
-    background: var(--gold);
-    color: var(--primary-green);
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: 15px;
-    font-size: 0.8rem;
-    margin-right: var(--space-xs);
-    margin-bottom: var(--space-xs);
-    display: inline-block;
-    font-weight: 600;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: var(--space-lg);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    opacity: 0.8;
-}
-
-/* ===== NOTIFICATIONS ===== */
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: var(--space-md) var(--space-lg);
-    border-radius: var(--radius);
-    color: white;
-    font-weight: bold;
-    z-index: 1001;
-    transform: translateX(400px);
-    transition: transform 0.3s ease;
-    box-shadow: var(--shadow);
-    max-width: 400px;
-}
-
-.notification.show {
-    transform: translateX(0);
-}
-
-.notification.success {
-    background: #27ae60;
-}
-
-.notification.error {
-    background: #e74c3c;
-}
-
-/* ===== ANIMATIONS ===== */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-    .container {
-        padding: 0 var(--space-sm);
-    }
-
-    .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: var(--space-lg);
-    }
-
-    .hero-text h1 {
-        font-size: 2.5rem;
-        max-width: 100%;
-    }
-
-    .hero-text p {
-        font-size: 1rem;
-        max-width: 100%;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .hero-stats {
-        flex-direction: column;
-        gap: var(--space-lg);
-    }
-
-    .nav-toggle {
-        display: flex;
-    }
-
-    .nav-menu {
-        position: fixed;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: var(--primary-green);
-        flex-direction: column;
-        padding: var(--space-xl);
-        transform: translateY(-100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-    }
-
-    .nav-menu.active {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .products-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .panier-modal-actions {
-        flex-direction: column;
-    }
-
-    .creation-content {
-        grid-template-columns: 1fr;
-        gap: var(--space-lg);
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-info {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .section-header h2 {
-        font-size: 2rem;
-    }
-
-    .origine-info {
-        grid-template-columns: 1fr;
-    }
-
-    .creation-form-container {
-        padding: var(--space-lg);
-    }
-
-    .avantage {
-        flex-direction: column;
-        text-align: center;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero {
-        padding: 100px 0 60px;
-    }
-
-    .hero-text h1 {
-        font-size: 2rem;
-    }
-
-    .hero-text p {
-        font-size: 1rem;
-    }
-
-    .section-padding {
-        padding: var(--space-lg) 0;
-    }
-
-    .panier-modal-content {
-        padding: var(--space-md);
-        margin: var(--space-md);
-    }
-
-    .panier-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--space-sm);
-    }
-
-    .panier-item-controls {
-        align-self: flex-end;
-    }
-
-    .origine-badge {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .creation-form-container {
-        padding: var(--space-md);
-    }
-}
-
-/* Réduction des animations pour les préférences utilisateur */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-}
-
-/* Support des très grands écrans */
-@media (min-width: 1400px) {
-    .container {
-        max-width: 1320px;
-    }
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Au Palais Des Arts - Créations Artisanales en Osier du Maroc</title>
+    <meta name="description" content="Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains. Vannerie traditionnelle de qualité supérieure.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">🧺</div>
+            <h1>Au Palais Des Arts</h1>
+            <p>Chargement de l'artisanat marocain...</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <!-- Logo image -->
+                    <img src="Au_Palais_Des_Arts.png" alt="Au Palais Des Arts" class="logo-icon">
+                    <div class="logo-text">
+                        <h1>Au Palais Des Arts</h1>
+                        <p>Artisanat marocain d'exception</p>
+                    </div>
+                </div>
+                
+                <nav class="nav">
+                    <button class="nav-toggle" id="navToggle" aria-label="Menu navigation">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="nav-menu" id="navMenu">
+                        <a href="#produits" class="nav-link">Nos Créations</a>
+                        <a href="#histoire" class="nav-link">Notre Histoire</a>
+                        <a href="#sur-mesure" class="nav-link">Création sur Mesure</a>
+                        <a href="#avis" class="nav-link">Avis Clients</a>
+                        <a href="#contact" class="nav-link">Contact</a>
+                        <div class="nav-actions">
+                            <button class="cart-btn" id="cartBtn" aria-label="Ouvrir le panier">
+                                🛒 <span class="cart-count">0</span>
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>L'Art de la Vannerie Marocaine</h1>
+                    <p>Découvrez nos créations uniques en osier, 100% faites main au Maroc par des artisans passionnés</p>
+                    <div class="hero-buttons">
+                        <a href="#produits" class="btn btn-primary">Découvrir nos créations</a>
+                        <a href="#histoire" class="btn btn-secondary">Notre Histoire</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="number">38</span>
+                            <span class="label">Ans d'expertise</span>
+                        </div>
+                        <div class="stat">
+                            <span class="number">5000+</span>
+                            <span class="label">Créations vendues</span>
+                        </div>
+                        <div class="stat">
+                            <span class="number">4.9</span>
+                            <span class="label">/5 Satisfaction</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-visual">
+                        <div class="floating-element">🌿</div>
+                        <div class="floating-element">🧺</div>
+                        <div class="floating-element">🇲🇦</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Présentation -->
+    <section class="presentation section-padding" id="histoire">
+        <div class="container">
+            <div class="section-header">
+                <h2>Notre Histoire</h2>
+                <p>Transmettre l'excellence artisanale marocaine depuis trois générations</p>
+            </div>
+            <div class="histoire-content">
+                <div class="histoire-text">
+                    <h3>Un Savoir-Faire Ancestral du Maroc</h3>
+                    <p>Fondé en 1985 par la famille Martin, <strong>Au Palais Des Arts</strong> perpétue la tradition du tissage d'osier et du travail artisanal de qualité. <strong>Nos créations sont entièrement fabriquées au Maroc</strong> par des artisans locaux qui maîtrisent des techniques ancestrales.</p>
+                    
+                    <div class="origine-info">
+                        <div class="origine-badge">
+                            <span class="origine-icon">🇲🇦</span>
+                            <div>
+                                <h4>Origine Marocaine</h4>
+                                <p>100% fait main au Maroc par des artisans locaux</p>
+                            </div>
+                        </div>
+                        <div class="origine-badge">
+                            <span class="origine-icon">👐</span>
+                            <div>
+                                <h4>100% Artisanal</h4>
+                                <p>Techniques traditionnelles transmises de génération en génération</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p>Chaque panier est conçu avec passion et expertise, utilisant des matériaux naturels et durables provenant des régions marocaines. Nous collaborons étroitement avec des coopératives d'artisans qui préservent ce savoir-faire unique.</p>
+                    
+                    <div class="valeurs-grid">
+                        <div class="valeur-card">
+                            <div class="valeur-icon">🌱</div>
+                            <h4>Éco-responsable</h4>
+                            <p>Osier 100% naturel de cultures durables marocaines</p>
+                        </div>
+                        <div class="valeur-card">
+                            <div class="valeur-icon">👐</div>
+                            <h4>Fait Main</h4>
+                            <p>Techniques ancestrales marocaines transmises</p>
+                        </div>
+                        <div class="valeur-card">
+                            <div class="valeur-icon">🇲🇦</div>
+                            <h4>Origine Maroc</h4>
+                            <p>Fabriqué au Maroc par des artisans locaux</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Produits -->
+    <section class="produits section-padding" id="produits">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nos Créations en Osier du Maroc</h2>
+                <p>Pièces uniques faites main avec des techniques ancestrales marocaines</p>
+            </div>
+
+            <div class="products-grid">
+                <!-- Produit 1 -->
+                <div class="product-card">
+                    <div class="product-badge">Populaire</div>
+                    <div class="product-image-container">
+                        <img src="Panier tressé rectangulaire.jpg" alt="Panier Tressé Rectangulaire" class="product-image">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Panier Tressé Rectangulaire</h3>
+                        <p class="product-description">Panier élégant au design rectangulaire, parfait pour le rangement et la décoration. Tressage traditionnel marocain pour une durabilité exceptionnelle.</p>
+                        <div class="product-meta">
+                            <span>📏 40x30x25cm</span>
+                            <span>🚚 48h</span>
+                        </div>
+                        <div class="product-origin">🇲🇦 Fait main au Maroc</div>
+                        <div class="product-price">35,00€</div>
+                        <button class="btn btn-primary add-to-cart" onclick="ajouterAuPanier('Panier Tressé Rectangulaire', 35)">
+                            ➕ Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Produit 2 -->
+                <div class="product-card">
+                    <div class="product-badge">Innovant</div>
+                    <div class="product-image-container">
+                        <img src="Panier à linge double compartiment.jpg" alt="Panier Double Compartiment" class="product-image">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Panier Double Compartiment</h3>
+                        <p class="product-description">Innovant et pratique, ce panier à double compartiment vous permet de trier votre linge facilement. Idéal pour une organisation optimale.</p>
+                        <div class="product-meta">
+                            <span>📏 50x40x35cm</span>
+                            <span>🚚 48h</span>
+                        </div>
+                        <div class="product-origin">🇲🇦 Fait main au Maroc</div>
+                        <div class="product-price">55,00€</div>
+                        <button class="btn btn-primary add-to-cart" onclick="ajouterAuPanier('Panier Double Compartiment', 55)">
+                            ➕ Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Produit 3 -->
+                <div class="product-card">
+                    <div class="product-badge">Écologique</div>
+                    <div class="product-image-container">
+                        <img src="Panier à linge en feuilles de palmier.jpg" alt="Panier en Feuilles de Palmier" class="product-image">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Panier en Feuilles de Palmier</h3>
+                        <p class="product-description">Panier écologique fabriqué à partir de feuilles de palmier naturelles. Léger, résistant et respectueux de l'environnement.</p>
+                        <div class="product-meta">
+                            <span>📏 45x35x30cm</span>
+                            <span>🚚 48h</span>
+                        </div>
+                        <div class="product-origin">🇲🇦 Fait main au Maroc</div>
+                        <div class="product-price">42,00€</div>
+                        <button class="btn btn-primary add-to-cart" onclick="ajouterAuPanier('Panier en Feuilles de Palmier', 42)">
+                            ➕ Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Produit 4 -->
+                <div class="product-card">
+                    <div class="product-badge">Classique</div>
+                    <div class="product-image-container">
+                        <img src="Panier à linge rond en osier.jpg" alt="Panier Rond en Osier" class="product-image">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Panier Rond en Osier</h3>
+                        <p class="product-description">Panier rond traditionnel en osier de qualité supérieure. Parfait pour le rangement du linge ou comme élément décoratif chaleureux.</p>
+                        <div class="product-meta">
+                            <span>📏 Diamètre 45cm</span>
+                            <span>🚚 48h</span>
+                        </div>
+                        <div class="product-origin">🇲🇦 Fait main au Maroc</div>
+                        <div class="product-price">38,00€</div>
+                        <button class="btn btn-primary add-to-cart" onclick="ajouterAuPanier('Panier Rond en Osier', 38)">
+                            ➕ Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Création sur Mesure -->
+    <section class="creation-sur-mesure section-padding" id="sur-mesure">
+        <div class="container">
+            <div class="section-header">
+                <h2>Création sur Mesure</h2>
+                <p>Votre projet unique, réalisé par nos artisans marocains</p>
+            </div>
+            
+            <div class="creation-content">
+                <div class="creation-text">
+                    <h3>Votre Vision, Notre Savoir-Faire</h3>
+                    <p>Vous avez un projet spécifique ? Une idée unique ? Nos artisans marocains peuvent créer <strong>votre pièce sur mesure</strong> selon vos envies et besoins.</p>
+                    
+                    <div class="avantages-list">
+                        <div class="avantage">
+                            <span class="avantage-icon">🎨</span>
+                            <div>
+                                <h4>Design Personnalisé</h4>
+                                <p>Dimensions, formes et couleurs adaptées à vos besoins</p>
+                            </div>
+                        </div>
+                        <div class="avantage">
+                            <span class="avantage-icon">👨‍🎨</span>
+                            <div>
+                                <h4>Expertise Marocaine</h4>
+                                <p>Réalisé par nos artisans expérimentés au Maroc</p>
+                            </div>
+                        </div>
+                        <div class="avantage">
+                            <span class="avantage-icon">⏱️</span>
+                            <div>
+                                <h4>Accompagnement</h4>
+                                <p>Suivi personnalisé de votre projet jusqu'à la livraison</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="creation-form-container">
+                    <form class="creation-form" id="creationForm">
+                        <h4>Parlez-nous de votre projet</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="creation-nom">Nom complet *</label>
+                                <input type="text" id="creation-nom" name="nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="creation-email">Email *</label>
+                                <input type="email" id="creation-email" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="creation-telephone">Téléphone</label>
+                            <input type="tel" id="creation-telephone" name="telephone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="creation-type">Type de création *</label>
+                            <select id="creation-type" name="type" required>
+                                <option value="">Choisissez le type</option>
+                                <option value="panier">Panier sur mesure</option>
+                                <option value="corbeille">Corbeille personnalisée</option>
+                                <option value="decoration">Décoration intérieure</option>
+                                <option value="mobilier">Mobilier en osier</option>
+                                <option value="autre">Autre projet</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="creation-dimensions">Dimensions souhaitées</label>
+                            <input type="text" id="creation-dimensions" name="dimensions" placeholder="Ex: 40x30x25cm">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="creation-description">Description de votre projet *</label>
+                            <textarea id="creation-description" name="description" rows="5" required placeholder="Décrivez en détail votre projet, vos attentes, l'usage prévu..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="creation-budget">Budget estimatif</label>
+                            <input type="text" id="creation-budget" name="budget" placeholder="Ex: 50-100€">
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="origine" required>
+                                <span class="checkmark"></span>
+                                Je comprends que mes créations seront fabriquées au Maroc par des artisans locaux *
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">
+                            🎨 Envoyer ma demande de création sur mesure
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Avis -->
+    <section class="avis section-padding" id="avis">
+        <div class="container">
+            <div class="section-header">
+                <h2>Avis Clients</h2>
+                <p>Ce que disent nos clients satisfaits</p>
+            </div>
+            <div class="avis-grid">
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-client">
+                            <div class="client-avatar">M</div>
+                            <div>
+                                <h4>Marie L.</h4>
+                                <div class="avis-rating">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="avis-text">"Le panier rectangulaire est absolument magnifique ! La qualité de tissage est exceptionnelle. Savoir qu'il est fait main au Maroc ajoute une valeur sentimentale. Livraison rapide et emballage soigné."</p>
+                    <div class="avis-date">15/10/2024</div>
+                </div>
+
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-client">
+                            <div class="client-avatar">P</div>
+                            <div>
+                                <h4>Pierre D.</h4>
+                                <div class="avis-rating">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="avis-text">"J'ai offert le panier double compartiment à ma femme et elle en est ravie. Pratique et élégant, il trône maintenant dans notre chambre. La qualité artisanale marocaine est remarquable !"</p>
+                    <div class="avis-date">12/10/2024</div>
+                </div>
+
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-client">
+                            <div class="client-avatar">S</div>
+                            <div>
+                                <h4>Sophie M.</h4>
+                                <div class="avis-rating">★★★★☆</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="avis-text">"Très beau panier en feuilles de palmier, léger et résistant. Le côté écologique et l'origine marocaine sont appréciables. Petit bémol : une légère odeur au début, mais qui part rapidement."</p>
+                    <div class="avis-date">08/10/2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section class="contact section-padding" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contactez-nous</h2>
+                <p>Une question ? Un projet sur mesure ?</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="icon">📧</div>
+                        <div class="details">
+                            <h3>Email</h3>
+                            <p>contact@aupalaisdesarts.fr</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">📞</div>
+                        <div class="details">
+                            <h3>Téléphone</h3>
+                            <p>01 23 45 67 89</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">📍</div>
+                        <div class="details">
+                            <h3>Atelier Partenaire</h3>
+                            <p>Coopérative d'artisans<br>Marrakech, Maroc</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Au Palais Des Arts</h3>
+                    <p>Artisanat marocain d'exception depuis 1985</p>
+                    <div class="trust-badges">
+                        <span class="trust-badge">🌿 100% Fait main</span>
+                        <span class="trust-badge">🇲🇦 Fabriqué au Maroc</span>
+                        <span class="trust-badge">🚚 Livraison France</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="#produits">Nos créations</a></li>
+                        <li><a href="#histoire">Notre histoire</a></li>
+                        <li><a href="#sur-mesure">Création sur mesure</a></li>
+                        <li><a href="#avis">Avis clients</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Engagements</h3>
+                    <ul>
+                        <li>✓ 100% Fait main au Maroc</li>
+                        <li>✓ Artisanat traditionnel</li>
+                        <li>✓ Matériaux naturels</li>
+                        <li>✓ Développement durable</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Au Palais Des Arts. Artisanat marocain - Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Panier Modal -->
+    <div id="panierModal" class="panier-modal">
+        <div class="panier-modal-content">
+            <div class="panier-modal-header">
+                <h2>🛒 Votre Panier</h2>
+                <button class="close-panier" id="closePanier">&times;</button>
+            </div>
+            <div class="panier-modal-body">
+                <div id="panier-items" class="panier-items">
+                    <p class="panier-vide">Votre panier est vide</p>
+                </div>
+                <div class="panier-total">
+                    Total : <span id="total-panier">0,00€</span>
+                </div>
+            </div>
+            <div class="panier-modal-actions">
+                <button class="btn btn-danger" onclick="viderPanier()">🗑️ Vider le panier</button>
+                <button class="btn btn-success" onclick="passerCommande()">🚀 Commander</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages de notification -->
+    <div id="notificationContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

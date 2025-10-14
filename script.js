@@ -2,6 +2,17 @@
 let panier = JSON.parse(localStorage.getItem('panier')) || [];
 let notificationTimeout;
 
+// Définition des produits
+const produits = {
+    1: { nom: "Panier Tressé Rectangulaire", prix: 35 },
+    2: { nom: "Panier Double Compartiment", prix: 55 },
+    3: { nom: "Panier en Feuilles de Palmier", prix: 42 },
+    4: { nom: "Panier Rond en Osier", prix: 38 },
+    5: { nom: "Lot de 4 Paniers en Osier", prix: 120 },
+    6: { nom: "Panier Rectangulaire Jacinthe d'Eau", prix: 45 },
+    7: { nom: "Panier Rond Jacinthe d'Eau", prix: 40 }
+};
+
 // ===== INITIALISATION =====
 document.addEventListener('DOMContentLoaded', function() {
     initialiserApp();
@@ -24,15 +35,23 @@ function initialiserApp() {
 }
 
 // ===== GESTION DU PANIER =====
-function ajouterAuPanier(nom, prix) {
-    const produitExistant = panier.find(item => item.nom === nom);
+function ajouterAuPanier(productId) {
+    const produit = produits[productId];
+    
+    if (!produit) {
+        console.error('Produit non trouvé:', productId);
+        return;
+    }
+    
+    const produitExistant = panier.find(item => item.id === productId);
     
     if (produitExistant) {
         produitExistant.quantite++;
     } else {
         panier.push({
-            nom: nom,
-            prix: prix,
+            id: productId,
+            nom: produit.nom,
+            prix: produit.prix,
             quantite: 1
         });
     }
@@ -42,21 +61,21 @@ function ajouterAuPanier(nom, prix) {
     afficherNotification('✅ Produit ajouté au panier !', 'success');
 }
 
-function supprimerDuPanier(nom) {
-    panier = panier.filter(item => item.nom !== nom);
+function supprimerDuPanier(productId) {
+    panier = panier.filter(item => item.id !== productId);
     sauvegarderPanier();
     mettreAJourPanier();
     afficherNotification('🗑️ Produit retiré du panier', 'error');
 }
 
-function modifierQuantite(nom, changement) {
-    const produit = panier.find(item => item.nom === nom);
+function modifierQuantite(productId, changement) {
+    const produit = panier.find(item => item.id === productId);
     
     if (produit) {
         produit.quantite += changement;
         
         if (produit.quantite <= 0) {
-            supprimerDuPanier(nom);
+            supprimerDuPanier(productId);
         } else {
             sauvegarderPanier();
             mettreAJourPanier();
@@ -99,24 +118,20 @@ function mettreAJourPanier() {
     if (panier.length === 0) {
         panierItems.innerHTML = '<p class="panier-vide">Votre panier est vide</p>';
     } else {
-        panierItems.innerHTML = panier.map(item => {
-            // Échapper les apostrophes pour éviter les erreurs JavaScript
-            const nomEchappe = item.nom.replace(/'/g, "\\'");
-            return `
-                <div class="panier-item">
-                    <div class="panier-item-info">
-                        <h4>${item.nom}</h4>
-                        <p>${item.prix}€ × ${item.quantite}</p>
-                    </div>
-                    <div class="panier-item-controls">
-                        <button class="btn-quantity" onclick="modifierQuantite('${nomEchappe}', -1)">-</button>
-                        <span>${item.quantite}</span>
-                        <button class="btn-quantity" onclick="modifierQuantite('${nomEchappe}', 1)">+</button>
-                        <button class="btn-remove" onclick="supprimerDuPanier('${nomEchappe}')">🗑️</button>
-                    </div>
+        panierItems.innerHTML = panier.map(item => `
+            <div class="panier-item">
+                <div class="panier-item-info">
+                    <h4>${item.nom}</h4>
+                    <p>${item.prix}€ × ${item.quantite}</p>
                 </div>
-            `;
-        }).join('');
+                <div class="panier-item-controls">
+                    <button class="btn-quantity" data-product-id="${item.id}" data-action="decrease">-</button>
+                    <span>${item.quantite}</span>
+                    <button class="btn-quantity" data-product-id="${item.id}" data-action="increase">+</button>
+                    <button class="btn-remove" data-product-id="${item.id}">🗑️</button>
+                </div>
+            </div>
+        `).join('');
     }
     
     // Mettre à jour le total
@@ -261,18 +276,50 @@ function initialiserEcouteurs() {
         });
     });
     
-    // Gestion des boutons "Ajouter au panier" avec data-attributes
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const nom = this.getAttribute('data-nom') || this.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
-            const prix = this.getAttribute('data-prix') || this.getAttribute('onclick')?.match(/, (\d+)\)/)?.[1];
-            
-            if (nom && prix) {
-                ajouterAuPanier(nom, parseInt(prix));
+    // Gestion des boutons "Ajouter au panier"
+    document.addEventListener('click', function(e) {
+        // Boutons "Ajouter au panier"
+        if (e.target.classList.contains('add-to-cart')) {
+            const productId = e.target.getAttribute('data-product-id');
+            if (productId) {
+                ajouterAuPanier(parseInt(productId));
             }
-        });
+        }
+        
+        // Boutons de quantité dans le panier
+        if (e.target.classList.contains('btn-quantity')) {
+            const productId = parseInt(e.target.getAttribute('data-product-id'));
+            const action = e.target.getAttribute('data-action');
+            
+            if (productId && action) {
+                if (action === 'increase') {
+                    modifierQuantite(productId, 1);
+                } else if (action === 'decrease') {
+                    modifierQuantite(productId, -1);
+                }
+            }
+        }
+        
+        // Boutons de suppression dans le panier
+        if (e.target.classList.contains('btn-remove')) {
+            const productId = parseInt(e.target.getAttribute('data-product-id'));
+            if (productId) {
+                supprimerDuPanier(productId);
+            }
+        }
     });
+    
+    // Bouton vider panier
+    const viderPanierBtn = document.getElementById('viderPanierBtn');
+    if (viderPanierBtn) {
+        viderPanierBtn.addEventListener('click', viderPanier);
+    }
+    
+    // Bouton commander
+    const commanderBtn = document.getElementById('commanderBtn');
+    if (commanderBtn) {
+        commanderBtn.addEventListener('click', passerCommande);
+    }
     
     // Initialiser le formulaire
     initialiserFormulaireCreation();

@@ -173,6 +173,12 @@ function mettreAJourAvis() {
                 note: 5,
                 commentaire: "J'ai offert le panier double compartiment à ma femme et elle en est ravie.",
                 date: "12/10/2024"
+            },
+            {
+                nom: "Sophie M.",
+                note: 4,
+                commentaire: "Très beau panier en feuilles de palmier, léger et résistant.",
+                date: "08/10/2024"
             }
         ];
         sauvegarderAvis();
@@ -289,6 +295,11 @@ function initialiserFormulaireAvis() {
             return;
         }
         
+        if (commentaire.length < 10) {
+            afficherNotification('❌ Le commentaire doit contenir au moins 10 caractères');
+            return;
+        }
+        
         ajouterAvis(nom, note, commentaire);
         form.reset();
         
@@ -302,19 +313,24 @@ function initialiserFormulaireAvis() {
 }
 
 // ===== PAIEMENT =====
-function passerCommande() {
+function passerAuPaiement() {
     if (panier.length === 0) {
         afficherNotification('🛒 Votre panier est vide');
         return;
     }
     
+    const total = calculerTotal();
+    
+    // Sauvegarder la commande pour la page de paiement
     const commande = {
         produits: panier,
-        total: calculerTotal(),
+        total: total,
         date: new Date().toISOString()
     };
     
     localStorage.setItem('commande', JSON.stringify(commande));
+    
+    // Redirection vers la page de paiement
     window.location.href = 'paiement.html';
 }
 
@@ -358,9 +374,9 @@ function initialiserEcouteurs() {
     const viderPanierBtn = document.getElementById('viderPanierBtn');
     if (viderPanierBtn) viderPanierBtn.addEventListener('click', viderPanier);
     
-    // Bouton commander
-    const commanderBtn = document.getElementById('commanderBtn');
-    if (commanderBtn) commanderBtn.addEventListener('click', passerCommande);
+    // Bouton passer au paiement
+    const passerPaiementBtn = document.getElementById('passerPaiementBtn');
+    if (passerPaiementBtn) passerPaiementBtn.addEventListener('click', passerAuPaiement);
     
     // Formulaires
     initialiserFormulaireCreation();

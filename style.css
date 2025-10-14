@@ -184,15 +184,13 @@ header {
 }
 
 .logo-icon {
-    font-size: 2rem;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
     width: 50px;
     height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    object-fit: contain;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
+    flex-shrink: 0;
 }
 
 .logo-text h1 {
@@ -724,15 +722,19 @@ header {
 .product-image-container {
     width: 100%;
     height: 250px;
-    overflow: hidden;
+    background: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-bottom: 3px solid var(--gold);
+    overflow: hidden;
 }
 
 .product-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
 }
 
 .product-card:hover .product-image {
@@ -950,21 +952,15 @@ header {
     transform: translate(-50%, -50%);
 }
 
-/* ===== AVIS AMÉLIORÉ ===== */
+/* ===== AVIS ===== */
 .avis {
     background: var(--white);
-}
-
-.avis-content {
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .avis-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--space-lg);
-    margin-bottom: var(--space-xl);
 }
 
 .avis-card {
@@ -1023,85 +1019,6 @@ header {
     color: var(--text-light);
     font-size: 0.9rem;
     text-align: right;
-}
-
-/* Formulaire d'avis amélioré */
-.formulaire-avis-container {
-    background: var(--white);
-    padding: var(--space-xl);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow);
-    border: 2px solid var(--light-gold);
-    margin-top: var(--space-xl);
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.formulaire-avis-header {
-    text-align: center;
-    margin-bottom: var(--space-lg);
-}
-
-.formulaire-avis-header h3 {
-    color: var(--primary-green);
-    font-size: 1.8rem;
-    margin-bottom: var(--space-sm);
-}
-
-.formulaire-avis-header p {
-    color: var(--text-light);
-    font-size: 1rem;
-}
-
-.formulaire-avis {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-}
-
-/* Système de notation par étoiles */
-.rating-stars {
-    display: flex;
-    gap: 8px;
-    margin: var(--space-sm) 0;
-}
-
-.star {
-    font-size: 2rem;
-    color: #ddd;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-}
-
-.star:hover,
-.star.active {
-    color: var(--gold);
-    transform: scale(1.1);
-}
-
-.star:hover ~ .star {
-    color: #ddd;
-}
-
-.rating-text {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    margin-top: var(--space-xs);
-    font-style: italic;
-}
-
-/* Compteur de caractères */
-.char-count {
-    text-align: right;
-    font-size: 0.8rem;
-    color: var(--text-light);
-    margin-top: 4px;
-}
-
-.char-count.warning {
-    color: #e74c3c;
 }
 
 /* ===== CONTACT ===== */
@@ -1344,19 +1261,6 @@ header {
         flex-direction: column;
         text-align: center;
     }
-
-    .formulaire-avis-container {
-        padding: var(--space-lg);
-        margin: var(--space-lg) var(--space-sm);
-    }
-    
-    .formulaire-avis-header h3 {
-        font-size: 1.5rem;
-    }
-    
-    .star {
-        font-size: 1.8rem;
-    }
 }
 
 @media (max-width: 480px) {
@@ -1398,14 +1302,6 @@ header {
 
     .creation-form-container {
         padding: var(--space-md);
-    }
-
-    .formulaire-avis-container {
-        padding: var(--space-md);
-    }
-    
-    .star {
-        font-size: 1.5rem;
     }
 }
 

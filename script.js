@@ -178,13 +178,37 @@ function initialiserFormulaireCreation() {
             afficherNotification('❌ Veuillez remplir tous les champs obligatoires', 'error');
             return;
         }
-        
-        // Simulation d'envoi
-        afficherNotification('🎨 Votre demande a été envoyée ! Nous vous contacterons rapidement.', 'success');
-        form.reset();
-        
-        // Fermer le modal si ouvert
-        fermerPanier();
+
+        // ENVOI RÉEL VERS FORMSPREE
+        const formData = new FormData();
+        formData.append('nom', nom);
+        formData.append('email', email);
+        formData.append('telephone', document.getElementById('creation-telephone').value);
+        formData.append('type', document.getElementById('creation-type').value);
+        formData.append('dimensions', document.getElementById('creation-dimensions').value);
+        formData.append('description', description);
+        formData.append('budget', document.getElementById('creation-budget').value);
+        formData.append('_subject', 'Nouvelle demande de création sur mesure - Au Palais Des Arts');
+
+        fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', { // Remplacez par votre ID Formspree
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                afficherNotification('🎨 Votre demande a été envoyée ! Nous vous contacterons rapidement.', 'success');
+                form.reset();
+            } else {
+                throw new Error('Erreur lors de l\'envoi');
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            afficherNotification('❌ Une erreur est survenue lors de l\'envoi. Veuillez réessayer.', 'error');
+        });
     });
 }
 
@@ -276,25 +300,39 @@ function initialiserFormulaireAvis() {
             afficherNotification('❌ Votre avis ne doit pas dépasser 500 caractères', 'error');
             return;
         }
-        
-        // Simulation d'envoi réussi
-        afficherNotification('✅ Merci pour votre avis ! Il a été publié avec succès.', 'success');
-        
-        // Réinitialiser le formulaire
-        form.reset();
-        stars.forEach(s => s.classList.remove('active'));
-        ratingText.textContent = 'Cliquez sur les étoiles pour noter';
-        charCount.textContent = '0';
-        charCount.classList.remove('warning');
-        
-        // Ici, vous ajouteriez l'appel à votre backend
-        console.log('Avis soumis:', {
-            nom: document.getElementById('avis-nom').value,
-            email: document.getElementById('avis-email').value,
-            note: ratingInput.value,
-            produit: document.getElementById('avis-produit').value,
-            titre: document.getElementById('avis-titre').value,
-            avis: avisTextarea.value
+
+        // ENVOI RÉEL VERS FORMSPREE
+        const formData = new FormData();
+        formData.append('nom', document.getElementById('avis-nom').value);
+        formData.append('email', document.getElementById('avis-email').value);
+        formData.append('note', ratingInput.value);
+        formData.append('produit', document.getElementById('avis-produit').value);
+        formData.append('titre', document.getElementById('avis-titre').value);
+        formData.append('avis', avisTextarea.value);
+        formData.append('_subject', 'Nouvel avis client - Au Palais Des Arts');
+
+        fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', { // Remplacez par votre ID Formspree
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                afficherNotification('✅ Merci pour votre avis ! Il a été envoyé avec succès.', 'success');
+                form.reset();
+                stars.forEach(s => s.classList.remove('active'));
+                ratingText.textContent = 'Cliquez sur les étoiles pour noter';
+                charCount.textContent = '0';
+                charCount.classList.remove('warning');
+            } else {
+                throw new Error('Erreur lors de l\'envoi');
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            afficherNotification('❌ Une erreur est survenue lors de l\'envoi. Veuillez réessayer.', 'error');
         });
     });
 }
@@ -307,21 +345,37 @@ function passerCommande() {
     }
     
     const total = calculerTotal();
-    const message = `Merci pour votre commande !\nTotal : ${total.toFixed(2)}€\n\nNous vous contacterons pour finaliser la livraison.`;
+    const produits = panier.map(item => `${item.nom} (${item.quantite}x)`).join(', ');
     
-    afficherNotification('🚀 Commande passée avec succès !', 'success');
-    
-    // Réinitialiser le panier après commande
-    panier = [];
-    sauvegarderPanier();
-    mettreAJourPanier();
-    fermerPanier();
-    
-    // Simulation d'envoi d'email (dans la réalité, envoi vers un backend)
-    console.log('Détails de la commande:', {
-        produits: panier,
-        total: total,
-        date: new Date().toISOString()
+    // ENVOI RÉEL DE COMMANDE VERS FORMSPREE
+    const formData = new FormData();
+    formData.append('produits', produits);
+    formData.append('total', total.toFixed(2) + '€');
+    formData.append('_subject', 'Nouvelle commande - Au Palais Des Arts');
+
+    fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', { // Remplacez par votre ID Formspree
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            afficherNotification('🚀 Commande passée avec succès ! Nous vous contacterons pour finaliser la livraison.', 'success');
+            
+            // Réinitialiser le panier après commande
+            panier = [];
+            sauvegarderPanier();
+            mettreAJourPanier();
+            fermerPanier();
+        } else {
+            throw new Error('Erreur lors de l\'envoi');
+        }
+    })
+    .catch(error => {
+        console.error('Erreur:', error);
+        afficherNotification('❌ Une erreur est survenue lors de l\'envoi de la commande. Veuillez réessayer.', 'error');
     });
 }
 

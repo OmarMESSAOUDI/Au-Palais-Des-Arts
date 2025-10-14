@@ -1,6 +1,5 @@
 // ===== VARIABLES GLOBALES =====
 let panier = JSON.parse(localStorage.getItem('panier')) || [];
-let avis = JSON.parse(localStorage.getItem('avis')) || [];
 let notificationTimeout;
 
 // Définition des produits
@@ -13,28 +12,6 @@ const produits = {
     6: { nom: "Panier Rectangulaire Jacinthe d'Eau", prix: 45 },
     7: { nom: "Panier Rond Jacinthe d'Eau", prix: 40 }
 };
-
-// Avis par défaut
-const avisParDefaut = [
-    {
-        nom: "Marie L.",
-        note: 5,
-        commentaire: "Le panier rectangulaire est absolument magnifique ! La qualité de tissage est exceptionnelle. Savoir qu'il est fait main au Maroc ajoute une valeur sentimentale. Livraison rapide et emballage soigné.",
-        date: "15/10/2024"
-    },
-    {
-        nom: "Pierre D.",
-        note: 5,
-        commentaire: "J'ai offert le panier double compartiment à ma femme et elle en est ravie. Pratique et élégant, il trône maintenant dans notre chambre. La qualité artisanale marocaine est remarquable !",
-        date: "12/10/2024"
-    },
-    {
-        nom: "Sophie M.",
-        note: 4,
-        commentaire: "Très beau panier en feuilles de palmier, léger et résistant. Le côté écologique et l'origine marocaine sont appréciables. Petit bémol : une légère odeur au début, mais qui part rapidement.",
-        date: "08/10/2024"
-    }
-];
 
 // ===== INITIALISATION =====
 document.addEventListener('DOMContentLoaded', function() {
@@ -50,17 +27,8 @@ function initialiserApp() {
     // Initialisation des écouteurs d'événements
     initialiserEcouteurs();
     
-    // Initialiser les avis
-    if (avis.length === 0) {
-        avis = [...avisParDefaut];
-        sauvegarderAvis();
-    }
-    
     // Mise à jour de l'affichage du panier
     mettreAJourPanier();
-    
-    // Mise à jour de l'affichage des avis
-    mettreAJourAvis();
     
     // Animation au scroll
     initialiserAnimationsScroll();
@@ -170,62 +138,6 @@ function mettreAJourPanier() {
     totalPanier.textContent = calculerTotal().toFixed(2) + '€';
 }
 
-// ===== GESTION DES AVIS =====
-function ajouterAvis(nom, note, commentaire) {
-    const nouvelAvis = {
-        nom: nom,
-        note: parseInt(note),
-        commentaire: commentaire,
-        date: new Date().toLocaleDateString('fr-FR')
-    };
-    
-    avis.unshift(nouvelAvis); // Ajouter au début pour que les nouveaux avis apparaissent en premier
-    sauvegarderAvis();
-    mettreAJourAvis();
-    afficherNotification('📝 Votre avis a été publié !', 'success');
-}
-
-function sauvegarderAvis() {
-    localStorage.setItem('avis', JSON.stringify(avis));
-}
-
-function mettreAJourAvis() {
-    const avisContainer = document.getElementById('avis-container');
-    
-    if (avis.length === 0) {
-        avisContainer.innerHTML = '<p class="aucun-avis">Aucun avis pour le moment.</p>';
-        return;
-    }
-    
-    avisContainer.innerHTML = avis.map(avisItem => `
-        <div class="avis-card">
-            <div class="avis-header">
-                <div class="avis-client">
-                    <div class="client-avatar">${avisItem.nom.charAt(0)}</div>
-                    <div>
-                        <h4>${avisItem.nom}</h4>
-                        <div class="avis-rating">${genererEtoiles(avisItem.note)}</div>
-                    </div>
-                </div>
-            </div>
-            <p class="avis-text">"${avisItem.commentaire}"</p>
-            <div class="avis-date">${avisItem.date}</div>
-        </div>
-    `).join('');
-}
-
-function genererEtoiles(note) {
-    let etoiles = '';
-    for (let i = 1; i <= 5; i++) {
-        if (i <= note) {
-            etoiles += '★';
-        } else {
-            etoiles += '☆';
-        }
-    }
-    return etoiles;
-}
-
 // ===== GESTION DU MODAL PANIER =====
 function ouvrirPanier() {
     document.getElementById('panierModal').classList.add('show');
@@ -294,98 +206,7 @@ function initialiserFormulaireCreation() {
     }
 }
 
-function initialiserFormulaireAvis() {
-    const form = document.getElementById('avisForm');
-    const etoiles = document.querySelectorAll('.etoile');
-    const noteInput = document.getElementById('avis-note');
-    const noteText = document.getElementById('note-text');
-    
-    // Gestion des étoiles
-    etoiles.forEach(etoile => {
-        etoile.addEventListener('click', function() {
-            const note = this.getAttribute('data-note');
-            noteInput.value = note;
-            
-            // Mettre à jour l'affichage des étoiles
-            etoiles.forEach((e, index) => {
-                if (index < note) {
-                    e.textContent = '★';
-                    e.style.color = '#d4af37';
-                } else {
-                    e.textContent = '☆';
-                    e.style.color = '#ccc';
-                }
-            });
-            
-            // Mettre à jour le texte
-            const textesNote = {
-                1: "Mauvais",
-                2: "Moyen",
-                3: "Bon",
-                4: "Très bon",
-                5: "Excellent"
-            };
-            noteText.textContent = textesNote[note];
-        });
-        
-        etoile.addEventListener('mouseover', function() {
-            const note = this.getAttribute('data-note');
-            etoiles.forEach((e, index) => {
-                if (index < note) {
-                    e.style.color = '#d4af37';
-                } else {
-                    e.style.color = '#ccc';
-                }
-            });
-        });
-    });
-    
-    // Réinitialiser les étoiles quand on quitte la zone
-    document.getElementById('etoiles').addEventListener('mouseleave', function() {
-        const note = noteInput.value;
-        etoiles.forEach((e, index) => {
-            if (index < note) {
-                e.style.color = '#d4af37';
-            } else {
-                e.style.color = '#ccc';
-            }
-        });
-    });
-    
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validation
-            const nom = document.getElementById('avis-nom').value;
-            const note = document.getElementById('avis-note').value;
-            const commentaire = document.getElementById('avis-commentaire').value;
-            
-            if (!nom || !note || !commentaire) {
-                afficherNotification('❌ Veuillez remplir tous les champs obligatoires', 'error');
-                return;
-            }
-            
-            if (commentaire.length < 10) {
-                afficherNotification('❌ Le commentaire doit contenir au moins 10 caractères', 'error');
-                return;
-            }
-            
-            // Ajouter l'avis
-            ajouterAvis(nom, note, commentaire);
-            form.reset();
-            
-            // Réinitialiser les étoiles
-            etoiles.forEach(etoile => {
-                etoile.textContent = '☆';
-                etoile.style.color = '#ccc';
-            });
-            noteText.textContent = 'Sélectionnez une note';
-        });
-    }
-}
-
-// ===== PAIEMENT =====
+// ===== COMMANDE =====
 function passerCommande() {
     if (panier.length === 0) {
         afficherNotification('🛒 Votre panier est vide', 'error');
@@ -393,18 +214,22 @@ function passerCommande() {
     }
     
     const total = calculerTotal();
+    const message = `Merci pour votre commande !\nTotal : ${total.toFixed(2)}€\n\nNous vous contacterons pour finaliser la livraison.`;
     
-    // Sauvegarder la commande pour la page de paiement
-    const commande = {
+    afficherNotification('🚀 Commande passée avec succès !', 'success');
+    
+    // Réinitialiser le panier après commande
+    panier = [];
+    sauvegarderPanier();
+    mettreAJourPanier();
+    fermerPanier();
+    
+    // Simulation d'envoi d'email (dans la réalité, envoi vers un backend)
+    console.log('Détails de la commande:', {
         produits: panier,
         total: total,
         date: new Date().toISOString()
-    };
-    
-    localStorage.setItem('commande', JSON.stringify(commande));
-    
-    // Redirection vers la page de paiement
-    window.location.href = 'paiement.html';
+    });
 }
 
 // ===== NAVIGATION ET ANIMATIONS =====
@@ -496,9 +321,8 @@ function initialiserEcouteurs() {
         commanderBtn.addEventListener('click', passerCommande);
     }
     
-    // Initialiser les formulaires
+    // Initialiser le formulaire
     initialiserFormulaireCreation();
-    initialiserFormulaireAvis();
 }
 
 function initialiserAnimationsScroll() {

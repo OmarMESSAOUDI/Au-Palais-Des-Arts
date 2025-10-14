@@ -188,6 +188,117 @@ function initialiserFormulaireCreation() {
     });
 }
 
+// ===== GESTION DU FORMULAIRE D'AVIS AMÉLIORÉ =====
+function initialiserFormulaireAvis() {
+    const form = document.getElementById('formulaireAvis');
+    const stars = document.querySelectorAll('#ratingStars .star');
+    const ratingInput = document.getElementById('rating');
+    const ratingText = document.getElementById('ratingText');
+    const avisTextarea = document.getElementById('avis-texte');
+    const charCount = document.getElementById('avis-char-count');
+
+    // Système de notation par étoiles
+    stars.forEach(star => {
+        star.addEventListener('click', function() {
+            const value = this.getAttribute('data-value');
+            ratingInput.value = value;
+            
+            // Mettre à jour l'affichage des étoiles
+            stars.forEach(s => {
+                if (s.getAttribute('data-value') <= value) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+            
+            // Mettre à jour le texte de la note
+            const ratings = {
+                1: "Mauvais",
+                2: "Moyen",
+                3: "Bien", 
+                4: "Très bien",
+                5: "Excellent"
+            };
+            
+            ratingText.textContent = `Vous avez donné une note de ${value}/5 - ${ratings[value]}`;
+        });
+        
+        // Effet de survol
+        star.addEventListener('mouseover', function() {
+            const value = this.getAttribute('data-value');
+            
+            stars.forEach(s => {
+                if (s.getAttribute('data-value') <= value) {
+                    s.style.color = 'var(--gold)';
+                } else {
+                    s.style.color = '#ddd';
+                }
+            });
+        });
+        
+        star.addEventListener('mouseout', function() {
+            const currentRating = ratingInput.value;
+            
+            stars.forEach(s => {
+                if (currentRating && s.getAttribute('data-value') <= currentRating) {
+                    s.style.color = 'var(--gold)';
+                } else {
+                    s.style.color = '#ddd';
+                }
+            });
+        });
+    });
+
+    // Compteur de caractères
+    avisTextarea.addEventListener('input', function() {
+        const count = this.value.length;
+        charCount.textContent = count;
+        
+        if (count > 500) {
+            charCount.classList.add('warning');
+        } else {
+            charCount.classList.remove('warning');
+        }
+    });
+
+    // Gestion de la soumission du formulaire
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Validation
+        if (!ratingInput.value) {
+            afficherNotification('❌ Veuillez donner une note en cliquant sur les étoiles', 'error');
+            return;
+        }
+        
+        if (avisTextarea.value.length > 500) {
+            afficherNotification('❌ Votre avis ne doit pas dépasser 500 caractères', 'error');
+            return;
+        }
+        
+        // Simulation d'envoi réussi
+        afficherNotification('✅ Merci pour votre avis ! Il a été publié avec succès.', 'success');
+        
+        // Réinitialiser le formulaire
+        form.reset();
+        stars.forEach(s => s.classList.remove('active'));
+        ratingText.textContent = 'Cliquez sur les étoiles pour noter';
+        charCount.textContent = '0';
+        charCount.classList.remove('warning');
+        
+        // Ici, vous ajouteriez l'appel à votre backend
+        console.log('Avis soumis:', {
+            nom: document.getElementById('avis-nom').value,
+            email: document.getElementById('avis-email').value,
+            note: ratingInput.value,
+            produit: document.getElementById('avis-produit').value,
+            titre: document.getElementById('avis-titre').value,
+            avis: avisTextarea.value
+        });
+    });
+}
+
 // ===== COMMANDE =====
 function passerCommande() {
     if (panier.length === 0) {
@@ -258,8 +369,9 @@ function initialiserEcouteurs() {
         });
     });
     
-    // Initialiser le formulaire
+    // Initialiser les formulaires
     initialiserFormulaireCreation();
+    initialiserFormulaireAvis();
 }
 
 function initialiserAnimationsScroll() {

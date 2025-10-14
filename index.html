@@ -5,541 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Au Palais Des Arts - Créations Artisanales en Osier du Maroc</title>
     <meta name="description" content="Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains. Vannerie traditionnelle de qualité supérieure.">
-    <style>
-        /* Styles CSS complets */
-        :root {
-            --primary-color: #8B4513;
-            --secondary-color: #D2691E;
-            --accent-color: #F4A460;
-            --light-color: #FAEBD7;
-            --dark-color: #654321;
-            --text-color: #333;
-            --white: #fff;
-            --shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--light-color);
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .section-padding {
-            padding: 80px 0;
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-        
-        .section-header p {
-            font-size: 1.2rem;
-            color: var(--dark-color);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--light-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-        
-        .loading-content {
-            text-align: center;
-        }
-        
-        .loading-logo {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
-        
-        .loading-bar {
-            width: 200px;
-            height: 4px;
-            background-color: #ddd;
-            border-radius: 2px;
-            margin: 20px auto;
-            overflow: hidden;
-        }
-        
-        .loading-progress {
-            height: 100%;
-            background-color: var(--primary-color);
-            width: 0%;
-            animation: loading 2s ease-in-out infinite;
-        }
-        
-        @keyframes loading {
-            0% { width: 0%; }
-            50% { width: 70%; }
-            100% { width: 100%; }
-        }
-        
-        /* Header */
-        header {
-            background-color: var(--white);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-icon {
-            font-size: 2.5rem;
-            margin-right: 10px;
-        }
-        
-        .logo-text h1 {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-        
-        .logo-text p {
-            font-size: 0.8rem;
-            color: var(--dark-color);
-        }
-        
-        .nav {
-            display: flex;
-            align-items: center;
-        }
-        
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .nav-toggle span {
-            width: 25px;
-            height: 3px;
-            background-color: var(--primary-color);
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-        
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .nav-link {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-link:hover {
-            color: var(--primary-color);
-        }
-        
-        .cart-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .cart-count {
-            background-color: var(--accent-color);
-            color: var(--dark-color);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.8rem;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--light-color) 0%, #f5f0e8 100%);
-            padding: 100px 0;
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 50px;
-        }
-        
-        .hero-text {
-            flex: 1;
-        }
-        
-        .hero-text h1 {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-        
-        .hero-text p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 500px;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-        }
-        
-        .btn-secondary:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-full {
-            width: 100%;
-            text-align: center;
-        }
-        
-        .hero-stats {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .stat {
-            text-align: center;
-        }
-        
-        .number {
-            display: block;
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-        
-        .label {
-            font-size: 0.9rem;
-            color: var(--dark-color);
-        }
-        
-        .hero-image {
-            flex: 1;
-            position: relative;
-        }
-        
-        .hero-visual {
-            position: relative;
-            height: 300px;
-        }
-        
-        .floating-element {
-            position: absolute;
-            font-size: 4rem;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .floating-element:nth-child(1) {
-            top: 0;
-            left: 0;
-            animation-delay: 0s;
-        }
-        
-        .floating-element:nth-child(2) {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: 2s;
-        }
-        
-        .floating-element:nth-child(3) {
-            bottom: 0;
-            right: 0;
-            animation-delay: 4s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        /* Products Section */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .product-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s;
-            position: relative;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .product-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--accent-color);
-            color: var(--dark-color);
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 2;
-        }
-        
-        .product-image-container {
-            height: 200px;
-            overflow: hidden;
-            background-color: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .product-card:hover .product-image {
-            transform: scale(1.1);
-        }
-        
-        .product-content {
-            padding: 20px;
-        }
-        
-        .product-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-        
-        .product-description {
-            margin-bottom: 15px;
-            color: var(--text-color);
-            font-size: 0.9rem;
-        }
-        
-        .product-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.8rem;
-            color: var(--dark-color);
-        }
-        
-        .product-origin {
-            font-size: 0.8rem;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-        
-        /* Form Styles */
-        .form-row {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-            flex: 1;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: inherit;
-        }
-        
-        .checkbox-group {
-            margin-top: 20px;
-        }
-        
-        .checkbox-label {
-            display: flex;
-            align-items: flex-start;
-            cursor: pointer;
-        }
-        
-        .checkbox-label input {
-            width: auto;
-            margin-right: 10px;
-            margin-top: 3px;
-        }
-        
-        .char-count {
-            text-align: right;
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        /* Rating Stars */
-        .rating-stars {
-            display: flex;
-            gap: 5px;
-            margin: 10px 0;
-        }
-        
-        .star {
-            font-size: 1.5rem;
-            color: #ddd;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        
-        .star.active {
-            color: #ffc107;
-        }
-        
-        .rating-text {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .hero-buttons {
-                justify-content: center;
-            }
-            
-            .hero-stats {
-                justify-content: center;
-            }
-            
-            .nav-toggle {
-                display: flex;
-            }
-            
-            .nav-menu {
-                position: fixed;
-                top: 70px;
-                right: -100%;
-                background-color: var(--white);
-                width: 80%;
-                height: calc(100vh - 70px);
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 20px;
-                transition: right 0.3s;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            }
-            
-            .nav-menu.active {
-                right: 0;
-            }
-            
-            .form-row {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -559,7 +25,8 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <span class="logo-icon">🌿</span>
+                    <!-- Logo image -->
+                    <img src="Au_Palais_Des_Arts.png" alt="Au Palais Des Arts" class="logo-icon">
                     <div class="logo-text">
                         <h1>Au Palais Des Arts</h1>
                         <p>Artisanat marocain d'exception</p>
@@ -626,6 +93,59 @@
         </div>
     </section>
 
+    <!-- Section Présentation -->
+    <section class="presentation section-padding" id="histoire">
+        <div class="container">
+            <div class="section-header">
+                <h2>Notre Histoire</h2>
+                <p>Transmettre l'excellence artisanale marocaine depuis trois générations</p>
+            </div>
+            <div class="histoire-content">
+                <div class="histoire-text">
+                    <h3>Un Savoir-Faire Ancestral du Maroc</h3>
+                    <p>Fondé en 1985 par la famille Martin, <strong>Au Palais Des Arts</strong> perpétue la tradition du tissage d'osier et du travail artisanal de qualité. <strong>Nos créations sont entièrement fabriquées au Maroc</strong> par des artisans locaux qui maîtrisent des techniques ancestrales.</p>
+                    
+                    <div class="origine-info">
+                        <div class="origine-badge">
+                            <span class="origine-icon">🇲🇦</span>
+                            <div>
+                                <h4>Origine Marocaine</h4>
+                                <p>100% fait main au Maroc par des artisans locaux</p>
+                            </div>
+                        </div>
+                        <div class="origine-badge">
+                            <span class="origine-icon">👐</span>
+                            <div>
+                                <h4>100% Artisanal</h4>
+                                <p>Techniques traditionnelles transmises de génération en génération</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p>Chaque panier est conçu avec passion et expertise, utilisant des matériaux naturels et durables provenant des régions marocaines. Nous collaborons étroitement avec des coopératives d'artisans qui préservent ce savoir-faire unique.</p>
+                    
+                    <div class="valeurs-grid">
+                        <div class="valeur-card">
+                            <div class="valeur-icon">🌱</div>
+                            <h4>Éco-responsable</h4>
+                            <p>Osier 100% naturel de cultures durables marocaines</p>
+                        </div>
+                        <div class="valeur-card">
+                            <div class="valeur-icon">👐</div>
+                            <h4>Fait Main</h4>
+                            <p>Techniques ancestrales marocaines transmises</p>
+                        </div>
+                        <div class="valeur-card">
+                            <div class="valeur-icon">🇲🇦</div>
+                            <h4>Origine Maroc</h4>
+                            <p>Fabriqué au Maroc par des artisans locaux</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Section Produits -->
     <section class="produits section-padding" id="produits">
         <div class="container">
@@ -639,7 +159,6 @@
                 <div class="product-card">
                     <div class="product-badge">Populaire</div>
                     <div class="product-image-container">
-                        <!-- CHEMIN CORRIGÉ -->
                         <img src="Panier tressé rectangulaire.jpg" alt="Panier Tressé Rectangulaire" class="product-image">
                     </div>
                     <div class="product-content">
@@ -661,7 +180,6 @@
                 <div class="product-card">
                     <div class="product-badge">Innovant</div>
                     <div class="product-image-container">
-                        <!-- CHEMIN CORRIGÉ -->
                         <img src="Panier à linge double compartiment.jpg" alt="Panier Double Compartiment" class="product-image">
                     </div>
                     <div class="product-content">
@@ -683,7 +201,6 @@
                 <div class="product-card">
                     <div class="product-badge">Écologique</div>
                     <div class="product-image-container">
-                        <!-- CHEMIN CORRIGÉ -->
                         <img src="Panier à linge en feuilles de palmier.jpg" alt="Panier en Feuilles de Palmier" class="product-image">
                     </div>
                     <div class="product-content">
@@ -705,7 +222,6 @@
                 <div class="product-card">
                     <div class="product-badge">Classique</div>
                     <div class="product-image-container">
-                        <!-- CHEMIN CORRIGÉ -->
                         <img src="Panier à linge rond en osier.jpg" alt="Panier Rond en Osier" class="product-image">
                     </div>
                     <div class="product-content">
@@ -721,6 +237,161 @@
                             ➕ Ajouter au panier
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Création sur Mesure -->
+    <section class="creation-sur-mesure section-padding" id="sur-mesure">
+        <div class="container">
+            <div class="section-header">
+                <h2>Création sur Mesure</h2>
+                <p>Votre projet unique, réalisé par nos artisans marocains</p>
+            </div>
+            
+            <div class="creation-content">
+                <div class="creation-text">
+                    <h3>Votre Vision, Notre Savoir-Faire</h3>
+                    <p>Vous avez un projet spécifique ? Une idée unique ? Nos artisans marocains peuvent créer <strong>votre pièce sur mesure</strong> selon vos envies et besoins.</p>
+                    
+                    <div class="avantages-list">
+                        <div class="avantage">
+                            <span class="avantage-icon">🎨</span>
+                            <div>
+                                <h4>Design Personnalisé</h4>
+                                <p>Dimensions, formes et couleurs adaptées à vos besoins</p>
+                            </div>
+                        </div>
+                        <div class="avantage">
+                            <span class="avantage-icon">👨‍🎨</span>
+                            <div>
+                                <h4>Expertise Marocaine</h4>
+                                <p>Réalisé par nos artisans expérimentés au Maroc</p>
+                            </div>
+                        </div>
+                        <div class="avantage">
+                            <span class="avantage-icon">⏱️</span>
+                            <div>
+                                <h4>Accompagnement</h4>
+                                <p>Suivi personnalisé de votre projet jusqu'à la livraison</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="creation-form-container">
+                    <form class="creation-form" id="creationForm">
+                        <h4>Parlez-nous de votre projet</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="creation-nom">Nom complet *</label>
+                                <input type="text" id="creation-nom" name="nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="creation-email">Email *</label>
+                                <input type="email" id="creation-email" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="creation-telephone">Téléphone</label>
+                            <input type="tel" id="creation-telephone" name="telephone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="creation-type">Type de création *</label>
+                            <select id="creation-type" name="type" required>
+                                <option value="">Choisissez le type</option>
+                                <option value="panier">Panier sur mesure</option>
+                                <option value="corbeille">Corbeille personnalisée</option>
+                                <option value="decoration">Décoration intérieure</option>
+                                <option value="mobilier">Mobilier en osier</option>
+                                <option value="autre">Autre projet</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="creation-dimensions">Dimensions souhaitées</label>
+                            <input type="text" id="creation-dimensions" name="dimensions" placeholder="Ex: 40x30x25cm">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="creation-description">Description de votre projet *</label>
+                            <textarea id="creation-description" name="description" rows="5" required placeholder="Décrivez en détail votre projet, vos attentes, l'usage prévu..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="creation-budget">Budget estimatif</label>
+                            <input type="text" id="creation-budget" name="budget" placeholder="Ex: 50-100€">
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="origine" required>
+                                <span class="checkmark"></span>
+                                Je comprends que mes créations seront fabriquées au Maroc par des artisans locaux *
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">
+                            🎨 Envoyer ma demande de création sur mesure
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Avis -->
+    <section class="avis section-padding" id="avis">
+        <div class="container">
+            <div class="section-header">
+                <h2>Avis Clients</h2>
+                <p>Ce que disent nos clients satisfaits</p>
+            </div>
+            <div class="avis-grid">
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-client">
+                            <div class="client-avatar">M</div>
+                            <div>
+                                <h4>Marie L.</h4>
+                                <div class="avis-rating">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="avis-text">"Le panier rectangulaire est absolument magnifique ! La qualité de tissage est exceptionnelle. Savoir qu'il est fait main au Maroc ajoute une valeur sentimentale. Livraison rapide et emballage soigné."</p>
+                    <div class="avis-date">15/10/2024</div>
+                </div>
+
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-client">
+                            <div class="client-avatar">P</div>
+                            <div>
+                                <h4>Pierre D.</h4>
+                                <div class="avis-rating">★★★★★</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="avis-text">"J'ai offert le panier double compartiment à ma femme et elle en est ravie. Pratique et élégant, il trône maintenant dans notre chambre. La qualité artisanale marocaine est remarquable !"</p>
+                    <div class="avis-date">12/10/2024</div>
+                </div>
+
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-client">
+                            <div class="client-avatar">S</div>
+                            <div>
+                                <h4>Sophie M.</h4>
+                                <div class="avis-rating">★★★★☆</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="avis-text">"Très beau panier en feuilles de palmier, léger et résistant. Le côté écologique et l'origine marocaine sont appréciables. Petit bémol : une légère odeur au début, mais qui part rapidement."</p>
+                    <div class="avis-date">08/10/2024</div>
                 </div>
             </div>
         </div>
@@ -822,156 +493,9 @@
         </div>
     </div>
 
-    <script>
-        // JavaScript pour le fonctionnement du site
-        document.addEventListener('DOMContentLoaded', function() {
-            // Masquer l'écran de chargement
-            setTimeout(function() {
-                document.getElementById('loadingScreen').style.display = 'none';
-            }, 2000);
-            
-            // Gestion du menu mobile
-            const navToggle = document.getElementById('navToggle');
-            const navMenu = document.getElementById('navMenu');
-            
-            if (navToggle) {
-                navToggle.addEventListener('click', function() {
-                    navMenu.classList.toggle('active');
-                });
-            }
-            
-            // Fermer le menu en cliquant sur un lien
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    navMenu.classList.remove('active');
-                });
-            });
-            
-            // Gestion des étoiles de notation
-            const stars = document.querySelectorAll('.star');
-            const ratingText = document.getElementById('ratingText');
-            const ratingInput = document.getElementById('rating');
-            
-            if (stars.length > 0) {
-                stars.forEach(star => {
-                    star.addEventListener('click', function() {
-                        const value = parseInt(this.getAttribute('data-value'));
-                        ratingInput.value = value;
-                        
-                        // Mettre à jour l'affichage des étoiles
-                        stars.forEach((s, index) => {
-                            if (index < value) {
-                                s.classList.add('active');
-                            } else {
-                                s.classList.remove('active');
-                            }
-                        });
-                        
-                        // Mettre à jour le texte
-                        const texts = [
-                            "Cliquez sur les étoiles pour noter",
-                            "Mauvais",
-                            "Moyen",
-                            "Bien",
-                            "Très bien",
-                            "Excellent"
-                        ];
-                        ratingText.textContent = texts[value];
-                    });
-                });
-            }
-            
-            // Compteur de caractères pour l'avis
-            const avisText = document.getElementById('avis-texte');
-            const charCount = document.getElementById('avis-char-count');
-            
-            if (avisText && charCount) {
-                avisText.addEventListener('input', function() {
-                    charCount.textContent = this.value.length;
-                });
-            }
-            
-            // Gestion du panier
-            const cartBtn = document.getElementById('cartBtn');
-            const panierModal = document.getElementById('panierModal');
-            const closePanier = document.getElementById('closePanier');
-            
-            if (cartBtn && panierModal) {
-                cartBtn.addEventListener('click', function() {
-                    panierModal.style.display = 'block';
-                });
-            }
-            
-            if (closePanier && panierModal) {
-                closePanier.addEventListener('click', function() {
-                    panierModal.style.display = 'none';
-                });
-            }
-            
-            // Fermer le modal en cliquant en dehors
-            window.addEventListener('click', function(event) {
-                if (event.target === panierModal) {
-                    panierModal.style.display = 'none';
-                }
-            });
-        });
-        
-        // Fonctions pour le panier
-        let panier = [];
-        
-        function ajouterAuPanier(nom, prix) {
-            panier.push({ nom, prix });
-            mettreAJourPanier();
-            alert(`${nom} a été ajouté au panier !`);
-        }
-        
-        function mettreAJourPanier() {
-            const panierItems = document.getElementById('panier-items');
-            const cartCount = document.querySelector('.cart-count');
-            const totalPanier = document.getElementById('total-panier');
-            
-            // Mettre à jour le compteur
-            cartCount.textContent = panier.length;
-            
-            // Mettre à jour les éléments du panier
-            if (panier.length === 0) {
-                panierItems.innerHTML = '<p class="panier-vide">Votre panier est vide</p>';
-                totalPanier.textContent = '0,00€';
-            } else {
-                let html = '';
-                let total = 0;
-                
-                panier.forEach(item => {
-                    html += `
-                        <div class="panier-item">
-                            <span class="panier-item-nom">${item.nom}</span>
-                            <span class="panier-item-prix">${item.prix},00€</span>
-                        </div>
-                    `;
-                    total += item.prix;
-                });
-                
-                panierItems.innerHTML = html;
-                totalPanier.textContent = `${total},00€`;
-            }
-        }
-        
-        function viderPanier() {
-            panier = [];
-            mettreAJourPanier();
-        }
-        
-        function passerCommande() {
-            if (panier.length === 0) {
-                alert('Votre panier est vide !');
-                return;
-            }
-            
-            alert('Merci pour votre commande ! Nous vous contacterons bientôt.');
-            viderPanier();
-            document.getElementById('panierModal').style.display = 'none';
-        }
-    </script>
+    <!-- Messages de notification -->
+    <div id="notificationContainer"></div>
+
+    <script src="script.js"></script>
 </body>
 </html>

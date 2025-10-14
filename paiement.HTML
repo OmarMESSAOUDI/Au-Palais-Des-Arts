@@ -80,6 +80,7 @@
         .confirmation {
             text-align: center;
             padding: var(--space-xl);
+            display: none;
         }
 
         .confirmation h2 {
@@ -239,7 +240,7 @@
             </form>
 
             <!-- Confirmation (cachée par défaut) -->
-            <div class="confirmation" id="confirmation" style="display: none;">
+            <div class="confirmation" id="confirmation">
                 <h2>🎉 Commande confirmée !</h2>
                 <p>Merci pour votre commande. Vous recevrez un email de confirmation dans quelques instants.</p>
                 <p>Votre numéro de commande est : <strong id="numero-commande"></strong></p>
@@ -247,7 +248,7 @@
             </div>
 
             <!-- Loading (caché par défaut) -->
-            <div class="loading-paiement" id="loadingPaiement" style="display: none;">
+            <div class="loading-paiement" id="loadingPaiement">
                 <div class="spinner"></div>
                 <p>Traitement de votre paiement...</p>
             </div>

@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire d'avis</title>
+    <title>MonSite - Laissez votre avis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Styles généraux */
         * {
             margin: 0;
             padding: 0;
@@ -16,35 +18,162 @@
             background-color: #f5f7fa;
             color: #333;
             line-height: 1.6;
-            padding: 20px;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        /* Header */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #3498db;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        
+        /* Section Hero */
+        .hero {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Section Services */
+        .services {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #7f8c8d;
+            max-width: 600px;
             margin: 0 auto;
         }
         
-        header {
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
             text-align: center;
-            margin-bottom: 40px;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         
-        h1 {
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
             color: #2c3e50;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
         }
         
-        .subtitle {
-            color: #7f8c8d;
-            font-size: 1.2rem;
+        /* Section Avis */
+        .reviews {
+            padding: 80px 0;
+            background-color: #f8f9fa;
         }
         
-        .review-form {
+        .review-form-container {
             background: white;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             padding: 40px;
+            margin-top: 40px;
         }
         
         .form-group {
@@ -150,67 +279,345 @@
             font-size: 14px;
         }
         
-        @media (max-width: 600px) {
-            .review-form {
-                padding: 25px;
+        /* Section Témoignages */
+        .testimonials {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #3498db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .testimonial-info h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-rating {
+            color: #f39c12;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+        
+        .footer-column p, .footer-column a {
+            color: #bdc3c7;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: #3498db;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #34495e;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #3498db;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
             }
             
-            h1 {
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .review-form-container {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
                 font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Laissez votre avis</h1>
-            <p class="subtitle">Votre opinion compte pour nous</p>
-        </header>
-        
-        <form class="review-form" id="reviewForm">
-            <div class="form-group">
-                <label for="name">Votre nom <span class="required">*</span></label>
-                <input type="text" id="name" name="name" required placeholder="Entrez votre nom complet">
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Mon<span>Site</span></a>
+                <nav>
+                    <ul>
+                        <li><a href="#">Accueil</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#reviews">Avis</a></li>
+                        <li><a href="#testimonials">Témoignages</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
             </div>
-            
-            <div class="form-group">
-                <label for="email">Votre email <span class="required">*</span></label>
-                <input type="email" id="email" name="email" required placeholder="exemple@email.com">
+        </div>
+    </header>
+
+    <!-- Section Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Bienvenue sur MonSite</h1>
+            <p>Nous proposons des services de qualité exceptionnelle pour répondre à tous vos besoins. Découvrez ce que nos clients disent de nous.</p>
+            <a href="#reviews" class="btn">Laisser un avis</a>
+        </div>
+    </section>
+
+    <!-- Section Services -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nos Services</h2>
+                <p>Découvrez notre gamme complète de services conçus pour répondre à vos besoins</p>
             </div>
-            
-            <div class="rating-section">
-                <label class="rating-label">Note <span class="required">*</span></label>
-                <div class="rating-stars" id="ratingStars">
-                    <span class="star" data-value="1">★</span>
-                    <span class="star" data-value="2">★</span>
-                    <span class="star" data-value="3">★</span>
-                    <span class="star" data-value="4">★</span>
-                    <span class="star" data-value="5">★</span>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Développement Web</h3>
+                    <p>Création de sites web modernes, responsives et performants adaptés à vos besoins spécifiques.</p>
                 </div>
-                <div class="rating-text" id="ratingText">Cliquez sur les étoiles pour noter</div>
-                <input type="hidden" id="rating" name="rating" required>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Applications Mobiles</h3>
+                    <p>Développement d'applications mobiles natives et hybrides pour iOS et Android.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Marketing Digital</h3>
+                    <p>Stratégies de marketing digital sur mesure pour augmenter votre visibilité en ligne.</p>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label for="experience">Partagez votre expérience</label>
-                <textarea id="experience" name="experience" placeholder="Décrivez votre expérience en détail..."></textarea>
-                <div class="char-count"><span id="charCount">0</span>/500 caractères</div>
+        </div>
+    </section>
+
+    <!-- Section Avis -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <div class="section-title">
+                <h2>Laissez votre avis</h2>
+                <p>Votre opinion compte pour nous et nous aide à nous améliorer</p>
             </div>
-            
-            <div class="form-group">
-                <label for="review">Votre avis <span class="required">*</span></label>
-                <textarea id="review" name="review" required placeholder="Que pensez-vous de notre produit/service?"></textarea>
-                <div class="char-count"><span id="reviewCharCount">0</span>/1000 caractères</div>
+            <div class="review-form-container">
+                <form class="review-form" id="reviewForm">
+                    <div class="form-group">
+                        <label for="name">Votre nom <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required placeholder="Entrez votre nom complet">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Votre email <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="exemple@email.com">
+                    </div>
+                    
+                    <div class="rating-section">
+                        <label class="rating-label">Note <span class="required">*</span></label>
+                        <div class="rating-stars" id="ratingStars">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                        <div class="rating-text" id="ratingText">Cliquez sur les étoiles pour noter</div>
+                        <input type="hidden" id="rating" name="rating" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experience">Partagez votre expérience</label>
+                        <textarea id="experience" name="experience" placeholder="Décrivez votre expérience en détail..."></textarea>
+                        <div class="char-count"><span id="charCount">0</span>/500 caractères</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="review">Votre avis <span class="required">*</span></label>
+                        <textarea id="review" name="review" required placeholder="Que pensez-vous de notre produit/service?"></textarea>
+                        <div class="char-count"><span id="reviewCharCount">0</span>/1000 caractères</div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Publier mon avis</button>
+                    
+                    <div class="form-footer">
+                        <p>Tous les champs marqués d'un <span class="required">*</span> sont obligatoires</p>
+                    </div>
+                </form>
             </div>
-            
-            <button type="submit" class="submit-btn">Publier mon avis</button>
-            
-            <div class="form-footer">
-                <p>Tous les champs marqués d'un <span class="required">*</span> sont obligatoires</p>
+        </div>
+    </section>
+
+    <!-- Section Témoignages -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Témoignages Clients</h2>
+                <p>Découvrez ce que nos clients disent de nos services</p>
             </div>
-        </form>
-    </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">MJ</div>
+                        <div class="testimonial-info">
+                            <h4>Marie Johnson</h4>
+                            <div class="testimonial-rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <p>"Service exceptionnel ! L'équipe a su comprendre mes besoins et a livré un site web parfait. Je recommande vivement !"</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">PD</div>
+                        <div class="testimonial-info">
+                            <h4>Pierre Dubois</h4>
+                            <div class="testimonial-rating">★★★★☆</div>
+                        </div>
+                    </div>
+                    <p>"Application mobile livrée dans les délais et conforme à mes attentes. Bon rapport qualité-prix."</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">SM</div>
+                        <div class="testimonial-info">
+                            <h4>Sophie Martin</h4>
+                            <div class="testimonial-rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <p>"Leur stratégie de marketing digital a considérablement augmenté notre visibilité en ligne. Résultats impressionnants !"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MonSite</h3>
+                    <p>Nous proposons des services de développement web et mobile de qualité pour aider votre entreprise à prospérer en ligne.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Liens rapides</h3>
+                    <a href="#">Accueil</a>
+                    <a href="#services">Services</a>
+                    <a href="#reviews">Laisser un avis</a>
+                    <a href="#testimonials">Témoignages</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Rue Exemple, Paris</p>
+                    <p><i class="fas fa-phone"></i> +33 1 23 45 67 89</p>
+                    <p><i class="fas fa-envelope"></i> contact@monsite.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 MonSite. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

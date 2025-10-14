@@ -166,26 +166,25 @@ function afficherNotification(message, type) {
 function initialiserFormulaireCreation() {
     const form = document.getElementById('creationForm');
     
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Validation basique
-        const nom = document.getElementById('creation-nom').value;
-        const email = document.getElementById('creation-email').value;
-        const description = document.getElementById('creation-description').value;
-        
-        if (!nom || !email || !description) {
-            afficherNotification('❌ Veuillez remplir tous les champs obligatoires', 'error');
-            return;
-        }
-        
-        // Simulation d'envoi
-        afficherNotification('🎨 Votre demande a été envoyée ! Nous vous contacterons rapidement.', 'success');
-        form.reset();
-        
-        // Fermer le modal si ouvert
-        fermerPanier();
-    });
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validation basique
+            const nom = document.getElementById('creation-nom').value;
+            const email = document.getElementById('creation-email').value;
+            const description = document.getElementById('creation-description').value;
+            
+            if (!nom || !email || !description) {
+                afficherNotification('❌ Veuillez remplir tous les champs obligatoires', 'error');
+                return;
+            }
+            
+            // Simulation d'envoi
+            afficherNotification('🎨 Votre demande a été envoyée ! Nous vous contacterons rapidement.', 'success');
+            form.reset();
+        });
+    }
 }
 
 // ===== COMMANDE =====
@@ -253,8 +252,8 @@ function initialiserEcouteurs() {
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            navToggle.classList.remove('active');
+            if (navMenu) navMenu.classList.remove('active');
+            if (navToggle) navToggle.classList.remove('active');
         });
     });
     

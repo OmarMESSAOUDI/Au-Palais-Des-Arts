@@ -166,175 +166,25 @@ function afficherNotification(message, type) {
 function initialiserFormulaireCreation() {
     const form = document.getElementById('creationForm');
     
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Validation basique
-        const nom = document.getElementById('creation-nom').value;
-        const email = document.getElementById('creation-email').value;
-        const description = document.getElementById('creation-description').value;
-        
-        if (!nom || !email || !description) {
-            afficherNotification('❌ Veuillez remplir tous les champs obligatoires', 'error');
-            return;
-        }
-
-        // ENVOI RÉEL VERS FORMSPREE
-        const formData = new FormData();
-        formData.append('nom', nom);
-        formData.append('email', email);
-        formData.append('telephone', document.getElementById('creation-telephone').value);
-        formData.append('type', document.getElementById('creation-type').value);
-        formData.append('dimensions', document.getElementById('creation-dimensions').value);
-        formData.append('description', description);
-        formData.append('budget', document.getElementById('creation-budget').value);
-        formData.append('_subject', 'Nouvelle demande de création sur mesure - Au Palais Des Arts');
-
-        fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', { // Remplacez par votre ID Formspree
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validation basique
+            const nom = document.getElementById('creation-nom').value;
+            const email = document.getElementById('creation-email').value;
+            const description = document.getElementById('creation-description').value;
+            
+            if (!nom || !email || !description) {
+                afficherNotification('❌ Veuillez remplir tous les champs obligatoires', 'error');
+                return;
             }
-        })
-        .then(response => {
-            if (response.ok) {
-                afficherNotification('🎨 Votre demande a été envoyée ! Nous vous contacterons rapidement.', 'success');
-                form.reset();
-            } else {
-                throw new Error('Erreur lors de l\'envoi');
-            }
-        })
-        .catch(error => {
-            console.error('Erreur:', error);
-            afficherNotification('❌ Une erreur est survenue lors de l\'envoi. Veuillez réessayer.', 'error');
-        });
-    });
-}
-
-// ===== GESTION DU FORMULAIRE D'AVIS AMÉLIORÉ =====
-function initialiserFormulaireAvis() {
-    const form = document.getElementById('formulaireAvis');
-    const stars = document.querySelectorAll('#ratingStars .star');
-    const ratingInput = document.getElementById('rating');
-    const ratingText = document.getElementById('ratingText');
-    const avisTextarea = document.getElementById('avis-texte');
-    const charCount = document.getElementById('avis-char-count');
-
-    // Système de notation par étoiles
-    stars.forEach(star => {
-        star.addEventListener('click', function() {
-            const value = this.getAttribute('data-value');
-            ratingInput.value = value;
             
-            // Mettre à jour l'affichage des étoiles
-            stars.forEach(s => {
-                if (s.getAttribute('data-value') <= value) {
-                    s.classList.add('active');
-                } else {
-                    s.classList.remove('active');
-                }
-            });
-            
-            // Mettre à jour le texte de la note
-            const ratings = {
-                1: "Mauvais",
-                2: "Moyen",
-                3: "Bien", 
-                4: "Très bien",
-                5: "Excellent"
-            };
-            
-            ratingText.textContent = `Vous avez donné une note de ${value}/5 - ${ratings[value]}`;
+            // Simulation d'envoi
+            afficherNotification('🎨 Votre demande a été envoyée ! Nous vous contacterons rapidement.', 'success');
+            form.reset();
         });
-        
-        // Effet de survol
-        star.addEventListener('mouseover', function() {
-            const value = this.getAttribute('data-value');
-            
-            stars.forEach(s => {
-                if (s.getAttribute('data-value') <= value) {
-                    s.style.color = 'var(--gold)';
-                } else {
-                    s.style.color = '#ddd';
-                }
-            });
-        });
-        
-        star.addEventListener('mouseout', function() {
-            const currentRating = ratingInput.value;
-            
-            stars.forEach(s => {
-                if (currentRating && s.getAttribute('data-value') <= currentRating) {
-                    s.style.color = 'var(--gold)';
-                } else {
-                    s.style.color = '#ddd';
-                }
-            });
-        });
-    });
-
-    // Compteur de caractères
-    avisTextarea.addEventListener('input', function() {
-        const count = this.value.length;
-        charCount.textContent = count;
-        
-        if (count > 500) {
-            charCount.classList.add('warning');
-        } else {
-            charCount.classList.remove('warning');
-        }
-    });
-
-    // Gestion de la soumission du formulaire
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Validation
-        if (!ratingInput.value) {
-            afficherNotification('❌ Veuillez donner une note en cliquant sur les étoiles', 'error');
-            return;
-        }
-        
-        if (avisTextarea.value.length > 500) {
-            afficherNotification('❌ Votre avis ne doit pas dépasser 500 caractères', 'error');
-            return;
-        }
-
-        // ENVOI RÉEL VERS FORMSPREE
-        const formData = new FormData();
-        formData.append('nom', document.getElementById('avis-nom').value);
-        formData.append('email', document.getElementById('avis-email').value);
-        formData.append('note', ratingInput.value);
-        formData.append('produit', document.getElementById('avis-produit').value);
-        formData.append('titre', document.getElementById('avis-titre').value);
-        formData.append('avis', avisTextarea.value);
-        formData.append('_subject', 'Nouvel avis client - Au Palais Des Arts');
-
-        fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', { // Remplacez par votre ID Formspree
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                afficherNotification('✅ Merci pour votre avis ! Il a été envoyé avec succès.', 'success');
-                form.reset();
-                stars.forEach(s => s.classList.remove('active'));
-                ratingText.textContent = 'Cliquez sur les étoiles pour noter';
-                charCount.textContent = '0';
-                charCount.classList.remove('warning');
-            } else {
-                throw new Error('Erreur lors de l\'envoi');
-            }
-        })
-        .catch(error => {
-            console.error('Erreur:', error);
-            afficherNotification('❌ Une erreur est survenue lors de l\'envoi. Veuillez réessayer.', 'error');
-        });
-    });
+    }
 }
 
 // ===== COMMANDE =====
@@ -345,37 +195,21 @@ function passerCommande() {
     }
     
     const total = calculerTotal();
-    const produits = panier.map(item => `${item.nom} (${item.quantite}x)`).join(', ');
+    const message = `Merci pour votre commande !\nTotal : ${total.toFixed(2)}€\n\nNous vous contacterons pour finaliser la livraison.`;
     
-    // ENVOI RÉEL DE COMMANDE VERS FORMSPREE
-    const formData = new FormData();
-    formData.append('produits', produits);
-    formData.append('total', total.toFixed(2) + '€');
-    formData.append('_subject', 'Nouvelle commande - Au Palais Des Arts');
-
-    fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', { // Remplacez par votre ID Formspree
-        method: 'POST',
-        body: formData,
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
-        if (response.ok) {
-            afficherNotification('🚀 Commande passée avec succès ! Nous vous contacterons pour finaliser la livraison.', 'success');
-            
-            // Réinitialiser le panier après commande
-            panier = [];
-            sauvegarderPanier();
-            mettreAJourPanier();
-            fermerPanier();
-        } else {
-            throw new Error('Erreur lors de l\'envoi');
-        }
-    })
-    .catch(error => {
-        console.error('Erreur:', error);
-        afficherNotification('❌ Une erreur est survenue lors de l\'envoi de la commande. Veuillez réessayer.', 'error');
+    afficherNotification('🚀 Commande passée avec succès !', 'success');
+    
+    // Réinitialiser le panier après commande
+    panier = [];
+    sauvegarderPanier();
+    mettreAJourPanier();
+    fermerPanier();
+    
+    // Simulation d'envoi d'email (dans la réalité, envoi vers un backend)
+    console.log('Détails de la commande:', {
+        produits: panier,
+        total: total,
+        date: new Date().toISOString()
     });
 }
 
@@ -418,14 +252,13 @@ function initialiserEcouteurs() {
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            navToggle.classList.remove('active');
+            if (navMenu) navMenu.classList.remove('active');
+            if (navToggle) navToggle.classList.remove('active');
         });
     });
     
-    // Initialiser les formulaires
+    // Initialiser le formulaire
     initialiserFormulaireCreation();
-    initialiserFormulaireAvis();
 }
 
 function initialiserAnimationsScroll() {

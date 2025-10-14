@@ -99,20 +99,24 @@ function mettreAJourPanier() {
     if (panier.length === 0) {
         panierItems.innerHTML = '<p class="panier-vide">Votre panier est vide</p>';
     } else {
-        panierItems.innerHTML = panier.map(item => `
-            <div class="panier-item">
-                <div class="panier-item-info">
-                    <h4>${item.nom}</h4>
-                    <p>${item.prix}€ × ${item.quantite}</p>
+        panierItems.innerHTML = panier.map(item => {
+            // Échapper les apostrophes pour éviter les erreurs JavaScript
+            const nomEchappe = item.nom.replace(/'/g, "\\'");
+            return `
+                <div class="panier-item">
+                    <div class="panier-item-info">
+                        <h4>${item.nom}</h4>
+                        <p>${item.prix}€ × ${item.quantite}</p>
+                    </div>
+                    <div class="panier-item-controls">
+                        <button class="btn-quantity" onclick="modifierQuantite('${nomEchappe}', -1)">-</button>
+                        <span>${item.quantite}</span>
+                        <button class="btn-quantity" onclick="modifierQuantite('${nomEchappe}', 1)">+</button>
+                        <button class="btn-remove" onclick="supprimerDuPanier('${nomEchappe}')">🗑️</button>
+                    </div>
                 </div>
-                <div class="panier-item-controls">
-                    <button class="btn-quantity" onclick="modifierQuantite('${item.nom}', -1)">-</button>
-                    <span>${item.quantite}</span>
-                    <button class="btn-quantity" onclick="modifierQuantite('${item.nom}', 1)">+</button>
-                    <button class="btn-remove" onclick="supprimerDuPanier('${item.nom}')">🗑️</button>
-                </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
     }
     
     // Mettre à jour le total
@@ -254,6 +258,19 @@ function initialiserEcouteurs() {
         link.addEventListener('click', () => {
             if (navMenu) navMenu.classList.remove('active');
             if (navToggle) navToggle.classList.remove('active');
+        });
+    });
+    
+    // Gestion des boutons "Ajouter au panier" avec data-attributes
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const nom = this.getAttribute('data-nom') || this.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
+            const prix = this.getAttribute('data-prix') || this.getAttribute('onclick')?.match(/, (\d+)\)/)?.[1];
+            
+            if (nom && prix) {
+                ajouterAuPanier(nom, parseInt(prix));
+            }
         });
     });
     

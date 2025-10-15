@@ -6,13 +6,13 @@
 }
 
 :root {
-    /* NOUVELLE PALETTE VERT & DORÉ */
+    /* PALETTE VERT & DORÉ */
     --primary-color: #2E8B57;      /* Vert forêt */
     --secondary-color: #D4AF37;    /* Doré */
     --accent-color: #FFD700;       /* Doré clair */
-    --text-dark: #2C3E50;          /* Bleu foncé pour le texte */
-    --text-light: #7F8C8D;         /* Gris pour texte secondaire */
-    --background-light: #F8F9FA;   /* Fond très clair */
+    --text-dark: #2C3E50;          /* Bleu foncé */
+    --text-light: #7F8C8D;         /* Gris */
+    --background-light: #F8F9FA;   /* Fond clair */
     --white: #ffffff;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;

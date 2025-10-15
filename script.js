@@ -42,51 +42,8 @@ function initialiserApp() {
     // Initialiser le bouton retour en haut
     initialiserBackToTop();
     
-    // Initialiser les images
-    initialiserImages();
-    
     // Analytics - suivre la page vue
     suivrePageVue();
-}
-
-// ===== ANALYTICS & TRACKING =====
-function suivrePageVue() {
-    // Microsoft Clarity
-    if (typeof clarity === 'function') {
-        clarity('set', 'page_view', {
-            page_title: document.title,
-            page_url: window.location.href
-        });
-    }
-    
-    // Google Analytics (simulé)
-    console.log('Page vue:', document.title, window.location.href);
-}
-
-function suivreEvenement(categorie, action, etiquette) {
-    console.log('Événement:', categorie, action, etiquette);
-    
-    if (typeof clarity === 'function') {
-        clarity('event', action, {
-            category: categorie,
-            label: etiquette
-        });
-    }
-}
-
-// ===== GESTION DES IMAGES =====
-function initialiserImages() {
-    // Gestion des erreurs d'images
-    document.querySelectorAll('img').forEach(img => {
-        img.addEventListener('error', function() {
-            console.warn('Image non trouvée:', this.src);
-            // Vous pouvez ajouter une image de remplacement ici
-        });
-        
-        img.addEventListener('load', function() {
-            this.style.opacity = '1';
-        });
-    });
 }
 
 // ===== GESTION DU PANIER AVEC PROMOS =====
@@ -110,9 +67,6 @@ function ajouterAuPanier(produitId) {
     sauvegarderPanier();
     mettreAJourPanier();
     afficherNotification('✅ Produit ajouté au panier !', 'success');
-    
-    // Analytics
-    suivreEvenement('panier', 'ajouter_produit', produit.nom);
 }
 
 function supprimerDuPanier(produitId) {
@@ -150,9 +104,6 @@ function viderPanier() {
         sauvegarderPanier();
         mettreAJourPanier();
         afficherNotification('🗑️ Panier vidé', 'error');
-        
-        // Analytics
-        suivreEvenement('panier', 'vider_panier', 'utilisateur');
     }
 }
 
@@ -190,9 +141,6 @@ function appliquerCodePromo() {
         messageElement.className = 'promo-message success';
         input.value = '';
         mettreAJourPanier();
-        
-        // Analytics
-        suivreEvenement('promo', 'code_applique', code);
     } else {
         messageElement.textContent = '❌ Code promo invalide';
         messageElement.className = 'promo-message error';
@@ -287,9 +235,6 @@ function passerCommande() {
     
     // Afficher le modal de confirmation de commande
     afficherModalCommande(detailsCommande);
-    
-    // Analytics
-    suivreEvenement('commande', 'demarrer_commande', `items:${panier.length}`);
 }
 
 function genererDetailsCommande() {
@@ -470,9 +415,6 @@ function confirmerCommande() {
     fermerPanier();
     
     afficherNotification('📧 Ouvrez votre email pour finaliser la commande !', 'success');
-    
-    // Analytics
-    suivreEvenement('commande', 'commande_confirmee', `total:${detailsCommande.total}`);
 }
 
 function genererEmailCommande(detailsCommande, infosClient) {
@@ -617,9 +559,6 @@ function initialiserFormulaireCreation() {
         // Simulation d'envoi
         afficherNotification('🎨 Votre demande a été envoyée ! Nous vous contacterons rapidement.', 'success');
         form.reset();
-        
-        // Analytics
-        suivreEvenement('contact', 'demande_creation', 'formulaire_envoye');
     });
 }
 
@@ -708,16 +647,11 @@ function initialiserEcouteurs() {
     }
 }
 
-// ===== GESTION DES ERREURS =====
-window.addEventListener('error', (e) => {
-    console.error('Erreur JavaScript:', e.error);
-});
+// ===== ANALYTICS & TRACKING =====
+function suivrePageVue() {
+    console.log('Page vue:', document.title, window.location.href);
+}
 
-// ===== PERFORMANCE =====
-// Optimisation pour les appareils mobiles
-if ('connection' in navigator) {
-    const connection = navigator.connection;
-    if (connection.saveData) {
-        document.documentElement.classList.add('save-data');
-    }
+function suivreEvenement(categorie, action, etiquette) {
+    console.log('Événement:', categorie, action, etiquette);
 }

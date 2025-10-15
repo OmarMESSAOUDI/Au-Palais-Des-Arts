@@ -1,657 +1,500 @@
-// ===== VARIABLES GLOBALES =====
-let panier = [];
-let notificationTimeout;
-let codePromoActif = null;
-let reductionPromo = 0;
-
-// Données des produits
-const produits = {
-    1: { nom: 'Panier Tressé Rectangulaire', prix: 35 },
-    2: { nom: 'Panier Double Compartiment', prix: 55 },
-    3: { nom: 'Panier en Feuilles de Palmier', prix: 42 },
-    4: { nom: 'Panier Rond en Osier', prix: 38 }
-};
-
-// Codes promo disponibles
-const codesPromo = {
-    "BIENVENUE10": 10,
-    "ARTISANAT15": 15,
-    "MAROC20": 20
-};
-
-// ===== INITIALISATION =====
+// Gestion du chargement de la page
 document.addEventListener('DOMContentLoaded', function() {
-    initialiserApp();
+    initializeApp();
 });
 
-function initialiserApp() {
-    // Charger le panier depuis le localStorage
-    chargerPanier();
-    
-    // Gestion du loading screen
+function initializeApp() {
+    // Cache l'écran de chargement
     setTimeout(() => {
-        document.getElementById('loadingScreen').style.display = 'none';
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }
     }, 2000);
 
-    // Initialisation des écouteurs d'événements
-    initialiserEcouteurs();
-    
-    // Mise à jour de l'affichage du panier
-    mettreAJourPanier();
-    
-    // Initialiser le bouton retour en haut
-    initialiserBackToTop();
-    
-    // Analytics - suivre la page vue
-    suivrePageVue();
+    // Initialise toutes les fonctionnalités
+    initNavigation();
+    initCart();
+    initSmoothScrolling();
+    initBackToTop();
+    initAnimations();
+    initFormValidation();
 }
 
-// ===== GESTION DU PANIER AVEC PROMOS =====
-function ajouterAuPanier(produitId) {
-    const produit = produits[produitId];
-    if (!produit) return;
+// Gestion de la navigation
+function initNavigation() {
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    const header = document.getElementById('header');
 
-    const produitExistant = panier.find(item => item.id === produitId);
-    
-    if (produitExistant) {
-        produitExistant.quantite++;
-    } else {
-        panier.push({
-            id: produitId,
-            nom: produit.nom,
-            prix: produit.prix,
-            quantite: 1
+    // Navigation mobile
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
         });
     }
-    
-    sauvegarderPanier();
-    mettreAJourPanier();
-    afficherNotification('✅ Produit ajouté au panier !', 'success');
-}
 
-function supprimerDuPanier(produitId) {
-    panier = panier.filter(item => item.id !== produitId);
-    sauvegarderPanier();
-    mettreAJourPanier();
-    afficherNotification('🗑️ Produit retiré du panier', 'error');
-}
-
-function modifierQuantite(produitId, changement) {
-    const produit = panier.find(item => item.id === produitId);
-    
-    if (produit) {
-        produit.quantite += changement;
-        
-        if (produit.quantite <= 0) {
-            supprimerDuPanier(produitId);
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            header.classList.add('header-scrolled');
         } else {
-            sauvegarderPanier();
-            mettreAJourPanier();
+            header.classList.remove('header-scrolled');
+        }
+    });
+
+    // Fermer le menu mobile en cliquant sur un lien
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+}
+
+// Gestion du panier
+function initCart() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartBtn = document.getElementById('cartBtn');
+    const cartModal = document.getElementById('panierModal');
+    const closePanier = document.getElementById('closePanier');
+    const viderPanierBtn = document.getElementById('viderPanierBtn');
+    const commanderBtn = document.getElementById('commanderBtn');
+
+    // Produits disponibles
+    const products = {
+        1: { id: 1, name: "Panier Rectangulaire en Jacinthe d'Eau", price: 29.99, image: "images/panier-rectangulaire-jacinthe.jpg" },
+        2: { id: 2, name: "Panier Rond Jacinthe d'Eau H36.5", price: 24.99, image: "images/panier-rond-jacinthe.jpg" },
+        3: { id: 3, name: "Panier Tressé Rectangulaire", price: 35.00, image: "images/panier-tresse-rectangulaire.jpg" },
+        4: { id: 4, name: "Panier Double Compartiment", price: 55.00, image: "images/panier-double-compartiment.jpg" },
+        5: { id: 5, name: "Panier en Feuilles de Palmier", price: 42.00, image: "images/panier-feuilles-palmier.jpg" },
+        6: { id: 6, name: "Panier Rond en Osier", price: 38.00, image: "images/panier-rond-osier.jpg" },
+        7: { id: 7, name: "Panier Ovale en Rotin Naturel", price: 45.00, image: "images/panier-ovale-rotin.jpg" }
+    };
+
+    // Mettre à jour le compteur du panier
+    function updateCartCount() {
+        const cartCount = document.querySelector('.cart-count');
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = totalItems;
+    }
+
+    // Ajouter au panier
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = parseInt(this.dataset.productId);
+            const product = products[productId];
+            
+            if (product) {
+                addToCart(product);
+                showNotification(`${product.name} ajouté au panier !`, 'success');
+            }
+        });
+    });
+
+    function addToCart(product) {
+        const existingItem = cart.find(item => item.id === product.id);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.image,
+                quantity: 1
+            });
+        }
+        
+        saveCart();
+        updateCartCount();
+        
+        // Si le panier est ouvert, le mettre à jour
+        if (cartModal.classList.contains('active')) {
+            updateCartDisplay();
         }
     }
-}
 
-function viderPanier() {
-    if (panier.length === 0) {
-        afficherNotification('🛒 Votre panier est déjà vide', 'error');
-        return;
+    // Sauvegarder le panier dans le localStorage
+    function saveCart() {
+        localStorage.setItem('cart', JSON.stringify(cart));
     }
-    
-    if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
-        panier = [];
-        codePromoActif = null;
-        reductionPromo = 0;
-        sauvegarderPanier();
-        mettreAJourPanier();
-        afficherNotification('🗑️ Panier vidé', 'error');
+
+    // Ouvrir/fermer le panier
+    if (cartBtn && cartModal) {
+        cartBtn.addEventListener('click', openCart);
     }
+
+    if (closePanier) {
+        closePanier.addEventListener('click', closeCart);
+    }
+
+    // Fermer le panier en cliquant à l'extérieur
+    cartModal.addEventListener('click', function(e) {
+        if (e.target === cartModal) {
+            closeCart();
+        }
+    });
+
+    function openCart() {
+        updateCartDisplay();
+        cartModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeCart() {
+        cartModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Vider le panier
+    if (viderPanierBtn) {
+        viderPanierBtn.addEventListener('click', function() {
+            if (cart.length > 0) {
+                if (confirm('Êtes-vous sûr de vouloir vider votre panier ?')) {
+                    cart = [];
+                    saveCart();
+                    updateCartCount();
+                    updateCartDisplay();
+                    showNotification('Panier vidé', 'success');
+                }
+            }
+        });
+    }
+
+    // Passer commande
+    if (commanderBtn) {
+        commanderBtn.addEventListener('click', function() {
+            if (cart.length === 0) {
+                showNotification('Votre panier est vide', 'error');
+                return;
+            }
+            
+            // Simuler un processus de commande
+            showNotification('Redirection vers le paiement...', 'success');
+            setTimeout(() => {
+                alert('Fonctionnalité de paiement à implémenter');
+            }, 1000);
+        });
+    }
+
+    // Mettre à jour l'affichage du panier
+    function updateCartDisplay() {
+        const panierItems = document.getElementById('panier-items');
+        const sousTotal = document.getElementById('sous-total');
+        const totalPanier = document.getElementById('total-panier');
+        const fraisLivraison = document.getElementById('frais-livraison');
+        const panierPromo = document.getElementById('panier-promo');
+        const montantPromo = document.getElementById('montant-promo');
+
+        if (cart.length === 0) {
+            panierItems.innerHTML = '<p class="panier-vide">Votre panier est vide</p>';
+            sousTotal.textContent = '0,00€';
+            totalPanier.textContent = '0,00€';
+            panierPromo.style.display = 'none';
+            return;
+        }
+
+        // Calculer le sous-total
+        let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        
+        // Appliquer les réductions
+        let discount = 0;
+        const promoCode = document.getElementById('codePromoInput')?.value;
+        if (promoCode === 'BIENVENUE10') {
+            discount = subtotal * 0.1;
+        }
+
+        // Frais de livraison
+        const livraisonOption = document.querySelector('input[name="livraison"]:checked');
+        let livraison = 7.90;
+        if (livraisonOption && livraisonOption.value === 'express') {
+            livraison = 14.90;
+        }
+
+        const total = subtotal - discount + livraison;
+
+        // Mettre à jour les totaux
+        sousTotal.textContent = subtotal.toFixed(2) + '€';
+        totalPanier.textContent = total.toFixed(2) + '€';
+        fraisLivraison.textContent = livraison.toFixed(2) + '€';
+
+        if (discount > 0) {
+            montantPromo.textContent = discount.toFixed(2) + '€';
+            panierPromo.style.display = 'flex';
+        } else {
+            panierPromo.style.display = 'none';
+        }
+
+        // Afficher les articles
+        panierItems.innerHTML = '';
+        cart.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'panier-item';
+            itemElement.innerHTML = `
+                <div class="panier-item-image">
+                    <img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/60x60/1E6B4E/FFFFFF?text=P'">
+                </div>
+                <div class="panier-item-details">
+                    <div class="panier-item-title">${item.name}</div>
+                    <div class="panier-item-price">${item.price.toFixed(2)}€</div>
+                </div>
+                <div class="panier-item-quantity">
+                    <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                    <span>${item.quantity}</span>
+                    <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                </div>
+                <button class="remove-item" data-id="${item.id}">🗑️</button>
+            `;
+            panierItems.appendChild(itemElement);
+        });
+
+        // Gestion des boutons de quantité
+        document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.dataset.id);
+                updateQuantity(id, -1);
+            });
+        });
+
+        document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.dataset.id);
+                updateQuantity(id, 1);
+            });
+        });
+
+        document.querySelectorAll('.remove-item').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.dataset.id);
+                removeFromCart(id);
+            });
+        });
+
+        // Gestion des options de livraison
+        document.querySelectorAll('input[name="livraison"]').forEach(radio => {
+            radio.addEventListener('change', updateCartDisplay);
+        });
+    }
+
+    function updateQuantity(productId, change) {
+        const item = cart.find(item => item.id === productId);
+        if (item) {
+            item.quantity += change;
+            
+            if (item.quantity <= 0) {
+                removeFromCart(productId);
+            } else {
+                saveCart();
+                updateCartCount();
+                updateCartDisplay();
+            }
+        }
+    }
+
+    function removeFromCart(productId) {
+        cart = cart.filter(item => item.id !== productId);
+        saveCart();
+        updateCartCount();
+        updateCartDisplay();
+        showNotification('Article retiré du panier', 'success');
+    }
+
+    // Initialiser le compteur du panier
+    updateCartCount();
 }
 
-function calculerSousTotal() {
-    return panier.reduce((total, item) => total + (item.prix * item.quantite), 0);
-}
-
-function calculerFraisLivraison() {
-    const livraisonSelectionnee = document.querySelector('input[name="livraison"]:checked');
-    return livraisonSelectionnee ? parseFloat(livraisonSelectionnee.value === 'express' ? '14.90' : '7.90') : 7.90;
-}
-
-function calculerTotal() {
-    const sousTotal = calculerSousTotal();
-    const fraisLivraison = calculerFraisLivraison();
-    const montantReduction = (sousTotal * reductionPromo) / 100;
-    return (sousTotal - montantReduction) + fraisLivraison;
-}
-
+// Code promo
 function appliquerCodePromo() {
     const input = document.getElementById('codePromoInput');
+    const message = document.getElementById('promoMessage');
     const code = input.value.trim().toUpperCase();
-    const messageElement = document.getElementById('promoMessage');
-    
-    if (!code) {
-        messageElement.textContent = '❌ Veuillez entrer un code promo';
-        messageElement.className = 'promo-message error';
-        return;
-    }
-    
-    if (codesPromo[code]) {
-        codePromoActif = code;
-        reductionPromo = codesPromo[code];
-        messageElement.textContent = `✅ Code promo appliqué ! -${reductionPromo}%`;
-        messageElement.className = 'promo-message success';
-        input.value = '';
-        mettreAJourPanier();
+
+    if (code === 'BIENVENUE10') {
+        message.textContent = 'Code promo appliqué : -10% sur votre commande !';
+        message.className = 'promo-message success';
+        updateCartDisplay();
+    } else if (code === '') {
+        message.textContent = 'Veuillez entrer un code promo';
+        message.className = 'promo-message error';
     } else {
-        messageElement.textContent = '❌ Code promo invalide';
-        messageElement.className = 'promo-message error';
+        message.textContent = 'Code promo invalide';
+        message.className = 'promo-message error';
     }
 }
 
-function sauvegarderPanier() {
-    const data = {
-        panier: panier,
-        codePromo: codePromoActif,
-        reduction: reductionPromo
-    };
-    localStorage.setItem('panier', JSON.stringify(data));
-}
-
-function chargerPanier() {
-    const data = JSON.parse(localStorage.getItem('panier'));
-    if (data) {
-        panier = data.panier || [];
-        codePromoActif = data.codePromo || null;
-        reductionPromo = data.reduction || 0;
-    }
-}
-
-function mettreAJourPanier() {
-    const cartCount = document.querySelector('.cart-count');
-    const panierItems = document.getElementById('panier-items');
-    const sousTotalElement = document.getElementById('sous-total');
-    const promoElement = document.getElementById('panier-promo');
-    const montantPromoElement = document.getElementById('montant-promo');
-    const fraisLivraisonElement = document.getElementById('frais-livraison');
-    const totalPanier = document.getElementById('total-panier');
-    
-    // Mettre à jour le compteur
-    const totalItems = panier.reduce((total, item) => total + item.quantite, 0);
-    cartCount.textContent = totalItems;
-    
-    // Mettre à jour l'affichage du panier
-    if (panier.length === 0) {
-        panierItems.innerHTML = '<p class="panier-vide">Votre panier est vide</p>';
-    } else {
-        panierItems.innerHTML = panier.map(item => `
-            <div class="panier-item">
-                <div class="panier-item-info">
-                    <h4>${item.nom}</h4>
-                    <p>${item.prix}€ × ${item.quantite}</p>
-                </div>
-                <div class="panier-item-controls">
-                    <button class="btn-quantity" onclick="modifierQuantite(${item.id}, -1)">-</button>
-                    <span>${item.quantite}</span>
-                    <button class="btn-quantity" onclick="modifierQuantite(${item.id}, 1)">+</button>
-                    <button class="btn-remove" onclick="supprimerDuPanier(${item.id})">🗑️</button>
-                </div>
-            </div>
-        `).join('');
-    }
-    
-    // Calculer les totaux
-    const sousTotal = calculerSousTotal();
-    const fraisLivraison = calculerFraisLivraison();
-    const montantReduction = (sousTotal * reductionPromo) / 100;
-    const total = sousTotal - montantReduction + fraisLivraison;
-    
-    // Mettre à jour les affichages
-    sousTotalElement.textContent = sousTotal.toFixed(2) + '€';
-    fraisLivraisonElement.textContent = fraisLivraison.toFixed(2) + '€';
-    totalPanier.textContent = total.toFixed(2) + '€';
-    
-    // Gérer l'affichage de la promotion
-    if (reductionPromo > 0) {
-        promoElement.style.display = 'flex';
-        montantPromoElement.textContent = montantReduction.toFixed(2) + '€';
-    } else {
-        promoElement.style.display = 'none';
-    }
-    
-    // Mettre à jour le code promo dans l'input si actif
-    if (codePromoActif) {
-        document.getElementById('codePromoInput').placeholder = `Code appliqué: ${codePromoActif}`;
-    }
-}
-
-// ===== GESTION DE LA COMMANDE =====
-function passerCommande() {
-    if (panier.length === 0) {
-        afficherNotification('🛒 Votre panier est vide', 'error');
-        return;
-    }
-
-    // Créer les détails de la commande
-    const detailsCommande = genererDetailsCommande();
-    
-    // Afficher le modal de confirmation de commande
-    afficherModalCommande(detailsCommande);
-}
-
-function genererDetailsCommande() {
-    let sousTotal = 0;
-    let produitsDetails = '';
-    
-    panier.forEach((item, index) => {
-        const sousTotalItem = item.prix * item.quantite;
-        sousTotal += sousTotalItem;
-        produitsDetails += `
-            <div class="commande-produit">
-                <span class="produit-nom">${item.nom}</span>
-                <span class="produit-quantite">x${item.quantite}</span>
-                <span class="produit-prix">${sousTotalItem.toFixed(2)}€</span>
-            </div>
-        `;
-    });
-    
-    const fraisLivraison = calculerFraisLivraison();
-    const montantReduction = (sousTotal * reductionPromo) / 100;
-    const total = sousTotal - montantReduction + fraisLivraison;
-    
-    return {
-        produits: produitsDetails,
-        sousTotal: sousTotal,
-        reduction: montantReduction,
-        livraison: fraisLivraison,
-        total: total
-    };
-}
-
-function afficherModalCommande(detailsCommande) {
-    const modalHTML = `
-        <div id="commandeModal" class="commande-modal">
-            <div class="commande-modal-content">
-                <div class="commande-modal-header">
-                    <h2>🚀 Finaliser votre commande</h2>
-                    <button class="close-commande" onclick="fermerModalCommande()">&times;</button>
-                </div>
-                <div class="commande-modal-body">
-                    <div class="commande-resume">
-                        <h3>Résumé de votre commande</h3>
-                        <div class="commande-produits">
-                            ${detailsCommande.produits}
-                        </div>
-                        <div class="commande-totals">
-                            <div class="commande-sous-total">
-                                Sous-total: <span>${detailsCommande.sousTotal.toFixed(2)}€</span>
-                            </div>
-                            ${detailsCommande.reduction > 0 ? `
-                            <div class="commande-reduction">
-                                Réduction: <span>-${detailsCommande.reduction.toFixed(2)}€</span>
-                            </div>
-                            ` : ''}
-                            <div class="commande-livraison">
-                                Livraison: <span>${detailsCommande.livraison.toFixed(2)}€</span>
-                            </div>
-                            <div class="commande-total">
-                                <strong>Total: ${detailsCommande.total.toFixed(2)}€</strong>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="commande-options">
-                        <h3>Options de paiement</h3>
-                        <div class="paiement-options">
-                            <label class="paiement-option">
-                                <input type="radio" name="paiement" value="virement" checked>
-                                <span class="checkmark"></span>
-                                <span class="paiement-info">
-                                    <strong>Virement Bancaire</strong>
-                                    <small>IBAN fourni après confirmation</small>
-                                </span>
-                            </label>
-                            
-                            <label class="paiement-option">
-                                <input type="radio" name="paiement" value="paypal">
-                                <span class="checkmark"></span>
-                                <span class="paiement-info">
-                                    <strong>PayPal</strong>
-                                    <small>Paiement sécurisé en ligne</small>
-                                </span>
-                            </label>
-                            
-                            <label class="paiement-option">
-                                <input type="radio" name="paiement" value="especes">
-                                <span class="checkmark"></span>
-                                <span class="paiement-info">
-                                    <strong>Espèces</strong>
-                                    <small>Sur place ou livraison</small>
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="commande-contact">
-                        <h3>Informations de contact</h3>
-                        <form id="commandeForm">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="commande-nom">Nom complet *</label>
-                                    <input type="text" id="commande-nom" name="nom" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="commande-email">Email *</label>
-                                    <input type="email" id="commande-email" name="email" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="commande-telephone">Téléphone *</label>
-                                <input type="tel" id="commande-telephone" name="telephone" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="commande-adresse">Adresse de livraison *</label>
-                                <textarea id="commande-adresse" name="adresse" rows="3" required placeholder="Nom, adresse, code postal, ville..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="commande-message">Message (optionnel)</label>
-                                <textarea id="commande-message" name="message" rows="2" placeholder="Instructions spéciales, préférences..."></textarea>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="commande-modal-actions">
-                    <button class="btn btn-secondary" onclick="fermerModalCommande()">Annuler</button>
-                    <button class="btn btn-success" onclick="confirmerCommande()">
-                        ✅ Confirmer la commande
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-    document.getElementById('commandeModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
-
-function fermerModalCommande() {
-    const modal = document.getElementById('commandeModal');
-    if (modal) {
-        modal.remove();
-        document.body.style.overflow = 'auto';
-    }
-}
-
-function confirmerCommande() {
-    const form = document.getElementById('commandeForm');
-    const nom = document.getElementById('commande-nom').value;
-    const email = document.getElementById('commande-email').value;
-    const telephone = document.getElementById('commande-telephone').value;
-    const adresse = document.getElementById('commande-adresse').value;
-    
-    if (!nom || !email || !telephone || !adresse) {
-        afficherNotification('❌ Veuillez remplir tous les champs obligatoires', 'error');
-        return;
-    }
-    
-    // Récupérer le mode de paiement sélectionné
-    const modePaiement = document.querySelector('input[name="paiement"]:checked').value;
-    
-    // Générer les détails de commande pour l'email
-    const detailsCommande = genererDetailsCommande();
-    const messageEmail = genererEmailCommande(detailsCommande, { nom, email, telephone, adresse, modePaiement });
-    
-    // Ouvrir le client email avec les détails pré-remplis
-    ouvrirEmailCommande(messageEmail);
-    
-    // Réinitialiser le panier
-    panier = [];
-    codePromoActif = null;
-    reductionPromo = 0;
-    sauvegarderPanier();
-    mettreAJourPanier();
-    
-    // Fermer les modals
-    fermerModalCommande();
-    fermerPanier();
-    
-    afficherNotification('📧 Ouvrez votre email pour finaliser la commande !', 'success');
-}
-
-function genererEmailCommande(detailsCommande, infosClient) {
-    const modesPaiement = {
-        'virement': 'Virement Bancaire',
-        'paypal': 'PayPal', 
-        'especes': 'Espèces'
-    };
-    
-    const sujet = `Commande Au Palais Des Arts - ${infosClient.nom}`;
-    
-    let corps = `Bonjour,\n\n`;
-    corps += `Je souhaite passer la commande suivante :\n\n`;
-    
-    panier.forEach(item => {
-        corps += `- ${item.nom} (x${item.quantite}) : ${(item.prix * item.quantite).toFixed(2)}€\n`;
-    });
-    
-    corps += `\nSOUS-TOTAL: ${detailsCommande.sousTotal.toFixed(2)}€\n`;
-    
-    if (detailsCommande.reduction > 0) {
-        corps += `RÉDUCTION: -${detailsCommande.reduction.toFixed(2)}€ (${reductionPromo}% avec ${codePromoActif})\n`;
-    }
-    
-    corps += `LIVRAISON: ${detailsCommande.livraison.toFixed(2)}€\n`;
-    corps += `TOTAL: ${detailsCommande.total.toFixed(2)}€\n\n`;
-    corps += `--- INFORMATIONS CLIENT ---\n`;
-    corps += `Nom: ${infosClient.nom}\n`;
-    corps += `Email: ${infosClient.email}\n`;
-    corps += `Téléphone: ${infosClient.telephone}\n`;
-    corps += `Adresse: ${infosClient.adresse}\n`;
-    corps += `Mode de paiement: ${modesPaiement[infosClient.modePaiement]}\n\n`;
-    corps += `Cordialement,\n${infosClient.nom}`;
-    
-    return {
-        sujet: encodeURIComponent(sujet),
-        corps: encodeURIComponent(corps)
-    };
-}
-
-function ouvrirEmailCommande(messageEmail) {
-    const email = 'contact@aupalaisdesarts.fr';
-    const lienEmail = `mailto:${email}?subject=${messageEmail.sujet}&body=${messageEmail.corps}`;
-    window.open(lienEmail, '_blank');
-}
-
-// ===== GESTION DU MODAL PANIER =====
-function ouvrirPanier() {
-    document.getElementById('panierModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
-
-function fermerPanier() {
-    document.getElementById('panierModal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
-// ===== BOUTON RETOUR EN HAUT =====
-function initialiserBackToTop() {
-    const backToTopBtn = document.getElementById('backToTop');
-    
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            backToTopBtn.style.display = 'block';
-        } else {
-            backToTopBtn.style.display = 'none';
-        }
-    });
-    
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+// Navigation fluide
+function initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const headerHeight = document.getElementById('header').offsetHeight;
+                const targetPosition = target.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 }
 
-// ===== BANNIERE PROMO =====
-function fermerPromoBanner() {
-    const banner = document.getElementById('promoBanner');
-    banner.style.display = 'none';
-    localStorage.setItem('promoBannerClosed', 'true');
+// Bouton retour en haut
+function initBackToTop() {
+    const backToTop = document.getElementById('backToTop');
+    
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
 }
 
-// Vérifier si la bannière a déjà été fermée
-if (localStorage.getItem('promoBannerClosed') === 'true') {
-    document.addEventListener('DOMContentLoaded', () => {
-        const banner = document.getElementById('promoBanner');
-        if (banner) banner.style.display = 'none';
+// Animations au scroll
+function initAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+
+    // Observer les éléments à animer
+    document.querySelectorAll('.product-card, .valeur-card, .avis-card, .contact-item').forEach(el => {
+        observer.observe(el);
     });
 }
 
-// ===== NOTIFICATIONS =====
-function afficherNotification(message, type) {
-    const container = document.getElementById('notificationContainer');
+// Validation des formulaires
+function initFormValidation() {
+    const creationForm = document.getElementById('creationForm');
     
-    // Supprimer les notifications existantes
-    const existingNotifications = container.querySelectorAll('.notification');
-    existingNotifications.forEach(notif => notif.remove());
-    
-    // Créer la nouvelle notification
+    if (creationForm) {
+        creationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateCreationForm()) {
+                // Simuler l'envoi du formulaire
+                showNotification('Votre demande de création sur mesure a été envoyée ! Nous vous contacterons rapidement.', 'success');
+                this.reset();
+            }
+        });
+    }
+}
+
+function validateCreationForm() {
+    const requiredFields = document.querySelectorAll('#creationForm [required]');
+    let isValid = true;
+
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            isValid = false;
+            field.style.borderColor = '#FF6B6B';
+        } else {
+            field.style.borderColor = '#1E6B4E';
+        }
+    });
+
+    if (!isValid) {
+        showNotification('Veuillez remplir tous les champs obligatoires', 'error');
+    }
+
+    return isValid;
+}
+
+// Notifications
+function showNotification(message, type = 'success') {
+    const container = document.getElementById('notificationContainer') || createNotificationContainer();
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
-    notification.textContent = message;
-    
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span>${type === 'success' ? '✅' : '❌'}</span>
+            <span>${message}</span>
+        </div>
+    `;
+
     container.appendChild(notification);
-    
+
     // Afficher la notification
     setTimeout(() => {
         notification.classList.add('show');
     }, 100);
-    
-    // Cacher après 3 secondes
-    clearTimeout(notificationTimeout);
-    notificationTimeout = setTimeout(() => {
+
+    // Cacher et supprimer après 5 secondes
+    setTimeout(() => {
         notification.classList.remove('show');
         setTimeout(() => {
             if (notification.parentNode) {
-                notification.remove();
+                notification.parentNode.removeChild(notification);
             }
         }, 300);
-    }, 3000);
+    }, 5000);
 }
 
-// ===== FORMULAIRES =====
-function initialiserFormulaireCreation() {
-    const form = document.getElementById('creationForm');
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Validation basique
-        const nom = document.getElementById('creation-nom').value;
-        const email = document.getElementById('creation-email').value;
-        const description = document.getElementById('creation-description').value;
-        
-        if (!nom || !email || !description) {
-            afficherNotification('❌ Veuillez remplir tous les champs obligatoires', 'error');
-            return;
-        }
-        
-        // Simulation d'envoi
-        afficherNotification('🎨 Votre demande a été envoyée ! Nous vous contacterons rapidement.', 'success');
-        form.reset();
-    });
+function createNotificationContainer() {
+    const container = document.createElement('div');
+    container.id = 'notificationContainer';
+    document.body.appendChild(container);
+    return container;
 }
 
-// ===== NAVIGATION ET ANIMATIONS =====
-function initialiserEcouteurs() {
-    // Navigation mobile
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
-            const isActive = navMenu.style.display === 'flex';
-            navMenu.style.display = isActive ? 'none' : 'flex';
-            navToggle.classList.toggle('active', !isActive);
-        });
+// Fermer la bannière promo
+function fermerPromoBanner() {
+    const banner = document.getElementById('promoBanner');
+    if (banner) {
+        banner.style.display = 'none';
     }
-    
-    // Boutons ajouter au panier
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = parseInt(this.dataset.productId);
-            ajouterAuPanier(productId);
-        });
-    });
-    
-    // Bouton panier
-    const cartBtn = document.getElementById('cartBtn');
-    const closePanier = document.getElementById('closePanier');
-    
-    if (cartBtn) {
-        cartBtn.addEventListener('click', ouvrirPanier);
-    }
-    
-    if (closePanier) {
-        closePanier.addEventListener('click', fermerPanier);
-    }
-    
-    // Bouton vider panier
-    const viderPanierBtn = document.getElementById('viderPanierBtn');
-    if (viderPanierBtn) {
-        viderPanierBtn.addEventListener('click', viderPanier);
-    }
-    
-    // Bouton commander
-    const commanderBtn = document.getElementById('commanderBtn');
-    if (commanderBtn) {
-        commanderBtn.addEventListener('click', passerCommande);
-    }
-    
-    // Options de livraison
-    document.querySelectorAll('input[name="livraison"]').forEach(radio => {
-        radio.addEventListener('change', mettreAJourPanier);
-    });
-    
-    // Fermer le modal en cliquant à l'extérieur
-    const panierModal = document.getElementById('panierModal');
-    if (panierModal) {
-        panierModal.addEventListener('click', (e) => {
-            if (e.target === panierModal) {
-                fermerPanier();
+}
+
+// Gestion des erreurs d'images
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', function() {
+            this.style.display = 'none';
+            const fallback = this.nextElementSibling;
+            if (fallback && fallback.classList.contains('logo-fallback')) {
+                fallback.style.display = 'block';
             }
         });
-    }
-    
-    // Fermer la navigation mobile en cliquant sur un lien
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.style.display = 'none';
-            navToggle.classList.remove('active');
-        });
     });
-    
-    // Initialiser le formulaire création
-    initialiserFormulaireCreation();
-    
-    // Entrée pour code promo
-    const codePromoInput = document.getElementById('codePromoInput');
-    if (codePromoInput) {
-        codePromoInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                appliquerCodePromo();
-            }
-        });
-    }
-}
+});
 
-// ===== ANALYTICS & TRACKING =====
-function suivrePageVue() {
-    console.log('Page vue:', document.title, window.location.href);
-}
-
-function suivreEvenement(categorie, action, etiquette) {
-    console.log('Événement:', categorie, action, etiquette);
+// Service Worker pour PWA (optionnel)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+                console.log('ServiceWorker registration successful');
+            })
+            .catch(function(err) {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+    });
 }

@@ -1,20 +1,15 @@
 // Gestion du chargement de la page
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM chargé - Initialisation de l app');
     initializeApp();
 });
 
 function initializeApp() {
-    // Cache l'écran de chargement
-    setTimeout(() => {
-        const loadingScreen = document.getElementById('loadingScreen');
-        if (loadingScreen) {
-            loadingScreen.style.opacity = '0';
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 500);
-        }
-    }, 2000);
-
+    console.log('Initialisation de l application');
+    
+    // Cache IMMÉDIATEMENT l'écran de chargement
+    hideLoadingScreen();
+    
     // Initialise toutes les fonctionnalités
     initNavigation();
     initCart();
@@ -22,21 +17,46 @@ function initializeApp() {
     initBackToTop();
     initAnimations();
     initFormValidation();
+    
+    console.log('Application initialisée avec succès');
+}
+
+function hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen) {
+        console.log('Masquage de l écran de chargement');
+        // Animation de fondu
+        loadingScreen.style.transition = 'opacity 0.5s ease';
+        loadingScreen.style.opacity = '0';
+        
+        // Masquer après l'animation
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+            console.log('Écran de chargement masqué');
+        }, 500);
+    } else {
+        console.log('Écran de chargement non trouvé');
+    }
 }
 
 // Gestion de la navigation
 function initNavigation() {
+    console.log('Initialisation de la navigation');
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
     const header = document.getElementById('header');
 
-    // Navigation mobile
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+    if (!navToggle || !navMenu) {
+        console.error('Éléments de navigation non trouvés');
+        return;
     }
+
+    // Navigation mobile
+    navToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        console.log('Menu mobile ' + (navMenu.classList.contains('active') ? 'ouvert' : 'fermé'));
+    });
 
     // Header scroll effect
     window.addEventListener('scroll', function() {

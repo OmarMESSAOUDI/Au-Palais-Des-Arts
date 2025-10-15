@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hors ligne - Au Palais Des Arts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1E6B4E 0%, #2D8B66 100%);
+            color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            background: white;
+            color: #1E6B4E;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .offline-features {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .feature {
+            display: inline-block;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .feature {
+                display: block;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🧺</div>
+        <h1>Oups ! Vous êtes hors ligne</h1>
+        <p>Il semble que votre connexion internet soit interrompue. Notre site nécessite une connexion pour afficher nos dernières créations et traiter vos commandes.</p>
+        
+        <div class="offline-features">
+            <div class="feature">📱 Site responsive</div>
+            <div class="feature">🚀 Chargement rapide</div>
+            <div class="feature">🔒 Paiement sécurisé</div>
+        </div>
+
+        <a href="index.html" class="btn">🔄 Réessayer la connexion</a>
+    </div>
+
+    <script>
+        // Vérifier périodiquement si la connexion est rétablie
+        function checkConnection() {
+            if (navigator.onLine) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Vérifier toutes les 3 secondes
+        setInterval(checkConnection, 3000);
+
+        // Écouter les événements de connexion
+        window.addEventListener('online', function() {
+            console.log('Connexion rétablie !');
+            window.location.href = 'index.html';
+        });
+
+        // Afficher un message si l'utilisateur essaie de recharger
+        window.addEventListener('offline', function() {
+            console.log('Perte de connexion');
+        });
+
+        // Essayer de recharger si l'utilisateur appuie sur F5
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F5' || (e.ctrlKey && e.key === 'r')) {
+                e.preventDefault();
+                checkConnection();
+            }
+        });
+    </script>
+</body>
+</html>

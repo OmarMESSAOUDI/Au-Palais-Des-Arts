@@ -1,5 +1,5 @@
 // ===== VARIABLES GLOBALES =====
-let panier = JSON.parse(localStorage.getItem('panier')) || [];
+let panier = [];
 let notificationTimeout;
 let codePromoActif = null;
 let reductionPromo = 0;
@@ -9,10 +9,7 @@ const produits = {
     1: { nom: 'Panier Tressé Rectangulaire', prix: 35 },
     2: { nom: 'Panier Double Compartiment', prix: 55 },
     3: { nom: 'Panier en Feuilles de Palmier', prix: 42 },
-    4: { nom: 'Panier Rond en Osier', prix: 38 },
-    5: { nom: 'Lot de 4 Paniers en Osier', prix: 120 },
-    6: { nom: 'Panier Rectangulaire Jacinthe d\'Eau', prix: 45 },
-    7: { nom: 'Panier Rond Jacinthe d\'Eau', prix: 40 }
+    4: { nom: 'Panier Rond en Osier', prix: 38 }
 };
 
 // Codes promo disponibles
@@ -28,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initialiserApp() {
+    // Charger le panier depuis le localStorage
+    chargerPanier();
+    
     // Gestion du loading screen
     setTimeout(() => {
         document.getElementById('loadingScreen').style.display = 'none';
@@ -42,8 +42,8 @@ function initialiserApp() {
     // Initialiser le bouton retour en haut
     initialiserBackToTop();
     
-    // Charger les images
-    chargerImagesProduits();
+    // Initialiser les images
+    initialiserImages();
     
     // Analytics - suivre la page vue
     suivrePageVue();
@@ -72,6 +72,21 @@ function suivreEvenement(categorie, action, etiquette) {
             label: etiquette
         });
     }
+}
+
+// ===== GESTION DES IMAGES =====
+function initialiserImages() {
+    // Gestion des erreurs d'images
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', function() {
+            console.warn('Image non trouvée:', this.src);
+            // Vous pouvez ajouter une image de remplacement ici
+        });
+        
+        img.addEventListener('load', function() {
+            this.style.opacity = '1';
+        });
+    });
 }
 
 // ===== GESTION DU PANIER AVEC PROMOS =====
@@ -260,22 +275,6 @@ function mettreAJourPanier() {
     }
 }
 
-// ===== GESTION DES IMAGES =====
-function chargerImagesProduits() {
-    const placeholders = document.querySelectorAll('.product-image-placeholder');
-    
-    placeholders.forEach(placeholder => {
-        const imageName = placeholder.getAttribute('data-image');
-        if (imageName) {
-            // Simuler le chargement d'image
-            setTimeout(() => {
-                placeholder.classList.remove('skeleton');
-                placeholder.textContent = '🖼️ ' + placeholder.textContent.replace('🖼️ ', '');
-            }, 1000);
-        }
-    });
-}
-
 // ===== GESTION DE LA COMMANDE =====
 function passerCommande() {
     if (panier.length === 0) {
@@ -294,39 +293,31 @@ function passerCommande() {
 }
 
 function genererDetailsCommande() {
-    let details = "DÉTAILS DE LA COMMANDE :\n\n";
     let sousTotal = 0;
+    let produitsDetails = '';
     
     panier.forEach((item, index) => {
         const sousTotalItem = item.prix * item.quantite;
         sousTotal += sousTotalItem;
-        details += `${index + 1}. ${item.nom}\n`;
-        details += `   Quantité: ${item.quantite}\n`;
-        details += `   Prix unitaire: ${item.prix}€\n`;
-        details += `   Sous-total: ${sousTotalItem}€\n\n`;
+        produitsDetails += `
+            <div class="commande-produit">
+                <span class="produit-nom">${item.nom}</span>
+                <span class="produit-quantite">x${item.quantite}</span>
+                <span class="produit-prix">${sousTotalItem.toFixed(2)}€</span>
+            </div>
+        `;
     });
     
     const fraisLivraison = calculerFraisLivraison();
     const montantReduction = (sousTotal * reductionPromo) / 100;
     const total = sousTotal - montantReduction + fraisLivraison;
     
-    details += `SOUS-TOTAL: ${sousTotal.toFixed(2)}€\n`;
-    
-    if (reductionPromo > 0) {
-        details += `RÉDUCTION: -${montantReduction.toFixed(2)}€ (${reductionPromo}% avec ${codePromoActif})\n`;
-    }
-    
-    details += `LIVRAISON: ${fraisLivraison.toFixed(2)}€\n`;
-    details += `TOTAL: ${total.toFixed(2)}€\n\n`;
-    details += `Date: ${new Date().toLocaleDateString('fr-FR')}`;
-    
     return {
-        texte: details,
+        produits: produitsDetails,
         sousTotal: sousTotal,
         reduction: montantReduction,
         livraison: fraisLivraison,
-        total: total,
-        produits: panier
+        total: total
     };
 }
 
@@ -342,13 +333,7 @@ function afficherModalCommande(detailsCommande) {
                     <div class="commande-resume">
                         <h3>Résumé de votre commande</h3>
                         <div class="commande-produits">
-                            ${detailsCommande.produits.map((item, index) => `
-                                <div class="commande-produit">
-                                    <span class="produit-nom">${item.nom}</span>
-                                    <span class="produit-quantite">x${item.quantite}</span>
-                                    <span class="produit-prix">${(item.prix * item.quantite).toFixed(2)}€</span>
-                                </div>
-                            `).join('')}
+                            ${detailsCommande.produits}
                         </div>
                         <div class="commande-totals">
                             <div class="commande-sous-total">
@@ -439,6 +424,7 @@ function afficherModalCommande(detailsCommande) {
     `;
     
     document.body.insertAdjacentHTML('beforeend', modalHTML);
+    document.getElementById('commandeModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
 
@@ -500,7 +486,19 @@ function genererEmailCommande(detailsCommande, infosClient) {
     
     let corps = `Bonjour,\n\n`;
     corps += `Je souhaite passer la commande suivante :\n\n`;
-    corps += `${detailsCommande.texte}\n\n`;
+    
+    panier.forEach(item => {
+        corps += `- ${item.nom} (x${item.quantite}) : ${(item.prix * item.quantite).toFixed(2)}€\n`;
+    });
+    
+    corps += `\nSOUS-TOTAL: ${detailsCommande.sousTotal.toFixed(2)}€\n`;
+    
+    if (detailsCommande.reduction > 0) {
+        corps += `RÉDUCTION: -${detailsCommande.reduction.toFixed(2)}€ (${reductionPromo}% avec ${codePromoActif})\n`;
+    }
+    
+    corps += `LIVRAISON: ${detailsCommande.livraison.toFixed(2)}€\n`;
+    corps += `TOTAL: ${detailsCommande.total.toFixed(2)}€\n\n`;
     corps += `--- INFORMATIONS CLIENT ---\n`;
     corps += `Nom: ${infosClient.nom}\n`;
     corps += `Email: ${infosClient.email}\n`;
@@ -723,64 +721,3 @@ if ('connection' in navigator) {
         document.documentElement.classList.add('save-data');
     }
 }
-
-// Charger le panier au démarrage
-chargerPanier();
-
-// Animation pour les notifications
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(400px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    
-    .commande-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 2000;
-        padding: 20px;
-    }
-    
-    .commande-modal-content {
-        background: var(--white);
-        border-radius: 10px;
-        max-width: 600px;
-        width: 100%;
-        max-height: 90vh;
-        overflow-y: auto;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-    
-    .commande-totals {
-        border-top: 2px solid var(--primary-color);
-        padding-top: 10px;
-        margin-top: 10px;
-    }
-    
-    .commande-sous-total,
-    .commande-reduction,
-    .commande-livraison,
-    .commande-total {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 5px;
-    }
-    
-    .commande-total {
-        font-weight: bold;
-        font-size: 1.2rem;
-        color: var(--primary-color);
-        border-top: 1px solid #E8F5E8;
-        padding-top: 10px;
-        margin-top: 10px;
-    }
-`;
-document.head.appendChild(style);

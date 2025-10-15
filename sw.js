@@ -1,9 +1,10 @@
-const CACHE_NAME = 'aupalaisdesarts-v1';
+const CACHE_NAME = 'aupalaisdesarts-v2';
 const urlsToCache = [
     '/',
     '/index.html',
     '/style.css',
     '/script.js',
+    '/Au_Palais_Des_Arts.png',
     '/mentions-legales.html',
     '/cgv.html',
     '/politique-confidentialite.html'
@@ -13,7 +14,10 @@ const urlsToCache = [
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(urlsToCache))
+            .then(cache => {
+                console.log('Cache ouvert');
+                return cache.addAll(urlsToCache);
+            })
     );
 });
 
@@ -24,6 +28,7 @@ self.addEventListener('activate', event => {
             return Promise.all(
                 cacheNames.map(cacheName => {
                     if (cacheName !== CACHE_NAME) {
+                        console.log('Suppression ancien cache:', cacheName);
                         return caches.delete(cacheName);
                     }
                 })
@@ -38,8 +43,10 @@ self.addEventListener('fetch', event => {
         caches.match(event.request)
             .then(response => {
                 // Retourne le cache ou fetch la requête
-                return response || fetch(event.request);
-            }
-        )
+                if (response) {
+                    return response;
+                }
+                return fetch(event.request);
+            })
     );
 });

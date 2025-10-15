@@ -5,56 +5,275 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conditions Générales de Vente - Au Palais Des Arts</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
+            color: #333;
+            background-color: #f8f5f2;
+            padding: 20px;
+        }
+
+        .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
-            color: #333;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        h1, h2 {
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #1E6B4E;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
             color: #1E6B4E;
+            margin-bottom: 1rem;
         }
-        .container {
-            background: #f8f9fa;
-            padding: 30px;
+
+        h2 {
+            color: #1E6B4E;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        h3 {
+            color: #2D3748;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        ul {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-info {
+            background: #E8F5E8;
+            padding: 1.5rem;
             border-radius: 10px;
-            margin-top: 20px;
+            margin: 2rem 0;
         }
+
         .back-link {
             display: inline-block;
-            margin-bottom: 20px;
+            margin-top: 2rem;
             color: #1E6B4E;
             text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .important {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            body {
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-link">← Retour au site</a>
-    
     <div class="container">
-        <h1>Conditions Générales de Vente</h1>
-        
-        <h2>Article 1 - Objet</h2>
-        <p>Les présentes conditions régissent les ventes par Au Palais Des Arts de produits artisanaux en osier fabriqués au Maroc.</p>
+        <div class="header">
+            <div class="logo">🧺</div>
+            <h1>Au Palais Des Arts</h1>
+            <p>Conditions Générales de Vente</p>
+        </div>
 
-        <h2>Article 2 - Prix</h2>
-        <p>Les prix sont indiqués en euros toutes taxes comprises. Les frais de livraison sont précisés lors de la commande.</p>
+        <div class="section">
+            <div class="important">
+                <p><strong>Dernière mise à jour : 15 octobre 2024</strong></p>
+            </div>
+        </div>
 
-        <h2>Article 3 - Commande</h2>
-        <p>La commande est validée après paiement. Un email de confirmation est envoyé.</p>
+        <div class="section">
+            <h2>1. Objet</h2>
+            <p>Les présentes Conditions Générales de Vente (CGV) ont pour objet de définir les relations contractuelles entre Au Palais Des Arts et tout acheteur de produits via le site internet https://aupalaisdesarts.fr.</p>
+        </div>
 
-        <h2>Article 4 - Livraison</h2>
-        <p>Délai de livraison : 48h à 72h après confirmation de commande. Livraison en France métropolitaine.</p>
+        <div class="section">
+            <h2>2. Produits</h2>
+            <p>Les produits proposés à la vente sont des créations artisanales en osier et matériaux naturels, fabriquées main au Maroc par nos artisans partenaires.</p>
+            
+            <h3>2.1. Caractéristiques des produits</h3>
+            <ul>
+                <li>Produits 100% faits main</li>
+                <li>Fabriqués au Maroc</li>
+                <li>Matériaux naturels (osier, jacinthe d'eau, rotin, feuilles de palmier)</li>
+                <li>Variations naturelles possibles dues au caractère artisanal</li>
+            </ul>
+        </div>
 
-        <h2>Article 5 - Droit de rétractation</h2>
-        <p>Délai de rétractation de 14 jours à compter de la réception des produits.</p>
+        <div class="section">
+            <h2>3. Prix</h2>
+            <p>Les prix de nos produits sont indiqués en euros toutes taxes comprises (TTC). Ils incluent la TVA au taux en vigueur.</p>
+            
+            <p>Les frais de livraison sont calculés en fonction du mode de livraison choisi et s'ajoutent au prix des produits.</p>
+            
+            <p>Au Palais Des Arts se réserve le droit de modifier ses prix à tout moment, étant entendu que le prix applicable à la commande est celui en vigueur au moment de la validation de la commande.</p>
+        </div>
 
-        <h2>Article 6 - Garanties</h2>
-        <p>Tous nos produits sont garantis contre les défauts de fabrication.</p>
+        <div class="section">
+            <h2>4. Commande</h2>
+            <p>Le processus de commande comprend les étapes suivantes :</p>
+            <ul>
+                <li>Sélection des produits et ajout au panier</li>
+                <li>Validation du panier</li>
+                <li>Saisie des informations de livraison et de facturation</li>
+                <li>Choix du mode de livraison</li>
+                <li>Paiement sécurisé</li>
+                <li>Confirmation de commande par email</li>
+            </ul>
+            
+            <p>Toute commande vaut acceptation des prix et descriptions des produits disponibles à la vente.</p>
+        </div>
 
-        <p><em>Dernière mise à jour : Octobre 2024</em></p>
+        <div class="section">
+            <h2>5. Paiement</h2>
+            <p>Le paiement est exigible immédiatement à la commande.</p>
+            
+            <h3>5.1. Modes de paiement acceptés</h3>
+            <ul>
+                <li>Carte bancaire (CB, Visa, Mastercard)</li>
+                <li>PayPal</li>
+                <li>Virement bancaire (uniquement sur demande)</li>
+            </ul>
+            
+            <h3>5.2. Sécurité</h3>
+            <p>Les paiements par carte bancaire sont sécurisés par le système de cryptage SSL. Aucune information bancaire n'est conservée sur nos serveurs.</p>
+        </div>
+
+        <div class="section">
+            <h2>6. Livraison</h2>
+            <h3>6.1. Zones de livraison</h3>
+            <p>Nous livrons en France métropolitaine et en Europe.</p>
+            
+            <h3>6.2. Délais de livraison</h3>
+            <ul>
+                <li>Livraison standard : 3 à 5 jours ouvrables</li>
+                <li>Livraison express : 1 à 2 jours ouvrables</li>
+                <li>Commandes sur mesure : délai spécifique communiqué lors de la commande</li>
+            </ul>
+            
+            <h3>6.3. Frais de livraison</h3>
+            <ul>
+                <li>Livraison standard : 7,90€</li>
+                <li>Livraison express : 14,90€</li>
+                <li>Offerte à partir de 100€ d'achat (hors sur mesure)</li>
+            </ul>
+            
+            <p>Les délais de livraison sont donnés à titre indicatif et peuvent varier en cas de force majeure.</p>
+        </div>
+
+        <div class="section">
+            <h2>7. Droit de rétractation</h2>
+            <p>Conformément aux articles L.221-18 et suivants du Code de la consommation, vous disposez d'un délai de 14 jours à compter de la réception de vos produits pour exercer votre droit de rétractation, sans avoir à justifier de motifs ni à payer de pénalités.</p>
+            
+            <h3>7.1. Exceptions</h3>
+            <p>Le droit de rétractation ne s'applique pas aux :</p>
+            <ul>
+                <li>Produits sur mesure ou personnalisés</li>
+                <li>Produits confectionnés selon vos spécifications</li>
+                <li>Produits qui ont été descellés après livraison et qui ne peuvent être renvoyés pour des raisons d'hygiène</li>
+            </ul>
+            
+            <h3>7.2. Modalités de retour</h3>
+            <p>Pour exercer votre droit de rétractation, contactez-nous à : retours@aupalaisdesarts.fr</p>
+            <p>Les produits doivent être retournés dans leur état d'origine, emballage inclus, à l'adresse que nous vous communiquerons.</p>
+        </div>
+
+        <div class="section">
+            <h2>8. Garanties</h2>
+            <h3>8.1. Garantie légale de conformité</h3>
+            <p>Conformément aux articles L.217-4 et suivants du Code de la consommation, nous sommes tenus de garantir la conformité du bien vendu et de répondre des défauts de conformité existant lors de la délivrance.</p>
+            
+            <h3>8.2. Garantie des vices cachés</h3>
+            <p>Conformément aux articles 1641 et suivants du Code civil, nous sommes tenus de garantir les vices cachés des produits vendus.</p>
+        </div>
+
+        <div class="section">
+            <h2>9. Créations sur mesure</h2>
+            <p>Les commandes de créations sur mesure font l'objet d'un processus spécifique :</p>
+            <ul>
+                <li>Étude personnalisée du projet</li>
+                <li>Devis détaillé préalable</li>
+                <li>Validation du client requise avant fabrication</li>
+                <li>Acompte de 30% à la commande</li>
+                <li>Solde avant expédition</li>
+                <li>Délais de fabrication variables selon la complexité</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>10. Propriété intellectuelle</h2>
+            <p>Tous les éléments du site https://aupalaisdesarts.fr (textes, photographies, logos, etc.) sont la propriété intellectuelle de Au Palais Des Arts. Toute reproduction est interdite sans autorisation préalable.</p>
+        </div>
+
+        <div class="section">
+            <h2>11. Données personnelles</h2>
+            <p>Les données collectées lors de votre commande sont nécessaires à son traitement. Conformément à la loi "Informatique et Libertés", vous disposez d'un droit d'accès, de rectification et d'opposition aux données vous concernant.</p>
+            
+            <p>Consultez notre <a href="politique-confidentialite.html">Politique de Confidentialité</a> pour plus d'informations.</p>
+        </div>
+
+        <div class="section">
+            <h2>12. Litiges</h2>
+            <p>En cas de litige, le client s'engage à rechercher une solution amiable avec Au Palais Des Arts avant toute action judiciaire.</p>
+            
+            <p>À défaut de solution amiable, les tribunaux français seront seuls compétents.</p>
+        </div>
+
+        <div class="section">
+            <h2>13. Contact</h2>
+            <div class="legal-info">
+                <p><strong>Service client Au Palais Des Arts</strong><br>
+                Email : contact@aupalaisdesarts.fr<br>
+                Téléphone : 01 23 45 67 89<br>
+                Horaires : Du lundi au vendredi, 9h-18h</p>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-link">← Retour au site principal</a>
     </div>
 </body>
 </html>

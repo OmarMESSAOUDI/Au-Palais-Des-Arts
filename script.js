@@ -382,3 +382,216 @@ function initialiserEcouteurs() {
     initialiserFormulaireCreation();
     initialiserFormulaireAvis();
 }
+// ===== GESTION DE LA COMMANDE =====
+function passerCommande() {
+    if (panier.length === 0) {
+        afficherNotification('🛒 Votre panier est vide', 'error');
+        return;
+    }
+
+    // Créer les détails de la commande
+    const detailsCommande = genererDetailsCommande();
+    
+    // Afficher le modal de confirmation de commande
+    afficherModalCommande(detailsCommande);
+}
+
+function genererDetailsCommande() {
+    let details = "DÉTAILS DE LA COMMANDE :\n\n";
+    let total = 0;
+    
+    panier.forEach((item, index) => {
+        const sousTotal = item.prix * item.quantite;
+        total += sousTotal;
+        details += `${index + 1}. ${item.nom}\n`;
+        details += `   Quantité: ${item.quantite}\n`;
+        details += `   Prix unitaire: ${item.prix}€\n`;
+        details += `   Sous-total: ${sousTotal}€\n\n`;
+    });
+    
+    details += `TOTAL: ${total.toFixed(2)}€\n\n`;
+    details += `Date: ${new Date().toLocaleDateString('fr-FR')}`;
+    
+    return {
+        texte: details,
+        total: total,
+        produits: panier
+    };
+}
+
+function afficherModalCommande(detailsCommande) {
+    // Créer le modal de commande
+    const modalHTML = `
+        <div id="commandeModal" class="commande-modal">
+            <div class="commande-modal-content">
+                <div class="commande-modal-header">
+                    <h2>🚀 Finaliser votre commande</h2>
+                    <button class="close-commande" onclick="fermerModalCommande()">&times;</button>
+                </div>
+                <div class="commande-modal-body">
+                    <div class="commande-resume">
+                        <h3>Résumé de votre commande</h3>
+                        <div class="commande-produits">
+                            ${detailsCommande.produits.map((item, index) => `
+                                <div class="commande-produit">
+                                    <span class="produit-nom">${item.nom}</span>
+                                    <span class="produit-quantite">x${item.quantite}</span>
+                                    <span class="produit-prix">${(item.prix * item.quantite).toFixed(2)}€</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="commande-total">
+                            <strong>Total: ${detailsCommande.total.toFixed(2)}€</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="commande-options">
+                        <h3>Options de paiement</h3>
+                        <div class="paiement-options">
+                            <label class="paiement-option">
+                                <input type="radio" name="paiement" value="virement" checked>
+                                <span class="checkmark"></span>
+                                <span class="paiement-info">
+                                    <strong>Virement Bancaire</strong>
+                                    <small>IBAN fourni après confirmation</small>
+                                </span>
+                            </label>
+                            
+                            <label class="paiement-option">
+                                <input type="radio" name="paiement" value="paypal">
+                                <span class="checkmark"></span>
+                                <span class="paiement-info">
+                                    <strong>PayPal</strong>
+                                    <small>Paiement sécurisé en ligne</small>
+                                </span>
+                            </label>
+                            
+                            <label class="paiement-option">
+                                <input type="radio" name="paiement" value="especes">
+                                <span class="checkmark"></span>
+                                <span class="paiement-info">
+                                    <strong>Espèces</strong>
+                                    <small>Sur place ou livraison</small>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="commande-contact">
+                        <h3>Informations de contact</h3>
+                        <form id="commandeForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="commande-nom">Nom complet *</label>
+                                    <input type="text" id="commande-nom" name="nom" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="commande-email">Email *</label>
+                                    <input type="email" id="commande-email" name="email" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="commande-telephone">Téléphone *</label>
+                                <input type="tel" id="commande-telephone" name="telephone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="commande-adresse">Adresse de livraison *</label>
+                                <textarea id="commande-adresse" name="adresse" rows="3" required placeholder="Nom, adresse, code postal, ville..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="commande-message">Message (optionnel)</label>
+                                <textarea id="commande-message" name="message" rows="2" placeholder="Instructions spéciales, préférences..."></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="commande-modal-actions">
+                    <button class="btn btn-secondary" onclick="fermerModalCommande()">Annuler</button>
+                    <button class="btn btn-success" onclick="confirmerCommande()">
+                        ✅ Confirmer la commande
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Ajouter le modal à la page
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Empêcher le défilement de la page
+    document.body.style.overflow = 'hidden';
+}
+
+function fermerModalCommande() {
+    const modal = document.getElementById('commandeModal');
+    if (modal) {
+        modal.remove();
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function confirmerCommande() {
+    const form = document.getElementById('commandeForm');
+    const nom = document.getElementById('commande-nom').value;
+    const email = document.getElementById('commande-email').value;
+    const telephone = document.getElementById('commande-telephone').value;
+    const adresse = document.getElementById('commande-adresse').value;
+    
+    if (!nom || !email || !telephone || !adresse) {
+        afficherNotification('❌ Veuillez remplir tous les champs obligatoires', 'error');
+        return;
+    }
+    
+    // Récupérer le mode de paiement sélectionné
+    const modePaiement = document.querySelector('input[name="paiement"]:checked').value;
+    
+    // Générer les détails de commande pour l'email
+    const detailsCommande = genererDetailsCommande();
+    const messageEmail = genererEmailCommande(detailsCommande, { nom, email, telephone, adresse, modePaiement });
+    
+    // Ouvrir le client email avec les détails pré-remplis
+    ouvrirEmailCommande(messageEmail);
+    
+    // Réinitialiser le panier
+    panier = [];
+    sauvegarderPanier();
+    mettreAJourPanier();
+    
+    // Fermer les modals
+    fermerModalCommande();
+    fermerPanier();
+    
+    afficherNotification('📧 Ouvrez votre email pour finaliser la commande !', 'success');
+}
+
+function genererEmailCommande(detailsCommande, infosClient) {
+    const modesPaiement = {
+        'virement': 'Virement Bancaire',
+        'paypal': 'PayPal', 
+        'especes': 'Espèces'
+    };
+    
+    const sujet = `Commande Au Palais Des Arts - ${infosClient.nom}`;
+    
+    let corps = `Bonjour,\n\n`;
+    corps += `Je souhaite passer la commande suivante :\n\n`;
+    corps += `${detailsCommande.texte}\n\n`;
+    corps += `--- INFORMATIONS CLIENT ---\n`;
+    corps += `Nom: ${infosClient.nom}\n`;
+    corps += `Email: ${infosClient.email}\n`;
+    corps += `Téléphone: ${infosClient.telephone}\n`;
+    corps += `Adresse: ${infosClient.adresse}\n`;
+    corps += `Mode de paiement: ${modesPaiement[infosClient.modePaiement]}\n\n`;
+    corps += `Cordialement,\n${infosClient.nom}`;
+    
+    return {
+        sujet: encodeURIComponent(sujet),
+        corps: encodeURIComponent(corps)
+    };
+}
+
+function ouvrirEmailCommande(messageEmail) {
+    const email = 'contact@aupalaisdesarts.fr'; // Remplace par ton email
+    const lienEmail = `mailto:${email}?subject=${messageEmail.sujet}&body=${messageEmail.corps}`;
+    window.open(lienEmail, '_blank');
+}

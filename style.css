@@ -23,6 +23,7 @@ body {
     line-height: 1.6;
     color: var(--text-dark);
     background-color: var(--background-light);
+    overflow-x: hidden;
 }
 
 .container {
@@ -102,21 +103,49 @@ header {
     gap: 15px;
 }
 
-/* LOGO AGRANDI */
-.logo-icon {
-    font-size: 3.5rem;
+/* LOGO CORRIGÉ */
+.logo-image {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.logo-fallback {
+    font-size: 2.5rem;
     color: var(--primary-color);
 }
 
+.logo-img:not([src]), 
+.logo-img[src=""],
+.logo-img[src*="undefined"] {
+    display: none;
+}
+
+.logo-img:not([src]) + .logo-fallback,
+.logo-img[src=""] + .logo-fallback,
+.logo-img[src*="undefined"] + .logo-fallback {
+    display: block;
+}
+
 .logo-text h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--primary-color);
     margin-bottom: 5px;
     font-weight: bold;
 }
 
 .logo-text p {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--text-light);
     font-weight: 500;
 }
@@ -460,6 +489,29 @@ header {
     position: relative;
 }
 
+/* IMAGES PRODUITS CORRIGÉES */
+.product-image {
+    width: 100%;
+    height: 100%;
+    background: var(--background-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.05);
+}
+
 /* SKELETON LOADING */
 .skeleton {
     background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
@@ -476,33 +528,6 @@ header {
 @keyframes loading-skeleton {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
-}
-
-.product-image-placeholder {
-    font-size: 1.5rem;
-    color: var(--text-light);
-}
-
-/* GALLERY PRODUITS */
-.product-gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
-    padding: 10px;
-    background: rgba(0,0,0,0.03);
-}
-
-.gallery-thumb {
-    width: 100%;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.gallery-thumb:hover {
-    transform: scale(1.05);
 }
 
 .product-content {
@@ -1107,6 +1132,153 @@ header {
     background: #f44336;
 }
 
+/* ===== MODAL COMMANDE CORRIGÉ ===== */
+.commande-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.commande-modal.show {
+    display: flex;
+}
+
+.commande-modal-content {
+    background: var(--white);
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.commande-modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #E8F5E8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 10px 10px 0 0;
+}
+
+.commande-modal-header h2 {
+    margin: 0;
+    color: var(--white);
+}
+
+.close-commande {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.commande-modal-body {
+    padding: 20px;
+}
+
+.commande-resume, .commande-options, .commande-contact {
+    margin-bottom: 30px;
+}
+
+.commande-produit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #E8F5E8;
+}
+
+.commande-totals {
+    border-top: 2px solid var(--primary-color);
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.commande-sous-total,
+.commande-reduction,
+.commande-livraison,
+.commande-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.commande-total {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    border-top: 1px solid #E8F5E8;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.paiement-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.paiement-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border: 2px solid #E8F5E8;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.paiement-option:hover {
+    border-color: var(--primary-color);
+}
+
+.paiement-option input[type="radio"] {
+    margin: 0;
+}
+
+.paiement-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.paiement-info strong {
+    color: var(--text-dark);
+}
+
+.paiement-info small {
+    color: var(--text-light);
+    font-size: 0.8rem;
+}
+
+.commande-modal-actions {
+    padding: 20px;
+    border-top: 1px solid #E8F5E8;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
     from {
@@ -1139,8 +1311,13 @@ header {
     }
     
     /* Logo responsive */
-    .logo-icon {
-        font-size: 2.5rem;
+    .logo-image {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .logo-fallback {
+        font-size: 2rem;
     }
     
     .logo-text h1 {
@@ -1192,6 +1369,10 @@ header {
     }
     
     .promo-input-group {
+        flex-direction: column;
+    }
+    
+    .commande-modal-actions {
         flex-direction: column;
     }
     

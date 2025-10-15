@@ -80,7 +80,7 @@ body {
     100% { transform: translateX(100%); }
 }
 
-/* ===== HEADER ===== */
+/* ===== HEADER CORRIGÉ ===== */
 header {
     background: var(--white);
     box-shadow: var(--shadow);
@@ -94,23 +94,26 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
+    padding: 10px 0;
+    flex-wrap: nowrap;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
+    min-width: 0;
+    flex-shrink: 0;
 }
 
-/* LOGO CORRIGÉ */
 .logo-image {
     position: relative;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .logo-img {
@@ -121,39 +124,36 @@ header {
 }
 
 .logo-fallback {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     color: var(--primary-color);
 }
 
-.logo-img:not([src]), 
-.logo-img[src=""],
-.logo-img[src*="undefined"] {
-    display: none;
-}
-
-.logo-img:not([src]) + .logo-fallback,
-.logo-img[src=""] + .logo-fallback,
-.logo-img[src*="undefined"] + .logo-fallback {
-    display: block;
+.logo-text {
+    min-width: 0;
+    white-space: nowrap;
 }
 
 .logo-text h1 {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     color: var(--primary-color);
-    margin-bottom: 5px;
+    margin-bottom: 2px;
     font-weight: bold;
+    line-height: 1.2;
 }
 
 .logo-text p {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--text-light);
     font-weight: 500;
+    margin: 0;
+    line-height: 1.2;
 }
 
-/* ===== NAVIGATION ===== */
+/* Navigation améliorée */
 .nav {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .nav-toggle {
@@ -176,7 +176,8 @@ header {
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
+    flex-wrap: nowrap;
 }
 
 .nav-link {
@@ -184,26 +185,32 @@ header {
     color: var(--text-dark);
     font-weight: 500;
     transition: var(--transition);
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    padding: 8px 12px;
+    border-radius: 5px;
 }
 
 .nav-link:hover {
     color: var(--primary-color);
+    background: rgba(30, 107, 78, 0.1);
 }
 
 .nav-actions {
-    margin-left: 20px;
+    margin-left: 15px;
+    flex-shrink: 0;
 }
 
 .cart-btn {
     background: var(--primary-color);
     color: var(--white);
     border: none;
-    padding: 12px 18px;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
     transition: var(--transition);
-    font-size: 1.1rem;
+    font-size: 1rem;
+    white-space: nowrap;
 }
 
 .cart-btn:hover {
@@ -216,7 +223,7 @@ header {
     background: linear-gradient(135deg, var(--primary-color), #14523A);
     color: var(--white);
     padding: 150px 0 100px;
-    margin-top: 80px;
+    margin-top: 70px;
 }
 
 .hero-content {
@@ -573,13 +580,6 @@ header {
 
 .price-original {
     color: var(--secondary-color);
-}
-
-.price-promo {
-    color: #ff4444;
-    text-decoration: line-through;
-    margin-right: 10px;
-    font-size: 1.2rem;
 }
 
 .btn-full {
@@ -1279,18 +1279,6 @@ header {
     justify-content: flex-end;
 }
 
-/* ===== ANIMATIONS ===== */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     .hero-content {
@@ -1310,18 +1298,22 @@ header {
         justify-content: center;
     }
     
-    /* Logo responsive */
-    .logo-image {
-        width: 50px;
-        height: 50px;
+    /* Header responsive */
+    .header-content {
+        flex-wrap: wrap;
     }
     
-    .logo-fallback {
-        font-size: 2rem;
+    .logo {
+        flex: 1;
     }
     
     .logo-text h1 {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+    }
+    
+    .nav-toggle {
+        display: flex;
+        order: 2;
     }
     
     .nav-menu {
@@ -1334,14 +1326,25 @@ header {
         flex-direction: column;
         padding: 20px;
         box-shadow: var(--shadow);
+        gap: 15px;
     }
     
     .nav-menu.active {
         display: flex;
     }
     
-    .nav-toggle {
-        display: flex;
+    .nav-link {
+        padding: 12px 15px;
+        font-size: 1rem;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .nav-actions {
+        margin-left: 0;
+        margin-top: 15px;
+        width: 100%;
+        text-align: center;
     }
     
     .nav-toggle.active span:nth-child(1) {
@@ -1381,6 +1384,35 @@ header {
         right: 20px;
         width: 45px;
         height: 45px;
+    }
+}
+
+/* Pour les très petits écrans */
+@media (max-width: 480px) {
+    .logo {
+        gap: 8px;
+    }
+    
+    .logo-image {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .logo-fallback {
+        font-size: 1.8rem;
+    }
+    
+    .logo-text h1 {
+        font-size: 1rem;
+    }
+    
+    .logo-text p {
+        font-size: 0.7rem;
+    }
+    
+    .hero {
+        padding: 120px 0 80px;
+        margin-top: 60px;
     }
 }
 

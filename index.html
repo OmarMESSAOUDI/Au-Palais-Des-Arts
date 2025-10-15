@@ -5,6 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Au Palais Des Arts - Créations Artisanales en Osier du Maroc</title>
     <meta name="description" content="Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains. Vannerie traditionnelle de qualité supérieure.">
+    
+    <!-- SEO OPTIMISÉ -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://aupalaisdesarts.fr">
+    <meta name="keywords" content="panier osier, artisanat marocain, vannerie, fait main, création sur mesure, panier naturel">
+    
+    <!-- MÉDIA SOCIAUX -->
+    <meta property="og:title" content="Au Palais Des Arts - Créations Artisanales en Osier du Maroc">
+    <meta property="og:description" content="Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains.">
+    <meta property="og:image" content="https://aupalaisdesarts.fr/logo-social.jpg">
+    <meta property="og:url" content="https://aupalaisdesarts.fr">
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Au Palais Des Arts - Artisanat Marocain">
+    <meta name="twitter:description" content="Paniers artisanaux en osier 100% faits main au Maroc">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1E6B4E">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- ANALYTICS -->
+    <script>
+        // Microsoft Clarity
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "TU_ID_CLARITY");
+    </script>
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,7 +58,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <img src="Au_Palais_Des_Arts.png" alt="Au Palais Des Arts" class="logo-icon">
+                    <span class="logo-icon">🌿</span>
                     <div class="logo-text">
                         <h1>Au Palais Des Arts</h1>
                         <p>Artisanat marocain d'exception</p>
@@ -102,7 +135,7 @@
             <div class="histoire-content">
                 <div class="histoire-text">
                     <h3>Un Savoir-Faire Ancestral du Maroc</h3>
-                    <p>Fondé en 2025 par la famille MESSAOUDI MOUSSI, <strong>Au Palais Des Arts</strong> perpétue la tradition du tissage d'osier et du travail artisanal de qualité. <strong>Nos créations sont entièrement fabriquées au Maroc</strong> par des artisans locaux qui maîtrisent des techniques ancestrales.</p>
+                    <p>Fondé en 1985 par la famille Martin, <strong>Au Palais Des Arts</strong> perpétue la tradition du tissage d'osier et du travail artisanal de qualité. <strong>Nos créations sont entièrement fabriquées au Maroc</strong> par des artisans locaux qui maîtrisent des techniques ancestrales.</p>
                     
                     <div class="origine-info">
                         <div class="origine-badge">
@@ -153,12 +186,26 @@
                 <p>Pièces uniques faites main avec des techniques ancestrales marocaines</p>
             </div>
 
+            <!-- Code Promo Banner -->
+            <div class="promo-banner" id="promoBanner">
+                <div class="promo-content">
+                    <span class="promo-icon">🎁</span>
+                    <span class="promo-text">Code promo : <strong>BIENVENUE10</strong> pour -10% sur votre première commande !</span>
+                    <button class="promo-close" onclick="fermerPromoBanner()">×</button>
+                </div>
+            </div>
+
             <div class="products-grid">
                 <!-- Produit 1 -->
                 <div class="product-card">
                     <div class="product-badge">Populaire</div>
                     <div class="product-image-container">
-                        <img src="Panier tressé rectangulaire.jpg" alt="Panier Tressé Rectangulaire" class="product-image">
+                        <div class="product-image-placeholder skeleton" data-image="Panier tressé rectangulaire.jpg">🖼️ Panier Tressé Rectangulaire</div>
+                        <div class="product-gallery" style="display: none;">
+                            <img src="panier-rect-1.jpg" alt="Vue 1" class="gallery-thumb">
+                            <img src="panier-rect-2.jpg" alt="Vue 2" class="gallery-thumb">
+                            <img src="panier-rect-3.jpg" alt="Vue 3" class="gallery-thumb">
+                        </div>
                     </div>
                     <div class="product-content">
                         <h3 class="product-title">Panier Tressé Rectangulaire</h3>
@@ -168,7 +215,9 @@
                             <span>🚚 48h</span>
                         </div>
                         <div class="product-origin">🇲🇦 Fait main au Maroc</div>
-                        <div class="product-price">35,00€</div>
+                        <div class="product-price">
+                            <span class="price-original">35,00€</span>
+                        </div>
                         <button class="btn btn-primary add-to-cart" data-product-id="1">
                             ➕ Ajouter au panier
                         </button>
@@ -179,7 +228,7 @@
                 <div class="product-card">
                     <div class="product-badge">Innovant</div>
                     <div class="product-image-container">
-                        <img src="Panier à linge double compartiment.jpg" alt="Panier Double Compartiment" class="product-image">
+                        <div class="product-image-placeholder skeleton" data-image="Panier à linge double compartiment.jpg">🖼️ Panier Double Compartiment</div>
                     </div>
                     <div class="product-content">
                         <h3 class="product-title">Panier Double Compartiment</h3>
@@ -189,7 +238,9 @@
                             <span>🚚 48h</span>
                         </div>
                         <div class="product-origin">🇲🇦 Fait main au Maroc</div>
-                        <div class="product-price">55,00€</div>
+                        <div class="product-price">
+                            <span class="price-original">55,00€</span>
+                        </div>
                         <button class="btn btn-primary add-to-cart" data-product-id="2">
                             ➕ Ajouter au panier
                         </button>
@@ -200,7 +251,7 @@
                 <div class="product-card">
                     <div class="product-badge">Écologique</div>
                     <div class="product-image-container">
-                        <img src="Panier à linge en feuilles de palmier.jpg" alt="Panier en Feuilles de Palmier" class="product-image">
+                        <div class="product-image-placeholder skeleton" data-image="Panier à linge en feuilles de palmier.jpg">🖼️ Panier en Feuilles de Palmier</div>
                     </div>
                     <div class="product-content">
                         <h3 class="product-title">Panier en Feuilles de Palmier</h3>
@@ -210,7 +261,9 @@
                             <span>🚚 48h</span>
                         </div>
                         <div class="product-origin">🇲🇦 Fait main au Maroc</div>
-                        <div class="product-price">42,00€</div>
+                        <div class="product-price">
+                            <span class="price-original">42,00€</span>
+                        </div>
                         <button class="btn btn-primary add-to-cart" data-product-id="3">
                             ➕ Ajouter au panier
                         </button>
@@ -221,7 +274,7 @@
                 <div class="product-card">
                     <div class="product-badge">Classique</div>
                     <div class="product-image-container">
-                        <img src="Panier à linge rond en osier.jpg" alt="Panier Rond en Osier" class="product-image">
+                        <div class="product-image-placeholder skeleton" data-image="Panier à linge rond en osier.jpg">🖼️ Panier Rond en Osier</div>
                     </div>
                     <div class="product-content">
                         <h3 class="product-title">Panier Rond en Osier</h3>
@@ -231,71 +284,10 @@
                             <span>🚚 48h</span>
                         </div>
                         <div class="product-origin">🇲🇦 Fait main au Maroc</div>
-                        <div class="product-price">38,00€</div>
+                        <div class="product-price">
+                            <span class="price-original">38,00€</span>
+                        </div>
                         <button class="btn btn-primary add-to-cart" data-product-id="4">
-                            ➕ Ajouter au panier
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Produit 5 -->
-                <div class="product-card">
-                    <div class="product-badge">Lot Économique</div>
-                    <div class="product-image-container">
-                        <img src="Lot de 4 Paniers.jpg" alt="Lot de 4 Paniers en Osier" class="product-image">
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title">Lot de 4 Paniers en Osier</h3>
-                        <p class="product-description">Lot économique de 4 paniers de tailles variées, parfaits pour le rangement ou comme cadeau. Tressage traditionnel marocain.</p>
-                        <div class="product-meta">
-                            <span>📏 Dimensions variées</span>
-                            <span>🚚 48h</span>
-                        </div>
-                        <div class="product-origin">🇲🇦 Fait main au Maroc</div>
-                        <div class="product-price">120,00€</div>
-                        <button class="btn btn-primary add-to-cart" data-product-id="5">
-                            ➕ Ajouter au panier
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Produit 6 -->
-                <div class="product-card">
-                    <div class="product-badge">Jacinthe d'Eau</div>
-                    <div class="product-image-container">
-                        <img src="Panier rectangulaire en jacinthe d'eau.jpg" alt="Panier Rectangulaire en Jacinthe d'Eau" class="product-image">
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title">Panier Rectangulaire Jacinthe d'Eau</h3>
-                        <p class="product-description">Panier rectangulaire élégant en jacinthe d'eau naturelle. Léger, résistant et écologique, idéal pour la décoration et le rangement.</p>
-                        <div class="product-meta">
-                            <span>📏 40x30x20cm</span>
-                            <span>🚚 48h</span>
-                        </div>
-                        <div class="product-origin">🇲🇦 Fait main au Maroc</div>
-                        <div class="product-price">45,00€</div>
-                        <button class="btn btn-primary add-to-cart" data-product-id="6">
-                            ➕ Ajouter au panier
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Produit 7 -->
-                <div class="product-card">
-                    <div class="product-badge">Nouveau</div>
-                    <div class="product-image-container">
-                        <img src="Panier rond jacinthe d'eau H36.5 cm Lian.jpg" alt="Panier Rond en Jacinthe d'Eau H36.5cm" class="product-image">
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title">Panier Rond Jacinthe d'Eau</h3>
-                        <p class="product-description">Panier rond en jacinthe d'eau d'une hauteur de 36.5 cm. Design épuré et naturel, parfait pour apporter une touche d'élégance à votre intérieur.</p>
-                        <div class="product-meta">
-                            <span>📏 Diamètre 35cm, H36.5cm</span>
-                            <span>🚚 48h</span>
-                        </div>
-                        <div class="product-origin">🇲🇦 Fait main au Maroc</div>
-                        <div class="product-price">40,00€</div>
-                        <button class="btn btn-primary add-to-cart" data-product-id="7">
                             ➕ Ajouter au panier
                         </button>
                     </div>
@@ -413,51 +405,48 @@
                 <h2>Avis Clients</h2>
                 <p>Ce que disent nos clients satisfaits</p>
             </div>
-            <div class="avis-grid" id="avis-container">
-                <!-- Les avis seront générés dynamiquement par JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Ajout d'Avis -->
-    <section class="ajout-avis section-padding" id="ajout-avis">
-        <div class="container">
-            <div class="section-header">
-                <h2>Laissez votre avis</h2>
-                <p>Partagez votre expérience avec nos créations artisanales</p>
-            </div>
-            <div class="ajout-avis-content">
-                <form class="avis-form" id="avisForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="avis-nom">Votre nom *</label>
-                            <input type="text" id="avis-nom" name="nom" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="avis-note">Note *</label>
-                            <div class="note-selection">
-                                <div class="etoiles" id="etoiles">
-                                    <span class="etoile" data-note="1">☆</span>
-                                    <span class="etoile" data-note="2">☆</span>
-                                    <span class="etoile" data-note="3">☆</span>
-                                    <span class="etoile" data-note="4">☆</span>
-                                    <span class="etoile" data-note="5">☆</span>
-                                </div>
-                                <input type="hidden" id="avis-note" name="note" required>
-                                <div class="note-text" id="note-text">Sélectionnez une note</div>
+            <div class="avis-grid">
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-client">
+                            <div class="client-avatar">M</div>
+                            <div>
+                                <h4>Marie L.</h4>
+                                <div class="avis-rating">★★★★★</div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="avis-commentaire">Votre commentaire *</label>
-                        <textarea id="avis-commentaire" name="commentaire" rows="5" required placeholder="Partagez votre expérience avec nos produits..."></textarea>
+                    <p class="avis-text">"Le panier rectangulaire est absolument magnifique ! La qualité de tissage est exceptionnelle. Savoir qu'il est fait main au Maroc ajoute une valeur sentimentale. Livraison rapide et emballage soigné."</p>
+                    <div class="avis-date">15/10/2024</div>
+                </div>
+
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-client">
+                            <div class="client-avatar">P</div>
+                            <div>
+                                <h4>Pierre D.</h4>
+                                <div class="avis-rating">★★★★★</div>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <button type="submit" class="btn btn-primary btn-full">
-                        📝 Publier mon avis
-                    </button>
-                </form>
+                    <p class="avis-text">"J'ai offert le panier double compartiment à ma femme et elle en est ravie. Pratique et élégant, il trône maintenant dans notre chambre. La qualité artisanale marocaine est remarquable !"</p>
+                    <div class="avis-date">12/10/2024</div>
+                </div>
+
+                <div class="avis-card">
+                    <div class="avis-header">
+                        <div class="avis-client">
+                            <div class="client-avatar">S</div>
+                            <div>
+                                <h4>Sophie M.</h4>
+                                <div class="avis-rating">★★★★☆</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="avis-text">"Très beau panier en feuilles de palmier, léger et résistant. Le côté écologique et l'origine marocaine sont appréciables. Petit bémol : une légère odeur au début, mais qui part rapidement."</p>
+                    <div class="avis-date">08/10/2024</div>
+                </div>
             </div>
         </div>
     </section>
@@ -521,12 +510,13 @@
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Engagements</h3>
+                    <h3>Informations Légales</h3>
                     <ul>
+                        <li><a href="mentions-legales.html">Mentions légales</a></li>
+                        <li><a href="cgv.html">CGV</a></li>
+                        <li><a href="politique-confidentialite.html">Politique de confidentialité</a></li>
                         <li>✓ 100% Fait main au Maroc</li>
                         <li>✓ Artisanat traditionnel</li>
-                        <li>✓ Matériaux naturels</li>
-                        <li>✓ Développement durable</li>
                     </ul>
                 </div>
             </div>
@@ -536,6 +526,9 @@
         </div>
     </footer>
 
+    <!-- Bouton Retour en Haut -->
+    <button id="backToTop" class="back-to-top" aria-label="Retour en haut">↑</button>
+
     <!-- Panier Modal -->
     <div id="panierModal" class="panier-modal">
         <div class="panier-modal-content">
@@ -544,11 +537,50 @@
                 <button class="close-panier" id="closePanier">&times;</button>
             </div>
             <div class="panier-modal-body">
+                <!-- Code Promo dans le panier -->
+                <div class="panier-promo-section">
+                    <div class="promo-input-group">
+                        <input type="text" id="codePromoInput" placeholder="Code promo (ex: BIENVENUE10)" class="promo-input">
+                        <button class="btn-promo" onclick="appliquerCodePromo()">Appliquer</button>
+                    </div>
+                    <div id="promoMessage" class="promo-message"></div>
+                </div>
+                
                 <div id="panier-items" class="panier-items">
                     <p class="panier-vide">Votre panier est vide</p>
                 </div>
-                <div class="panier-total">
-                    Total : <span id="total-panier">0,00€</span>
+                
+                <!-- Frais de livraison -->
+                <div class="panier-livraison">
+                    <div class="livraison-option">
+                        <input type="radio" id="livraison-standard" name="livraison" value="standard" checked>
+                        <label for="livraison-standard">
+                            <span>Livraison standard</span>
+                            <span class="livraison-prix">7,90€</span>
+                        </label>
+                    </div>
+                    <div class="livraison-option">
+                        <input type="radio" id="livraison-express" name="livraison" value="express">
+                        <label for="livraison-express">
+                            <span>Livraison express</span>
+                            <span class="livraison-prix">14,90€</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="panier-totals">
+                    <div class="panier-sous-total">
+                        Sous-total : <span id="sous-total">0,00€</span>
+                    </div>
+                    <div class="panier-promo" id="panier-promo" style="display: none;">
+                        Réduction : -<span id="montant-promo">0,00€</span>
+                    </div>
+                    <div class="panier-livraison-total">
+                        Livraison : <span id="frais-livraison">7,90€</span>
+                    </div>
+                    <div class="panier-total">
+                        Total : <span id="total-panier">0,00€</span>
+                    </div>
                 </div>
             </div>
             <div class="panier-modal-actions">
@@ -562,5 +594,14 @@
     <div id="notificationContainer"></div>
 
     <script src="script.js"></script>
+    
+    <!-- Service Worker pour PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => console.log('SW registered'))
+                .catch(error => console.log('SW registration failed'));
+        }
+    </script>
 </body>
 </html>

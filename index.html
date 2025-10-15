@@ -28,16 +28,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     
-    <!-- ANALYTICS -->
-    <script>
-        // Microsoft Clarity
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "TU_ID_CLARITY");
-    </script>
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -80,7 +70,7 @@
                     <div class="nav-menu" id="navMenu">
                         <a href="#produits" class="nav-link">Nos Créations</a>
                         <a href="#histoire" class="nav-link">Notre Histoire</a>
-                        <a href="#sur-mesure" class="nav-link">Création sur Mesure</a>
+                        <a href="#sur-mesure" class="nav-link">Sur Mesure</a>
                         <a href="#avis" class="nav-link">Avis Clients</a>
                         <a href="#contact" class="nav-link">Contact</a>
                         <div class="nav-actions">
@@ -615,14 +605,5 @@
     <div id="notificationContainer"></div>
 
     <script src="script.js"></script>
-    
-    <!-- Service Worker pour PWA -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => console.log('SW registered'))
-                .catch(error => console.log('SW registration failed'));
-        }
-    </script>
 </body>
 </html>

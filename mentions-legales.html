@@ -5,54 +5,211 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mentions Légales - Au Palais Des Arts</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
+            color: #333;
+            background-color: #f8f5f2;
+            padding: 20px;
+        }
+
+        .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
-            color: #333;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        h1, h2 {
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #1E6B4E;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
             color: #1E6B4E;
+            margin-bottom: 1rem;
         }
-        .container {
-            background: #f8f9fa;
-            padding: 30px;
+
+        h2 {
+            color: #1E6B4E;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        h3 {
+            color: #2D3748;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-info {
+            background: #E8F5E8;
+            padding: 1.5rem;
             border-radius: 10px;
-            margin-top: 20px;
+            margin: 2rem 0;
         }
+
         .back-link {
             display: inline-block;
-            margin-bottom: 20px;
+            margin-top: 2rem;
             color: #1E6B4E;
             text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            body {
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-link">← Retour au site</a>
-    
     <div class="container">
-        <h1>Mentions Légales</h1>
-        
-        <h2>1. Informations générales</h2>
-        <p><strong>Nom du site :</strong> Au Palais Des Arts</p>
-        <p><strong>Activité :</strong> Vente d'artisanat marocain en osier</p>
-        <p><strong>Email :</strong> contact@aupalaisdesarts.fr</p>
-        <p><strong>Téléphone :</strong> 01 23 45 67 89</p>
-        <p><strong>Hébergeur :</strong> GitHub Pages</p>
+        <div class="header">
+            <div class="logo">🧺</div>
+            <h1>Au Palais Des Arts</h1>
+            <p>Mentions Légales</p>
+        </div>
 
-        <h2>2. Protection des données personnelles</h2>
-        <p>Conformément à la loi "Informatique et Libertés" et au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression des données vous concernant.</p>
+        <div class="section">
+            <h2>1. Informations légales</h2>
+            <div class="legal-info">
+                <p><strong>Dénomination sociale :</strong> Au Palais Des Arts<br>
+                <strong>Forme juridique :</strong> [À compléter - ex: SARL, EURL, etc.]<br>
+                <strong>Capital social :</strong> [À compléter] €<br>
+                <strong>Siège social :</strong> [À compléter - adresse complète]<br>
+                <strong>SIRET :</strong> [À compléter]<br>
+                <strong>RCS :</strong> [À compléter]<br>
+                <strong>Code APE/NAF :</strong> [À compléter]</p>
+            </div>
+        </div>
 
-        <h2>3. Propriété intellectuelle</h2>
-        <p>L'ensemble du contenu de ce site (textes, images, design) est la propriété exclusive de Au Palais Des Arts.</p>
+        <div class="section">
+            <h2>2. Coordonnées</h2>
+            <div class="legal-info">
+                <p><strong>Téléphone :</strong> 01 23 45 67 89<br>
+                <strong>Email :</strong> contact@aupalaisdesarts.fr<br>
+                <strong>Site web :</strong> https://aupalaisdesarts.fr</p>
+            </div>
+        </div>
 
-        <h2>4. Cookies</h2>
-        <p>Ce site utilise des cookies pour améliorer l'expérience utilisateur et réaliser des statistiques de visites.</p>
+        <div class="section">
+            <h2>3. Directeur de la publication</h2>
+            <p><strong>Nom :</strong> [Nom du directeur]<br>
+            <strong>Fonction :</strong> Gérant<br>
+            <strong>Contact :</strong> publication@aupalaisdesarts.fr</p>
+        </div>
 
-        <p><em>Dernière mise à jour : Octobre 2024</em></p>
+        <div class="section">
+            <h2>4. Hébergement du site</h2>
+            <p><strong>Hébergeur :</strong> [Nom de l'hébergeur]<br>
+            <strong>Adresse :</strong> [Adresse de l'hébergeur]<br>
+            <strong>Téléphone :</strong> [Téléphone de l'hébergeur]<br>
+            <strong>Site web :</strong> [Site web de l'hébergeur]</p>
+        </div>
+
+        <div class="section">
+            <h2>5. Propriété intellectuelle</h2>
+            <p>L'ensemble des éléments constituant le site https://aupalaisdesarts.fr (textes, graphismes, logos, images, photographies, vidéos, etc.) sont la propriété exclusive de Au Palais Des Arts ou de ses partenaires, et sont protégés par le droit d'auteur, le droit des marques et le droit à l'image.</p>
+            
+            <p>Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de Au Palais Des Arts.</p>
+        </div>
+
+        <div class="section">
+            <h2>6. Données personnelles</h2>
+            <p>Conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés, vous disposez d'un droit d'accès, de rectification, de modification et de suppression des données vous concernant.</p>
+            
+            <p>Pour exercer ce droit, contactez-nous à : privacy@aupalaisdesarts.fr</p>
+            
+            <p>Pour plus d'informations, consultez notre <a href="politique-confidentialite.html">Politique de Confidentialité</a>.</p>
+        </div>
+
+        <div class="section">
+            <h2>7. Cookies</h2>
+            <p>Le site https://aupalaisdesarts.fr utilise des cookies pour :</p>
+            <ul>
+                <li>Améliorer l'expérience utilisateur</li>
+                <li>Analyser l'audience du site</li>
+                <li>Permettre le fonctionnement du panier d'achat</li>
+            </ul>
+            
+            <p>En naviguant sur notre site, vous acceptez l'utilisation des cookies. Vous pouvez les désactiver via les paramètres de votre navigateur.</p>
+        </div>
+
+        <div class="section">
+            <h2>8. Liens hypertextes</h2>
+            <p>Le site https://aupalaisdesarts.fr peut contenir des liens vers d'autres sites web. Au Palais Des Arts n'exerce aucun contrôle sur ces sites et décline toute responsabilité concernant leur contenu, leur accessibilité et leurs pratiques en matière de protection des données.</p>
+        </div>
+
+        <div class="section">
+            <h2>9. Limitations de responsabilité</h2>
+            <p>Au Palais Des Arts met tout en œuvre pour assurer l'exactitude et la mise à jour des informations diffusées sur son site. Cependant, nous ne pouvons garantir l'exactitude, la précision ou l'exhaustivité des informations.</p>
+            
+            <p>L'utilisateur reconnaît utiliser les informations sous sa responsabilité exclusive.</p>
+        </div>
+
+        <div class="section">
+            <h2>10. Droit applicable</h2>
+            <p>Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux français seront seuls compétents.</p>
+        </div>
+
+        <div class="section">
+            <h2>11. Conditions générales de vente</h2>
+            <p>Les conditions générales de vente sont accessibles sur une page dédiée et prévalent sur toute autre document.</p>
+            
+            <p><a href="cgv.html">Consulter nos Conditions Générales de Vente</a></p>
+        </div>
+
+        <div class="section">
+            <h2>12. Contact juridique</h2>
+            <div class="legal-info">
+                <p>Pour toute question d'ordre juridique :<br>
+                <strong>Email :</strong> legal@aupalaisdesarts.fr<br>
+                <strong>Adresse postale :</strong> [À compléter]</p>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-link">← Retour au site principal</a>
     </div>
 </body>
 </html>

@@ -96,7 +96,7 @@ function initNavigation() {
     });
 }
 
-// Gestion du panier
+// Gestion du panier avec processus de paiement intégré
 function initCart() {
     console.log('Initialisation du panier');
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -111,6 +111,15 @@ function initCart() {
     const closePanier = document.getElementById('closePanier');
     const viderPanierBtn = document.getElementById('viderPanierBtn');
     const commanderBtn = document.getElementById('commanderBtn');
+    const retourPanierBtn = document.getElementById('retourPanierBtn');
+    const paiementBtn = document.getElementById('paiementBtn');
+    const panierModalTitle = document.getElementById('panierModalTitle');
+
+    // Éléments des étapes
+    const panierStep1 = document.getElementById('panier-step-1');
+    const panierStep2 = document.getElementById('panier-step-2');
+    const actionsStep1 = document.getElementById('actions-step-1');
+    const actionsStep2 = document.getElementById('actions-step-2');
 
     // Produits disponibles
     const products = {
@@ -176,7 +185,10 @@ function initCart() {
 
     // Ouvrir/fermer le panier
     if (cartBtn && cartModal) {
-        cartBtn.addEventListener('click', openCart);
+        cartBtn.addEventListener('click', function() {
+            resetToStep1();
+            openCart();
+        });
     }
 
     if (closePanier) {
@@ -199,6 +211,30 @@ function initCart() {
     function closeCart() {
         cartModal.classList.remove('active');
         document.body.style.overflow = '';
+        resetToStep1();
+    }
+
+    // Réinitialiser à l'étape 1
+    function resetToStep1() {
+        panierStep1.style.display = 'block';
+        panierStep2.style.display = 'none';
+        actionsStep1.style.display = 'flex';
+        actionsStep2.style.display = 'none';
+        panierModalTitle.textContent = '🛒 Votre Panier';
+    }
+
+    // Aller à l'étape de paiement
+    function goToPaymentStep() {
+        panierStep1.style.display = 'none';
+        panierStep2.style.display = 'block';
+        actionsStep1.style.display = 'none';
+        actionsStep2.style.display = 'flex';
+        panierModalTitle.textContent = '💳 Paiement';
+    }
+
+    // Retour au panier
+    if (retourPanierBtn) {
+        retourPanierBtn.addEventListener('click', resetToStep1);
     }
 
     // Vider le panier
@@ -216,21 +252,91 @@ function initCart() {
         });
     }
 
-    // Passer commande
+    // Passer à l'étape de commande
     if (commanderBtn) {
         commanderBtn.addEventListener('click', function() {
             if (cart.length === 0) {
                 showNotification('Votre panier est vide', 'error');
                 return;
             }
-            
-            // Simuler un processus de commande
-            showNotification('Redirection vers le paiement...', 'success');
-            setTimeout(() => {
-                // Redirection vers la page de paiement
-                window.location.href = 'paiement.html';
-            }, 1000);
+            goToPaymentStep();
         });
+    }
+
+    // Traitement du paiement
+    if (paiementBtn) {
+        paiementBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Validation du formulaire de paiement
+            if (validatePaymentForm()) {
+                // Simulation de traitement de paiement
+                showNotification('Traitement de votre paiement en cours...', 'success');
+                
+                setTimeout(() => {
+                    // Simulation de paiement réussi
+                    showNotification('✅ Paiement réussi ! Merci pour votre commande.', 'success');
+                    
+                    // Vider le panier
+                    cart = [];
+                    saveCart();
+                    updateCartCount();
+                    
+                    // Fermer la modal
+                    closeCart();
+                    
+                    // Réinitialiser le formulaire
+                    document.getElementById('paiementForm').reset();
+                    
+                }, 2000);
+            }
+        });
+    }
+
+    // Validation du formulaire de paiement
+    function validatePaymentForm() {
+        const requiredFields = document.querySelectorAll('#paiementForm [required]');
+        let isValid = true;
+
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                isValid = false;
+                field.style.borderColor = '#FF6B6B';
+            } else {
+                field.style.borderColor = '#1E6B4E';
+            }
+        });
+
+        if (!isValid) {
+            showNotification('Veuillez remplir tous les champs obligatoires', 'error');
+            return false;
+        }
+
+        // Validation basique du numéro de carte (simulation)
+        const cardNumber = document.getElementById('carte-num').value.replace(/\s/g, '');
+        if (cardNumber.length !== 16 || isNaN(cardNumber)) {
+            showNotification('Numéro de carte invalide', 'error');
+            document.getElementById('carte-num').style.borderColor = '#FF6B6B';
+            return false;
+        }
+
+        // Validation de la date d'expiration
+        const expDate = document.getElementById('carte-exp').value;
+        if (!/^\d{2}\/\d{2}$/.test(expDate)) {
+            showNotification('Format de date invalide (MM/AA requis)', 'error');
+            document.getElementById('carte-exp').style.borderColor = '#FF6B6B';
+            return false;
+        }
+
+        // Validation du CVV
+        const cvv = document.getElementById('carte-cvv').value;
+        if (cvv.length < 3 || isNaN(cvv)) {
+            showNotification('CVV invalide', 'error');
+            document.getElementById('carte-cvv').style.borderColor = '#FF6B6B';
+            return false;
+        }
+
+        return true;
     }
 
     // Mettre à jour l'affichage du panier

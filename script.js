@@ -14,10 +14,13 @@ function initializeApp() {
     initImageFallbacks();
     initNavigation();
     initCart();
+    initFavorites();
+    initRecentlyViewed();
     initSmoothScrolling();
     initBackToTop();
     initAnimations();
     initFormValidation();
+    initProductTracking();
     
     console.log('Application initialisée avec succès');
 }
@@ -41,19 +44,26 @@ function hideLoadingScreen() {
 }
 
 // Gestion des images manquantes
+function handleImageError(img) {
+    console.log('Image non trouvée:', img.src);
+    const productName = img.alt || 'Produit';
+    img.src = `https://placehold.co/400x300/1E6B4E/FFFFFF/png?text=${encodeURIComponent(productName)}`;
+}
+
 function initImageFallbacks() {
     document.querySelectorAll('img').forEach(img => {
         img.addEventListener('error', function() {
-            console.log('Image non trouvée:', this.src);
-            if (this.classList.contains('product-img')) {
-                this.src = 'https://via.placeholder.com/400x300/1E6B4E/FFFFFF?text=Image+Produit';
-            } else if (this.classList.contains('logo-img')) {
-                this.style.display = 'none';
-                const fallback = this.nextElementSibling;
-                if (fallback && fallback.classList.contains('logo-fallback')) {
-                    fallback.style.display = 'block';
-                }
-            }
+            handleImageError(this);
+        });
+    });
+}
+
+// Tracking des produits vus
+function initProductTracking() {
+    document.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const productId = this.dataset.productId;
+            addToRecentlyViewed(productId);
         });
     });
 }
@@ -72,6 +82,8 @@ function initNavigation() {
 
     // Navigation mobile
     navToggle.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isExpanded);
         this.classList.toggle('active');
         navMenu.classList.toggle('active');
         console.log('Menu mobile ' + (navMenu.classList.contains('active') ? 'ouvert' : 'fermé'));
@@ -91,9 +103,257 @@ function initNavigation() {
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             navToggle.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
             navMenu.classList.remove('active');
         });
     });
+}
+
+// Gestion des favoris
+function initFavorites() {
+    console.log('Initialisation des favoris');
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const favoritesBtn = document.getElementById('favoritesBtn');
+    const favoritesModal = document.getElementById('favoritesModal');
+    const closeFavorites = document.getElementById('closeFavorites');
+    const closeFavoritesBtn = document.getElementById('closeFavoritesBtn');
+
+    // Mettre à jour le compteur des favoris
+    function updateFavoritesCount() {
+        const favoritesCount = document.querySelector('.favorites-count');
+        if (favoritesCount) {
+            favoritesCount.textContent = favorites.length;
+        }
+    }
+
+    // Initialiser les boutons favoris
+    document.querySelectorAll('.favorite-btn').forEach(btn => {
+        const productId = btn.dataset.productId;
+        if (favorites.includes(productId)) {
+            btn.textContent = '❤️';
+            btn.classList.add('active');
+        }
+
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleFavorite(productId, this);
+        });
+    });
+
+    function toggleFavorite(productId, element) {
+        const index = favorites.indexOf(productId);
+        if (index > -1) {
+            // Retirer des favoris
+            favorites.splice(index, 1);
+            element.textContent = '🤍';
+            element.classList.remove('active');
+            showNotification('Produit retiré des favoris', 'success');
+        } else {
+            // Ajouter aux favoris
+            favorites.push(productId);
+            element.textContent = '❤️';
+            element.classList.add('active');
+            showNotification('Produit ajouté aux favoris', 'success');
+        }
+        
+        saveFavorites();
+        updateFavoritesCount();
+        
+        // Si la modal des favoris est ouverte, la mettre à jour
+        if (favoritesModal.classList.contains('active')) {
+            updateFavoritesDisplay();
+        }
+    }
+
+    function saveFavorites() {
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
+
+    // Ouvrir/fermer la modal des favoris
+    if (favoritesBtn && favoritesModal) {
+        favoritesBtn.addEventListener('click', function() {
+            updateFavoritesDisplay();
+            favoritesModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    if (closeFavorites) {
+        closeFavorites.addEventListener('click', closeFavoritesModal);
+    }
+
+    if (closeFavoritesBtn) {
+        closeFavoritesBtn.addEventListener('click', closeFavoritesModal);
+    }
+
+    // Fermer la modal en cliquant à l'extérieur
+    favoritesModal.addEventListener('click', function(e) {
+        if (e.target === favoritesModal) {
+            closeFavoritesModal();
+        }
+    });
+
+    function closeFavoritesModal() {
+        favoritesModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Mettre à jour l'affichage des favoris
+    function updateFavoritesDisplay() {
+        const favoritesItems = document.getElementById('favorites-items');
+        
+        if (!favoritesItems) return;
+
+        if (favorites.length === 0) {
+            favoritesItems.innerHTML = '<p class="favorites-vide">Aucun produit dans vos favoris</p>';
+            return;
+        }
+
+        // Produits disponibles
+        const products = {
+            1: { id: 1, name: "Panier Rectangulaire en Jacinthe d'Eau", price: 29.99, image: "images/panier-rectangulaire-jacinthe.jpg" },
+            2: { id: 2, name: "Panier Rond Jacinthe d'Eau H36.5", price: 24.99, image: "images/panier-rond-jacinthe.jpg" },
+            3: { id: 3, name: "Panier Tressé Rectangulaire", price: 35.00, image: "images/panier-tresse-rectangulaire.jpg" },
+            4: { id: 4, name: "Panier Double Compartiment", price: 55.00, image: "images/panier-double-compartiment.jpg" },
+            5: { id: 5, name: "Panier en Feuilles de Palmier", price: 42.00, image: "images/panier-feuilles-palmier.jpg" },
+            6: { id: 6, name: "Panier Rond en Osier", price: 38.00, image: "images/panier-rond-osier.jpg" },
+            7: { id: 7, name: "Panier Ovale en Rotin Naturel", price: 45.00, image: "images/panier-ovale-rotin.jpg" }
+        };
+
+        // Afficher les articles
+        favoritesItems.innerHTML = '';
+        favorites.forEach(productId => {
+            const product = products[productId];
+            if (product) {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'favorite-item';
+                itemElement.innerHTML = `
+                    <div class="favorite-item-image">
+                        <img src="${product.image}" alt="${product.name}" onerror="handleImageError(this)">
+                    </div>
+                    <div class="favorite-item-details">
+                        <div class="favorite-item-title">${product.name}</div>
+                        <div class="favorite-item-price">${product.price.toFixed(2)}€</div>
+                    </div>
+                    <div class="favorite-actions">
+                        <button class="btn btn-primary add-to-cart" data-product-id="${product.id}">
+                            ➕ Panier
+                        </button>
+                        <button class="remove-favorite" data-product-id="${product.id}">🗑️</button>
+                    </div>
+                `;
+                favoritesItems.appendChild(itemElement);
+            }
+        });
+
+        // Gestion des boutons d'ajout au panier
+        document.querySelectorAll('.favorite-item .add-to-cart').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productId = parseInt(this.dataset.productId);
+                const product = products[productId];
+                if (product) {
+                    addToCart(product);
+                    showNotification(`${product.name} ajouté au panier !`, 'success');
+                }
+            });
+        });
+
+        // Gestion des boutons de suppression
+        document.querySelectorAll('.remove-favorite').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productId = this.dataset.productId;
+                const favoriteBtn = document.querySelector(`.favorite-btn[data-product-id="${productId}"]`);
+                if (favoriteBtn) {
+                    toggleFavorite(productId, favoriteBtn);
+                }
+            });
+        });
+    }
+
+    // Initialiser le compteur des favoris
+    updateFavoritesCount();
+}
+
+// Produits récemment consultés
+function initRecentlyViewed() {
+    let recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
+    const section = document.getElementById('recently-viewed-section');
+    const grid = document.getElementById('recently-viewed-grid');
+
+    function addToRecentlyViewed(productId) {
+        recentlyViewed = recentlyViewed.filter(id => id !== productId);
+        recentlyViewed.unshift(productId);
+        recentlyViewed = recentlyViewed.slice(0, 4); // Garder seulement 4 produits
+        localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed));
+        updateRecentlyViewedDisplay();
+    }
+
+    function updateRecentlyViewedDisplay() {
+        if (recentlyViewed.length === 0) {
+            if (section) section.style.display = 'none';
+            return;
+        }
+
+        if (section && grid) {
+            section.style.display = 'block';
+            
+            // Produits disponibles
+            const products = {
+                1: { id: 1, name: "Panier Rectangulaire en Jacinthe d'Eau", price: 29.99, image: "images/panier-rectangulaire-jacinthe.jpg", badge: "Populaire" },
+                2: { id: 2, name: "Panier Rond Jacinthe d'Eau H36.5", price: 24.99, image: "images/panier-rond-jacinthe.jpg", badge: "Nouveau" },
+                3: { id: 3, name: "Panier Tressé Rectangulaire", price: 35.00, image: "images/panier-tresse-rectangulaire.jpg", badge: "Best-seller" },
+                4: { id: 4, name: "Panier Double Compartiment", price: 55.00, image: "images/panier-double-compartiment.jpg", badge: "Innovant" },
+                5: { id: 5, name: "Panier en Feuilles de Palmier", price: 42.00, image: "images/panier-feuilles-palmier.jpg", badge: "Écologique" },
+                6: { id: 6, name: "Panier Rond en Osier", price: 38.00, image: "images/panier-rond-osier.jpg", badge: "Classique" },
+                7: { id: 7, name: "Panier Ovale en Rotin Naturel", price: 45.00, image: "images/panier-ovale-rotin.jpg", badge: "Exclusivité" }
+            };
+
+            grid.innerHTML = '';
+            recentlyViewed.forEach(productId => {
+                const product = products[productId];
+                if (product) {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.innerHTML = `
+                        <div class="product-badge">${product.badge}</div>
+                        <button class="favorite-btn" data-product-id="${product.id}" aria-label="Ajouter aux favoris">🤍</button>
+                        <div class="product-image-container">
+                            <div class="product-image">
+                                <img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy" onerror="handleImageError(this)">
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">${product.name}</h3>
+                            <div class="product-origin">🇲🇦 Fait main au Maroc</div>
+                            <div class="product-price">
+                                <span class="price-original">${product.price.toFixed(2)}€</span>
+                            </div>
+                            <button class="btn btn-primary add-to-cart btn-full" data-product-id="${product.id}">
+                                ➕ Ajouter au panier
+                            </button>
+                        </div>
+                    `;
+                    grid.appendChild(productCard);
+                }
+            });
+
+            // Réinitialiser les événements
+            initFavorites();
+            document.querySelectorAll('#recently-viewed-grid .add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.dataset.productId);
+                    const product = products[productId];
+                    if (product) {
+                        addToCart(product);
+                        showNotification(`${product.name} ajouté au panier !`, 'success');
+                    }
+                });
+            });
+        }
+    }
+
+    // Initialiser l'affichage
+    updateRecentlyViewedDisplay();
 }
 
 // Gestion du panier avec processus de paiement intégré
@@ -150,6 +410,20 @@ function initCart() {
             if (product) {
                 addToCart(product);
                 showNotification(`${product.name} ajouté au panier !`, 'success');
+                
+                // Tracking Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'add_to_cart', {
+                        currency: 'EUR',
+                        value: product.price,
+                        items: [{
+                            item_id: product.id,
+                            item_name: product.name,
+                            price: product.price,
+                            quantity: 1
+                        }]
+                    });
+                }
             }
         });
     });
@@ -205,11 +479,13 @@ function initCart() {
     function openCart() {
         updateCartDisplay();
         cartModal.classList.add('active');
+        cartBtn.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
     }
 
     function closeCart() {
         cartModal.classList.remove('active');
+        cartBtn.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
         resetToStep1();
     }
@@ -275,6 +551,9 @@ function initCart() {
                 
                 setTimeout(() => {
                     // Simulation de paiement réussi
+                    const total = calculateTotal();
+                    trackPurchase(total, cart);
+                    
                     showNotification('✅ Paiement réussi ! Merci pour votre commande.', 'success');
                     
                     // Vider le panier
@@ -293,6 +572,44 @@ function initCart() {
         });
     }
 
+    // Calculer le total
+    function calculateTotal() {
+        let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        
+        // Appliquer les réductions
+        let discount = 0;
+        const promoCode = document.getElementById('codePromoInput')?.value;
+        if (promoCode === 'BIENVENUE10') {
+            discount = subtotal * 0.1;
+        }
+
+        // Frais de livraison
+        const livraisonOption = document.querySelector('input[name="livraison"]:checked');
+        let livraison = 7.90;
+        if (livraisonOption && livraisonOption.value === 'express') {
+            livraison = 14.90;
+        }
+
+        return subtotal - discount + livraison;
+    }
+
+    // Tracking des achats
+    function trackPurchase(total, cartItems) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'purchase', {
+                transaction_id: 'T' + Date.now(),
+                value: total,
+                currency: 'EUR',
+                items: cartItems.map(item => ({
+                    item_id: item.id,
+                    item_name: item.name,
+                    price: item.price,
+                    quantity: item.quantity
+                }))
+            });
+        }
+    }
+
     // Validation du formulaire de paiement
     function validatePaymentForm() {
         const requiredFields = document.querySelectorAll('#paiementForm [required]');
@@ -309,6 +626,22 @@ function initCart() {
 
         if (!isValid) {
             showNotification('Veuillez remplir tous les champs obligatoires', 'error');
+            return false;
+        }
+
+        // Validation de l'email
+        const email = document.getElementById('email').value;
+        if (!validateEmail(email)) {
+            showNotification('Adresse email invalide', 'error');
+            document.getElementById('email').style.borderColor = '#FF6B6B';
+            return false;
+        }
+
+        // Validation du téléphone
+        const telephone = document.getElementById('telephone').value;
+        if (!validatePhone(telephone)) {
+            showNotification('Numéro de téléphone invalide', 'error');
+            document.getElementById('telephone').style.borderColor = '#FF6B6B';
             return false;
         }
 
@@ -337,6 +670,18 @@ function initCart() {
         }
 
         return true;
+    }
+
+    // Validation email
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    // Validation téléphone
+    function validatePhone(phone) {
+        const re = /^[0-9+\-\s()]{10,}$/;
+        return re.test(phone.replace(/\s/g, ''));
     }
 
     // Mettre à jour l'affichage du panier
@@ -396,7 +741,7 @@ function initCart() {
             itemElement.className = 'panier-item';
             itemElement.innerHTML = `
                 <div class="panier-item-image">
-                    <img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/60x60/1E6B4E/FFFFFF?text=P'">
+                    <img src="${item.image}" alt="${item.name}" onerror="handleImageError(this)">
                 </div>
                 <div class="panier-item-details">
                     <div class="panier-item-title">${item.name}</div>
@@ -566,6 +911,14 @@ function initFormValidation() {
                 // Simuler l'envoi du formulaire
                 showNotification('Votre demande de création sur mesure a été envoyée ! Nous vous contacterons rapidement.', 'success');
                 this.reset();
+                
+                // Tracking Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'generate_lead', {
+                        currency: 'EUR',
+                        value: 0
+                    });
+                }
             }
         });
     }
@@ -583,6 +936,14 @@ function validateCreationForm() {
             field.style.borderColor = '#1E6B4E';
         }
     });
+
+    // Validation email
+    const email = document.getElementById('creation-email').value;
+    if (email && !validateEmail(email)) {
+        isValid = false;
+        document.getElementById('creation-email').style.borderColor = '#FF6B6B';
+        showNotification('Adresse email invalide', 'error');
+    }
 
     if (!isValid) {
         showNotification('Veuillez remplir tous les champs obligatoires', 'error');
@@ -661,5 +1022,7 @@ function debugApp() {
     console.log('Bouton panier:', document.getElementById('cartBtn'));
     console.log('Notifications:', document.getElementById('notificationContainer'));
     console.log('Cart local storage:', localStorage.getItem('cart'));
+    console.log('Favorites local storage:', localStorage.getItem('favorites'));
+    console.log('Recently viewed:', localStorage.getItem('recentlyViewed'));
     console.log('=== FIN DEBUG ===');
 }

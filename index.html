@@ -628,70 +628,161 @@
         </div>
     </footer>
 
-    <!-- Modal Panier -->
+    <!-- Modal Panier avec processus de paiement intégré -->
     <div id="panierModal" class="panier-modal">
         <div class="panier-modal-content">
             <div class="panier-modal-header">
-                <h2>🛒 Votre Panier</h2>
+                <h2 id="panierModalTitle">🛒 Votre Panier</h2>
                 <button class="close-panier" id="closePanier">×</button>
             </div>
             <div class="panier-modal-body">
-                <!-- Section code promo -->
-                <div class="panier-promo-section">
-                    <div class="promo-input-group">
-                        <input type="text" id="codePromoInput" class="promo-input" placeholder="Code promo">
-                        <button class="btn-promo" onclick="appliquerCodePromo()">Appliquer</button>
+                <!-- Étape 1: Panier -->
+                <div id="panier-step-1">
+                    <!-- Section code promo -->
+                    <div class="panier-promo-section">
+                        <div class="promo-input-group">
+                            <input type="text" id="codePromoInput" class="promo-input" placeholder="Code promo">
+                            <button class="btn-promo" onclick="appliquerCodePromo()">Appliquer</button>
+                        </div>
+                        <div id="promoMessage" class="promo-message"></div>
                     </div>
-                    <div id="promoMessage" class="promo-message"></div>
+
+                    <!-- Liste des articles -->
+                    <div class="panier-items" id="panier-items">
+                        <!-- Les articles du panier seront insérés ici -->
+                    </div>
+
+                    <!-- Options de livraison -->
+                    <div class="panier-livraison">
+                        <h3>Livraison</h3>
+                        <div class="livraison-option">
+                            <label>
+                                <input type="radio" name="livraison" value="standard" checked>
+                                Livraison standard
+                                <span class="livraison-prix">7,90€</span>
+                            </label>
+                        </div>
+                        <div class="livraison-option">
+                            <label>
+                                <input type="radio" name="livraison" value="express">
+                                Livraison express
+                                <span class="livraison-prix">14,90€</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Totaux -->
+                    <div class="panier-totals">
+                        <div class="panier-sous-total">
+                            <span>Sous-total</span>
+                            <span id="sous-total">0,00€</span>
+                        </div>
+                        <div class="panier-promo" id="panier-promo" style="display: none;">
+                            <span>Réduction</span>
+                            <span id="montant-promo">-0,00€</span>
+                        </div>
+                        <div class="panier-livraison-total">
+                            <span>Livraison</span>
+                            <span id="frais-livraison">0,00€</span>
+                        </div>
+                        <div class="panier-total">
+                            <span>Total</span>
+                            <span id="total-panier">0,00€</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Liste des articles -->
-                <div class="panier-items" id="panier-items">
-                    <!-- Les articles du panier seront insérés ici -->
-                </div>
+                <!-- Étape 2: Paiement -->
+                <div id="panier-step-2" style="display: none;">
+                    <div class="paiement-header">
+                        <h3>💳 Finaliser votre commande</h3>
+                        <p class="paiement-sous-titre">Remplissez vos informations pour compléter votre achat</p>
+                    </div>
 
-                <!-- Options de livraison -->
-                <div class="panier-livraison">
-                    <h3>Livraison</h3>
-                    <div class="livraison-option">
-                        <label>
-                            <input type="radio" name="livraison" value="standard" checked>
-                            Livraison standard
-                            <span class="livraison-prix">7,90€</span>
-                        </label>
-                    </div>
-                    <div class="livraison-option">
-                        <label>
-                            <input type="radio" name="livraison" value="express">
-                            Livraison express
-                            <span class="livraison-prix">14,90€</span>
-                        </label>
-                    </div>
-                </div>
+                    <form class="creation-form" id="paiementForm">
+                        <h4>Informations de livraison</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="prenom">Prénom *</label>
+                                <input type="text" id="prenom" name="prenom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nom">Nom *</label>
+                                <input type="text" id="nom" name="nom" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="adresse">Adresse *</label>
+                            <input type="text" id="adresse" name="adresse" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="code-postal">Code postal *</label>
+                                <input type="text" id="code-postal" name="code-postal" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ville">Ville *</label>
+                                <input type="text" id="ville" name="ville" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telephone">Téléphone *</label>
+                            <input type="tel" id="telephone" name="telephone" required>
+                        </div>
 
-                <!-- Totaux -->
-                <div class="panier-totals">
-                    <div class="panier-sous-total">
-                        <span>Sous-total</span>
-                        <span id="sous-total">0,00€</span>
-                    </div>
-                    <div class="panier-promo" id="panier-promo" style="display: none;">
-                        <span>Réduction</span>
-                        <span id="montant-promo">-0,00€</span>
-                    </div>
-                    <div class="panier-livraison-total">
-                        <span>Livraison</span>
-                        <span id="frais-livraison">0,00€</span>
-                    </div>
-                    <div class="panier-total">
-                        <span>Total</span>
-                        <span id="total-panier">0,00€</span>
-                    </div>
+                        <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Méthode de paiement</h4>
+                        
+                        <div class="form-group">
+                            <label for="carte-num">Numéro de carte *</label>
+                            <input type="text" id="carte-num" name="carte-num" placeholder="1234 5678 9012 3456" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="carte-exp">Date d'expiration *</label>
+                                <input type="text" id="carte-exp" name="carte-exp" placeholder="MM/AA" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="carte-cvv">CVV *</label>
+                                <input type="text" id="carte-cvv" name="carte-cvv" placeholder="123" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="conditions" required>
+                                <span class="checkmark"></span>
+                                J'accepte les <a href="cgv.html" target="_blank">conditions générales de vente</a> *
+                            </label>
+                        </div>
+                        
+                        <p style="text-align: center; margin: 1rem 0; font-size: 0.9rem; color: var(--text-light);">
+                            🔒 Paiement sécurisé - Vos données sont protégées
+                        </p>
+                    </form>
                 </div>
             </div>
             <div class="panier-modal-actions">
-                <button class="btn btn-danger" id="viderPanierBtn">Vider le panier</button>
-                <button class="btn btn-success" id="commanderBtn">Commander</button>
+                <!-- Actions Étape 1 -->
+                <div id="actions-step-1">
+                    <button class="btn btn-danger" id="viderPanierBtn">Vider le panier</button>
+                    <button class="btn btn-success" id="commanderBtn">Commander</button>
+                </div>
+                
+                <!-- Actions Étape 2 -->
+                <div id="actions-step-2" style="display: none;">
+                    <button class="btn btn-secondary" id="retourPanierBtn">← Retour au panier</button>
+                    <button class="btn btn-success" id="paiementBtn">💳 Payer ma commande</button>
+                </div>
             </div>
         </div>
     </div>

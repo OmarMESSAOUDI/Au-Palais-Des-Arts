@@ -563,6 +563,14 @@ header {
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
     position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.product-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .product-card:hover {
@@ -587,6 +595,7 @@ header {
     position: relative;
     height: 280px;
     overflow: hidden;
+    background: var(--gray-light);
 }
 
 .product-image {
@@ -790,6 +799,14 @@ header {
     border-radius: 15px;
     box-shadow: var(--shadow);
     transition: transform 0.3s;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.avis-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .avis-card:hover {
@@ -857,6 +874,14 @@ header {
     border-radius: 15px;
     box-shadow: var(--shadow);
     transition: transform 0.3s;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.contact-item.animate-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .contact-item:hover {
@@ -1289,6 +1314,18 @@ header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+/* ANIMATIONS POUR LES CARTES */
+.valeur-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.valeur-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* RESPONSIVE */

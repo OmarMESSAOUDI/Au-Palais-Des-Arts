@@ -628,8 +628,79 @@
         </div>
     </footer>
 
+    <!-- Modal Panier -->
+    <div id="panierModal" class="panier-modal">
+        <div class="panier-modal-content">
+            <div class="panier-modal-header">
+                <h2>🛒 Votre Panier</h2>
+                <button class="close-panier" id="closePanier">×</button>
+            </div>
+            <div class="panier-modal-body">
+                <!-- Section code promo -->
+                <div class="panier-promo-section">
+                    <div class="promo-input-group">
+                        <input type="text" id="codePromoInput" class="promo-input" placeholder="Code promo">
+                        <button class="btn-promo" onclick="appliquerCodePromo()">Appliquer</button>
+                    </div>
+                    <div id="promoMessage" class="promo-message"></div>
+                </div>
+
+                <!-- Liste des articles -->
+                <div class="panier-items" id="panier-items">
+                    <!-- Les articles du panier seront insérés ici -->
+                </div>
+
+                <!-- Options de livraison -->
+                <div class="panier-livraison">
+                    <h3>Livraison</h3>
+                    <div class="livraison-option">
+                        <label>
+                            <input type="radio" name="livraison" value="standard" checked>
+                            Livraison standard
+                            <span class="livraison-prix">7,90€</span>
+                        </label>
+                    </div>
+                    <div class="livraison-option">
+                        <label>
+                            <input type="radio" name="livraison" value="express">
+                            Livraison express
+                            <span class="livraison-prix">14,90€</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Totaux -->
+                <div class="panier-totals">
+                    <div class="panier-sous-total">
+                        <span>Sous-total</span>
+                        <span id="sous-total">0,00€</span>
+                    </div>
+                    <div class="panier-promo" id="panier-promo" style="display: none;">
+                        <span>Réduction</span>
+                        <span id="montant-promo">-0,00€</span>
+                    </div>
+                    <div class="panier-livraison-total">
+                        <span>Livraison</span>
+                        <span id="frais-livraison">0,00€</span>
+                    </div>
+                    <div class="panier-total">
+                        <span>Total</span>
+                        <span id="total-panier">0,00€</span>
+                    </div>
+                </div>
+            </div>
+            <div class="panier-modal-actions">
+                <button class="btn btn-danger" id="viderPanierBtn">Vider le panier</button>
+                <button class="btn btn-success" id="commanderBtn">Commander</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Bouton Retour en Haut -->
     <button id="backToTop" class="back-to-top" aria-label="Retour en haut">↑</button>
+
+    <!-- Conteneur pour les notifications -->
+    <div id="notificationContainer"></div>
 
     <script src="script.js"></script>
 </body>

@@ -1,1 +1,26 @@
+User-agent: *
+Allow: /
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /includes/
+Disallow: /*.php$
+Disallow: /*.json$
 
+# Fichiers à ne pas indexer
+Disallow: /manifest.json
+Disallow: /sw.js
+Disallow: /offline.html
+
+# Paramètres d'URL à ignorer
+Disallow: /*?utm_
+Disallow: /*?ref=
+Disallow: /*?source=
+
+# Sitemap
+Sitemap: https://aupalaisdesarts.fr/sitemap.xml
+
+# Crawl delay (optionnel pour éviter de surcharger le serveur)
+Crawl-delay: 1

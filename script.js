@@ -11,6 +11,7 @@ function initializeApp() {
     hideLoadingScreen();
     
     // Initialise toutes les fonctionnalités
+    initImageFallbacks();
     initNavigation();
     initCart();
     initSmoothScrolling();
@@ -37,6 +38,24 @@ function hideLoadingScreen() {
     } else {
         console.log('Écran de chargement non trouvé');
     }
+}
+
+// Gestion des images manquantes
+function initImageFallbacks() {
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', function() {
+            console.log('Image non trouvée:', this.src);
+            if (this.classList.contains('product-img')) {
+                this.src = 'https://via.placeholder.com/400x300/1E6B4E/FFFFFF?text=Image+Produit';
+            } else if (this.classList.contains('logo-img')) {
+                this.style.display = 'none';
+                const fallback = this.nextElementSibling;
+                if (fallback && fallback.classList.contains('logo-fallback')) {
+                    fallback.style.display = 'block';
+                }
+            }
+        });
+    });
 }
 
 // Gestion de la navigation
@@ -79,9 +98,16 @@ function initNavigation() {
 
 // Gestion du panier
 function initCart() {
+    console.log('Initialisation du panier');
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartBtn = document.getElementById('cartBtn');
     const cartModal = document.getElementById('panierModal');
+    
+    if (!cartModal) {
+        console.error('Modal panier non trouvé');
+        return;
+    }
+
     const closePanier = document.getElementById('closePanier');
     const viderPanierBtn = document.getElementById('viderPanierBtn');
     const commanderBtn = document.getElementById('commanderBtn');
@@ -101,7 +127,9 @@ function initCart() {
     function updateCartCount() {
         const cartCount = document.querySelector('.cart-count');
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartCount.textContent = totalItems;
+        if (cartCount) {
+            cartCount.textContent = totalItems;
+        }
     }
 
     // Ajouter au panier
@@ -199,7 +227,8 @@ function initCart() {
             // Simuler un processus de commande
             showNotification('Redirection vers le paiement...', 'success');
             setTimeout(() => {
-                alert('Fonctionnalité de paiement à implémenter');
+                // Redirection vers la page de paiement
+                window.location.href = 'paiement.html';
             }, 1000);
         });
     }
@@ -213,11 +242,13 @@ function initCart() {
         const panierPromo = document.getElementById('panier-promo');
         const montantPromo = document.getElementById('montant-promo');
 
+        if (!panierItems) return;
+
         if (cart.length === 0) {
             panierItems.innerHTML = '<p class="panier-vide">Votre panier est vide</p>';
-            sousTotal.textContent = '0,00€';
-            totalPanier.textContent = '0,00€';
-            panierPromo.style.display = 'none';
+            if (sousTotal) sousTotal.textContent = '0,00€';
+            if (totalPanier) totalPanier.textContent = '0,00€';
+            if (panierPromo) panierPromo.style.display = 'none';
             return;
         }
 
@@ -241,14 +272,14 @@ function initCart() {
         const total = subtotal - discount + livraison;
 
         // Mettre à jour les totaux
-        sousTotal.textContent = subtotal.toFixed(2) + '€';
-        totalPanier.textContent = total.toFixed(2) + '€';
-        fraisLivraison.textContent = livraison.toFixed(2) + '€';
+        if (sousTotal) sousTotal.textContent = subtotal.toFixed(2) + '€';
+        if (totalPanier) totalPanier.textContent = total.toFixed(2) + '€';
+        if (fraisLivraison) fraisLivraison.textContent = livraison.toFixed(2) + '€';
 
-        if (discount > 0) {
-            montantPromo.textContent = discount.toFixed(2) + '€';
+        if (discount > 0 && montantPromo && panierPromo) {
+            montantPromo.textContent = '-' + discount.toFixed(2) + '€';
             panierPromo.style.display = 'flex';
-        } else {
+        } else if (panierPromo) {
             panierPromo.style.display = 'none';
         }
 
@@ -337,15 +368,21 @@ function appliquerCodePromo() {
     const code = input.value.trim().toUpperCase();
 
     if (code === 'BIENVENUE10') {
-        message.textContent = 'Code promo appliqué : -10% sur votre commande !';
-        message.className = 'promo-message success';
+        if (message) {
+            message.textContent = 'Code promo appliqué : -10% sur votre commande !';
+            message.className = 'promo-message success';
+        }
         updateCartDisplay();
     } else if (code === '') {
-        message.textContent = 'Veuillez entrer un code promo';
-        message.className = 'promo-message error';
+        if (message) {
+            message.textContent = 'Veuillez entrer un code promo';
+            message.className = 'promo-message error';
+        }
     } else {
-        message.textContent = 'Code promo invalide';
-        message.className = 'promo-message error';
+        if (message) {
+            message.textContent = 'Code promo invalide';
+            message.className = 'promo-message error';
+        }
     }
 }
 
@@ -450,7 +487,11 @@ function validateCreationForm() {
 
 // Notifications
 function showNotification(message, type = 'success') {
-    const container = document.getElementById('notificationContainer') || createNotificationContainer();
+    let container = document.getElementById('notificationContainer');
+    if (!container) {
+        container = createNotificationContainer();
+    }
+    
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     notification.innerHTML = `
@@ -493,20 +534,7 @@ function fermerPromoBanner() {
     }
 }
 
-// Gestion des erreurs d'images
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('img').forEach(img => {
-        img.addEventListener('error', function() {
-            this.style.display = 'none';
-            const fallback = this.nextElementSibling;
-            if (fallback && fallback.classList.contains('logo-fallback')) {
-                fallback.style.display = 'block';
-            }
-        });
-    });
-});
-
-// Service Worker pour PWA (optionnel)
+// Service Worker pour PWA
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js')
@@ -517,4 +545,15 @@ if ('serviceWorker' in navigator) {
                 console.log('ServiceWorker registration failed: ', err);
             });
     });
+}
+
+// Debug
+function debugApp() {
+    console.log('=== DEBUG ===');
+    console.log('Écran chargement:', document.getElementById('loadingScreen'));
+    console.log('Modal panier:', document.getElementById('panierModal'));
+    console.log('Bouton panier:', document.getElementById('cartBtn'));
+    console.log('Notifications:', document.getElementById('notificationContainer'));
+    console.log('Cart local storage:', localStorage.getItem('cart'));
+    console.log('=== FIN DEBUG ===');
 }

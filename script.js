@@ -8,7 +8,7 @@ function initializeApp() {
     console.log('Initialisation de l application');
     
     // Cache IMMÉDIATEMENT l'écran de chargement
-    hideLoadingScreen();
+    setTimeout(hideLoadingScreen, 1000);
     
     // Initialise toutes les fonctionnalités
     initImageFallbacks();
@@ -21,6 +21,7 @@ function initializeApp() {
     initAnimations();
     initFormValidation();
     initProductTracking();
+    initLazyLoading();
     
     console.log('Application initialisée avec succès');
 }
@@ -47,7 +48,10 @@ function hideLoadingScreen() {
 function handleImageError(img) {
     console.log('Image non trouvée:', img.src);
     const productName = img.alt || 'Produit';
-    img.src = `https://placehold.co/400x300/1E6B4E/FFFFFF/png?text=${encodeURIComponent(productName)}`;
+    const placeholderColor = '1E6B4E';
+    img.src = `https://placehold.co/400x300/${placeholderColor}/FFFFFF/png?text=${encodeURIComponent(productName)}`;
+    img.style.background = '#f8f5f2';
+    img.style.padding = '1rem';
 }
 
 function initImageFallbacks() {
@@ -55,6 +59,26 @@ function initImageFallbacks() {
         img.addEventListener('error', function() {
             handleImageError(this);
         });
+    });
+}
+
+// Optimisation du chargement des images
+function initLazyLoading() {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            }
+        });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
     });
 }
 
@@ -211,13 +235,13 @@ function initFavorites() {
 
         // Produits disponibles
         const products = {
-            1: { id: 1, name: "Panier Rectangulaire en Jacinthe d'Eau", price: 29.99, image: "images/panier-rectangulaire-jacinthe.jpg" },
-            2: { id: 2, name: "Panier Rond Jacinthe d'Eau H36.5", price: 24.99, image: "images/panier-rond-jacinthe.jpg" },
-            3: { id: 3, name: "Panier Tressé Rectangulaire", price: 35.00, image: "images/panier-tresse-rectangulaire.jpg" },
-            4: { id: 4, name: "Panier Double Compartiment", price: 55.00, image: "images/panier-double-compartiment.jpg" },
-            5: { id: 5, name: "Panier en Feuilles de Palmier", price: 42.00, image: "images/panier-feuilles-palmier.jpg" },
-            6: { id: 6, name: "Panier Rond en Osier", price: 38.00, image: "images/panier-rond-osier.jpg" },
-            7: { id: 7, name: "Panier Ovale en Rotin Naturel", price: 45.00, image: "images/panier-ovale-rotin.jpg" }
+            1: { id: 1, name: "Panier Rectangulaire en Jacinthe d'Eau", price: 29.99, image: "Panier rectangulaire en jacinthe d'eau.jpg" },
+            2: { id: 2, name: "Panier Rond Jacinthe d'Eau H36.5", price: 24.99, image: "Panier rond jacinthe d'eau H36.5 cm Lian.jpg" },
+            3: { id: 3, name: "Panier Tressé Rectangulaire", price: 35.00, image: "Panier tressé rectangulaire.jpg" },
+            4: { id: 4, name: "Panier Double Compartiment", price: 55.00, image: "Panier à linge double compartiment.jpg" },
+            5: { id: 5, name: "Panier en Feuilles de Palmier", price: 42.00, image: "Panier à linge en feuilles de palmier.jpg" },
+            6: { id: 6, name: "Panier Rond en Osier", price: 38.00, image: "Panier à linge rond en osier.jpg" },
+            7: { id: 7, name: "Panier Ovale en Rotin Naturel", price: 45.00, image: "Lot de 4 Paniers.jpg" }
         };
 
         // Afficher les articles
@@ -252,7 +276,7 @@ function initFavorites() {
                 const productId = parseInt(this.dataset.productId);
                 const product = products[productId];
                 if (product) {
-                    addToCart(product);
+                    addToCartWithAnimation(product);
                     showNotification(`${product.name} ajouté au panier !`, 'success');
                 }
             });
@@ -299,13 +323,13 @@ function initRecentlyViewed() {
             
             // Produits disponibles
             const products = {
-                1: { id: 1, name: "Panier Rectangulaire en Jacinthe d'Eau", price: 29.99, image: "images/panier-rectangulaire-jacinthe.jpg", badge: "Populaire" },
-                2: { id: 2, name: "Panier Rond Jacinthe d'Eau H36.5", price: 24.99, image: "images/panier-rond-jacinthe.jpg", badge: "Nouveau" },
-                3: { id: 3, name: "Panier Tressé Rectangulaire", price: 35.00, image: "images/panier-tresse-rectangulaire.jpg", badge: "Best-seller" },
-                4: { id: 4, name: "Panier Double Compartiment", price: 55.00, image: "images/panier-double-compartiment.jpg", badge: "Innovant" },
-                5: { id: 5, name: "Panier en Feuilles de Palmier", price: 42.00, image: "images/panier-feuilles-palmier.jpg", badge: "Écologique" },
-                6: { id: 6, name: "Panier Rond en Osier", price: 38.00, image: "images/panier-rond-osier.jpg", badge: "Classique" },
-                7: { id: 7, name: "Panier Ovale en Rotin Naturel", price: 45.00, image: "images/panier-ovale-rotin.jpg", badge: "Exclusivité" }
+                1: { id: 1, name: "Panier Rectangulaire en Jacinthe d'Eau", price: 29.99, image: "Panier rectangulaire en jacinthe d'eau.jpg", badge: "Populaire" },
+                2: { id: 2, name: "Panier Rond Jacinthe d'Eau H36.5", price: 24.99, image: "Panier rond jacinthe d'eau H36.5 cm Lian.jpg", badge: "Nouveau" },
+                3: { id: 3, name: "Panier Tressé Rectangulaire", price: 35.00, image: "Panier tressé rectangulaire.jpg", badge: "Best-seller" },
+                4: { id: 4, name: "Panier Double Compartiment", price: 55.00, image: "Panier à linge double compartiment.jpg", badge: "Innovant" },
+                5: { id: 5, name: "Panier en Feuilles de Palmier", price: 42.00, image: "Panier à linge en feuilles de palmier.jpg", badge: "Écologique" },
+                6: { id: 6, name: "Panier Rond en Osier", price: 38.00, image: "Panier à linge rond en osier.jpg", badge: "Classique" },
+                7: { id: 7, name: "Panier Ovale en Rotin Naturel", price: 45.00, image: "Lot de 4 Paniers.jpg", badge: "Exclusivité" }
             };
 
             grid.innerHTML = '';
@@ -344,7 +368,7 @@ function initRecentlyViewed() {
                     const productId = parseInt(this.dataset.productId);
                     const product = products[productId];
                     if (product) {
-                        addToCart(product);
+                        addToCartWithAnimation(product);
                         showNotification(`${product.name} ajouté au panier !`, 'success');
                     }
                 });
@@ -383,13 +407,13 @@ function initCart() {
 
     // Produits disponibles
     const products = {
-        1: { id: 1, name: "Panier Rectangulaire en Jacinthe d'Eau", price: 29.99, image: "images/panier-rectangulaire-jacinthe.jpg" },
-        2: { id: 2, name: "Panier Rond Jacinthe d'Eau H36.5", price: 24.99, image: "images/panier-rond-jacinthe.jpg" },
-        3: { id: 3, name: "Panier Tressé Rectangulaire", price: 35.00, image: "images/panier-tresse-rectangulaire.jpg" },
-        4: { id: 4, name: "Panier Double Compartiment", price: 55.00, image: "images/panier-double-compartiment.jpg" },
-        5: { id: 5, name: "Panier en Feuilles de Palmier", price: 42.00, image: "images/panier-feuilles-palmier.jpg" },
-        6: { id: 6, name: "Panier Rond en Osier", price: 38.00, image: "images/panier-rond-osier.jpg" },
-        7: { id: 7, name: "Panier Ovale en Rotin Naturel", price: 45.00, image: "images/panier-ovale-rotin.jpg" }
+        1: { id: 1, name: "Panier Rectangulaire en Jacinthe d'Eau", price: 29.99, image: "Panier rectangulaire en jacinthe d'eau.jpg" },
+        2: { id: 2, name: "Panier Rond Jacinthe d'Eau H36.5", price: 24.99, image: "Panier rond jacinthe d'eau H36.5 cm Lian.jpg" },
+        3: { id: 3, name: "Panier Tressé Rectangulaire", price: 35.00, image: "Panier tressé rectangulaire.jpg" },
+        4: { id: 4, name: "Panier Double Compartiment", price: 55.00, image: "Panier à linge double compartiment.jpg" },
+        5: { id: 5, name: "Panier en Feuilles de Palmier", price: 42.00, image: "Panier à linge en feuilles de palmier.jpg" },
+        6: { id: 6, name: "Panier Rond en Osier", price: 38.00, image: "Panier à linge rond en osier.jpg" },
+        7: { id: 7, name: "Panier Ovale en Rotin Naturel", price: 45.00, image: "Lot de 4 Paniers.jpg" }
     };
 
     // Mettre à jour le compteur du panier
@@ -401,6 +425,28 @@ function initCart() {
         }
     }
 
+    // Fonction d'ajout au panier avec animation
+    function addToCartWithAnimation(product) {
+        const cartBtn = document.getElementById('cartBtn');
+        const productCard = document.querySelector(`[data-product-id="${product.id}"]`);
+        
+        // Animation d'ajout au panier
+        if (productCard) {
+            productCard.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                productCard.style.transform = 'scale(1)';
+            }, 150);
+        }
+        
+        // Animation du bouton panier
+        cartBtn.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+            cartBtn.style.transform = 'scale(1)';
+        }, 150);
+        
+        addToCart(product);
+    }
+
     // Ajouter au panier
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', function() {
@@ -408,7 +454,7 @@ function initCart() {
             const product = products[productId];
             
             if (product) {
-                addToCart(product);
+                addToCartWithAnimation(product);
                 showNotification(`${product.name} ajouté au panier !`, 'success');
                 
                 // Tracking Google Analytics

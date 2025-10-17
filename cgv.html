@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conditions Générales de Vente - Au Palais Des Arts</title>
+    <meta name="description" content="Conditions Générales de Vente de Au Palais Des Arts - Créations artisanales en osier du Maroc">
+    
+    <!-- SEO -->
+    <link rel="canonical" href="https://aupalaisdesarts.fr/cgv.html">
+    <meta name="robots" content="noindex, follow">
+    
     <style>
         * {
             margin: 0;
@@ -15,265 +21,536 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #f8f5f2;
-            padding: 20px;
+            background: linear-gradient(135deg, #f8f5f2 0%, #e8f5e8 100%);
+            min-height: 100vh;
         }
 
-        .container {
-            max-width: 800px;
+        .cgv-container {
+            max-width: 900px;
             margin: 0 auto;
             background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #1E6B4E;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid #1E6B4E;
         }
 
         .logo {
-            font-size: 3rem;
+            font-size: 4rem;
             margin-bottom: 1rem;
         }
 
         h1 {
             color: #1E6B4E;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.2rem;
         }
 
         h2 {
             color: #1E6B4E;
-            margin: 2rem 0 1rem 0;
+            margin: 2.5rem 0 1rem 0;
             padding-bottom: 0.5rem;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 2px solid #e2e8f0;
+            font-size: 1.8rem;
         }
 
         h3 {
             color: #2D3748;
-            margin: 1.5rem 0 0.5rem 0;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        h4 {
+            color: #4A5568;
+            margin: 1.5rem 0 0.8rem 0;
+            font-size: 1.2rem;
         }
 
         p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             text-align: justify;
         }
 
-        ul {
+        ul, ol {
             margin: 1rem 0 1rem 2rem;
         }
 
         li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
         }
 
         .legal-info {
             background: #E8F5E8;
             padding: 1.5rem;
-            border-radius: 10px;
+            border-radius: 15px;
             margin: 2rem 0;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 2rem;
-            color: #1E6B4E;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .section {
-            margin-bottom: 2rem;
+            border-left: 4px solid #1E6B4E;
         }
 
         .important {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
+            background: #FFF3E0;
+            border: 1px solid #FFB74D;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .article {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #1E6B4E;
+        }
+
+        .article-number {
+            display: inline-block;
+            background: #1E6B4E;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            color: #1E6B4E;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border: 2px solid #1E6B4E;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: #1E6B4E;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .last-update {
+            color: #718096;
+            font-style: italic;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #1E6B4E;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .table th,
+        .table td {
             padding: 1rem;
-            border-radius: 5px;
-            margin: 1rem 0;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table th {
+            background: #1E6B4E;
+            color: white;
+            font-weight: 600;
+        }
+
+        .table tr:hover {
+            background: #f7fafc;
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 20px;
+            .cgv-container {
+                padding: 2rem;
+                margin: 1rem;
             }
-            
-            body {
-                padding: 10px;
+
+            h1 {
+                font-size: 2rem;
             }
+
+            .logo {
+                font-size: 3rem;
+            }
+
+            .table {
+                font-size: 0.9rem;
+            }
+
+            .table th,
+            .table td {
+                padding: 0.8rem 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cgv-container {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        /* Animation d'entrée */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #E8F5E8 0%, #E8F5E8 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.4em;
+            background-position: 0 88%;
+            transition: background-size 0.3s;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="cgv-container fade-in">
         <div class="header">
             <div class="logo">🧺</div>
             <h1>Au Palais Des Arts</h1>
-            <p>Conditions Générales de Vente</p>
-        </div>
-
-        <div class="section">
-            <div class="important">
-                <p><strong>Dernière mise à jour : 15 octobre 2024</strong></p>
+            <p class="subtitle">Conditions Générales de Vente</p>
+            <div>
+                <span class="badge">Artisanat Marocain</span>
+                <span class="badge">Fait Main</span>
+                <span class="badge">Livraison France</span>
             </div>
         </div>
 
-        <div class="section">
-            <h2>1. Objet</h2>
-            <p>Les présentes Conditions Générales de Vente (CGV) ont pour objet de définir les relations contractuelles entre Au Palais Des Arts et tout acheteur de produits via le site internet https://aupalaisdesarts.fr.</p>
+        <div class="important">
+            <p><strong>⚠️ Dernière mise à jour : 15 octobre 2024</strong><br>
+            Les présentes Conditions Générales de Vente sont applicables à compter de cette date et annulent et remplacent toutes les versions antérieures.</p>
         </div>
 
-        <div class="section">
-            <h2>2. Produits</h2>
+        <div class="article">
+            <h2><span class="article-number">Article 1</span> Objet</h2>
+            <p>Les présentes Conditions Générales de Vente (CGV) ont pour objet de définir les relations contractuelles entre <strong>Au Palais Des Arts</strong> (ci-après "le Vendeur") et tout acheteur (ci-après "le Client") de produits via le site internet <span class="highlight">https://aupalaisdesarts.fr</span>.</p>
+            <p>Elles régissent l'ensemble des conditions de vente et s'appliquent à l'exclusion de toute autre condition, sauf acceptation expresse et préalable.</p>
+        </div>
+
+        <div class="article">
+            <h2><span class="article-number">Article 2</span> Produits</h2>
             <p>Les produits proposés à la vente sont des créations artisanales en osier et matériaux naturels, fabriquées main au Maroc par nos artisans partenaires.</p>
             
             <h3>2.1. Caractéristiques des produits</h3>
             <ul>
-                <li>Produits 100% faits main</li>
-                <li>Fabriqués au Maroc</li>
+                <li>Produits 100% faits main par des artisans marocains</li>
+                <li>Fabriqués au Maroc dans le respect des traditions</li>
                 <li>Matériaux naturels (osier, jacinthe d'eau, rotin, feuilles de palmier)</li>
                 <li>Variations naturelles possibles dues au caractère artisanal</li>
+                <li>Chaque pièce est unique et peut présenter de légères différences</li>
             </ul>
+
+            <h3>2.2. Photos et descriptions</h3>
+            <p>Les photographies et descriptions des produits sont aussi fidèles que possible mais ne sauraient engager la responsabilité du Vendeur pour d'éventuelles légères variations dues au caractère artisanal des créations.</p>
         </div>
 
-        <div class="section">
-            <h2>3. Prix</h2>
+        <div class="article">
+            <h2><span class="article-number">Article 3</span> Prix</h2>
             <p>Les prix de nos produits sont indiqués en euros toutes taxes comprises (TTC). Ils incluent la TVA au taux en vigueur.</p>
             
-            <p>Les frais de livraison sont calculés en fonction du mode de livraison choisi et s'ajoutent au prix des produits.</p>
-            
-            <p>Au Palais Des Arts se réserve le droit de modifier ses prix à tout moment, étant entendu que le prix applicable à la commande est celui en vigueur au moment de la validation de la commande.</p>
+            <h3>3.1. Frais de livraison</h3>
+            <p>Les frais de livraison sont calculés en fonction du mode de livraison choisi et s'ajoutent au prix des produits. Ils sont clairement indiqués au moment de la commande.</p>
+
+            <h3>3.2. Évolution des prix</h3>
+            <p><strong>Au Palais Des Arts</strong> se réserve le droit de modifier ses prix à tout moment, étant entendu que le prix applicable à la commande est celui en vigueur au moment de la validation de la commande.</p>
+
+            <h3>3.3. Livraison gratuite</h3>
+            <p>La livraison est offerte à partir de 100€ d'achat (hors créations sur mesure) pour la France métropolitaine.</p>
         </div>
 
-        <div class="section">
-            <h2>4. Commande</h2>
+        <div class="article">
+            <h2><span class="article-number">Article 4</span> Commande</h2>
             <p>Le processus de commande comprend les étapes suivantes :</p>
-            <ul>
+            <ol>
                 <li>Sélection des produits et ajout au panier</li>
-                <li>Validation du panier</li>
+                <li>Validation du panier et vérification du contenu</li>
                 <li>Saisie des informations de livraison et de facturation</li>
                 <li>Choix du mode de livraison</li>
                 <li>Paiement sécurisé</li>
                 <li>Confirmation de commande par email</li>
-            </ul>
+            </ol>
             
-            <p>Toute commande vaut acceptation des prix et descriptions des produits disponibles à la vente.</p>
+            <h3>4.1. Validation de commande</h3>
+            <p>Toute commande vaut acceptation des prix et descriptions des produits disponibles à la vente. La validation de la commande implique l'acceptation sans réserve des présentes CGV.</p>
+
+            <h3>4.2. Confirmation</h3>
+            <p>Une confirmation de commande est envoyée par email au Client dans les 24 heures suivant la commande. Cette confirmation fait foi de contrat entre les parties.</p>
+
+            <h3>4.3. Erreurs de saisie</h3>
+            <p>Il appartient au Client de vérifier l'exactitude de sa commande et de signaler immédiatement toute erreur.</p>
         </div>
 
-        <div class="section">
-            <h2>5. Paiement</h2>
+        <div class="article">
+            <h2><span class="article-number">Article 5</span> Paiement</h2>
             <p>Le paiement est exigible immédiatement à la commande.</p>
             
             <h3>5.1. Modes de paiement acceptés</h3>
             <ul>
-                <li>Carte bancaire (CB, Visa, Mastercard)</li>
+                <li>Carte bancaire (CB, Visa, Mastercard, American Express)</li>
                 <li>PayPal</li>
-                <li>Virement bancaire (uniquement sur demande)</li>
+                <li>Virement bancaire (uniquement sur demande et pour les commandes supérieures à 200€)</li>
+                <li>Apple Pay et Google Pay</li>
             </ul>
             
-            <h3>5.2. Sécurité</h3>
+            <h3>5.2. Sécurité des paiements</h3>
             <p>Les paiements par carte bancaire sont sécurisés par le système de cryptage SSL. Aucune information bancaire n'est conservée sur nos serveurs.</p>
+
+            <h3>5.3. Cas de refus de paiement</h3>
+            <p>En cas de refus de paiement par les organismes bancaires, la commande sera automatiquement annulée.</p>
         </div>
 
-        <div class="section">
-            <h2>6. Livraison</h2>
+        <div class="article">
+            <h2><span class="article-number">Article 6</span> Livraison</h2>
+            
             <h3>6.1. Zones de livraison</h3>
-            <p>Nous livrons en France métropolitaine et en Europe.</p>
-            
+            <p>Nous livrons en France métropolitaine, en Corse, dans les DOM-TOM et en Europe.</p>
+
             <h3>6.2. Délais de livraison</h3>
-            <ul>
-                <li>Livraison standard : 3 à 5 jours ouvrables</li>
-                <li>Livraison express : 1 à 2 jours ouvrables</li>
-                <li>Commandes sur mesure : délai spécifique communiqué lors de la commande</li>
-            </ul>
-            
-            <h3>6.3. Frais de livraison</h3>
-            <ul>
-                <li>Livraison standard : 7,90€</li>
-                <li>Livraison express : 14,90€</li>
-                <li>Offerte à partir de 100€ d'achat (hors sur mesure)</li>
-            </ul>
-            
-            <p>Les délais de livraison sont donnés à titre indicatif et peuvent varier en cas de force majeure.</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Type de livraison</th>
+                        <th>Délai indicatif</th>
+                        <th>Frais</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Livraison standard</td>
+                        <td>3 à 5 jours ouvrables</td>
+                        <td>7,90€</td>
+                    </tr>
+                    <tr>
+                        <td>Livraison express</td>
+                        <td>1 à 2 jours ouvrables</td>
+                        <td>14,90€</td>
+                    </tr>
+                    <tr>
+                        <td>Livraison gratuite</td>
+                        <td>3 à 5 jours ouvrables</td>
+                        <td>Gratuite à partir de 100€</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>6.3. Commandes sur mesure</h3>
+            <p>Les commandes de créations sur mesure font l'objet de délais spécifiques communiqués lors de la commande.</p>
+
+            <h3>6.4. Retard de livraison</h3>
+            <p>Les délais de livraison sont donnés à titre indicatif et peuvent varier en cas de force majeure. En cas de retard important, le Client sera informé par email.</p>
+
+            <h3>6.5. Réception de la commande</h3>
+            <p>Il appartient au Client de vérifier l'état du colis à réception et de formuler toutes réserves nécessaires sur le bon de livraison en cas de dommage.</p>
         </div>
 
-        <div class="section">
-            <h2>7. Droit de rétractation</h2>
-            <p>Conformément aux articles L.221-18 et suivants du Code de la consommation, vous disposez d'un délai de 14 jours à compter de la réception de vos produits pour exercer votre droit de rétractation, sans avoir à justifier de motifs ni à payer de pénalités.</p>
+        <div class="article">
+            <h2><span class="article-number">Article 7</span> Droit de rétractation</h2>
+            <p>Conformément aux articles L.221-18 et suivants du Code de la consommation, vous disposez d'un délai de <strong>14 jours</strong> à compter de la réception de vos produits pour exercer votre droit de rétractation, sans avoir à justifier de motifs ni à payer de pénalités.</p>
             
-            <h3>7.1. Exceptions</h3>
+            <h3>7.1. Exceptions au droit de rétractation</h3>
             <p>Le droit de rétractation ne s'applique pas aux :</p>
             <ul>
                 <li>Produits sur mesure ou personnalisés</li>
                 <li>Produits confectionnés selon vos spécifications</li>
                 <li>Produits qui ont été descellés après livraison et qui ne peuvent être renvoyés pour des raisons d'hygiène</li>
+                <li>Produits audio, vidéo ou logiciels qui ont été descellés</li>
             </ul>
             
-            <h3>7.2. Modalités de retour</h3>
-            <p>Pour exercer votre droit de rétractation, contactez-nous à : retours@aupalaisdesarts.fr</p>
-            <p>Les produits doivent être retournés dans leur état d'origine, emballage inclus, à l'adresse que nous vous communiquerons.</p>
+            <h3>7.2. Modalités de rétractation</h3>
+            <p>Pour exercer votre droit de rétractation, vous devez nous notifier votre décision par :</p>
+            <ul>
+                <li><strong>Email :</strong> retours@aupalaisdesarts.fr</li>
+                <li><strong>Formulaire :</strong> Via le formulaire de contact sur notre site</li>
+                <li><strong>Courrier :</strong> Au Palais Des Arts - Service Retours - 123 Avenue de l'Artisanat - 75001 Paris</li>
+            </ul>
+
+            <h3>7.3. Modalités de retour</h3>
+            <p>Les produits doivent être retournés dans leur état d'origine, emballage inclus, non utilisés et accompagnés de la facture, à l'adresse que nous vous communiquerons.</p>
+
+            <h3>7.4. Remboursement</h3>
+            <p>Le remboursement sera effectué dans un délai de 14 jours suivant la réception des produits retournés, par le même moyen de paiement que celui utilisé pour la commande.</p>
         </div>
 
-        <div class="section">
-            <h2>8. Garanties</h2>
+        <div class="article">
+            <h2><span class="article-number">Article 8</span> Garanties</h2>
+            
             <h3>8.1. Garantie légale de conformité</h3>
             <p>Conformément aux articles L.217-4 et suivants du Code de la consommation, nous sommes tenus de garantir la conformité du bien vendu et de répondre des défauts de conformité existant lors de la délivrance.</p>
             
             <h3>8.2. Garantie des vices cachés</h3>
             <p>Conformément aux articles 1641 et suivants du Code civil, nous sommes tenus de garantir les vices cachés des produits vendus.</p>
+
+            <h3>8.3. Garantie artisanale</h3>
+            <p>En plus des garanties légales, tous nos produits bénéficient d'une garantie artisanale de 6 mois contre tout défaut de fabrication.</p>
         </div>
 
-        <div class="section">
-            <h2>9. Créations sur mesure</h2>
+        <div class="article">
+            <h2><span class="article-number">Article 9</span> Créations sur mesure</h2>
             <p>Les commandes de créations sur mesure font l'objet d'un processus spécifique :</p>
             <ul>
-                <li>Étude personnalisée du projet</li>
-                <li>Devis détaillé préalable</li>
-                <li>Validation du client requise avant fabrication</li>
-                <li>Acompte de 30% à la commande</li>
-                <li>Solde avant expédition</li>
-                <li>Délais de fabrication variables selon la complexité</li>
+                <li>Étude personnalisée du projet avec échanges préalables</li>
+                <li>Devis détaillé préalable avec validation du Client</li>
+                <li>Acompte de 30% à la commande (non remboursable)</li>
+                <li>Solde avant expédition de la création</li>
+                <li>Délais de fabrication variables selon la complexité (communiqués au devis)</li>
+                <li>Photos de la création en cours de réalisation sur demande</li>
             </ul>
-        </div>
-
-        <div class="section">
-            <h2>10. Propriété intellectuelle</h2>
-            <p>Tous les éléments du site https://aupalaisdesarts.fr (textes, photographies, logos, etc.) sont la propriété intellectuelle de Au Palais Des Arts. Toute reproduction est interdite sans autorisation préalable.</p>
-        </div>
-
-        <div class="section">
-            <h2>11. Données personnelles</h2>
-            <p>Les données collectées lors de votre commande sont nécessaires à son traitement. Conformément à la loi "Informatique et Libertés", vous disposez d'un droit d'accès, de rectification et d'opposition aux données vous concernant.</p>
             
-            <p>Consultez notre <a href="politique-confidentialite.html">Politique de Confidentialité</a> pour plus d'informations.</p>
-        </div>
-
-        <div class="section">
-            <h2>12. Litiges</h2>
-            <p>En cas de litige, le client s'engage à rechercher une solution amiable avec Au Palais Des Arts avant toute action judiciaire.</p>
-            
-            <p>À défaut de solution amiable, les tribunaux français seront seuls compétents.</p>
-        </div>
-
-        <div class="section">
-            <h2>13. Contact</h2>
-            <div class="legal-info">
-                <p><strong>Service client Au Palais Des Arts</strong><br>
-                Email : contact@aupalaisdesarts.fr<br>
-                Téléphone : 01 23 45 67 89<br>
-                Horaires : Du lundi au vendredi, 9h-18h</p>
+            <div class="important">
+                <p><strong>Important :</strong> Les créations sur mesure ne sont pas soumises au droit de rétractation une fois la fabrication commencée.</p>
             </div>
         </div>
 
-        <a href="index.html" class="back-link">← Retour au site principal</a>
+        <div class="article">
+            <h2><span class="article-number">Article 10</span> Propriété intellectuelle</h2>
+            <p>Tous les éléments du site <span class="highlight">https://aupalaisdesarts.fr</span> (textes, photographies, logos, créations, etc.) sont la propriété intellectuelle de <strong>Au Palais Des Arts</strong>. Toute reproduction est interdite sans autorisation préalable.</p>
+        </div>
+
+        <div class="article">
+            <h2><span class="article-number">Article 11</span> Données personnelles</h2>
+            <p>Les données collectées lors de votre commande sont nécessaires à son traitement. Conformément à la loi "Informatique et Libertés" et au RGPD, vous disposez d'un droit d'accès, de rectification et d'opposition aux données vous concernant.</p>
+            
+            <p>Consultez notre <a href="politique-confidentialite.html" style="color: #1E6B4E; font-weight: 600;">Politique de Confidentialité</a> pour plus d'informations.</p>
+        </div>
+
+        <div class="article">
+            <h2><span class="article-number">Article 12</span> Litiges</h2>
+            <p>En cas de litige, le Client s'engage à rechercher une solution amiable avec <strong>Au Palais Des Arts</strong> avant toute action judiciaire.</p>
+            
+            <p>À défaut de solution amiable, les tribunaux français seront seuls compétents.</p>
+
+            <h3>12.1. Médiation</h3>
+            <p>Conformément à l'article L. 612-1 du code de la consommation, le Client peut recourir au médiateur suivant :</p>
+            <div class="legal-info">
+                <p><strong>MEDICYS</strong><br>
+                73 Boulevard de Clichy - 75009 Paris<br>
+                Site web : https://www.medicys.fr<br>
+                Email : contact@medicys.fr</p>
+            </div>
+        </div>
+
+        <div class="article">
+            <h2><span class="article-number">Article 13</span> Contact</h2>
+            <div class="legal-info">
+                <p><strong>Service client Au Palais Des Arts</strong><br>
+                📧 Email : contact@aupalaisdesarts.fr<br>
+                📞 Téléphone : 01 23 45 67 89<br>
+                🕒 Horaires : Du lundi au vendredi, 9h-18h<br>
+                📍 Adresse : 123 Avenue de l'Artisanat - 75001 Paris</p>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-link">
+            ← Retour au site principal
+        </a>
+
+        <div class="last-update">
+            <p><strong>Au Palais Des Arts</strong> - Artisanat marocain d'exception depuis 1985<br>
+            🧺 Créations uniques faites main au Maroc - 🇲🇦 Fabriqué avec passion</p>
+        </div>
     </div>
+
+    <script>
+        // Animation au scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Animer les articles au défilement
+            document.querySelectorAll('.article').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+
+            console.log('📄 CGV chargées');
+        });
+
+        // Impression des CGV
+        function printCGV() {
+            window.print();
+        }
+
+        // Ajouter un bouton d'impression
+        const printButton = document.createElement('button');
+        printButton.textContent = '🖨️ Imprimer les CGV';
+        printButton.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1E6B4E;
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+        `;
+        printButton.onclick = printCGV;
+        document.body.appendChild(printButton);
+    </script>
 </body>
 </html>

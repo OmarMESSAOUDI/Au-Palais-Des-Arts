@@ -1,59 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  
+  <!-- Page d'accueil - Priorité maximale -->
   <url>
     <loc>https://aupalaisdesarts.fr/</loc>
     <lastmod>2024-10-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://aupalaisdesarts.fr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aupalaisdesarts.fr/"/>
+    
+    <!-- Images de la page d'accueil -->
+    <image:image>
+      <image:loc>https://aupalaisdesarts.fr/images/logo.png</image:loc>
+      <image:title>Au Palais Des Arts - Logo</image:title>
+      <image:caption>Artisanat marocain d'exception</image:caption>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://aupalaisdesarts.fr/images/og-image.jpg</image:loc>
+      <image:title>Créations artisanales en osier du Maroc</image:title>
+      <image:caption>Paniers faits main par des artisans marocains</image:caption>
+    </image:image>
   </url>
+
+  <!-- Section Produits -->
   <url>
     <loc>https://aupalaisdesarts.fr/#produits</loc>
     <lastmod>2024-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    
+    <!-- Images des produits -->
+    <image:image>
+      <image:loc>https://aupalaisdesarts.fr/images/panier-rectangulaire-jacinthe.jpg</image:loc>
+      <image:title>Panier Rectangulaire en Jacinthe d'Eau</image:title>
+      <image:caption>Panier élégant en jacinthe d'eau naturelle fait main au Maroc</image:caption>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://aupalaisdesarts.fr/images/panier-rond-jacinthe.jpg</image:loc>
+      <image:title>Panier Rond Jacinthe d'Eau H36.5</image:title>
+      <image:caption>Panier rond traditionnel marocain en jacinthe d'eau</image:caption>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://aupalaisdesarts.fr/images/panier-tresse-rectangulaire.jpg</image:loc>
+      <image:title>Panier Tressé Rectangulaire</image:title>
+      <image:caption>Panier rectangulaire tressé main par des artisans</image:caption>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://aupalaisdesarts.fr/images/panier-double-compartiment.jpg</image:loc>
+      <image:title>Panier Double Compartiment</image:title>
+      <image:caption>Panier pratique à double compartiment fait main</image:caption>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://aupalaisdesarts.fr/images/panier-feuilles-palmier.jpg</image:loc>
+      <image:title>Panier en Feuilles de Palmier</image:title>
+      <image:caption>Panier écologique en feuilles de palmier naturel</image:caption>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://aupalaisdesarts.fr/images/panier-rond-osier.jpg</image:loc>
+      <image:title>Panier Rond en Osier</image:title>
+      <image:caption>Panier rond classique en osier de qualité</image:caption>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://aupalaisdesarts.fr/images/panier-ovale-rotin.jpg</image:loc>
+      <image:title>Panier Ovale en Rotin Naturel</image:title>
+      <image:caption>Panier ovale élégant en rotin naturel fait main</image:caption>
+    </image:image>
   </url>
+
+  <!-- Section Histoire -->
   <url>
     <loc>https://aupalaisdesarts.fr/#histoire</loc>
     <lastmod>2024-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- Section Création sur Mesure -->
   <url>
     <loc>https://aupalaisdesarts.fr/#sur-mesure</loc>
     <lastmod>2024-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- Section Avis -->
   <url>
     <loc>https://aupalaisdesarts.fr/#avis</loc>
     <lastmod>2024-10-15</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <!-- Section Contact -->
   <url>
     <loc>https://aupalaisdesarts.fr/#contact</loc>
     <lastmod>2024-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <!-- Pages légales -->
   <url>
     <loc>https://aupalaisdesarts.fr/mentions-legales.html</loc>
     <lastmod>2024-10-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
   <url>
     <loc>https://aupalaisdesarts.fr/cgv.html</loc>
     <lastmod>2024-10-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
   <url>
     <loc>https://aupalaisdesarts.fr/politique-confidentialite.html</loc>
     <lastmod>2024-10-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
+  <!-- Pages de statut -->
+  <url>
+    <loc>https://aupalaisdesarts.fr/offline.html</loc>
+    <lastmod>2024-10-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.1</priority>
+  </url>
+
 </urlset>

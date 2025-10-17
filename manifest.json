@@ -1,23 +1,147 @@
 {
   "name": "Au Palais Des Arts - Créations Artisanales en Osier du Maroc",
   "short_name": "Au Palais Des Arts",
-  "description": "Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains.",
+  "description": "Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains. Vannerie traditionnelle de qualité supérieure.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1E6B4E",
   "theme_color": "#1E6B4E",
   "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["shopping", "lifestyle", "home", "fashion"],
+  
   "icons": [
     {
-      "src": "icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "images/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "icon-512x512.png",
+      "src": "images/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "categories": ["shopping", "lifestyle", "home"]
+  
+  "screenshots": [
+    {
+      "src": "images/screenshot-mobile-1.jpg",
+      "sizes": "375x667",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Page d'accueil montrant les produits artisanaux"
+    },
+    {
+      "src": "images/screenshot-mobile-2.jpg",
+      "sizes": "375x667",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Détail d'un produit avec options d'achat"
+    },
+    {
+      "src": "images/screenshot-desktop-1.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Vue desktop de la boutique en ligne"
+    }
+  ],
+  
+  "shortcuts": [
+    {
+      "name": "Nos Créations",
+      "short_name": "Produits",
+      "description": "Découvrir tous nos produits artisanaux",
+      "url": "/#produits",
+      "icons": [
+        {
+          "src": "images/shortcut-products.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Création Sur Mesure",
+      "short_name": "Sur Mesure",
+      "description": "Demander une création personnalisée",
+      "url": "/#sur-mesure",
+      "icons": [
+        {
+          "src": "images/shortcut-custom.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Mon Panier",
+      "short_name": "Panier",
+      "description": "Voir mon panier d'achat",
+      "url": "/#panier",
+      "icons": [
+        {
+          "src": "images/shortcut-cart.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  
+  "related_applications": [],
+  
+  "prefer_related_applications": false,
+  
+  "iarc_rating_id": "",
+  
+  "features": [
+    "Cross Platform",
+    "fast",
+    "simple",
+    "shopping cart",
+    "offline browsing"
+  ],
+  
+  "permissions": [
+    "notifications",
+    "storage"
+  ]
 }

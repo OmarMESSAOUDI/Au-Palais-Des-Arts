@@ -64,7 +64,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
     color: var(--white);
     display: flex;
     align-items: center;
@@ -613,7 +613,7 @@ header {
 }
 
 .product-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.02);
     box-shadow: var(--shadow-lg);
 }
 
@@ -1476,15 +1476,40 @@ header {
 }
 
 /* ANIMATIONS POUR LES CARTES */
-.valeur-card {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s ease;
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.valeur-card.animate-in {
-    opacity: 1;
-    transform: translateY(0);
+.product-card, .valeur-card, .avis-card, .contact-item {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* AMÉLIORATIONS ACCESSIBILITÉ */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus visible pour l'accessibilité */
+button:focus, a:focus, input:focus, select:focus, textarea:focus {
+    outline: 3px solid #1E6B4E;
+    outline-offset: 2px;
+}
+
+/* Styles pour les états de chargement */
+.loading-state {
+    opacity: 0.7;
+    pointer-events: none;
 }
 
 /* RESPONSIVE */
@@ -1662,5 +1687,13 @@ header {
     .favorites-btn, .cart-btn {
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
+    }
+
+    .hero-text h1 {
+        font-size: 1.8rem;
+    }
+    
+    .product-card {
+        margin: 0 10px;
     }
 }

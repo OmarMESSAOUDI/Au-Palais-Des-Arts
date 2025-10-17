@@ -1,26 +1,153 @@
+# Fichier robots.txt pour Au Palais Des Arts
+# Généré le : 15/10/2024
+
 User-agent: *
 Allow: /
-Allow: /css/
-Allow: /js/
-Allow: /images/
+
+# URLs à ne pas indexer
 Disallow: /admin/
 Disallow: /private/
 Disallow: /includes/
-Disallow: /*.php$
-Disallow: /*.json$
+Disallow: /config/
+Disallow: /node_modules/
+Disallow: /vendor/
 
 # Fichiers à ne pas indexer
+Disallow: /*.php$
+Disallow: /*.json$
+Disallow: /*.env$
+Disallow: /*.sql$
+Disallow: /*.log$
+
+# Fichiers techniques du site
 Disallow: /manifest.json
 Disallow: /sw.js
 Disallow: /offline.html
+Disallow: /service-worker.js
 
-# Paramètres d'URL à ignorer
+# Paramètres d'URL à ignorer (SEO)
 Disallow: /*?utm_
 Disallow: /*?ref=
 Disallow: /*?source=
+Disallow: /*?fbclid=
+Disallow: /*?gclid=
+Disallow: /*?msclkid=
+Disallow: /*?trk=
 
-# Sitemap
+# Pages de session et panier
+Disallow: /panier/
+Disallow: /checkout/
+Disallow: /payment/
+Disallow: /login/
+Disallow: /register/
+Disallow: /account/
+
+# Fichiers de ressources (optionnel - généralement autorisés)
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /fonts/
+
+# Sitemap principal
 Sitemap: https://aupalaisdesarts.fr/sitemap.xml
 
-# Crawl delay (optionnel pour éviter de surcharger le serveur)
+# Sitemaps supplémentaires (si existants)
+Sitemap: https://aupalaisdesarts.fr/sitemap-images.xml
+Sitemap: https://aupalaisdesarts.fr/sitemap-videos.xml
+
+# Délai de crawl (éviter la surcharge du serveur)
 Crawl-delay: 1
+
+# Instructions spécifiques pour les principaux crawlers
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+Disallow: /private/
+Crawl-delay: 1
+
+# Googlebot-Image
+User-agent: Googlebot-Image
+Allow: /images/
+Disallow: /private-images/
+
+# Bingbot
+User-agent: bingbot
+Allow: /
+Disallow: /private/
+Crawl-delay: 1
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Disallow: /private/
+Crawl-delay: 2
+
+# Baidu
+User-agent: Baiduspider
+Allow: /
+Disallow: /private/
+Crawl-delay: 5
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /private/
+Crawl-delay: 1
+
+# Facebook
+User-agent: facebookexternalhit/1.1
+Allow: /
+Crawl-delay: 1
+
+# Twitter
+User-agent: Twitterbot
+Allow: /
+Crawl-delay: 1
+
+# LinkedIn
+User-agent: LinkedInBot
+Allow: /
+Crawl-delay: 1
+
+# Pinterest
+User-agent: Pinterest
+Allow: /
+Crawl-delay: 1
+
+# Instructions pour les crawlers indésirables
+User-agent: AhrefsBot
+Disallow: /
+Crawl-delay: 10
+
+User-agent: SEMrushBot
+Disallow: /
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+Crawl-delay: 10
+
+User-agent: dotbot
+Disallow: /
+Crawl-delay: 10
+
+User-agent: megaindex
+Disallow: /
+Crawl-delay: 10
+
+# Crawlers de scraping agressifs
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: Claude-Image
+Disallow: /
+
+# Note : Ce fichier robots.txt est régulièrement mis à jour
+# Dernière mise à jour : 15 octobre 2024

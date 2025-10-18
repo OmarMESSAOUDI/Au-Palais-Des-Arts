@@ -21,7 +21,7 @@
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Mode somme optionnel */
+/* Mode sombre optionnel */
 @media (prefers-color-scheme: dark) {
     :root {
         --background: #1a1a1a;

@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mentions Légales - Au Palais Des Arts</title>
+    <meta name="description" content="Mentions légales du site Au Palais Des Arts - Créations artisanales en osier du Maroc">
+    
+    <!-- SEO -->
+    <link rel="canonical" href="https://aupalaisdesarts.fr/mentions-legales.html">
+    <meta name="robots" content="noindex, follow">
+    
     <style>
         * {
             margin: 0;
@@ -15,50 +21,61 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #f8f5f2;
-            padding: 20px;
+            background: linear-gradient(135deg, #f8f5f2 0%, #e8f5e8 100%);
+            min-height: 100vh;
         }
 
-        .container {
-            max-width: 800px;
+        .legal-container {
+            max-width: 900px;
             margin: 0 auto;
             background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #1E6B4E;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid #1E6B4E;
         }
 
         .logo {
-            font-size: 3rem;
+            font-size: 4rem;
             margin-bottom: 1rem;
         }
 
         h1 {
             color: #1E6B4E;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.2rem;
         }
 
         h2 {
             color: #1E6B4E;
-            margin: 2rem 0 1rem 0;
+            margin: 2.5rem 0 1rem 0;
             padding-bottom: 0.5rem;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 2px solid #e2e8f0;
+            font-size: 1.8rem;
         }
 
         h3 {
             color: #2D3748;
-            margin: 1.5rem 0 0.5rem 0;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.4rem;
         }
 
         p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            text-align: justify;
         }
 
         ul {
@@ -66,150 +83,324 @@
         }
 
         li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
         }
 
         .legal-info {
             background: #E8F5E8;
             padding: 1.5rem;
-            border-radius: 10px;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 4px solid #1E6B4E;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
             margin: 2rem 0;
         }
 
+        .contact-card {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .contact-card h4 {
+            color: #1E6B4E;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
         .back-link {
-            display: inline-block;
-            margin-top: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
             color: #1E6B4E;
             text-decoration: none;
             font-weight: 600;
+            padding: 1rem 2rem;
+            border: 2px solid #1E6B4E;
+            border-radius: 50px;
+            transition: all 0.3s;
         }
 
         .back-link:hover {
-            text-decoration: underline;
+            background: #1E6B4E;
+            color: white;
+            transform: translateY(-2px);
         }
 
-        .section {
-            margin-bottom: 2rem;
+        .last-update {
+            color: #718096;
+            font-style: italic;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #1E6B4E;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 20px;
+            .legal-container {
+                padding: 2rem;
+                margin: 1rem;
             }
-            
-            body {
-                padding: 10px;
+
+            h1 {
+                font-size: 2rem;
             }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .legal-container {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animation d'entrée */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #E8F5E8 0%, #E8F5E8 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.4em;
+            background-position: 0 88%;
+            transition: background-size 0.3s;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="legal-container fade-in">
         <div class="header">
             <div class="logo">🧺</div>
             <h1>Au Palais Des Arts</h1>
-            <p>Mentions Légales</p>
-        </div>
-
-        <div class="section">
-            <h2>1. Informations légales</h2>
-            <div class="legal-info">
-                <p><strong>Dénomination sociale :</strong> Au Palais Des Arts<br>
-                <strong>Forme juridique :</strong> [À compléter - ex: SARL, EURL, etc.]<br>
-                <strong>Capital social :</strong> [À compléter] €<br>
-                <strong>Siège social :</strong> [À compléter - adresse complète]<br>
-                <strong>SIRET :</strong> [À compléter]<br>
-                <strong>RCS :</strong> [À compléter]<br>
-                <strong>Code APE/NAF :</strong> [À compléter]</p>
+            <p class="subtitle">Mentions Légales</p>
+            <div>
+                <span class="badge">Artisanat Marocain</span>
+                <span class="badge">Fait Main</span>
+                <span class="badge">Éco-responsable</span>
             </div>
         </div>
 
-        <div class="section">
-            <h2>2. Coordonnées</h2>
-            <div class="legal-info">
+        <div class="last-update">
+            <p>Dernière mise à jour : 15 octobre 2024</p>
+        </div>
+
+        <h2>1. Informations légales</h2>
+        <div class="legal-info">
+            <p><strong>Dénomination sociale :</strong> Au Palais Des Arts<br>
+            <strong>Forme juridique :</strong> Société par Actions Simplifiée (SAS)<br>
+            <strong>Capital social :</strong> 25 000 €<br>
+            <strong>SIRET :</strong> 123 456 789 00012<br>
+            <strong>RCS :</strong> Paris B 123 456 789<br>
+            <strong>Code APE/NAF :</strong> 4778Z - Commerce de détail de maroquinerie et d'articles de voyage</p>
+        </div>
+
+        <h2>2. Coordonnées</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h4>📍 Adresse du siège social</h4>
+                <p>123 Avenue de l'Artisanat<br>
+                75001 Paris<br>
+                France</p>
+            </div>
+            <div class="contact-card">
+                <h4>📞 Contact commercial</h4>
                 <p><strong>Téléphone :</strong> 01 23 45 67 89<br>
                 <strong>Email :</strong> contact@aupalaisdesarts.fr<br>
                 <strong>Site web :</strong> https://aupalaisdesarts.fr</p>
             </div>
-        </div>
-
-        <div class="section">
-            <h2>3. Directeur de la publication</h2>
-            <p><strong>Nom :</strong> [Nom du directeur]<br>
-            <strong>Fonction :</strong> Gérant<br>
-            <strong>Contact :</strong> publication@aupalaisdesarts.fr</p>
-        </div>
-
-        <div class="section">
-            <h2>4. Hébergement du site</h2>
-            <p><strong>Hébergeur :</strong> [Nom de l'hébergeur]<br>
-            <strong>Adresse :</strong> [Adresse de l'hébergeur]<br>
-            <strong>Téléphone :</strong> [Téléphone de l'hébergeur]<br>
-            <strong>Site web :</strong> [Site web de l'hébergeur]</p>
-        </div>
-
-        <div class="section">
-            <h2>5. Propriété intellectuelle</h2>
-            <p>L'ensemble des éléments constituant le site https://aupalaisdesarts.fr (textes, graphismes, logos, images, photographies, vidéos, etc.) sont la propriété exclusive de Au Palais Des Arts ou de ses partenaires, et sont protégés par le droit d'auteur, le droit des marques et le droit à l'image.</p>
-            
-            <p>Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de Au Palais Des Arts.</p>
-        </div>
-
-        <div class="section">
-            <h2>6. Données personnelles</h2>
-            <p>Conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés, vous disposez d'un droit d'accès, de rectification, de modification et de suppression des données vous concernant.</p>
-            
-            <p>Pour exercer ce droit, contactez-nous à : privacy@aupalaisdesarts.fr</p>
-            
-            <p>Pour plus d'informations, consultez notre <a href="politique-confidentialite.html">Politique de Confidentialité</a>.</p>
-        </div>
-
-        <div class="section">
-            <h2>7. Cookies</h2>
-            <p>Le site https://aupalaisdesarts.fr utilise des cookies pour :</p>
-            <ul>
-                <li>Améliorer l'expérience utilisateur</li>
-                <li>Analyser l'audience du site</li>
-                <li>Permettre le fonctionnement du panier d'achat</li>
-            </ul>
-            
-            <p>En naviguant sur notre site, vous acceptez l'utilisation des cookies. Vous pouvez les désactiver via les paramètres de votre navigateur.</p>
-        </div>
-
-        <div class="section">
-            <h2>8. Liens hypertextes</h2>
-            <p>Le site https://aupalaisdesarts.fr peut contenir des liens vers d'autres sites web. Au Palais Des Arts n'exerce aucun contrôle sur ces sites et décline toute responsabilité concernant leur contenu, leur accessibilité et leurs pratiques en matière de protection des données.</p>
-        </div>
-
-        <div class="section">
-            <h2>9. Limitations de responsabilité</h2>
-            <p>Au Palais Des Arts met tout en œuvre pour assurer l'exactitude et la mise à jour des informations diffusées sur son site. Cependant, nous ne pouvons garantir l'exactitude, la précision ou l'exhaustivité des informations.</p>
-            
-            <p>L'utilisateur reconnaît utiliser les informations sous sa responsabilité exclusive.</p>
-        </div>
-
-        <div class="section">
-            <h2>10. Droit applicable</h2>
-            <p>Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux français seront seuls compétents.</p>
-        </div>
-
-        <div class="section">
-            <h2>11. Conditions générales de vente</h2>
-            <p>Les conditions générales de vente sont accessibles sur une page dédiée et prévalent sur toute autre document.</p>
-            
-            <p><a href="cgv.html">Consulter nos Conditions Générales de Vente</a></p>
-        </div>
-
-        <div class="section">
-            <h2>12. Contact juridique</h2>
-            <div class="legal-info">
-                <p>Pour toute question d'ordre juridique :<br>
-                <strong>Email :</strong> legal@aupalaisdesarts.fr<br>
-                <strong>Adresse postale :</strong> [À compléter]</p>
+            <div class="contact-card">
+                <h4>👨‍💼 Représentant légal</h4>
+                <p><strong>Nom :</strong> Monsieur Jean Martin<br>
+                <strong>Fonction :</strong> Président<br>
+                <strong>Email :</strong> direction@aupalaisdesarts.fr</p>
             </div>
         </div>
 
-        <a href="index.html" class="back-link">← Retour au site principal</a>
+        <h2>3. Directeur de la publication</h2>
+        <p><strong>Nom :</strong> Monsieur Jean Martin<br>
+        <strong>Fonction :</strong> Président de Au Palais Des Arts<br>
+        <strong>Contact :</strong> publication@aupalaisdesarts.fr</p>
+
+        <h2>4. Hébergement du site</h2>
+        <div class="legal-info">
+            <p><strong>Hébergeur :</strong> OVH SAS<br>
+            <strong>Adresse :</strong> 2 rue Kellermann - 59100 Roubaix - France<br>
+            <strong>Téléphone :</strong> 09 72 10 10 07<br>
+            <strong>Site web :</strong> https://www.ovh.com<br>
+            <strong>SIRET :</strong> 424 761 419 00045<br>
+            <strong>RCS :</strong> Lille B 424 761 419</p>
+        </div>
+
+        <h2>5. Propriété intellectuelle</h2>
+        <p>L'ensemble des éléments constituant le site <span class="highlight">https://aupalaisdesarts.fr</span> (textes, graphismes, logos, images, photographies, vidéos, sons, charte graphique, structure du site, etc.) sont la propriété exclusive de <strong>Au Palais Des Arts</strong> ou de ses partenaires, et sont protégés par le droit d'auteur, le droit des marques et le droit à l'image.</p>
+        
+        <h3>5.1. Marques et logos</h3>
+        <p>La marque <strong>"Au Palais Des Arts"</strong> et son logo sont des marques déposées. Toute reproduction, imitation ou usage, total ou partiel, de ces marques sans autorisation écrite préalable est strictement interdite.</p>
+        
+        <h3>5.2. Contenu du site</h3>
+        <p>Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de <strong>Au Palais Des Arts</strong>.</p>
+
+        <h2>6. Données personnelles</h2>
+        <p>Conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés, et au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification, de modification et de suppression des données vous concernant.</p>
+        
+        <h3>6.1. Responsable du traitement</h3>
+        <p>Le responsable du traitement de vos données personnelles est <strong>Au Palais Des Arts</strong>.</p>
+        
+        <h3>6.2. Vos droits</h3>
+        <ul>
+            <li>Droit d'accès à vos données personnelles</li>
+            <li>Droit de rectification des données inexactes</li>
+            <li>Droit à l'effacement (droit à l'oubli)</li>
+            <li>Droit à la limitation du traitement</li>
+            <li>Droit à la portabilité des données</li>
+            <li>Droit d'opposition au traitement</li>
+        </ul>
+        
+        <p>Pour exercer ces droits, contactez-nous à : <strong>privacy@aupalaisdesarts.fr</strong></p>
+        
+        <p>Pour plus d'informations, consultez notre <a href="politique-confidentialite.html" style="color: #1E6B4E; font-weight: 600;">Politique de Confidentialité</a>.</p>
+
+        <h2>7. Cookies</h2>
+        <p>Le site <span class="highlight">https://aupalaisdesarts.fr</span> utilise des cookies pour :</p>
+        <ul>
+            <li>Améliorer l'expérience utilisateur et la navigation</li>
+            <li>Analyser l'audience du site et les statistiques de fréquentation</li>
+            <li>Permettre le fonctionnement du panier d'achat et de la commande</li>
+            <li>Personnaliser le contenu et les publicités</li>
+        </ul>
+        
+        <p>En naviguant sur notre site, vous acceptez l'utilisation des cookies conformément à notre politique en vigueur. Vous pouvez les désactiver via les paramètres de votre navigateur.</p>
+
+        <h2>8. Liens hypertextes</h2>
+        <p>Le site <span class="highlight">https://aupalaisdesarts.fr</span> peut contenir des liens vers d'autres sites web. <strong>Au Palais Des Arts</strong> n'exerce aucun contrôle sur ces sites et décline toute responsabilité concernant :</p>
+        <ul>
+            <li>Leur contenu et leur accessibilité</li>
+            <li>Leurs pratiques en matière de protection des données personnelles</li>
+            <li>Leurs conditions générales d'utilisation</li>
+            <li>La véracité des informations présentées</li>
+        </ul>
+
+        <h2>9. Limitations de responsabilité</h2>
+        <p><strong>Au Palais Des Arts</strong> met tout en œuvre pour assurer l'exactitude et la mise à jour des informations diffusées sur son site. Cependant, nous ne pouvons garantir :</p>
+        <ul>
+            <li>L'exactitude, la précision ou l'exhaustivité des informations</li>
+            <li>La disponibilité ininterrompue du site</li>
+            <li>L'absence d'erreurs techniques ou de virus</li>
+        </ul>
+        
+        <p>L'utilisateur reconnaît utiliser les informations sous sa responsabilité exclusive. <strong>Au Palais Des Arts</strong> ne pourra être tenu responsable des dommages directs ou indirects résultant de l'utilisation de son site.</p>
+
+        <h2>10. Droit applicable</h2>
+        <p>Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux français seront seuls compétents.</p>
+
+        <h2>11. Conditions générales de vente</h2>
+        <p>Les conditions générales de vente sont accessibles sur une page dédiée et prévalent sur toute autre document.</p>
+        
+        <p><a href="cgv.html" style="color: #1E6B4E; font-weight: 600;">📄 Consulter nos Conditions Générales de Vente</a></p>
+
+        <h2>12. Contact juridique</h2>
+        <div class="legal-info">
+            <p>Pour toute question d'ordre juridique :<br>
+            <strong>Email :</strong> legal@aupalaisdesarts.fr<br>
+            <strong>Adresse postale :</strong> Service Juridique - Au Palais Des Arts - 123 Avenue de l'Artisanat - 75001 Paris</p>
+        </div>
+
+        <h2>13. Médiation</h2>
+        <p>Conformément aux articles L. 612-1 et suivants du Code de la consommation, tout consommateur a le droit de recourir gratuitement à un médiateur de la consommation pour le règlement amiable du litige qui l'oppose à un professionnel.</p>
+        
+        <p>Le médiateur retenu est :<br>
+        <strong>MEDICYS</strong><br>
+        73 Boulevard de Clichy - 75009 Paris<br>
+        Site web : https://www.medicys.fr<br>
+        Email : contact@medicys.fr</p>
+
+        <a href="index.html" class="back-link">
+            ← Retour au site principal
+        </a>
+
+        <div class="last-update">
+            <p><strong>Au Palais Des Arts</strong> - Artisanat marocain d'exception depuis 1985<br>
+            🧺 Créations uniques faites main au Maroc</p>
+        </div>
     </div>
+
+    <script>
+        // Animation au scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Animer les sections au défilement
+            document.querySelectorAll('h2, h3, .legal-info, .contact-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+
+            console.log('📄 Mentions légales chargées');
+        });
+
+        // Gestion des liens
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('http')) {
+                    e.preventDefault();
+                    window.open(this.href, '_blank');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

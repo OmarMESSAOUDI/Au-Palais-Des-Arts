@@ -1,607 +1,1697 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Au Palais Des Arts - Créations Artisanales en Osier du Maroc</title>
-    <meta name="description" content="Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains. Vannerie traditionnelle de qualité supérieure.">
+/* RESET ET BASES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #1E6B4E;
+    --primary-dark: #155239;
+    --primary-light: #2D8B66;
+    --secondary-color: #D4AF37;
+    --accent-color: #FF6B6B;
+    --text-dark: #2D3748;
+    --text-light: #718096;
+    --background: #f8f5f2;
+    --white: #ffffff;
+    --gray-light: #f7fafc;
+    --gray: #e2e8f0;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Mode somme optionnel */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #1a1a1a;
+        --text-dark: #ffffff;
+        --text-light: #cccccc;
+        --white: #2d3748;
+        --gray-light: #4a5568;
+        --gray: #718096;
+    }
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--background);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-padding {
+    padding: 80px 0;
+}
+
+/* SKIP LINK ACCESSIBILITY */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 0 0 4px 4px;
+    z-index: 10000;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* LOADING SCREEN */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loading-logo {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.loading-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    margin: 2rem auto;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.loading-progress {
+    height: 100%;
+    background: var(--white);
+    width: 0%;
+    animation: loading 2s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 0%; }
+}
+
+/* HEADER */
+header {
+    background: var(--white);
+    box-shadow: var(--shadow);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.header-scrolled {
+    padding: 0.5rem 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo-image {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-image {
+    transform: scale(1.1);
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.logo-text h1 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.2rem;
+}
+
+.logo-text p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+/* NAVIGATION */
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.nav-toggle span {
+    width: 25px;
+    height: 3px;
+    background: var(--text-dark);
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.nav-toggle.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.favorites-btn, .cart-btn {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s;
+    min-height: 44px;
+}
+
+.favorites-btn:hover, .cart-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.favorites-count, .cart-count {
+    background: var(--accent-color);
+    color: var(--white);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+/* HERO SECTION */
+.hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: var(--white);
+    padding: 150px 0 80px;
+    margin-top: 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
+    background-size: cover;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.hero-text p {
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    min-height: 44px;
+}
+
+.btn-primary {
+    background: var(--white);
+    color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.btn-secondary:hover {
+    background: var(--white);
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.hero-stats {
+    display: flex;
+    gap: 3rem;
+}
+
+.stat {
+    text-align: center;
+}
+
+.number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-visual {
+    position: relative;
+    height: 400px;
+}
+
+.floating-element {
+    position: absolute;
+    font-size: 4rem;
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-element:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-element:nth-child(2) {
+    top: 50%;
+    left: 50%;
+    animation-delay: 2s;
+}
+
+.floating-element:nth-child(3) {
+    bottom: 20%;
+    right: 10%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+/* SECTION HEADER */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 2.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.section-header p {
+    font-size: 1.3rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* PRÉSENTATION SECTION */
+.presentation {
+    background: var(--white);
+}
+
+.histoire-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.histoire-text h3 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.histoire-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: var(--text-dark);
+}
+
+.origine-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.origine-badge {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--gray-light);
+    border-radius: 15px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.origine-icon {
+    font-size: 2rem;
+}
+
+.origine-badge h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.origine-badge p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.valeurs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.valeur-card {
+    text-align: center;
+    padding: 2rem;
+    background: var(--gray-light);
+    border-radius: 15px;
+    transition: transform 0.3s;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.valeur-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.valeur-card:hover {
+    transform: translateY(-5px);
+}
+
+.valeur-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.valeur-card h4 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+/* PRODUITS SECTION */
+.promo-banner {
+    background: linear-gradient(135deg, var(--accent-color), #FF8E53);
+    color: var(--white);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 3rem;
+    animation: slideInDown 0.5s ease;
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.promo-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+}
+
+.promo-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    transition: transform 0.3s;
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.promo-close:hover {
+    transform: scale(1.2);
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.product-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+    min-height: 550px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.product-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--accent-color);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.favorite-btn:hover {
+    background: var(--white);
+    transform: scale(1.1);
+}
+
+.favorite-btn.active {
+    background: #FFE0E0;
+    color: var(--accent-color);
+}
+
+.product-image-container {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    background: var(--gray-light);
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.1);
+}
+
+.product-content {
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.product-description {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.product-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.product-stock {
+    margin-bottom: 1rem;
+}
+
+.stock-indicator {
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.stock-indicator.in-stock {
+    background: #E8F5E8;
+    color: var(--primary-color);
+}
+
+.stock-indicator.low-stock {
+    background: #FFF3E0;
+    color: #FF9800;
+}
+
+.stock-indicator.out-of-stock {
+    background: #FFE0E0;
+    color: var(--accent-color);
+}
+
+.stock-quantity {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-left: 0.5rem;
+}
+
+.product-origin {
+    background: #E8F5E8;
+    color: var(--primary-color);
+    padding: 0.7rem 1.2rem;
+    border-radius: 25px;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.product-price {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.price-original {
+    font-size: 1.8rem;
+}
+
+.price-promo {
+    color: var(--accent-color);
+    font-size: 1.4rem;
+    text-decoration: line-through;
+    margin-right: 0.5rem;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* CRÉATION SUR MESURE */
+.creation-sur-mesure {
+    background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 100%);
+}
+
+.creation-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.creation-text h3 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.creation-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    color: var(--text-dark);
+}
+
+.avantages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.avantage {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.avantage-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.avantage h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.creation-form-container {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+.creation-form h4 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--gray);
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    font-size: 16px; /* Empêche le zoom sur iOS */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.checkbox-label input {
+    width: auto;
+    margin-top: 0.2rem;
+}
+
+/* AVIS SECTION */
+.avis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.avis-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.avis-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.avis-card:hover {
+    transform: translateY(-5px);
+}
+
+.avis-header {
+    margin-bottom: 1.5rem;
+}
+
+.avis-client {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.client-avatar {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.avis-rating {
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+}
+
+.avis-text {
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.avis-date {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+/* CONTACT SECTION */
+.contact-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-info {
+    display: grid;
+    gap: 2rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.contact-item.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.contact-item:hover {
+    transform: translateX(10px);
+}
+
+.contact-item .icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.contact-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* FOOTER */
+.footer {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 4rem 0 2rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+}
+
+.footer-section p {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+.trust-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.trust-badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-section ul li a {
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.9;
+    transition: opacity 0.3s;
+}
+
+.footer-section ul li a:hover {
+    opacity: 1;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.8;
+}
+
+/* BOUTON RETOUR EN HAUT */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.3s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+}
+
+/* MODAL PANIER */
+.panier-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 1rem;
+}
+
+.panier-modal.active {
+    display: flex;
+}
+
+.panier-modal-content {
+    background: var(--white);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.panier-modal-header {
+    padding: 1.5rem 2rem;
+    background: var(--primary-color);
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panier-modal-header h2 {
+    margin: 0;
+}
+
+.close-panier {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s;
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-panier:hover {
+    transform: scale(1.2);
+}
+
+.panier-modal-body {
+    padding: 2rem;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.panier-promo-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--gray);
+}
+
+.promo-input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.promo-input {
+    flex-grow: 1;
+    padding: 0.8rem;
+    border: 2px solid var(--gray);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-size: 16px;
+}
+
+.btn-promo {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+    min-height: 44px;
+}
+
+.btn-promo:hover {
+    background: var(--primary-dark);
+}
+
+.promo-message {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    min-height: 1.2rem;
+}
+
+.promo-message.success {
+    color: var(--primary-color);
+}
+
+.promo-message.error {
+    color: var(--accent-color);
+}
+
+.panier-items, .favorites-items {
+    margin-bottom: 1.5rem;
+}
+
+.panier-vide, .favorites-vide {
+    text-align: center;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 2rem;
+}
+
+.panier-item, .favorite-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gray);
+}
+
+.panier-item-image, .favorite-item-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.panier-item-image img, .favorite-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.panier-item-details, .favorite-item-details {
+    flex-grow: 1;
+}
+
+.panier-item-title, .favorite-item-title {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.panier-item-price, .favorite-item-price {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.panier-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quantity-btn {
+    background: var(--gray);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    min-height: 30px;
+    min-width: 30px;
+}
+
+.quantity-btn:hover {
+    background: var(--text-light);
+    color: var(--white);
+}
+
+.remove-item, .remove-favorite {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.3s;
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.remove-item:hover, .remove-favorite:hover {
+    transform: scale(1.2);
+}
+
+.panier-livraison {
+    margin-bottom: 1.5rem;
+}
+
+.livraison-option {
+    margin-bottom: 0.5rem;
+}
+
+.livraison-option input {
+    margin-right: 0.5rem;
+}
+
+.livraison-option label {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.livraison-option label:hover {
+    background: var(--gray-light);
+}
+
+.livraison-prix {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.panier-totals {
+    border-top: 2px solid var(--gray);
+    padding-top: 1.5rem;
+}
+
+.panier-sous-total,
+.panier-promo,
+.panier-livraison-total,
+.panier-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+    padding: 0.3rem 0;
+}
+
+.panier-total {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    border-top: 1px solid var(--gray);
+    padding-top: 0.8rem;
+    margin-top: 0.8rem;
+}
+
+.panier-modal-actions {
+    padding: 1.5rem 2rem;
+    background: var(--gray-light);
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-danger {
+    background: var(--accent-color);
+    color: var(--white);
+}
+
+.btn-danger:hover {
+    background: #e55a5a;
+}
+
+.btn-success {
+    background: var(--primary-color);
+    color: var(--white);
+    flex-grow: 1;
+}
+
+.btn-success:hover {
+    background: var(--primary-dark);
+}
+
+/* STYLES POUR LE PROCESSUS DE PAIEMENT INTÉGRÉ */
+.paiement-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--gray);
+}
+
+.paiement-header h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.paiement-sous-titre {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+/* Adaptation du formulaire pour la modal */
+.panier-modal-body .creation-form {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+}
+
+.panier-modal-body .creation-form h4 {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 1rem;
+    margin: -1rem -1rem 1.5rem -1rem;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+}
+
+/* Ajustements pour la modal de paiement */
+#panier-step-2 {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0 0.5rem;
+}
+
+/* NOTIFICATIONS */
+.notification {
+    position: fixed;
+    top: 100px;
+    right: 2rem;
+    background: var(--white);
+    color: var(--text-dark);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+    border-left: 4px solid var(--primary-color);
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    z-index: 3000;
+    max-width: 300px;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    border-left-color: var(--primary-color);
+}
+
+.notification.error {
+    border-left-color: var(--accent-color);
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ANIMATIONS POUR LES CARTES */
+.valeur-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.valeur-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .hero-content {
+        gap: 3rem;
+    }
     
-    <!-- SEO OPTIMISÉ -->
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://aupalaisdesarts.fr">
-    <meta name="keywords" content="panier osier, artisanat marocain, vannerie, fait main, création sur mesure, panier naturel">
+    .hero-text h1 {
+        font-size: 3rem;
+    }
     
-    <!-- MÉDIA SOCIAUX -->
-    <meta property="og:title" content="Au Palais Des Arts - Créations Artisanales en Osier du Maroc">
-    <meta property="og:description" content="Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains.">
-    <meta property="og:image" content="https://aupalaisdesarts.fr/images/og-image.jpg">
-    <meta property="og:url" content="https://aupalaisdesarts.fr">
-    <meta property="og:type" content="website">
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
     
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Au Palais Des Arts - Artisanat Marocain">
-    <meta name="twitter:description" content="Paniers artisanaux en osier 100% faits main au Maroc">
+    .section-padding {
+        padding: 60px 0;
+    }
     
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1E6B4E">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="apple-touch-icon" href="images/icon-192x192.png">
+    .hero {
+        padding: 120px 0 60px;
+        margin-top: 70px;
+    }
     
-    <!-- ANALYTICS -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-    </script>
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
     
-    <link rel="stylesheet" href="style.css">
-    <link rel="preload" href="script.js" as="script">
-</head>
-<body>
-    <!-- Skip Link pour accessibilité -->
-    <a href="#main-content" class="skip-link">Passer au contenu principal</a>
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-text p {
+        font-size: 1.1rem;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .hero-stats {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .nav-toggle {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--white);
+        flex-direction: column;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .nav-actions {
+        margin-top: 1rem;
+        justify-content: center;
+    }
+    
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .creation-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .origine-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .panier-modal-actions {
+        flex-direction: column;
+    }
+    
+    .back-to-top {
+        bottom: 1rem;
+        right: 1rem;
+    }
 
-    <!-- Loading Screen -->
-    <div id="loadingScreen" class="loading-screen">
-        <div class="loading-content">
-            <div class="loading-logo">🧺</div>
-            <h1>Au Palais Des Arts</h1>
-            <p>Chargement de l'artisanat marocain...</p>
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
-        </div>
-    </div>
+    /* Responsive pour le processus de paiement */
+    .panier-modal-body .creation-form h4 {
+        margin: -1rem -0.5rem 1.5rem -0.5rem;
+        font-size: 1.2rem;
+    }
+    
+    #panier-step-2 {
+        max-height: 50vh;
+    }
 
-    <!-- Header -->
-    <header id="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-image">
-                        <img src="images/logo.png" 
-                             alt="Au Palais Des Arts - Logo" 
-                             class="logo-img"
-                             width="60" height="60"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <span class="logo-fallback" style="display: none;">🌿</span>
-                    </div>
-                    <div class="logo-text">
-                        <h1>Au Palais Des Arts</h1>
-                        <p>Artisanat marocain d'exception</p>
-                    </div>
-                </div>
-                
-                <nav class="nav" aria-label="Navigation principale">
-                    <button class="nav-toggle" id="navToggle" aria-label="Menu navigation" aria-expanded="false">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <div class="nav-menu" id="navMenu">
-                        <a href="#produits" class="nav-link">Nos Créations</a>
-                        <a href="#histoire" class="nav-link">Notre Histoire</a>
-                        <a href="#sur-mesure" class="nav-link">Sur Mesure</a>
-                        <a href="#avis" class="nav-link">Avis Clients</a>
-                        <a href="#contact" class="nav-link">Contact</a>
-                        <div class="nav-actions">
-                            <button class="favorites-btn" id="favoritesBtn" aria-label="Voir mes favoris">
-                                ❤️ <span class="favorites-count">0</span>
-                            </button>
-                            <button class="cart-btn" id="cartBtn" aria-label="Ouvrir le panier" aria-expanded="false">
-                                🛒 <span class="cart-count">0</span>
-                            </button>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
+    .product-card {
+        min-height: auto;
+    }
+}
 
-    <main id="main-content">
-        <!-- Hero Section -->
-        <section class="hero" id="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <h1>L'Art de la Vannerie Marocaine</h1>
-                        <p>Découvrez nos créations uniques en osier, 100% faites main au Maroc par des artisans passionnés</p>
-                        <div class="hero-buttons">
-                            <a href="#produits" class="btn btn-primary">Découvrir nos créations</a>
-                            <a href="#histoire" class="btn btn-secondary">Notre Histoire</a>
-                        </div>
-                        <div class="hero-stats">
-                            <div class="stat">
-                                <span class="number">38</span>
-                                <span class="label">Ans d'expertise</span>
-                            </div>
-                            <div class="stat">
-                                <span class="number">5000+</span>
-                                <span class="label">Créations vendues</span>
-                            </div>
-                            <div class="stat">
-                                <span class="number">4.9</span>
-                                <span class="label">/5 Satisfaction</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-image">
-                        <div class="hero-visual">
-                            <div class="floating-element">🌿</div>
-                            <div class="floating-element">🧺</div>
-                            <div class="floating-element">🇲🇦</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+@media (max-width: 480px) {
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+    
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .creation-form-container {
+        padding: 1.5rem;
+    }
+    
+    .panier-modal-content {
+        margin: 1rem;
+    }
+    
+    .panier-modal-header,
+    .panier-modal-body,
+    .panier-modal-actions {
+        padding: 1rem;
+    }
 
-        <!-- Section Présentation -->
-        <section class="presentation section-padding" id="histoire">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Notre Histoire</h2>
-                    <p>Transmettre l'excellence artisanale marocaine depuis trois générations</p>
-                </div>
-                <div class="histoire-content">
-                    <div class="histoire-text">
-                        <h3>Un Savoir-Faire Ancestral du Maroc</h3>
-                        <p>Fondé en 1985 par la famille Martin, <strong>Au Palais Des Arts</strong> perpétue la tradition du tissage d'osier et du travail artisanal de qualité. <strong>Nos créations sont entièrement fabriquées au Maroc</strong> par des artisans locaux qui maîtrisent des techniques ancestrales.</p>
-                        
-                        <div class="origine-info">
-                            <div class="origine-badge">
-                                <span class="origine-icon">🇲🇦</span>
-                                <div>
-                                    <h4>Origine Marocaine</h4>
-                                    <p>100% fait main au Maroc par des artisans locaux</p>
-                                </div>
-                            </div>
-                            <div class="origine-badge">
-                                <span class="origine-icon">👐</span>
-                                <div>
-                                    <h4>100% Artisanal</h4>
-                                    <p>Techniques traditionnelles transmises de génération en génération</p>
-                                </div>
-                            </div>
-                        </div>
+    .nav-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 
-                        <p>Chaque panier est conçu avec passion et expertise, utilisant des matériaux naturels et durables provenant des régions marocaines. Nous collaborons étroitement avec des coopératives d'artisans qui préservent ce savoir-faire unique.</p>
-                        
-                        <div class="valeurs-grid">
-                            <div class="valeur-card">
-                                <div class="valeur-icon">🌱</div>
-                                <h4>Éco-responsable</h4>
-                                <p>Osier 100% naturel de cultures durables marocaines</p>
-                            </div>
-                            <div class="valeur-card">
-                                <div class="valeur-icon">👐</div>
-                                <h4>Fait Main</h4>
-                                <p>Techniques ancestrales marocaines transmises</p>
-                            </div>
-                            <div class="valeur-card">
-                                <div class="valeur-icon">🇲🇦</div>
-                                <h4>Origine Maroc</h4>
-                                <p>Fabriqué au Maroc par des artisans locaux</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    .favorites-btn, .cart-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
 
-        <!-- Section Produits -->
-        <section class="produits section-padding" id="produits">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Nos 7 Créations en Osier du Maroc</h2>
-                    <p>Pièces uniques faites main avec des techniques ancestrales marocaines</p>
-                </div>
-
-                <!-- Code Promo Banner -->
-                <div class="promo-banner" id="promoBanner">
-                    <div class="promo-content">
-                        <span class="promo-icon">🎁</span>
-                        <span class="promo-text">Code promo : <strong>BIENVENUE10</strong> pour -10% sur votre première commande !</span>
-                        <button class="promo-close" onclick="fermerPromoBanner()" aria-label="Fermer la bannière">×</button>
-                    </div>
-                </div>
-
-                <div class="products-grid" id="productsGrid">
-                    <!-- Les produits seront générés par JavaScript -->
-                </div>
-
-                <!-- Section Produits Récemment Consultés -->
-                <div id="recently-viewed-section" style="display: none;">
-                    <div class="section-header">
-                        <h2>Récemment Consultés</h2>
-                        <p>Retrouvez les produits que vous avez récemment regardés</p>
-                    </div>
-                    <div class="products-grid" id="recently-viewed-grid">
-                        <!-- Les produits récemment consultés seront insérés ici -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Création sur Mesure -->
-        <section class="creation-sur-mesure section-padding" id="sur-mesure">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Création sur Mesure</h2>
-                    <p>Votre projet unique, réalisé par nos artisans marocains</p>
-                </div>
-                
-                <div class="creation-content">
-                    <div class="creation-text">
-                        <h3>Votre Vision, Notre Savoir-Faire</h3>
-                        <p>Vous avez un projet spécifique ? Une idée unique ? Nos artisans marocains peuvent créer <strong>votre pièce sur mesure</strong> selon vos envies et besoins.</p>
-                        
-                        <div class="avantages-list">
-                            <div class="avantage">
-                                <span class="avantage-icon">🎨</span>
-                                <div>
-                                    <h4>Design Personnalisé</h4>
-                                    <p>Dimensions, formes et couleurs adaptées à vos besoins</p>
-                                </div>
-                            </div>
-                            <div class="avantage">
-                                <span class="avantage-icon">👨‍🎨</span>
-                                <div>
-                                    <h4>Expertise Marocaine</h4>
-                                    <p>Réalisé par nos artisans expérimentés au Maroc</p>
-                                </div>
-                            </div>
-                            <div class="avantage">
-                                <span class="avantage-icon">⏱️</span>
-                                <div>
-                                    <h4>Accompagnement</h4>
-                                    <p>Suivi personnalisé de votre projet jusqu'à la livraison</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="creation-form-container">
-                        <form class="creation-form" id="creationForm">
-                            <h4>Parlez-nous de votre projet</h4>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="creation-nom">Nom complet *</label>
-                                    <input type="text" id="creation-nom" name="nom" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="creation-email">Email *</label>
-                                    <input type="email" id="creation-email" name="email" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="creation-telephone">Téléphone</label>
-                                <input type="tel" id="creation-telephone" name="telephone">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="creation-type">Type de création *</label>
-                                <select id="creation-type" name="type" required>
-                                    <option value="">Choisissez le type</option>
-                                    <option value="panier">Panier sur mesure</option>
-                                    <option value="corbeille">Corbeille personnalisée</option>
-                                    <option value="decoration">Décoration intérieure</option>
-                                    <option value="mobilier">Mobilier en osier</option>
-                                    <option value="autre">Autre projet</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="creation-dimensions">Dimensions souhaitées</label>
-                                <input type="text" id="creation-dimensions" name="dimensions" placeholder="Ex: 40x30x25cm">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="creation-description">Description de votre projet *</label>
-                                <textarea id="creation-description" name="description" rows="5" required placeholder="Décrivez en détail votre projet, vos attentes, l'usage prévu..."></textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="creation-budget">Budget estimatif</label>
-                                <input type="text" id="creation-budget" name="budget" placeholder="Ex: 50-100€">
-                            </div>
-                            
-                            <div class="form-group checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="origine" required>
-                                    <span class="checkmark"></span>
-                                    Je comprends que mes créations seront fabriquées au Maroc par des artisans locaux *
-                                </label>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary btn-full">
-                                🎨 Envoyer ma demande de création sur mesure
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Avis -->
-        <section class="avis section-padding" id="avis">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Avis Clients</h2>
-                    <p>Ce que disent nos clients satisfaits</p>
-                </div>
-                <div class="avis-grid" id="avisGrid">
-                    <!-- Les avis seront générés par JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Contact -->
-        <section class="contact section-padding" id="contact">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Contactez-nous</h2>
-                    <p>Une question ? Un projet sur mesure ?</p>
-                </div>
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <div class="icon">📧</div>
-                            <div class="details">
-                                <h3>Email</h3>
-                                <p>contact@aupalaisdesarts.fr</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="icon">📞</div>
-                            <div class="details">
-                                <h3>Téléphone</h3>
-                                <p>01 23 45 67 89</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="icon">📍</div>
-                            <div class="details">
-                                <h3>Atelier Partenaire</h3>
-                                <p>Coopérative d'artisans<br>Marrakech, Maroc</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Au Palais Des Arts</h3>
-                    <p>Artisanat marocain d'exception depuis 1985</p>
-                    <div class="trust-badges">
-                        <span class="trust-badge">🌿 100% Fait main</span>
-                        <span class="trust-badge">🇲🇦 Fabriqué au Maroc</span>
-                        <span class="trust-badge">🚚 Livraison France</span>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Navigation</h3>
-                    <ul>
-                        <li><a href="#produits">Nos créations</a></li>
-                        <li><a href="#histoire">Notre histoire</a></li>
-                        <li><a href="#sur-mesure">Création sur mesure</a></li>
-                        <li><a href="#avis">Avis clients</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Informations Légales</h3>
-                    <ul>
-                        <li><a href="mentions-legales.html">Mentions légales</a></li>
-                        <li><a href="cgv.html">CGV</a></li>
-                        <li><a href="politique-confidentialite.html">Politique de confidentialité</a></li>
-                        <li>✓ 100% Fait main au Maroc</li>
-                        <li>✓ Artisanat traditionnel</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Au Palais Des Arts. Artisanat marocain - Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modal Panier avec processus de paiement intégré -->
-    <div id="panierModal" class="panier-modal">
-        <div class="panier-modal-content">
-            <div class="panier-modal-header">
-                <h2 id="panierModalTitle">🛒 Votre Panier</h2>
-                <button class="close-panier" id="closePanier" aria-label="Fermer le panier">×</button>
-            </div>
-            <div class="panier-modal-body">
-                <!-- Étape 1: Panier -->
-                <div id="panier-step-1">
-                    <!-- Section code promo -->
-                    <div class="panier-promo-section">
-                        <div class="promo-input-group">
-                            <input type="text" id="codePromoInput" class="promo-input" placeholder="Code promo">
-                            <button class="btn-promo" onclick="appliquerCodePromo()">Appliquer</button>
-                        </div>
-                        <div id="promoMessage" class="promo-message"></div>
-                    </div>
-
-                    <!-- Liste des articles -->
-                    <div class="panier-items" id="panier-items">
-                        <!-- Les articles du panier seront insérés ici -->
-                    </div>
-
-                    <!-- Options de livraison -->
-                    <div class="panier-livraison">
-                        <h3>Livraison</h3>
-                        <div class="livraison-option">
-                            <label>
-                                <input type="radio" name="livraison" value="standard" checked>
-                                Livraison standard
-                                <span class="livraison-prix">7,90€</span>
-                            </label>
-                        </div>
-                        <div class="livraison-option">
-                            <label>
-                                <input type="radio" name="livraison" value="express">
-                                Livraison express
-                                <span class="livraison-prix">14,90€</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Totaux -->
-                    <div class="panier-totals">
-                        <div class="panier-sous-total">
-                            <span>Sous-total</span>
-                            <span id="sous-total">0,00€</span>
-                        </div>
-                        <div class="panier-promo" id="panier-promo" style="display: none;">
-                            <span>Réduction</span>
-                            <span id="montant-promo">-0,00€</span>
-                        </div>
-                        <div class="panier-livraison-total">
-                            <span>Livraison</span>
-                            <span id="frais-livraison">0,00€</span>
-                        </div>
-                        <div class="panier-total">
-                            <span>Total</span>
-                            <span id="total-panier">0,00€</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Étape 2: Paiement -->
-                <div id="panier-step-2" style="display: none;">
-                    <div class="paiement-header">
-                        <h3>💳 Finaliser votre commande</h3>
-                        <p class="paiement-sous-titre">Remplissez vos informations pour compléter votre achat</p>
-                    </div>
-
-                    <form class="creation-form" id="paiementForm">
-                        <h4>Informations de livraison</h4>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="prenom">Prénom *</label>
-                                <input type="text" id="prenom" name="prenom" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="nom">Nom *</label>
-                                <input type="text" id="nom" name="nom" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="adresse">Adresse *</label>
-                            <input type="text" id="adresse" name="adresse" required>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="code-postal">Code postal *</label>
-                                <input type="text" id="code-postal" name="code-postal" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="ville">Ville *</label>
-                                <input type="text" id="ville" name="ville" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="telephone">Téléphone *</label>
-                            <input type="tel" id="telephone" name="telephone" required>
-                        </div>
-
-                        <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Méthode de paiement</h4>
-                        
-                        <div class="form-group">
-                            <label for="carte-num">Numéro de carte *</label>
-                            <input type="text" id="carte-num" name="carte-num" placeholder="1234 5678 9012 3456" required>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="carte-exp">Date d'expiration *</label>
-                                <input type="text" id="carte-exp" name="carte-exp" placeholder="MM/AA" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="carte-cvv">CVV *</label>
-                                <input type="text" id="carte-cvv" name="carte-cvv" placeholder="123" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group checkbox-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="conditions" required>
-                                <span class="checkmark"></span>
-                                J'accepte les <a href="cgv.html" target="_blank">conditions générales de vente</a> *
-                            </label>
-                        </div>
-                        
-                        <p style="text-align: center; margin: 1rem 0; font-size: 0.9rem; color: var(--text-light);">
-                            🔒 Paiement sécurisé - Vos données sont protégées
-                        </p>
-                    </form>
-                </div>
-            </div>
-            <div class="panier-modal-actions">
-                <!-- Actions Étape 1 -->
-                <div id="actions-step-1">
-                    <button class="btn btn-danger" id="viderPanierBtn">Vider le panier</button>
-                    <button class="btn btn-success" id="commanderBtn">Commander</button>
-                </div>
-                
-                <!-- Actions Étape 2 -->
-                <div id="actions-step-2" style="display: none;">
-                    <button class="btn btn-secondary" id="retourPanierBtn">← Retour au panier</button>
-                    <button class="btn btn-success" id="paiementBtn">💳 Payer ma commande</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Favoris -->
-    <div id="favoritesModal" class="panier-modal">
-        <div class="panier-modal-content">
-            <div class="panier-modal-header">
-                <h2>❤️ Mes Favoris</h2>
-                <button class="close-panier" id="closeFavorites" aria-label="Fermer les favoris">×</button>
-            </div>
-            <div class="panier-modal-body">
-                <div class="favorites-items" id="favorites-items">
-                    <!-- Les produits favoris seront insérés ici -->
-                </div>
-            </div>
-            <div class="panier-modal-actions">
-                <button class="btn btn-secondary" id="closeFavoritesBtn">Fermer</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bouton Retour en Haut -->
-    <button id="backToTop" class="back-to-top" aria-label="Retour en haut">↑</button>
-
-    <!-- Conteneur pour les notifications -->
-    <div id="notificationContainer"></div>
-
-    <script src="config.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+/* Optimisations pour les écrans très petits */
+@media (max-width: 360px) {
+    .hero-text h1 {
+        font-size: 1.8rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.6rem;
+    }
+    
+    .product-card {
+        margin: 0 10px;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+}

@@ -21,18 +21,6 @@
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Mode sombre optionnel */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #1a1a1a;
-        --text-dark: #ffffff;
-        --text-light: #cccccc;
-        --white: #2d3748;
-        --gray-light: #4a5568;
-        --gray: #718096;
-    }
-}
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
@@ -903,6 +891,31 @@ header {
     margin-top: 0.2rem;
 }
 
+/* MESSAGE DE CONFIRMATION */
+.confirmation-message {
+    background: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
+    animation: fadeIn 0.5s ease;
+    border-left: 4px solid #45a049;
+    box-shadow: 0 2px 10px rgba(76, 175, 80, 0.3);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* AVIS SECTION */
 .avis-grid {
     display: grid;
@@ -1474,11 +1487,15 @@ header {
 }
 
 .notification.success {
-    border-left-color: var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+    border-left-color: var(--primary-dark);
 }
 
 .notification.error {
-    border-left-color: var(--accent-color);
+    background: var(--accent-color);
+    color: white;
+    border-left-color: #e55a5a;
 }
 
 .notification-content {
@@ -1626,6 +1643,12 @@ header {
     .product-card {
         min-height: auto;
     }
+
+    /* Message de confirmation responsive */
+    .confirmation-message {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1675,23 +1698,11 @@ header {
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
     }
-}
 
-/* Optimisations pour les écrans très petits */
-@media (max-width: 360px) {
-    .hero-text h1 {
-        font-size: 1.8rem;
-    }
-    
-    .section-header h2 {
-        font-size: 1.6rem;
-    }
-    
-    .product-card {
-        margin: 0 10px;
-    }
-    
-    .container {
-        padding: 0 10px;
+    /* Notification responsive */
+    .notification {
+        right: 1rem;
+        left: 1rem;
+        max-width: none;
     }
 }

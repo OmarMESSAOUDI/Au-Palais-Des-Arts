@@ -1,3 +1,4 @@
+Index.HTML :
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -14,7 +15,7 @@
     <!-- MÉDIA SOCIAUX -->
     <meta property="og:title" content="Au Palais Des Arts - Créations Artisanales en Osier du Maroc">
     <meta property="og:description" content="Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains.">
-    <meta property="og:image" content="https://aupalaisdesarts.fr/images/og-image.jpg">
+    <meta property="og:image" content="https://aupalaisdesarts.fr/logo-social.jpg">
     <meta property="og:url" content="https://aupalaisdesarts.fr">
     <meta property="og:type" content="website">
     
@@ -22,12 +23,24 @@
     <meta name="twitter:title" content="Au Palais Des Arts - Artisanat Marocain">
     <meta name="twitter:description" content="Paniers artisanaux en osier 100% faits main au Maroc">
     
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Au Palais Des Arts",
+      "description": "Paniers artisanaux en osier 100% faits main au Maroc",
+      "url": "https://aupalaisdesarts.fr",
+      "logo": "https://aupalaisdesarts.fr/Au_Palais_Des_Arts.png",
+      "sameAs": []
+    }
+    </script>
+    
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1E6B4E">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="apple-touch-icon" href="images/icon-192x192.png">
     
     <!-- ANALYTICS -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -39,7 +52,6 @@
     </script>
     
     <link rel="stylesheet" href="style.css">
-    <link rel="preload" href="script.js" as="script">
 </head>
 <body>
     <!-- Skip Link pour accessibilité -->
@@ -63,10 +75,9 @@
             <div class="header-content">
                 <div class="logo">
                     <div class="logo-image">
-                        <img src="images/logo.png" 
+                        <img src="Au_Palais_Des_Arts.png" 
                              alt="Au Palais Des Arts - Logo" 
                              class="logo-img"
-                             width="60" height="60"
                              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="logo-fallback" style="display: none;">🌿</span>
                     </div>
@@ -193,7 +204,7 @@
             </div>
         </section>
 
-         <!-- Section Produits -->
+        <!-- Section Produits -->
         <section class="produits section-padding" id="produits">
             <div class="container">
                 <div class="section-header">
@@ -217,7 +228,7 @@
                         <button class="favorite-btn" data-product-id="1" aria-label="Ajouter aux favoris">🤍</button>
                         <div class="product-image-container">
                             <div class="product-image">
-                                <img src="images/panier-rectangulaire-jacinthe.jpg" 
+                                <img src="Panier rectangulaire en jacinthe d'eau.jpg" 
                                      alt="Panier Rectangulaire en Jacinthe d'Eau - Vue de face" 
                                      class="product-img"
                                      loading="lazy"
@@ -253,7 +264,7 @@
                         <button class="favorite-btn" data-product-id="2" aria-label="Ajouter aux favoris">🤍</button>
                         <div class="product-image-container">
                             <div class="product-image">
-                                <img src="images/panier-rond-jacinthe.jpg" 
+                                <img src="Panier rond jacinthe d'eau H36.5 cm Lian.jpg" 
                                      alt="Panier Rond Jacinthe d'Eau H36.5 - Vue perspective" 
                                      class="product-img"
                                      loading="lazy"
@@ -289,7 +300,7 @@
                         <button class="favorite-btn" data-product-id="3" aria-label="Ajouter aux favoris">🤍</button>
                         <div class="product-image-container">
                             <div class="product-image">
-                                <img src="images/panier-tresse-rectangulaire.jpg" 
+                                <img src="Panier tressé rectangulaire.jpg" 
                                      alt="Panier Tressé Rectangulaire - Détail du tissage" 
                                      class="product-img"
                                      loading="lazy"
@@ -325,7 +336,7 @@
                         <button class="favorite-btn" data-product-id="4" aria-label="Ajouter aux favoris">🤍</button>
                         <div class="product-image-container">
                             <div class="product-image">
-                                <img src="images/panier-double-compartiment.jpg" 
+                                <img src="Panier à linge double compartiment.jpg" 
                                      alt="Panier Double Compartiment - Vue montrant les deux sections" 
                                      class="product-img"
                                      loading="lazy"
@@ -361,7 +372,7 @@
                         <button class="favorite-btn" data-product-id="5" aria-label="Ajouter aux favoris">🤍</button>
                         <div class="product-image-container">
                             <div class="product-image">
-                                <img src="images/panier-feuilles-palmier.jpg" 
+                                <img src="Panier à linge en feuilles de palmier.jpg" 
                                      alt="Panier en Feuilles de Palmier - Texture naturelle visible" 
                                      class="product-img"
                                      loading="lazy"
@@ -397,7 +408,7 @@
                         <button class="favorite-btn" data-product-id="6" aria-label="Ajouter aux favoris">🤍</button>
                         <div class="product-image-container">
                             <div class="product-image">
-                                <img src="images/panier-rond-osier.jpg" 
+                                <img src="Panier à linge rond en osier.jpg" 
                                      alt="Panier Rond en Osier - Forme circulaire traditionnelle" 
                                      class="product-img"
                                      loading="lazy"
@@ -433,7 +444,7 @@
                         <button class="favorite-btn" data-product-id="7" aria-label="Ajouter aux favoris">🤍</button>
                         <div class="product-image-container">
                             <div class="product-image">
-                                <img src="images/panier-ovale-rotin.jpg" 
+                                <img src="Lot de 4 Paniers.jpg" 
                                      alt="Panier Ovale en Rotin Naturel - Design ovale élégant" 
                                      class="product-img"
                                      loading="lazy"
@@ -462,20 +473,6 @@
                             </button>
                         </div>
                     </div>
-                </div>
-
-
-                <!-- Code Promo Banner -->
-                <div class="promo-banner" id="promoBanner">
-                    <div class="promo-content">
-                        <span class="promo-icon">🎁</span>
-                        <span class="promo-text">Code promo : <strong>BIENVENUE10</strong> pour -10% sur votre première commande !</span>
-                        <button class="promo-close" onclick="fermerPromoBanner()" aria-label="Fermer la bannière">×</button>
-                    </div>
-                </div>
-
-                <div class="products-grid" id="productsGrid">
-                    <!-- Les produits seront générés par JavaScript -->
                 </div>
 
                 <!-- Section Produits Récemment Consultés -->
@@ -600,8 +597,48 @@
                     <h2>Avis Clients</h2>
                     <p>Ce que disent nos clients satisfaits</p>
                 </div>
-                <div class="avis-grid" id="avisGrid">
-                    <!-- Les avis seront générés par JavaScript -->
+                <div class="avis-grid">
+                    <div class="avis-card">
+                        <div class="avis-header">
+                            <div class="avis-client">
+                                <div class="client-avatar">M</div>
+                                <div>
+                                    <h4>Marie L.</h4>
+                                    <div class="avis-rating">★★★★★</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="avis-text">"Le panier rectangulaire est absolument magnifique ! La qualité de tissage est exceptionnelle. Savoir qu'il est fait main au Maroc ajoute une valeur sentimentale. Livraison rapide et emballage soigné."</p>
+                        <div class="avis-date">15/10/2024</div>
+                    </div>
+
+                    <div class="avis-card">
+                        <div class="avis-header">
+                            <div class="avis-client">
+                                <div class="client-avatar">P</div>
+                                <div>
+                                    <h4>Pierre D.</h4>
+                                    <div class="avis-rating">★★★★★</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="avis-text">"J'ai offert le panier double compartiment à ma femme et elle en est ravie. Pratique et élégant, il trône maintenant dans notre chambre. La qualité artisanale marocaine est remarquable !"</p>
+                        <div class="avis-date">12/10/2024</div>
+                    </div>
+
+                    <div class="avis-card">
+                        <div class="avis-header">
+                            <div class="avis-client">
+                                <div class="client-avatar">S</div>
+                                <div>
+                                    <h4>Sophie M.</h4>
+                                    <div class="avis-rating">★★★★☆</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="avis-text">"Très beau panier en feuilles de palmier, léger et résistant. Le côté écologique et l'origine marocaine sont appréciables. Petit bémol : une légère odeur au début, mais qui part rapidement."</p>
+                        <div class="avis-date">08/10/2024</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -865,7 +902,6 @@
     <!-- Conteneur pour les notifications -->
     <div id="notificationContainer"></div>
 
-    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

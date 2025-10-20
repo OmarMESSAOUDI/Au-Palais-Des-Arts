@@ -1,3 +1,4 @@
+
 // Gestion du chargement de la page
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM chargé - Initialisation de l app');
@@ -21,7 +22,6 @@ function initializeApp() {
     initAnimations();
     initFormValidation();
     initProductTracking();
-    initEnhancedAnalytics();
     
     console.log('Application initialisée avec succès');
 }
@@ -44,28 +44,25 @@ function hideLoadingScreen() {
     }
 }
 
-// Gestion des images manquantes - VERSION AMÉLIORÉE
+// Gestion des images manquantes
 function handleImageError(img) {
     console.log('Image non trouvée:', img.src);
     const productName = img.alt || 'Produit';
-    
-    // Créer un placeholder plus informatif
-    const placeholderSVG = `
+    // Créer une image de placeholder plus jolie
+    img.src = `data:image/svg+xml;base64,${btoa(`
         <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100%" height="100%" fill="#f8f5f2"/>
-            <circle cx="50%" cy="40%" r="40" fill="#1E6B4E" opacity="0.1"/>
-            <text x="50%" y="50%" text-anchor="middle" font-family="Arial" font-size="16" fill="#1E6B4E">
-                🧺 ${productName}
+            <rect width="100%" height="100%" fill="#1E6B4E"/>
+            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" 
+                  font-family="Arial, sans-serif" font-size="18" fill="white">
+                ${productName}
             </text>
-            <text x="50%" y="65%" text-anchor="middle" font-family="Arial" font-size="12" fill="#718096">
+            <text x="50%" y="65%" dominant-baseline="middle" text-anchor="middle" 
+                  font-family="Arial, sans-serif" font-size="14" fill="rgba(255,255,255,0.8)">
                 Image non disponible
             </text>
         </svg>
-    `;
-    
-    img.src = `data:image/svg+xml;base64,${btoa(placeholderSVG)}`;
+    `)}`;
     img.alt = `Placeholder pour ${productName}`;
-    img.classList.add('image-placeholder');
 }
 
 function initImageFallbacks() {
@@ -148,7 +145,7 @@ function initNavigation() {
     });
 }
 
-// Gestion des favoris - VERSION AMÉLIORÉE
+// Gestion des favoris
 function initFavorites() {
     console.log('Initialisation des favoris');
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -181,13 +178,6 @@ function initFavorites() {
 
     function toggleFavorite(productId, element) {
         const index = favorites.indexOf(productId);
-        
-        // Animation visuelle
-        element.style.transform = 'scale(1.2)';
-        setTimeout(() => {
-            element.style.transform = 'scale(1)';
-        }, 200);
-
         if (index > -1) {
             // Retirer des favoris
             favorites.splice(index, 1);
@@ -402,7 +392,7 @@ function initRecentlyViewed() {
     updateRecentlyViewedDisplay();
 }
 
-// Gestion du panier avec processus de paiement intégré - VERSION AMÉLIORÉE
+// Gestion du panier avec processus de paiement intégré
 function initCart() {
     console.log('Initialisation du panier');
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -447,66 +437,7 @@ function initCart() {
         }
     }
 
-    // AJOUT: Optimisation anti-double-clic
-    function initCartOptimizations() {
-        const addToCartButtons = document.querySelectorAll('.add-to-cart');
-        
-        addToCartButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Désactiver temporairement le bouton
-                this.disabled = true;
-                const originalText = this.innerHTML;
-                this.innerHTML = '⏳ Ajout...';
-                
-                setTimeout(() => {
-                    this.disabled = false;
-                    this.innerHTML = originalText;
-                }, 1000);
-            });
-        });
-        
-        // Sauvegarde automatique du panier
-        setInterval(() => {
-            if (cart.length > 0) {
-                localStorage.setItem('cart', JSON.stringify(cart));
-                console.log('Panier sauvegardé automatiquement');
-            }
-        }, 5000);
-    }
-    
-    // AJOUT: Animation d'ajout au panier
-    function addToCartWithAnimation(product) {
-        const existingItem = cart.find(item => item.id === product.id);
-        
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({
-                id: product.id,
-                name: product.name,
-                price: product.price,
-                image: product.image,
-                quantity: 1
-            });
-        }
-        
-        saveCart();
-        updateCartCount();
-        
-        // Animation visuelle
-        const addButton = document.querySelector(`.add-to-cart[data-product-id="${product.id}"]`);
-        if (addButton) {
-            addButton.classList.add('added');
-            setTimeout(() => addButton.classList.remove('added'), 300);
-        }
-        
-        // Si le panier est ouvert, le mettre à jour
-        if (document.getElementById('panierModal').classList.contains('active')) {
-            updateCartDisplay();
-        }
-    }
-
-    // Ajouter au panier - VERSION AMÉLIORÉE
+    // Ajouter au panier
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', function() {
             const productId = parseInt(this.dataset.productId);
@@ -534,7 +465,27 @@ function initCart() {
     });
 
     function addToCart(product) {
-        addToCartWithAnimation(product);
+        const existingItem = cart.find(item => item.id === product.id);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.image,
+                quantity: 1
+            });
+        }
+        
+        saveCart();
+        updateCartCount();
+        
+        // Si le panier est ouvert, le mettre à jour
+        if (cartModal.classList.contains('active')) {
+            updateCartDisplay();
+        }
     }
 
     // Sauvegarder le panier dans le localStorage
@@ -699,28 +650,18 @@ function initCart() {
     function validatePaymentForm() {
         const requiredFields = document.querySelectorAll('#paiementForm [required]');
         let isValid = true;
-        let firstInvalidField = null;
 
         requiredFields.forEach(field => {
             if (!field.value.trim()) {
                 isValid = false;
                 field.style.borderColor = '#FF6B6B';
-                field.setAttribute('aria-invalid', 'true');
-                
-                if (!firstInvalidField) {
-                    firstInvalidField = field;
-                }
             } else {
                 field.style.borderColor = '#1E6B4E';
-                field.setAttribute('aria-invalid', 'false');
             }
         });
 
         if (!isValid) {
             showNotification('Veuillez remplir tous les champs obligatoires', 'error');
-            if (firstInvalidField) {
-                firstInvalidField.focus();
-            }
             return false;
         }
 
@@ -729,7 +670,6 @@ function initCart() {
         if (!validateEmail(email)) {
             showNotification('Adresse email invalide', 'error');
             document.getElementById('email').style.borderColor = '#FF6B6B';
-            document.getElementById('email').setAttribute('aria-invalid', 'true');
             return false;
         }
 
@@ -738,7 +678,6 @@ function initCart() {
         if (!validatePhone(telephone)) {
             showNotification('Numéro de téléphone invalide', 'error');
             document.getElementById('telephone').style.borderColor = '#FF6B6B';
-            document.getElementById('telephone').setAttribute('aria-invalid', 'true');
             return false;
         }
 
@@ -747,7 +686,6 @@ function initCart() {
         if (cardNumber.length !== 16 || isNaN(cardNumber)) {
             showNotification('Numéro de carte invalide', 'error');
             document.getElementById('carte-num').style.borderColor = '#FF6B6B';
-            document.getElementById('carte-num').setAttribute('aria-invalid', 'true');
             return false;
         }
 
@@ -756,7 +694,6 @@ function initCart() {
         if (!/^\d{2}\/\d{2}$/.test(expDate)) {
             showNotification('Format de date invalide (MM/AA requis)', 'error');
             document.getElementById('carte-exp').style.borderColor = '#FF6B6B';
-            document.getElementById('carte-exp').setAttribute('aria-invalid', 'true');
             return false;
         }
 
@@ -765,7 +702,6 @@ function initCart() {
         if (cvv.length < 3 || isNaN(cvv)) {
             showNotification('CVV invalide', 'error');
             document.getElementById('carte-cvv').style.borderColor = '#FF6B6B';
-            document.getElementById('carte-cvv').setAttribute('aria-invalid', 'true');
             return false;
         }
 
@@ -908,9 +844,6 @@ function initCart() {
         showNotification('Article retiré du panier', 'success');
     }
 
-    // INITIALISER les optimisations
-    initCartOptimizations();
-
     // Initialiser le compteur du panier
     updateCartCount();
 }
@@ -1002,7 +935,7 @@ function initAnimations() {
     });
 }
 
-// Validation des formulaires - VERSION AMÉLIORÉE
+// Validation des formulaires - CORRECTION POUR LA CONFIRMATION
 function initFormValidation() {
     const creationForm = document.getElementById('creationForm');
     const confirmationMessage = document.getElementById('confirmationMessage');
@@ -1049,23 +982,21 @@ function validateCreationForm() {
     const requiredFields = document.querySelectorAll('#creationForm [required]');
     let isValid = true;
     let errorMessage = '';
-    let firstInvalidField = null;
 
     requiredFields.forEach(field => {
         if (!field.value.trim()) {
             isValid = false;
             field.style.borderColor = '#FF6B6B';
-            field.setAttribute('aria-invalid', 'true');
-            
-            if (!firstInvalidField) {
-                firstInvalidField = field;
+            const fieldName = field.getAttribute('name');
+            let displayName = fieldName;
+            if (displayName) {
+                displayName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+            } else {
+                displayName = 'Ce champ';
             }
-            
-            const fieldName = field.getAttribute('name') || 'Ce champ';
-            errorMessage += `${fieldName} est obligatoire. `;
+            errorMessage += `${displayName} est obligatoire. `;
         } else {
             field.style.borderColor = '#1E6B4E';
-            field.setAttribute('aria-invalid', 'false');
         }
     });
 
@@ -1074,34 +1005,18 @@ function validateCreationForm() {
     if (email && !validateEmail(email)) {
         isValid = false;
         document.getElementById('creation-email').style.borderColor = '#FF6B6B';
-        document.getElementById('creation-email').setAttribute('aria-invalid', 'true');
         errorMessage += 'Adresse email invalide. ';
     }
 
     if (!isValid) {
         showNotification(errorMessage, 'error');
-        if (firstInvalidField) {
-            firstInvalidField.focus();
-        }
     }
 
     console.log('Validation du formulaire création:', isValid);
     return isValid;
 }
 
-// Validation email
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-}
-
-// Validation téléphone
-function validatePhone(phone) {
-    const re = /^[0-9+\-\s()]{10,}$/;
-    return re.test(phone.replace(/\s/g, ''));
-}
-
-// Notifications
+// Notifications - CORRECTION POUR LA DURÉE
 function showNotification(message, type = 'success') {
     let container = document.getElementById('notificationContainer');
     if (!container) {
@@ -1150,43 +1065,6 @@ function fermerPromoBanner() {
     }
 }
 
-// NOUVELLE FONCTION: Analytics amélioré
-function initEnhancedAnalytics() {
-    // Tracking du temps passé sur la page
-    let startTime = Date.now();
-    
-    window.addEventListener('beforeunload', function() {
-        const timeSpent = Date.now() - startTime;
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'time_spent', {
-                value: Math.round(timeSpent / 1000),
-                currency: 'EUR'
-            });
-        }
-    });
-    
-    // Tracking des vues de produits
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const productId = entry.target.dataset.productId;
-                if (productId && typeof gtag !== 'undefined') {
-                    gtag('event', 'view_item', {
-                        items: [{
-                            item_id: productId,
-                            item_name: entry.target.querySelector('.product-title')?.textContent
-                        }]
-                    });
-                }
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    document.querySelectorAll('.product-card').forEach(card => {
-        observer.observe(card);
-    });
-}
-
 // Service Worker pour PWA
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
@@ -1212,3 +1090,4 @@ function debugApp() {
     console.log('Recently viewed:', localStorage.getItem('recentlyViewed'));
     console.log('=== FIN DEBUG ===');
 }
+

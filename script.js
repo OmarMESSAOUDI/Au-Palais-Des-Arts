@@ -1,4 +1,3 @@
-
 // Gestion du chargement de la page
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM chargé - Initialisation de l app');
@@ -1090,4 +1089,3 @@ function debugApp() {
     console.log('Recently viewed:', localStorage.getItem('recentlyViewed'));
     console.log('=== FIN DEBUG ===');
 }
-

@@ -143,8 +143,8 @@ header {
 }
 
 .logo-image {
-    width: 80px;
-    height: 80px;
+    width: 100px; /* Agrandi de 80px à 100px */
+    height: 100px; /* Agrandi de 80px à 100px */
     background: var(--primary-color);
     border-radius: 50%;
     display: flex;
@@ -422,6 +422,14 @@ header {
     animation: float 6s ease-in-out infinite;
 }
 
+.maroc-flag {
+    width: 60px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
 .floating-element:nth-child(1) {
     top: 20%;
     left: 10%;
@@ -506,6 +514,14 @@ header {
 
 .origine-icon {
     font-size: 2rem;
+}
+
+.maroc-flag-small {
+    width: 30px;
+    height: 22px;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
 .origine-badge h4 {
@@ -767,7 +783,9 @@ header {
     color: var(--primary-color);
     padding: 0.7rem 1.2rem;
     border-radius: 25px;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     margin-bottom: 1.5rem;
     font-size: 0.9rem;
     font-weight: 600;
@@ -1084,7 +1102,9 @@ header {
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
 }

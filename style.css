@@ -1,3 +1,5 @@
+CSS: 
+
 /* RESET ET BASES */
 * {
     margin: 0;
@@ -797,7 +799,7 @@ header {
 
 /* CRÉATION SUR MESURE */
 .creation-sur-mesure {
-    background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 100%;
+    background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 100%);
 }
 
 .creation-content {
@@ -1523,102 +1525,16 @@ header {
     gap: 0.5rem;
 }
 
-/* === AMÉLIORATIONS ACCESSIBILITÉ === */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+/* ANIMATIONS POUR LES CARTES */
+.valeur-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
 }
 
-/* Focus visible pour navigation clavier */
-*:focus {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-}
-
-/* === ÉTATS DE CHARGEMENT AMÉLIORÉS === */
-.btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none !important;
-}
-
-/* Animation de succès pour ajout au panier */
-@keyframes addToCartSuccess {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-.add-to-cart.added {
-    animation: addToCartSuccess 0.3s ease;
-    background: linear-gradient(135deg, #4CAF50, #45a049);
-}
-
-/* Feedback tactile pour mobile */
-.product-card:active {
-    transform: scale(0.98);
-}
-
-/* Amélioration de la lisibilité */
-.product-description {
-    line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-/* Images placeholder */
-.image-placeholder {
-    background: #f8f5f2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-light);
-    font-size: 0.9rem;
-}
-
-/* Indicateurs de champ invalide */
-input:invalid, select:invalid, textarea:invalid {
-    border-color: #FF6B6B;
-}
-
-input[aria-invalid="true"] {
-    border-color: #FF6B6B;
-    background-color: #FFF0F0;
-}
-
-/* === OPTIMISATIONS MOBILE AVANCÉES === */
-@media (max-width: 480px) {
-    .hero-text h1 {
-        font-size: 2.2rem;
-        line-height: 1.2;
-    }
-    
-    .product-card {
-        margin: 0 10px;
-    }
-    
-    /* Agrandir les zones de clic pour mobile */
-    .btn, .favorite-btn, .cart-btn {
-        min-height: 48px;
-        min-width: 48px;
-    }
-    
-    .nav-link {
-        padding: 12px 16px;
-        display: block;
-    }
-    
-    /* Amélioration des formulaires mobile */
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-        font-size: 16px; /* Empêche le zoom sur iOS */
-    }
+.valeur-card.animate-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* RESPONSIVE */

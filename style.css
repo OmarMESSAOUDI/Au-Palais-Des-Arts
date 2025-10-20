@@ -284,7 +284,7 @@ header {
     font-size: 0.8rem;
 }
 
-/* HERO SECTION */
+/* Hero Section 
 .hero {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
     color: var(--white);
@@ -292,6 +292,7 @@ header {
     margin-top: 80px;
     position: relative;
     overflow: hidden;
+    text-align: center;
 }
 
 .hero::before {
@@ -306,18 +307,43 @@ header {
 }
 
 .hero-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
     position: relative;
     z-index: 1;
 }
 
-.hero-text h1 {
-    font-size: 3.5rem;
+.hero-title-with-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
     margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.hero-title-with-logo h1 {
+    font-size: 3.5rem;
+    color: var(--white);
+    margin: 0;
     line-height: 1.2;
+}
+
+.hero-logo {
+    width: 80px;
+    height: 80px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    flex-shrink: 0;
+}
+
+.hero-logo-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .hero-text p {
@@ -325,6 +351,7 @@ header {
     margin-bottom: 2.5rem;
     opacity: 0.9;
     line-height: 1.6;
+    color: var(--white);
 }
 
 .hero-buttons {
@@ -332,6 +359,7 @@ header {
     gap: 1rem;
     margin-bottom: 3rem;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .btn {
@@ -372,6 +400,64 @@ header {
     transform: translateY(-3px);
 }
 
+.hero-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat {
+    text-align: center;
+}
+
+.number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+}
+
+.label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--white);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title-with-logo {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .hero-title-with-logo h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
 /* BOUTONS AJOUTER AU PANIER - VERSION DORÉE */
 .add-to-cart {
     background: linear-gradient(135deg, #D4AF37, #FFD700);

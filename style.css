@@ -286,7 +286,7 @@ header {
     font-size: 0.8rem;
 }
 
-/* NOUVEAUX STYLES POUR LA SECTION HERO AGRANDIE */
+/*  HERO SECTION */
 .hero {
     min-height: 90vh;
     display: flex;
@@ -310,26 +310,39 @@ header {
     gap: 2rem;
     align-items: center;
     justify-content: center;
+    padding-right: 2rem;
 }
 
 .hero-visual-left .floating-element {
     position: relative;
-    font-size: 5rem;
+    font-size: 4rem;
     animation: float 6s ease-in-out infinite;
     margin: 0;
 }
 
-.hero-title-container {
+.hero-main-content {
+    flex: 1;
+}
+
+.hero-title-section {
     display: flex;
     align-items: center;
     gap: 2rem;
     margin-bottom: 2rem;
-    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.hero-title-section h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--white);
+    text-align: left;
 }
 
 .hero-logo {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     background: var(--white);
     border-radius: 50%;
     display: flex;
@@ -347,23 +360,142 @@ header {
 }
 
 .hero-logo-fallback {
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 
-.hero-text h1 {
-    font-size: 4rem;
-    margin-bottom: 0;
-    line-height: 1.1;
-    flex: 1;
-}
-
-.hero-text p {
-    font-size: 1.5rem;
+.hero-main-content p {
+    font-size: 1.3rem;
     margin-bottom: 2.5rem;
     opacity: 0.9;
     line-height: 1.6;
+    text-align: left;
+    color: var(--white);
 }
 
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: flex-start;
+}
+
+.stat {
+    text-align: center;
+}
+
+.number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+}
+
+.label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--white);
+}
+
+/* Ajustements responsifs */
+@media (max-width: 1024px) {
+    .hero-title-section h1 {
+        font-size: 3rem;
+    }
+    
+    .hero-logo {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .hero-visual-left .floating-element {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .hero-visual-left {
+        flex-direction: row;
+        gap: 1rem;
+        padding-right: 0;
+        justify-content: center;
+    }
+    
+    .hero-title-section {
+        flex-direction: column;
+        gap: 1.5rem;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .hero-title-section h1 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+    
+    .hero-main-content p {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .hero-stats {
+        justify-content: center;
+    }
+    
+    .hero-logo {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title-section h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-visual-left .floating-element {
+        font-size: 2.5rem;
+    }
+    
+    .hero-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
 /* Ajustements responsifs */
 @media (max-width: 1024px) {
     .hero-text h1 {

@@ -284,175 +284,270 @@ header {
     font-size: 0.8rem;
 }
 
-/* HERO SECTION */
+/* ===== NOUVELLE SECTION HERO AVEC LOGO ===== */
+
+/* Style principal de la section Hero */
 .hero {
+    /* Dégradé de couleur de fond utilisant les variables CSS */
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    /* Couleur du texte en blanc (variable CSS) */
     color: var(--white);
+    /* Espacement intérieur : 150px haut/bas, 80px bas */
     padding: 150px 0 80px;
+    /* Marge en haut de 80px pour compenser le header fixe */
     margin-top: 80px;
+    /* Position relative pour les éléments enfants positionnés absolument */
     position: relative;
+    /* Cache tout contenu qui dépasse */
     overflow: hidden;
 }
 
+/* Pseudo-élément pour l'effet de fond décoratif */
 .hero::before {
+    /* Contenu vide requis pour les pseudo-éléments */
     content: '';
+    /* Position absolue par rapport à .hero */
     position: absolute;
+    /* Positionnement sur les 4 côtés */
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    /* SVG en arrière-plan avec forme triangulaire transparente */
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
+    /* L'image de fond couvre tout l'espace */
     background-size: cover;
 }
 
+/* Conteneur flex pour aligner texte et logo */
 .hero-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    /* Utilise Flexbox au lieu de Grid */
+    display: flex;
+    /* Répartit l'espace entre texte et logo */
+    justify-content: space-between;
+    /* Centre verticalement les éléments */
     align-items: center;
+    /* Espace de 4rem entre les éléments */
+    gap: 4rem;
+    /* Position relative pour le contexte d'empilement */
     position: relative;
+    /* Assure que le contenu est au-dessus du pseudo-élément */
     z-index: 1;
 }
 
+/* Conteneur du texte à gauche */
+.hero-text {
+    /* Prend tout l'espace disponible dans le flex container */
+    flex: 1;
+}
+
+/* Style du titre principal */
 .hero-text h1 {
+    /* Taille de police très grande */
     font-size: 3.5rem;
+    /* Espace en dessous */
     margin-bottom: 1.5rem;
+    /* Hauteur de ligne pour la lisibilité */
     line-height: 1.2;
 }
 
+/* Style du paragraphe descriptif */
 .hero-text p {
+    /* Taille de police augmentée */
     font-size: 1.3rem;
+    /* Espace en dessous */
     margin-bottom: 2.5rem;
+    /* Légère transparence pour un effet subtil */
     opacity: 0.9;
+    /* Hauteur de ligne confortable */
     line-height: 1.6;
 }
 
+/* Conteneur des boutons d'action */
 .hero-buttons {
+    /* Disposition flex pour aligner les boutons */
     display: flex;
+    /* Espace entre les boutons */
     gap: 1rem;
+    /* Espace en dessous */
     margin-bottom: 3rem;
+    /* Permet le retour à la ligne sur mobile */
     flex-wrap: wrap;
 }
 
+/* Style de base pour tous les boutons */
 .btn {
+    /* Espacement intérieur */
     padding: 1rem 2rem;
+    /* Pas de bordure par défaut */
     border: none;
+    /* Coins très arrondis */
     border-radius: 50px;
+    /* Supprime le soulignement des liens */
     text-decoration: none;
-    font-weight: 600;
+    /* Curseur en main au survol */
     cursor: pointer;
+    /* Transition fluide pour les effets */
     transition: all 0.3s;
+    /* Flexbox pour centrer le contenu */
     display: inline-flex;
+    /* Centre verticalement */
     align-items: center;
+    /* Centre horizontalement */
     justify-content: center;
+    /* Espace entre icône et texte */
     gap: 0.5rem;
+    /* Taille de police */
     font-size: 1rem;
+    /* Hauteur minimum pour l'accessibilité */
     min-height: 44px;
 }
 
+/* Style du bouton principal */
 .btn-primary {
+    /* Fond blanc */
     background: var(--white);
+    /* Texte de couleur primaire */
     color: var(--primary-color);
 }
 
+/* Effet au survol du bouton principal */
 .btn-primary:hover {
+    /* Légère élévation */
     transform: translateY(-3px);
+    /* Ombre portée */
     box-shadow: var(--shadow-lg);
 }
 
+/* Style du bouton secondaire */
 .btn-secondary {
+    /* Fond transparent */
     background: transparent;
+    /* Texte blanc */
     color: var(--white);
+    /* Bordure blanche */
     border: 2px solid var(--white);
 }
 
+/* Effet au survol du bouton secondaire */
 .btn-secondary:hover {
+    /* Fond blanc au survol */
     background: var(--white);
+    /* Texte de couleur primaire au survol */
     color: var(--primary-color);
+    /* Légère élévation */
     transform: translateY(-3px);
 }
 
-/* BOUTONS AJOUTER AU PANIER - VERSION DORÉE */
-.add-to-cart {
-    background: linear-gradient(135deg, #D4AF37, #FFD700);
-    color: #2D3748;
-    border: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.add-to-cart:hover {
-    background: linear-gradient(135deg, #B8941F, #E6C200);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-    color: #2D3748;
-}
-
+/* Conteneur des statistiques */
 .hero-stats {
+    /* Disposition flex pour les statistiques */
     display: flex;
+    /* Espace entre les statistiques */
     gap: 3rem;
 }
 
+/* Style de chaque statistique */
 .stat {
+    /* Centrage du texte */
     text-align: center;
 }
 
+/* Style du nombre dans la statistique */
 .number {
+    /* Affichage en bloc */
     display: block;
+    /* Taille de police grande */
     font-size: 2.5rem;
+    /* Texte en gras */
     font-weight: bold;
+    /* Espace en dessous */
     margin-bottom: 0.5rem;
 }
 
+/* Style du libellé de la statistique */
 .label {
+    /* Taille de police petite */
     font-size: 0.9rem;
+    /* Légère transparence */
     opacity: 0.8;
+    /* Texte en majuscules */
     text-transform: uppercase;
+    /* Espacement des lettres */
     letter-spacing: 1px;
 }
 
-.hero-visual {
-    position: relative;
-    height: 400px;
+/* ===== NOUVEAUX STYLES POUR LE LOGO ===== */
+
+/* Conteneur circulaire pour le logo */
+.logo-container {
+    /* Empêche le rétrécissement dans flexbox */
+    flex-shrink: 0;
+    /* Largeur fixe */
+    width: 220px;
+    /* Hauteur fixe (identique à la largeur pour un cercle) */
+    height: 220px;
+    /* Flexbox pour centrer le logo */
+    display: flex;
+    /* Centre verticalement */
+    align-items: center;
+    /* Centre horizontalement */
+    justify-content: center;
+    /* Fond blanc */
+    background-color: white;
+    /* Forme circulaire */
+    border-radius: 50%;
+    /* Ombre portée */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* Espacement intérieur */
+    padding: 15px;
+    /* Bordure de couleur */
+    border: 2px solid #d4b483;
 }
 
-.floating-element {
-    position: absolute;
-    font-size: 4rem;
-    animation: float 6s ease-in-out infinite;
+/* Style de l'image du logo */
+.logo {
+    /* Ne dépasse pas la largeur du conteneur */
+    max-width: 100%;
+    /* Ne dépasse pas la hauteur du conteneur */
+    max-height: 100%;
+    /* Coins arrondis (optionnel) */
+    border-radius: 50%;
 }
 
-.maroc-flag {
-    width: 60px;
-    height: 45px;
-    object-fit: cover;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
+/* ===== RESPONSIVE MOBILE ===== */
 
-.floating-element:nth-child(1) {
-    top: 20%;
-    left: 10%;
-    animation-delay: 0s;
+/* Media query pour les écrans jusqu'à 768px de large */
+@media (max-width: 768px) {
+    .hero-content {
+        /* Sur mobile : empile verticalement */
+        flex-direction: column;
+        /* Centre le texte */
+        text-align: center;
+    }
+    
+    .logo-container {
+        /* Espace au-dessus du logo sur mobile */
+        margin-top: 30px;
+        /* Taille réduite sur mobile */
+        width: 180px;
+        height: 180px;
+    }
+    
+    .hero-buttons {
+        /* Boutons en colonne sur mobile */
+        flex-direction: column;
+        /* Centre les boutons */
+        align-items: center;
+    }
+    
+    .hero-stats {
+        /* Statistiques en colonne sur mobile */
+        flex-direction: column;
+        /* Espacement réduit */
+        gap: 15px;
+    }
 }
-
-.floating-element:nth-child(2) {
-    top: 50%;
-    left: 50%;
-    animation-delay: 2s;
-}
-
-.floating-element:nth-child(3) {
-    bottom: 20%;
-    right: 10%;
-    animation-delay: 4s;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(10deg); }
-}
-
 /* SECTION HEADER */
 .section-header {
     text-align: center;

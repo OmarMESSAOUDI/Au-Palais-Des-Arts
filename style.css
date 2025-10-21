@@ -284,50 +284,50 @@ header {
     font-size: 0.8rem;
 }
 
-/* ===== NOUVELLE SECTION HERO AVEC LOGO ===== */
+/* ===== SECTION HERO - FOND VERT COMME LE LOGO ===== */
 
 /* Style principal de la section Hero */
 .hero {
-    /* Dégradé de couleur de fond utilisant les variables CSS */
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-    /* Couleur du texte en blanc (variable CSS) */
+    /* Fond uni de couleur verte correspondant au logo - À ADAPTER avec votre couleur exacte */
+    background: #1E6B4E;
+    /* Couleur du texte en blanc (doit contraster avec le fond vert) */
     color: var(--white);
-    /* Espacement intérieur : 150px haut/bas, 80px bas */
+    /* Espacement intérieur : 150px en haut, 0 sur les côtés, 80px en bas */
     padding: 150px 0 80px;
     /* Marge en haut de 80px pour compenser le header fixe */
     margin-top: 80px;
     /* Position relative pour les éléments enfants positionnés absolument */
     position: relative;
-    /* Cache tout contenu qui dépasse */
+    /* Cache tout contenu qui dépasse des bords */
     overflow: hidden;
 }
 
-/* Pseudo-élément pour l'effet de fond décoratif */
+/* Pseudo-élément pour effet décoratif subtil en arrière-plan */
 .hero::before {
     /* Contenu vide requis pour les pseudo-éléments */
     content: '';
     /* Position absolue par rapport à .hero */
     position: absolute;
-    /* Positionnement sur les 4 côtés */
+    /* Positionnement sur les 4 côtés pour couvrir toute la section */
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    /* SVG en arrière-plan avec forme triangulaire transparente */
+    /* SVG avec forme triangulaire très transparente pour texture subtile */
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
-    /* L'image de fond couvre tout l'espace */
+    /* L'image de fond couvre tout l'espace disponible */
     background-size: cover;
 }
 
-/* Conteneur flex pour aligner texte et logo */
+/* Conteneur flex pour aligner horizontalement texte et logo */
 .hero-content {
-    /* Utilise Flexbox au lieu de Grid */
+    /* Utilise Flexbox pour la disposition */
     display: flex;
-    /* Répartit l'espace entre texte et logo */
+    /* Répartit l'espace entre texte (gauche) et logo (droite) */
     justify-content: space-between;
     /* Centre verticalement les éléments */
     align-items: center;
-    /* Espace de 4rem entre les éléments */
+    /* Espace de 4rem (64px) entre le texte et le logo */
     gap: 4rem;
     /* Position relative pour le contexte d'empilement */
     position: relative;
@@ -335,91 +335,95 @@ header {
     z-index: 1;
 }
 
-/* Conteneur du texte à gauche */
+/* Conteneur du contenu texte à gauche */
 .hero-text {
-    /* Prend tout l'espace disponible dans le flex container */
+    /* Prend tout l'espace disponible dans le conteneur flex */
     flex: 1;
 }
 
-/* Style du titre principal */
+/* Style du titre principal "L'Art de la Vannerie Marocaine" */
 .hero-text h1 {
-    /* Taille de police très grande */
+    /* Taille de police très grande pour impact visuel */
     font-size: 3.5rem;
-    /* Espace en dessous */
+    /* Espace en dessous du titre */
     margin-bottom: 1.5rem;
-    /* Hauteur de ligne pour la lisibilité */
+    /* Hauteur de ligne pour une meilleure lisibilité */
     line-height: 1.2;
+    /* Couleur du texte en blanc pour contraster avec le fond vert */
+    color: var(--white);
 }
 
-/* Style du paragraphe descriptif */
+/* Style du paragraphe descriptif sous le titre */
 .hero-text p {
-    /* Taille de police augmentée */
+    /* Taille de police légèrement augmentée */
     font-size: 1.3rem;
-    /* Espace en dessous */
+    /* Espace en dessous du paragraphe */
     margin-bottom: 2.5rem;
-    /* Légère transparence pour un effet subtil */
+    /* Légère transparence pour effet visuel subtil */
     opacity: 0.9;
-    /* Hauteur de ligne confortable */
+    /* Hauteur de ligne confortable pour la lecture */
     line-height: 1.6;
+    /* Couleur du texte en blanc */
+    color: var(--white);
 }
 
 /* Conteneur des boutons d'action */
 .hero-buttons {
-    /* Disposition flex pour aligner les boutons */
+    /* Disposition flex pour aligner les boutons horizontalement */
     display: flex;
-    /* Espace entre les boutons */
+    /* Espace de 1rem (16px) entre les boutons */
     gap: 1rem;
-    /* Espace en dessous */
+    /* Espace en dessous des boutons */
     margin-bottom: 3rem;
-    /* Permet le retour à la ligne sur mobile */
+    /* Permet le retour à la ligne sur mobile si nécessaire */
     flex-wrap: wrap;
 }
 
 /* Style de base pour tous les boutons */
 .btn {
-    /* Espacement intérieur */
+    /* Espacement intérieur du bouton */
     padding: 1rem 2rem;
     /* Pas de bordure par défaut */
     border: none;
-    /* Coins très arrondis */
+    /* Coins très arrondis (forme "pill") */
     border-radius: 50px;
     /* Supprime le soulignement des liens */
     text-decoration: none;
-    /* Curseur en main au survol */
+    /* Curseur en forme de main au survol */
     cursor: pointer;
-    /* Transition fluide pour les effets */
+    /* Transition fluide pour les effets au survol */
     transition: all 0.3s;
-    /* Flexbox pour centrer le contenu */
+    /* Flexbox pour aligner icône et texte */
     display: inline-flex;
-    /* Centre verticalement */
+    /* Centre verticalement le contenu */
     align-items: center;
-    /* Centre horizontalement */
+    /* Centre horizontalement le contenu */
     justify-content: center;
     /* Espace entre icône et texte */
     gap: 0.5rem;
-    /* Taille de police */
+    /* Taille de police de base */
     font-size: 1rem;
-    /* Hauteur minimum pour l'accessibilité */
+    /* Hauteur minimum pour l'accessibilité (touch targets) */
     min-height: 44px;
 }
 
-/* Style du bouton principal */
+/* Style spécifique du bouton principal "Découvrir nos créations" */
 .btn-primary {
-    /* Fond blanc */
+    /* Fond blanc pour contraster avec le fond vert */
     background: var(--white);
-    /* Texte de couleur primaire */
+    /* Texte de couleur verte pour harmonie avec le thème */
     color: var(--primary-color);
 }
 
 /* Effet au survol du bouton principal */
 .btn-primary:hover {
-    /* Légère élévation */
+    /* Légère élévation au survol */
     transform: translateY(-3px);
-    /* Ombre portée */
+    /* Ombre portée pour effet de profondeur */
     box-shadow: var(--shadow-lg);
 }
 
-/* Style du bouton secondaire */
+/* Style spécifique du bouton secondaire "Notre Histoire" */
 .btn-secondary {
     /* Fond transparent */
     background: transparent;
@@ -433,119 +437,139 @@ header {
 .btn-secondary:hover {
     /* Fond blanc au survol */
     background: var(--white);
-    /* Texte de couleur primaire au survol */
+    /* Texte vert au survol */
     color: var(--primary-color);
-    /* Légère élévation */
+    /* Légère élévation au survol */
     transform: translateY(-3px);
 }
 
-/* Conteneur des statistiques */
+/* Conteneur des statistiques sous les boutons */
 .hero-stats {
-    /* Disposition flex pour les statistiques */
+    /* Disposition flex pour aligner les statistiques horizontalement */
     display: flex;
-    /* Espace entre les statistiques */
+    /* Espace de 3rem (48px) entre les statistiques */
     gap: 3rem;
 }
 
-/* Style de chaque statistique */
+/* Style de chaque bloc statistique individuel */
 .stat {
-    /* Centrage du texte */
+    /* Centrage du texte dans le bloc */
     text-align: center;
 }
 
-/* Style du nombre dans la statistique */
+/* Style des nombres dans les statistiques (38, 5000+, 4.9) */
 .number {
-    /* Affichage en bloc */
+    /* Affichage en bloc (sur toute la largeur) */
     display: block;
-    /* Taille de police grande */
+    /* Taille de police grande pour mise en avant */
     font-size: 2.5rem;
-    /* Texte en gras */
+    /* Texte en gras pour plus de visibilité */
     font-weight: bold;
-    /* Espace en dessous */
+    /* Espace en dessous du nombre */
     margin-bottom: 0.5rem;
+    /* Couleur blanche pour contraster avec le fond vert */
+    color: var(--white);
 }
 
-/* Style du libellé de la statistique */
+/* Style des libellés sous les nombres statistiques */
 .label {
-    /* Taille de police petite */
+    /* Taille de police réduite */
     font-size: 0.9rem;
-    /* Légère transparence */
+    /* Légère transparence pour hiérarchie visuelle */
     opacity: 0.8;
-    /* Texte en majuscules */
+    /* Texte en majuscules pour style */
     text-transform: uppercase;
-    /* Espacement des lettres */
+    /* Espacement des lettres pour meilleure lisibilité */
     letter-spacing: 1px;
+    /* Couleur blanche */
+    color: var(--white);
 }
 
-/* ===== NOUVEAUX STYLES POUR LE LOGO ===== */
+/* ===== CONTENEUR DU LOGO À DROITE ===== */
 
 /* Conteneur circulaire pour le logo */
 .logo-container {
-    /* Empêche le rétrécissement dans flexbox */
+    /* Empêche le rétrécissement dans la disposition flexbox */
     flex-shrink: 0;
-    /* Largeur fixe */
+    /* Largeur fixe du cercle - Ajustable selon vos besoins */
     width: 180px;
-    /* Hauteur fixe (identique à la largeur pour un cercle) */
-    height: 220px;
-    /* Flexbox pour centrer le logo */
+    /* Hauteur fixe (identique à la largeur pour un cercle parfait) */
+    height: 180px;
+    /* Utilise Flexbox pour centrer le logo */
     display: flex;
-    /* Centre verticalement */
+    /* Centre verticalement le logo */
     align-items: center;
-    /* Centre horizontalement */
+    /* Centre horizontalement le logo */
     justify-content: center;
-    /* Fond blanc */
+    /* Fond blanc pour faire ressortir le logo */
     background-color: white;
     /* Forme circulaire */
     border-radius: 50%;
-    /* Ombre portée */
+    /* Ombre portée pour effet de profondeur */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    /* Espacement intérieur */
+    /* Espacement intérieur entre le bord et le logo */
     padding: 15px;
-    /* Bordure de couleur */
-    border: 2px solid #d4b483;
+    /* Bordure de couleur - À ADAPTER avec la couleur de votre logo */
+    border: 2px solid #1E6B4E;
 }
 
-/* Style de l'image du logo */
+/* Style de l'image du logo elle-même */
 .logo {
-    /* Ne dépasse pas la largeur du conteneur */
+    /* L'image ne dépasse pas la largeur du conteneur */
     max-width: 100%;
-    /* Ne dépasse pas la hauteur du conteneur */
+    /* L'image ne dépasse pas la hauteur du conteneur */
     max-height: 100%;
-    /* Coins arrondis (optionnel) */
+    /* Coins arrondis pour s'harmoniser avec le conteneur circulaire */
     border-radius: 50%;
 }
 
-/* ===== RESPONSIVE MOBILE ===== */
+/* ===== VERSION RESPONSIVE POUR MOBILE ===== */
 
-/* Media query pour les écrans jusqu'à 768px de large */
+/* Media query pour les écrans de tablette et mobile (max-width: 768px) */
 @media (max-width: 768px) {
+    /* Adaptation de la disposition sur mobile */
     .hero-content {
-        /* Sur mobile : empile verticalement */
+        /* Sur mobile : empile les éléments verticalement */
         flex-direction: column;
         /* Centre le texte */
         text-align: center;
     }
     
+    /* Adaptation du conteneur du logo sur mobile */
     .logo-container {
-        /* Espace au-dessus du logo sur mobile */
+        /* Ajoute un espace au-dessus du logo sur mobile */
         margin-top: 30px;
-        /* Taille réduite sur mobile */
-        width: 180px;
-        height: 180px;
+        /* Taille réduite du logo sur mobile pour économiser l'espace */
+        width: 150px;
+        height: 150px;
     }
     
+    /* Adaptation des boutons sur mobile */
     .hero-buttons {
-        /* Boutons en colonne sur mobile */
+        /* Sur mobile : boutons en colonne */
         flex-direction: column;
         /* Centre les boutons */
         align-items: center;
     }
     
+    /* Adaptation des statistiques sur mobile */
     .hero-stats {
-        /* Statistiques en colonne sur mobile */
+        /* Sur mobile : statistiques en colonne */
         flex-direction: column;
-        /* Espacement réduit */
+        /* Espacement réduit entre les statistiques */
         gap: 15px;
+    }
+    
+    /* Adaptation du titre sur mobile */
+    .hero-text h1 {
+        /* Taille de police réduite sur mobile */
+        font-size: 2.5rem;
+    }
+    
+    /* Adaptation du paragraphe sur mobile */
+    .hero-text p {
+        /* Taille de police réduite sur mobile */
+        font-size: 1.1rem;
     }
 }
 /* SECTION HEADER */

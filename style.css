@@ -484,9 +484,9 @@ header {
     /* Empêche le rétrécissement dans flexbox */
     flex-shrink: 0;
     /* Largeur fixe */
-    width: 200px;
+    width: 180px;
     /* Hauteur fixe (identique à la largeur pour un cercle) */
-    height: 200px;
+    height: 220px;
     /* Flexbox pour centrer le logo */
     display: flex;
     /* Centre verticalement */

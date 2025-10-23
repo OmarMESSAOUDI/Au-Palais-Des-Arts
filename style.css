@@ -485,6 +485,94 @@ header {
     color: var(--white);
 }
 
+/* ===== CONTENEUR DU LOGO À DROITE - MODIFIÉ : PAS DE FOND BLANC ===== */
+
+/* Conteneur pour le logo - MODIFICATION : pas de fond blanc, pas de cercle */
+.logo-container {
+    /* Empêche le rétrécissement dans la disposition flexbox */
+    flex-shrink: 0;
+    /* Largeur adaptée au logo */
+    width: 200px;
+    /* Hauteur adaptée au logo */
+    height: auto;
+    /* Utilise Flexbox pour centrer le logo */
+    display: flex;
+    /* Centre verticalement le logo */
+    align-items: center;
+    /* Centre horizontalement le logo */
+    justify-content: center;
+    /* MODIFICATION : Fond transparent au lieu de blanc */
+    background-color: transparent;
+    /* MODIFICATION : Pas de forme circulaire */
+    border-radius: 0;
+    /* MODIFICATION : Pas d'ombre */
+    box-shadow: none;
+    /* MODIFICATION : Pas d'espacement intérieur */
+    padding: 0;
+    /* MODIFICATION : Pas de bordure */
+    border: none;
+}
+
+/* Style de l'image du logo elle-même - MODIFIÉ */
+.logo {
+    /* L'image prend la largeur complète du conteneur */
+    width: 100%;
+    /* Hauteur automatique pour conserver les proportions */
+    height: auto;
+    /* MODIFICATION : Pas de coins arrondis */
+    border-radius: 0;
+    /* MODIFICATION : Ombre légère pour détacher le logo du fond */
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+/* ===== VERSION RESPONSIVE POUR MOBILE ===== */
+
+/* Media query pour les écrans de tablette et mobile (max-width: 768px) */
+@media (max-width: 768px) {
+    /* Adaptation de la disposition sur mobile */
+    .hero-content {
+        /* Sur mobile : empile les éléments verticalement */
+        flex-direction: column;
+        /* Centre le texte */
+        text-align: center;
+    }
+    
+    /* Adaptation du conteneur du logo sur mobile */
+    .logo-container {
+        /* Ajoute un espace au-dessus du logo sur mobile */
+        margin-top: 30px;
+        /* Taille réduite du logo sur mobile */
+        width: 150px;
+    }
+    
+    /* Adaptation des boutons sur mobile */
+    .hero-buttons {
+        /* Sur mobile : boutons en colonne */
+        flex-direction: column;
+        /* Centre les boutons */
+        align-items: center;
+    }
+    
+    /* Adaptation des statistiques sur mobile */
+    .hero-stats {
+        /* Sur mobile : statistiques en colonne */
+        flex-direction: column;
+        /* Espacement réduit entre les statistiques */
+        gap: 15px;
+    }
+    
+    /* Adaptation du titre sur mobile */
+    .hero-text h1 {
+        /* Taille de police réduite sur mobile */
+        font-size: 2.5rem;
+    }
+    
+    /* Adaptation du paragraphe sur mobile */
+    .hero-text p {
+        /* Taille de police réduite sur mobile */
+        font-size: 1.1rem;
+    }
+}
 /* ===== CONTENEUR DU LOGO À DROITE ===== */
 
 /* Conteneur circulaire pour le logo */

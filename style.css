@@ -143,8 +143,8 @@ header {
 }
 
 .logo-image {
-    width: 100px; /* Agrandi de 80px à 100px */
-    height: 100px; /* Agrandi de 80px à 100px */
+    width: 80px;
+    height: 80px;
     background: var(--primary-color);
     border-radius: 50%;
     display: flex;
@@ -284,382 +284,167 @@ header {
     font-size: 0.8rem;
 }
 
-/* ===== SECTION HERO - FOND VERT COMME LE LOGO ===== */
-
-/* Style principal de la section Hero */
+/* HERO SECTION */
 .hero {
-    /* Fond uni de couleur verte correspondant au logo - À ADAPTER avec votre couleur exacte */
-    background: #1E6B4E;
-    /* Couleur du texte en blanc (doit contraster avec le fond vert) */
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
     color: var(--white);
-    /* Espacement intérieur : 150px en haut, 0 sur les côtés, 80px en bas */
     padding: 150px 0 80px;
-    /* Marge en haut de 80px pour compenser le header fixe */
     margin-top: 80px;
-    /* Position relative pour les éléments enfants positionnés absolument */
     position: relative;
-    /* Cache tout contenu qui dépasse des bords */
     overflow: hidden;
 }
 
-/* Pseudo-élément pour effet décoratif subtil en arrière-plan */
 .hero::before {
-    /* Contenu vide requis pour les pseudo-éléments */
     content: '';
-    /* Position absolue par rapport à .hero */
     position: absolute;
-    /* Positionnement sur les 4 côtés pour couvrir toute la section */
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    /* SVG avec forme triangulaire très transparente pour texture subtile */
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
-    /* L'image de fond couvre tout l'espace disponible */
     background-size: cover;
 }
 
-/* Conteneur flex pour aligner horizontalement texte et logo */
 .hero-content {
-    /* Utilise Flexbox pour la disposition */
-    display: flex;
-    /* Répartit l'espace entre texte (gauche) et logo (droite) */
-    justify-content: space-between;
-    /* Centre verticalement les éléments */
-    align-items: center;
-    /* Espace de 4rem (64px) entre le texte et le logo */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    /* Position relative pour le contexte d'empilement */
+    align-items: center;
     position: relative;
-    /* Assure que le contenu est au-dessus du pseudo-élément */
     z-index: 1;
 }
 
-/* Conteneur du contenu texte à gauche */
-.hero-text {
-    /* Prend tout l'espace disponible dans le conteneur flex */
-    flex: 1;
-}
-
-/* Style du titre principal "L'Art de la Vannerie Marocaine" */
 .hero-text h1 {
-    /* Taille de police très grande pour impact visuel */
     font-size: 3.5rem;
-    /* Espace en dessous du titre */
     margin-bottom: 1.5rem;
-    /* Hauteur de ligne pour une meilleure lisibilité */
     line-height: 1.2;
-    /* Couleur du texte en blanc pour contraster avec le fond vert */
-    color: var(--white);
 }
 
-/* Style du paragraphe descriptif sous le titre */
 .hero-text p {
-    /* Taille de police légèrement augmentée */
     font-size: 1.3rem;
-    /* Espace en dessous du paragraphe */
     margin-bottom: 2.5rem;
-    /* Légère transparence pour effet visuel subtil */
     opacity: 0.9;
-    /* Hauteur de ligne confortable pour la lecture */
     line-height: 1.6;
-    /* Couleur du texte en blanc */
-    color: var(--white);
 }
 
-/* Conteneur des boutons d'action */
 .hero-buttons {
-    /* Disposition flex pour aligner les boutons horizontalement */
     display: flex;
-    /* Espace de 1rem (16px) entre les boutons */
     gap: 1rem;
-    /* Espace en dessous des boutons */
     margin-bottom: 3rem;
-    /* Permet le retour à la ligne sur mobile si nécessaire */
     flex-wrap: wrap;
 }
 
-/* Style de base pour tous les boutons */
 .btn {
-    /* Espacement intérieur du bouton */
     padding: 1rem 2rem;
-    /* Pas de bordure par défaut */
     border: none;
-    /* Coins très arrondis (forme "pill") */
     border-radius: 50px;
-    /* Supprime le soulignement des liens */
     text-decoration: none;
-    /* Curseur en forme de main au survol */
+    font-weight: 600;
     cursor: pointer;
-    /* Transition fluide pour les effets au survol */
     transition: all 0.3s;
-    /* Flexbox pour aligner icône et texte */
     display: inline-flex;
-    /* Centre verticalement le contenu */
     align-items: center;
-    /* Centre horizontalement le contenu */
     justify-content: center;
-    /* Espace entre icône et texte */
     gap: 0.5rem;
-    /* Taille de police de base */
     font-size: 1rem;
-    /* Hauteur minimum pour l'accessibilité (touch targets) */
     min-height: 44px;
 }
 
-/* Style spécifique du bouton principal "Découvrir nos créations" */
 .btn-primary {
-    /* Fond blanc pour contraster avec le fond vert */
     background: var(--white);
-    /* Texte de couleur verte pour harmonie avec le thème */
     color: var(--primary-color);
 }
 
-/* Effet au survol du bouton principal */
 .btn-primary:hover {
-    /* Légère élévation au survol */
     transform: translateY(-3px);
-    /* Ombre portée pour effet de profondeur */
     box-shadow: var(--shadow-lg);
 }
 
-/* Style spécifique du bouton secondaire "Notre Histoire" */
 .btn-secondary {
-    /* Fond transparent */
     background: transparent;
-    /* Texte blanc */
     color: var(--white);
-    /* Bordure blanche */
     border: 2px solid var(--white);
 }
 
-/* Effet au survol du bouton secondaire */
 .btn-secondary:hover {
-    /* Fond blanc au survol */
     background: var(--white);
-    /* Texte vert au survol */
     color: var(--primary-color);
-    /* Légère élévation au survol */
     transform: translateY(-3px);
 }
 
-/* Conteneur des statistiques sous les boutons */
+/* BOUTONS AJOUTER AU PANIER - VERSION DORÉE */
+.add-to-cart {
+    background: linear-gradient(135deg, #D4AF37, #FFD700);
+    color: #2D3748;
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.add-to-cart:hover {
+    background: linear-gradient(135deg, #B8941F, #E6C200);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+    color: #2D3748;
+}
+
 .hero-stats {
-    /* Disposition flex pour aligner les statistiques horizontalement */
     display: flex;
-    /* Espace de 3rem (48px) entre les statistiques */
     gap: 3rem;
 }
 
-/* Style de chaque bloc statistique individuel */
 .stat {
-    /* Centrage du texte dans le bloc */
     text-align: center;
 }
 
-/* Style des nombres dans les statistiques (38, 5000+, 4.9) */
 .number {
-    /* Affichage en bloc (sur toute la largeur) */
     display: block;
-    /* Taille de police grande pour mise en avant */
     font-size: 2.5rem;
-    /* Texte en gras pour plus de visibilité */
     font-weight: bold;
-    /* Espace en dessous du nombre */
     margin-bottom: 0.5rem;
-    /* Couleur blanche pour contraster avec le fond vert */
-    color: var(--white);
 }
 
-/* Style des libellés sous les nombres statistiques */
 .label {
-    /* Taille de police réduite */
     font-size: 0.9rem;
-    /* Légère transparence pour hiérarchie visuelle */
     opacity: 0.8;
-    /* Texte en majuscules pour style */
     text-transform: uppercase;
-    /* Espacement des lettres pour meilleure lisibilité */
     letter-spacing: 1px;
-    /* Couleur blanche */
-    color: var(--white);
 }
 
-/* ===== CONTENEUR DU LOGO À DROITE - MODIFIÉ : PAS DE FOND BLANC ===== */
-
-/* Conteneur pour le logo - MODIFICATION : pas de fond blanc, pas de cercle */
-.logo-container {
-    /* Empêche le rétrécissement dans la disposition flexbox */
-    flex-shrink: 0;
-    /* Largeur adaptée au logo */
-    width: 200px;
-    /* Hauteur adaptée au logo */
-    height: auto;
-    /* Utilise Flexbox pour centrer le logo */
-    display: flex;
-    /* Centre verticalement le logo */
-    align-items: center;
-    /* Centre horizontalement le logo */
-    justify-content: center;
-    /* MODIFICATION : Fond transparent au lieu de blanc */
-    background-color: transparent;
-    /* MODIFICATION : Pas de forme circulaire */
-    border-radius: 0;
-    /* MODIFICATION : Pas d'ombre */
-    box-shadow: none;
-    /* MODIFICATION : Pas d'espacement intérieur */
-    padding: 0;
-    /* MODIFICATION : Pas de bordure */
-    border: none;
+.hero-visual {
+    position: relative;
+    height: 400px;
 }
 
-/* Style de l'image du logo elle-même - MODIFIÉ */
-.logo {
-    /* L'image prend la largeur complète du conteneur */
-    width: 100%;
-    /* Hauteur automatique pour conserver les proportions */
-    height: auto;
-    /* MODIFICATION : Pas de coins arrondis */
-    border-radius: 0;
-    /* MODIFICATION : Ombre légère pour détacher le logo du fond */
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+.floating-element {
+    position: absolute;
+    font-size: 4rem;
+    animation: float 6s ease-in-out infinite;
 }
 
-/* ===== VERSION RESPONSIVE POUR MOBILE ===== */
-
-/* Media query pour les écrans de tablette et mobile (max-width: 768px) */
-@media (max-width: 768px) {
-    /* Adaptation de la disposition sur mobile */
-    .hero-content {
-        /* Sur mobile : empile les éléments verticalement */
-        flex-direction: column;
-        /* Centre le texte */
-        text-align: center;
-    }
-    
-    /* Adaptation du conteneur du logo sur mobile */
-    .logo-container {
-        /* Ajoute un espace au-dessus du logo sur mobile */
-        margin-top: 30px;
-        /* Taille réduite du logo sur mobile */
-        width: 150px;
-    }
-    
-    /* Adaptation des boutons sur mobile */
-    .hero-buttons {
-        /* Sur mobile : boutons en colonne */
-        flex-direction: column;
-        /* Centre les boutons */
-        align-items: center;
-    }
-    
-    /* Adaptation des statistiques sur mobile */
-    .hero-stats {
-        /* Sur mobile : statistiques en colonne */
-        flex-direction: column;
-        /* Espacement réduit entre les statistiques */
-        gap: 15px;
-    }
-    
-    /* Adaptation du titre sur mobile */
-    .hero-text h1 {
-        /* Taille de police réduite sur mobile */
-        font-size: 2.5rem;
-    }
-    
-    /* Adaptation du paragraphe sur mobile */
-    .hero-text p {
-        /* Taille de police réduite sur mobile */
-        font-size: 1.1rem;
-    }
-}
-/* ===== CONTENEUR DU LOGO À DROITE ===== */
-
-/* Conteneur circulaire pour le logo */
-.logo-container {
-    /* Empêche le rétrécissement dans la disposition flexbox */
-    flex-shrink: 0;
-    /* Largeur fixe du cercle - Ajustable selon vos besoins */
-    width: 220px;
-    /* Hauteur fixe (identique à la largeur pour un cercle parfait) */
-    height: 200px;
-    /* Utilise Flexbox pour centrer le logo */
-    display: flex;
-    /* Centre verticalement le logo */
-    align-items: center;
-    /* Centre horizontalement le logo */
-    justify-content: center;
-    /* Fond blanc pour faire ressortir le logo */
-    background-color: white;
-    /* Forme circulaire */
-    border-radius: 50%;
-    /* Ombre portée pour effet de profondeur */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    /* Espacement intérieur entre le bord et le logo */
-    padding: 15px;
-    /* Bordure de couleur - À ADAPTER avec la couleur de votre logo */
-    border: 2px solid #1E6B4E;
+.floating-element:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
 }
 
-/* Style de l'image du logo elle-même */
-.logo {
-    /* L'image ne dépasse pas la largeur du conteneur */
-    max-width: 100%;
-    /* L'image ne dépasse pas la hauteur du conteneur */
-    max-height: 100%;
-    /* Coins arrondis pour s'harmoniser avec le conteneur circulaire */
-    border-radius: 50%;
+.floating-element:nth-child(2) {
+    top: 50%;
+    left: 50%;
+    animation-delay: 2s;
 }
 
-/* ===== VERSION RESPONSIVE POUR MOBILE ===== */
-
-/* Media query pour les écrans de tablette et mobile (max-width: 768px) */
-@media (max-width: 768px) {
-    /* Adaptation de la disposition sur mobile */
-    .hero-content {
-        /* Sur mobile : empile les éléments verticalement */
-        flex-direction: column;
-        /* Centre le texte */
-        text-align: center;
-    }
-    
-    /* Adaptation du conteneur du logo sur mobile */
-    .logo-container {
-        /* Ajoute un espace au-dessus du logo sur mobile */
-        margin-top: 30px;
-        /* Taille réduite du logo sur mobile pour économiser l'espace */
-        width: 150px;
-        height: 150px;
-    }
-    
-    /* Adaptation des boutons sur mobile */
-    .hero-buttons {
-        /* Sur mobile : boutons en colonne */
-        flex-direction: column;
-        /* Centre les boutons */
-        align-items: center;
-    }
-    
-    /* Adaptation des statistiques sur mobile */
-    .hero-stats {
-        /* Sur mobile : statistiques en colonne */
-        flex-direction: column;
-        /* Espacement réduit entre les statistiques */
-        gap: 15px;
-    }
-    
-    /* Adaptation du titre sur mobile */
-    .hero-text h1 {
-        /* Taille de police réduite sur mobile */
-        font-size: 2.5rem;
-    }
-    
-    /* Adaptation du paragraphe sur mobile */
-    .hero-text p {
-        /* Taille de police réduite sur mobile */
-        font-size: 1.1rem;
-    }
+.floating-element:nth-child(3) {
+    bottom: 20%;
+    right: 10%;
+    animation-delay: 4s;
 }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+}
+
 /* SECTION HEADER */
 .section-header {
     text-align: center;
@@ -721,14 +506,6 @@ header {
 
 .origine-icon {
     font-size: 2rem;
-}
-
-.maroc-flag-small {
-    width: 30px;
-    height: 22px;
-    object-fit: cover;
-    border-radius: 2px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
 .origine-badge h4 {
@@ -990,9 +767,7 @@ header {
     color: var(--primary-color);
     padding: 0.7rem 1.2rem;
     border-radius: 25px;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+    display: inline-block;
     margin-bottom: 1.5rem;
     font-size: 0.9rem;
     font-weight: 600;
@@ -1309,9 +1084,7 @@ header {
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+    display: inline-block;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
 }

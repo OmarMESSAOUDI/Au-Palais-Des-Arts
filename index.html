@@ -108,8 +108,71 @@
             color: white;
         }
         
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
         .btn-full {
             width: 100%;
+        }
+
+        /* LOADING SCREEN */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .loading-bar {
+            width: 200px;
+            height: 4px;
+            background: #f0f0f0;
+            border-radius: 2px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: var(--primary-color);
+            animation: loading 2s ease-in-out infinite;
+        }
+
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
         }
         
         /* HEADER */
@@ -392,6 +455,11 @@
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .favorite-btn:hover {
+            transform: scale(1.1);
         }
         
         .product-image-container {
@@ -548,7 +616,9 @@
             font-weight: 500;
         }
         
-        #paiement input[type="text"] {
+        #paiement input[type="text"],
+        #paiement input[type="email"],
+        #paiement input[type="tel"] {
             width: 100%;
             padding: 12px;
             border: 1px solid var(--border-color);
@@ -557,7 +627,7 @@
             transition: border-color 0.3s;
         }
         
-        #paiement input[type="text"]:focus {
+        #paiement input:focus {
             border-color: var(--primary-color);
             outline: none;
         }
@@ -638,58 +708,378 @@
         #paiement .btn-pay:hover {
             background-color: var(--secondary-color);
         }
-        
+
+        /* MODALS */
+        .panier-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .panier-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .panier-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .panier-modal-header h2 {
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .close-panier {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .close-panier:hover {
+            color: var(--dark-color);
+        }
+
+        .panier-modal-body {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+
+        .panier-items-container h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .panier-item {
+            display: grid;
+            grid-template-columns: 80px 1fr auto auto;
+            gap: 15px;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            background: var(--light-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .item-details h4 {
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .item-price {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            background: var(--light-color);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-remove {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--danger-color);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .panier-vide, .favorites-vide {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+        }
+
+        .panier-totals {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .panier-totals h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .panier-sous-total,
+        .panier-promo,
+        .panier-livraison-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .panier-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .panier-security {
+            margin-top: 20px;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .panier-modal-actions {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .actions-container {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+
+        /* FAVORIS */
+        .favorite-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 15px;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .favorite-image {
+            width: 100px;
+            height: 100px;
+            background: var(--light-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .favorite-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .favorite-details h4 {
+            margin-bottom: 5px;
+        }
+
+        .favorite-price {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .favorite-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* NOTIFICATIONS */
+        #notificationContainer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1002;
+        }
+
+        .notification {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 300px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .notification-success {
+            border-left-color: var(--success-color);
+        }
+
+        .notification-error {
+            border-left-color: var(--danger-color);
+        }
+
+        .notification-info {
+            border-left-color: var(--primary-color);
+        }
+
+        .notification button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* BOUTON RETOUR EN HAUT */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* PROMO BANNER */
+        .promo-banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+
+        .promo-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .promo-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
         /* FOOTER */
         footer {
             background-color: var(--dark-color);
             color: white;
             padding: 60px 0 20px;
         }
-        
+
         .footer-content {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
             gap: 40px;
             margin-bottom: 40px;
         }
-        
+
         .footer-section h3 {
             margin-bottom: 20px;
             color: white;
         }
-        
+
         .footer-section ul {
             list-style: none;
         }
-        
+
         .footer-section ul li {
             margin-bottom: 10px;
         }
-        
+
         .footer-section a {
             color: #bdc3c7;
             text-decoration: none;
             transition: color 0.3s;
         }
-        
+
         .footer-section a:hover {
             color: white;
         }
-        
+
         .trust-badges {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 15px;
         }
-        
+
         .trust-badge {
             background-color: rgba(255, 255, 255, 0.1);
             padding: 5px 10px;
             border-radius: 4px;
             font-size: 0.8rem;
         }
-        
+
         .footer-bottom {
             text-align: center;
             padding-top: 20px;
@@ -753,6 +1143,39 @@
             #paiement .checkout-summary {
                 position: static;
                 margin-top: 20px;
+            }
+            
+            .panier-modal-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .panier-item {
+                grid-template-columns: 60px 1fr;
+                gap: 10px;
+            }
+            
+            .item-quantity,
+            .item-remove {
+                grid-column: 1 / -1;
+                justify-self: start;
+            }
+            
+            .favorite-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .favorite-actions {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .panier-modal-actions {
+                flex-direction: column;
+            }
+            
+            .actions-container {
+                flex-direction: column;
             }
         }
     </style>
@@ -921,7 +1344,7 @@
                     <div class="promo-content">
                         <span class="promo-icon">🎁</span>
                         <span class="promo-text">Code promo : <strong>BIENVENUE10</strong> pour -10% sur votre première commande !</span>
-                        <button class="promo-close" onclick="fermerPromoBanner()" aria-label="Fermer la bannière">×</button>
+                        <button class="promo-close" id="promoClose" aria-label="Fermer la bannière">×</button>
                     </div>
                 </div>
 
@@ -1176,17 +1599,6 @@
                                 ➕ Ajouter au panier
                             </button>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Section Produits Récemment Consultés -->
-                <div id="recently-viewed-section" style="display: none;">
-                    <div class="section-header">
-                        <h2>Récemment Consultés</h2>
-                        <p>Retrouvez les produits que vous avez récemment regardés</p>
-                    </div>
-                    <div class="products-grid" id="recently-viewed-grid">
-                        <!-- Les produits récemment consultés seront insérés ici -->
                     </div>
                 </div>
             </div>
@@ -1505,7 +1917,7 @@
                 <div class="footer-section">
                     <h3>Informations Légales</h3>
                     <ul>
-                        <li><a href="mentions-legales.html">Mentions légales</a></li>
+                        <li><a href="cgv.html">Mentions légales</a></li>
                         <li><a href="cgv.html">CGV</a></li>
                         <li><a href="politique-confidentialite.html">Politique de confidentialité</a></li>
                         <li>✓ 100% Fait main au Maroc</li>
@@ -1519,12 +1931,127 @@
         </div>
     </footer>
 
+    <!-- Modal Panier -->
+    <div id="panierModal" class="panier-modal">
+        <div class="panier-modal-content">
+            <div class="panier-modal-header">
+                <h2>🛒 Votre Panier</h2>
+                <button class="close-panier" id="closePanier" aria-label="Fermer le panier">×</button>
+            </div>
+            <div class="panier-modal-body">
+                <!-- Section code promo -->
+                <div class="panier-promo-section">
+                    <div class="promo-input-group">
+                        <input type="text" id="codePromoInput" class="promo-input" placeholder="Code promo">
+                        <button class="btn-promo" id="appliquerPromo">Appliquer</button>
+                    </div>
+                    <div id="promoMessage" class="promo-message"></div>
+                </div>
+
+                <!-- Liste des articles -->
+                <div class="panier-items-container">
+                    <h3>Vos articles</h3>
+                    <div class="panier-items" id="panier-items">
+                        <!-- Les articles du panier seront insérés ici -->
+                    </div>
+                </div>
+
+                <!-- Colonne des totaux -->
+                <div class="panier-totals-container">
+                    <div class="panier-totals">
+                        <h3>Récapitulatif</h3>
+                        <div class="panier-sous-total">
+                            <span>Sous-total</span>
+                            <span id="sous-total">0,00€</span>
+                        </div>
+                        <div class="panier-promo" id="panier-promo" style="display: none;">
+                            <span>Réduction</span>
+                            <span id="montant-promo">-0,00€</span>
+                        </div>
+                        <div class="panier-livraison-total">
+                            <span>Livraison</span>
+                            <span id="frais-livraison">0,00€</span>
+                        </div>
+                        <div class="panier-total">
+                            <span>Total</span>
+                            <span id="total-panier">0,00€</span>
+                        </div>
+                        <div class="panier-security">
+                            <div class="security-badge">🔒 Paiement sécurisé</div>
+                            <div class="security-badge">🚚 Livraison garantie</div>
+                            <div class="security-badge">💬 Support 7j/7</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panier-modal-actions">
+                <div class="actions-container">
+                    <button class="btn btn-danger" id="viderPanierBtn">Vider le panier</button>
+                    <button class="btn btn-success" id="commanderBtn">Commander</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Favoris -->
+    <div id="favoritesModal" class="panier-modal">
+        <div class="panier-modal-content">
+            <div class="panier-modal-header">
+                <h2>❤️ Mes Favoris</h2>
+                <button class="close-panier" id="closeFavorites" aria-label="Fermer les favoris">×</button>
+            </div>
+            <div class="panier-modal-body">
+                <div class="favorites-items" id="favorites-items">
+                    <!-- Les produits favoris seront insérés ici -->
+                </div>
+            </div>
+            <div class="panier-modal-actions">
+                <button class="btn btn-secondary" id="closeFavoritesBtn">Fermer</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Bouton Retour en Haut -->
     <button id="backToTop" class="back-to-top" aria-label="Retour en haut">↑</button>
 
+    <!-- Conteneur pour les notifications -->
+    <div id="notificationContainer"></div>
+
     <script>
-        // Scripts basiques pour la navigation mobile
+        // Gestion du panier et des favoris
+        let panier = JSON.parse(localStorage.getItem('panier')) || [];
+        let favoris = JSON.parse(localStorage.getItem('favoris')) || [];
+
+        // Produits disponibles
+        const produits = {
+            1: { id: 1, nom: "Panier Rectangulaire en Jacinthe d'Eau", prix: 29.99, image: "Panier rectangulaire en jacinthe d'eau.jpg" },
+            2: { id: 2, nom: "Panier Rond Jacinthe d'Eau H36.5", prix: 24.99, image: "Panier rond jacinthe d'eau H36.5 cm Lian.jpg" },
+            3: { id: 3, nom: "Panier Tressé Rectangulaire", prix: 35.00, image: "Panier tressé rectangulaire.jpg" },
+            4: { id: 4, nom: "Panier Double Compartiment", prix: 55.00, image: "Panier à linge double compartiment.jpg" },
+            5: { id: 5, nom: "Panier en Feuilles de Palmier", prix: 42.00, image: "Panier à linge en feuilles de palmier.jpg" },
+            6: { id: 6, nom: "Panier Rond en Osier", prix: 38.00, image: "Panier à linge rond en osier.jpg" },
+            7: { id: 7, nom: "Lot de 4 Paniers en Rotin Naturel", prix: 45.00, image: "Lot de 4 Paniers.jpg" }
+        };
+
+        // Initialisation au chargement
         document.addEventListener('DOMContentLoaded', function() {
+            initialiserNavigation();
+            initialiserPanier();
+            initialiserFavoris();
+            initialiserProduits();
+            initialiserFormulaireCreation();
+            initialiserRetourHaut();
+            initialiserPromoBanner();
+            masquerEcranChargement();
+            
+            // Mettre à jour les compteurs au chargement
+            mettreAJourCompteurPanier();
+            mettreAJourCompteurFavoris();
+            mettreAJourBoutonsFavoris();
+        });
+
+        // Navigation mobile
+        function initialiserNavigation() {
             const navToggle = document.getElementById('navToggle');
             const navMenu = document.getElementById('navMenu');
             
@@ -1535,8 +2062,337 @@
                     navToggle.setAttribute('aria-expanded', !isExpanded);
                 });
             }
+        }
+
+        // Gestion du panier
+        function initialiserPanier() {
+            const cartBtn = document.getElementById('cartBtn');
+            const closePanier = document.getElementById('closePanier');
+            const panierModal = document.getElementById('panierModal');
+            const viderPanierBtn = document.getElementById('viderPanierBtn');
+            const commanderBtn = document.getElementById('commanderBtn');
+            const appliquerPromo = document.getElementById('appliquerPromo');
+
+            // Ouvrir/fermer le panier
+            if (cartBtn && panierModal) {
+                cartBtn.addEventListener('click', function() {
+                    afficherPanier();
+                    panierModal.style.display = 'block';
+                });
+            }
+            if (closePanier && panierModal) {
+                closePanier.addEventListener('click', function() {
+                    panierModal.style.display = 'none';
+                });
+            }
+
+            // Vider le panier
+            if (viderPanierBtn) {
+                viderPanierBtn.addEventListener('click', viderPanier);
+            }
+
+            // Commander
+            if (commanderBtn) {
+                commanderBtn.addEventListener('click', function() {
+                    if (panier.length === 0) {
+                        afficherNotification('Votre panier est vide', 'error');
+                        return;
+                    }
+                    window.location.href = '#paiement';
+                    panierModal.style.display = 'none';
+                });
+            }
+
+            // Code promo
+            if (appliquerPromo) {
+                appliquerPromo.addEventListener('click', appliquerCodePromo);
+            }
+
+            // Fermer en cliquant en dehors
+            window.addEventListener('click', function(e) {
+                if (e.target === panierModal) {
+                    panierModal.style.display = 'none';
+                }
+            });
+        }
+
+        // Gestion des favoris
+        function initialiserFavoris() {
+            const favoritesBtn = document.getElementById('favoritesBtn');
+            const closeFavorites = document.getElementById('closeFavorites');
+            const favoritesModal = document.getElementById('favoritesModal');
+            const closeFavoritesBtn = document.getElementById('closeFavoritesBtn');
+
+            if (favoritesBtn && favoritesModal) {
+                favoritesBtn.addEventListener('click', function() {
+                    afficherFavoris();
+                    favoritesModal.style.display = 'block';
+                });
+            }
+            if (closeFavorites && favoritesModal) {
+                closeFavorites.addEventListener('click', function() {
+                    favoritesModal.style.display = 'none';
+                });
+            }
+            if (closeFavoritesBtn && favoritesModal) {
+                closeFavoritesBtn.addEventListener('click', function() {
+                    favoritesModal.style.display = 'none';
+                });
+            }
+
+            window.addEventListener('click', function(e) {
+                if (e.target === favoritesModal) {
+                    favoritesModal.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialisation des produits
+        function initialiserProduits() {
+            // Boutons "Ajouter au panier"
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product-id');
+                    ajouterAuPanier(parseInt(productId));
+                });
+            });
+
+            // Boutons favoris
+            document.querySelectorAll('.favorite-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product-id');
+                    toggleFavori(parseInt(productId));
+                });
+            });
+        }
+
+        // Bannière promo
+        function initialiserPromoBanner() {
+            const promoClose = document.getElementById('promoClose');
+            if (promoClose) {
+                promoClose.addEventListener('click', function() {
+                    const banner = document.getElementById('promoBanner');
+                    if (banner) {
+                        banner.style.display = 'none';
+                    }
+                });
+            }
+        }
+
+        // Fonctions panier
+        function ajouterAuPanier(productId) {
+            const produit = produits[productId];
+            if (!produit) return;
+
+            const existingItem = panier.find(item => item.id === productId);
             
-            // Retour en haut
+            if (existingItem) {
+                existingItem.quantite += 1;
+            } else {
+                panier.push({
+                    id: productId,
+                    nom: produit.nom,
+                    prix: produit.prix,
+                    image: produit.image,
+                    quantite: 1
+                });
+            }
+
+            sauvegarderPanier();
+            mettreAJourCompteurPanier();
+            afficherNotification(`${produit.nom} ajouté au panier`, 'success');
+        }
+
+        function retirerDuPanier(productId) {
+            panier = panier.filter(item => item.id !== productId);
+            sauvegarderPanier();
+            mettreAJourCompteurPanier();
+            afficherPanier();
+        }
+
+        function viderPanier() {
+            panier = [];
+            sauvegarderPanier();
+            mettreAJourCompteurPanier();
+            afficherPanier();
+            afficherNotification('Panier vidé', 'info');
+        }
+
+        function sauvegarderPanier() {
+            localStorage.setItem('panier', JSON.stringify(panier));
+        }
+
+        function mettreAJourCompteurPanier() {
+            const cartCount = document.querySelector('.cart-count');
+            const totalItems = panier.reduce((total, item) => total + item.quantite, 0);
+            if (cartCount) {
+                cartCount.textContent = totalItems;
+            }
+        }
+
+        function afficherPanier() {
+            const panierItems = document.getElementById('panier-items');
+            if (!panierItems) return;
+
+            if (panier.length === 0) {
+                panierItems.innerHTML = '<p class="panier-vide">Votre panier est vide</p>';
+                mettreAJourTotauxPanier();
+                return;
+            }
+
+            panierItems.innerHTML = panier.map(item => `
+                <div class="panier-item">
+                    <div class="item-image">
+                        <img src="${item.image}" alt="${item.nom}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yMCAyMEg0MFY0MEgyMFYyMFoiIGZpbGw9IiNEREQiLz4KPHBhdGggZD0iTTI2IDI2VjM0SDM0VjI2SDI2WiIgZmlsbD0iIzlBOUE5QSIvPgo8L3N2Zz4K'">
+                    </div>
+                    <div class="item-details">
+                        <h4>${item.nom}</h4>
+                        <p class="item-price">${item.prix.toFixed(2)}€</p>
+                    </div>
+                    <div class="item-quantity">
+                        <button class="quantity-btn" onclick="modifierQuantite(${item.id}, -1)">-</button>
+                        <span>${item.quantite}</span>
+                        <button class="quantity-btn" onclick="modifierQuantite(${item.id}, 1)">+</button>
+                    </div>
+                    <button class="item-remove" onclick="retirerDuPanier(${item.id})" aria-label="Retirer du panier">×</button>
+                </div>
+            `).join('');
+
+            mettreAJourTotauxPanier();
+        }
+
+        function modifierQuantite(productId, changement) {
+            const item = panier.find(item => item.id === productId);
+            if (!item) return;
+
+            item.quantite += changement;
+
+            if (item.quantite <= 0) {
+                retirerDuPanier(productId);
+            } else {
+                sauvegarderPanier();
+                mettreAJourCompteurPanier();
+                afficherPanier();
+            }
+        }
+
+        function mettreAJourTotauxPanier() {
+            const sousTotal = panier.reduce((total, item) => total + (item.prix * item.quantite), 0);
+            const fraisLivraison = 14.90;
+            const total = sousTotal + fraisLivraison;
+
+            const sousTotalEl = document.getElementById('sous-total');
+            const fraisLivraisonEl = document.getElementById('frais-livraison');
+            const totalEl = document.getElementById('total-panier');
+
+            if (sousTotalEl) sousTotalEl.textContent = `${sousTotal.toFixed(2)}€`;
+            if (fraisLivraisonEl) fraisLivraisonEl.textContent = `${fraisLivraison.toFixed(2)}€`;
+            if (totalEl) totalEl.textContent = `${total.toFixed(2)}€`;
+        }
+
+        // Fonctions favoris
+        function toggleFavori(productId) {
+            const index = favoris.indexOf(productId);
+            
+            if (index === -1) {
+                favoris.push(productId);
+                afficherNotification('Ajouté aux favoris', 'success');
+            } else {
+                favoris.splice(index, 1);
+                afficherNotification('Retiré des favoris', 'info');
+            }
+
+            sauvegarderFavoris();
+            mettreAJourCompteurFavoris();
+            mettreAJourBoutonsFavoris();
+
+            // Mettre à jour l'affichage des favoris si le modal est ouvert
+            const favoritesModal = document.getElementById('favoritesModal');
+            if (favoritesModal && favoritesModal.style.display === 'block') {
+                afficherFavoris();
+            }
+        }
+
+        function sauvegarderFavoris() {
+            localStorage.setItem('favoris', JSON.stringify(favoris));
+        }
+
+        function mettreAJourCompteurFavoris() {
+            const favoritesCount = document.querySelector('.favorites-count');
+            if (favoritesCount) {
+                favoritesCount.textContent = favoris.length;
+            }
+        }
+
+        function mettreAJourBoutonsFavoris() {
+            document.querySelectorAll('.favorite-btn').forEach(btn => {
+                const productId = parseInt(btn.getAttribute('data-product-id'));
+                if (favoris.includes(productId)) {
+                    btn.textContent = '❤️';
+                    btn.style.color = '#ff4757';
+                } else {
+                    btn.textContent = '🤍';
+                    btn.style.color = 'inherit';
+                }
+            });
+        }
+
+        function afficherFavoris() {
+            const favoritesItems = document.getElementById('favorites-items');
+            if (!favoritesItems) return;
+
+            if (favoris.length === 0) {
+                favoritesItems.innerHTML = '<p class="favorites-vide">Aucun produit dans vos favoris</p>';
+                return;
+            }
+
+            favoritesItems.innerHTML = favoris.map(productId => {
+                const produit = produits[productId];
+                if (!produit) return '';
+                
+                return `
+                    <div class="favorite-item">
+                        <div class="favorite-image">
+                            <img src="${produit.image}" alt="${produit.nom}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yNi42NjY3IDI2LjY2NjdINTMuMzMzNFY1My4zMzM0SDI2LjY2NjdWMjYuNjY2N1oiIGZpbGw9IiNEREQiLz4KPHBhdGggZD0iTTM1IDM1VjQ1SDQ1VjM1SDM1WiIgZmlsbD0iIzlBOUE5QSIvPgo8L3N2Zz4K'">
+                        </div>
+                        <div class="favorite-details">
+                            <h4>${produit.nom}</h4>
+                            <p class="favorite-price">${produit.prix.toFixed(2)}€</p>
+                        </div>
+                        <div class="favorite-actions">
+                            <button class="btn btn-primary" onclick="ajouterAuPanier(${productId})">Ajouter au panier</button>
+                            <button class="btn btn-danger" onclick="toggleFavori(${productId})">Retirer</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Formulaire création sur mesure
+        function initialiserFormulaireCreation() {
+            const form = document.getElementById('creationForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simulation d'envoi
+                    const confirmation = document.getElementById('confirmationMessage');
+                    if (confirmation) {
+                        confirmation.style.display = 'block';
+                        form.reset();
+                        
+                        setTimeout(() => {
+                            confirmation.style.display = 'none';
+                        }, 5000);
+                    }
+                    
+                    afficherNotification('Votre demande a été envoyée !', 'success');
+                });
+            }
+        }
+
+        // Retour en haut
+        function initialiserRetourHaut() {
             const backToTop = document.getElementById('backToTop');
             if (backToTop) {
                 window.addEventListener('scroll', function() {
@@ -1551,19 +2407,91 @@
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             }
-            
-            // Gestion du chargement
-            window.addEventListener('load', function() {
-                const loadingScreen = document.getElementById('loadingScreen');
-                if (loadingScreen) {
-                    loadingScreen.style.display = 'none';
+        }
+
+        // Écran de chargement
+        function masquerEcranChargement() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen) {
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }, 1000);
+            }
+        }
+
+        // Notifications
+        function afficherNotification(message, type = 'info') {
+            const container = document.getElementById('notificationContainer');
+            if (!container) return;
+
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()">×</button>
+            `;
+
+            container.appendChild(notification);
+
+            // Auto-suppression après 5 secondes
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
                 }
-            });
-        });
-        
+            }, 5000);
+        }
+
+        // Gestion des erreurs d'images
         function handleImageError(img) {
             img.style.display = 'none';
-            // Optionnel: Afficher une image de remplacement
+            const fallback = document.createElement('div');
+            fallback.className = 'image-fallback';
+            fallback.innerHTML = '🧺';
+            fallback.style.cssText = `
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f5f5f5;
+                font-size: 2rem;
+            `;
+            img.parentNode.appendChild(fallback);
+        }
+
+        // Code promo
+        function appliquerCodePromo() {
+            const input = document.getElementById('codePromoInput');
+            const message = document.getElementById('promoMessage');
+            const code = input.value.trim().toUpperCase();
+
+            if (code === 'BIENVENUE10') {
+                message.textContent = 'Code appliqué ! -10% sur votre commande.';
+                message.className = 'promo-message success';
+                // Logique pour appliquer la réduction
+            } else if (code) {
+                message.textContent = 'Code promo invalide.';
+                message.className = 'promo-message error';
+            } else {
+                message.textContent = 'Veuillez entrer un code promo.';
+                message.className = 'promo-message error';
+            }
+        }
+
+        // Enregistrement du Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('Service Worker enregistré avec succès:', registration);
+                    })
+                    .catch(function(error) {
+                        console.log("Échec de l'enregistrement du Service Worker:", error);
+                    });
+            });
         }
     </script>
 </body>

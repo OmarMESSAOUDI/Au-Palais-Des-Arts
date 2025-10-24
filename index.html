@@ -1,3 +1,5 @@
+HTML :
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -37,1148 +39,7 @@
         gtag('config', 'G-XXXXXXXXXX');
     </script>
     
-    <style>
-        /* STYLES GÉNÉRAUX */
-        :root {
-            --primary-color: #1E6B4E;
-            --secondary-color: #2D8A62;
-            --accent-color: #FF6B35;
-            --light-color: #f8f9fa;
-            --dark-color: #2c3e50;
-            --border-color: #dee2e6;
-            --text-light: #6c757d;
-            --success-color: #28a745;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f7fa;
-            color: var(--dark-color);
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .section-padding {
-            padding: 80px 0;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-        }
-        
-        .btn-secondary:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-danger {
-            background-color: var(--danger-color);
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background-color: #c82333;
-        }
-        
-        .btn-success {
-            background-color: var(--success-color);
-            color: white;
-        }
-        
-        .btn-success:hover {
-            background-color: #218838;
-        }
-        
-        .btn-full {
-            width: 100%;
-        }
-
-        /* LOADING SCREEN */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-content {
-            text-align: center;
-        }
-
-        .loading-logo {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
-
-        .loading-bar {
-            width: 200px;
-            height: 4px;
-            background: #f0f0f0;
-            border-radius: 2px;
-            margin: 20px auto;
-            overflow: hidden;
-        }
-
-        .loading-progress {
-            height: 100%;
-            background: var(--primary-color);
-            animation: loading 2s ease-in-out infinite;
-        }
-
-        @keyframes loading {
-            0% { transform: translateX(-100%); }
-            50% { transform: translateX(0); }
-            100% { transform: translateX(100%); }
-        }
-        
-        /* HEADER */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-image {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--light-color);
-            border-radius: 8px;
-        }
-        
-        .logo-img {
-            max-width: 100%;
-            height: auto;
-        }
-        
-        .logo-text h1 {
-            font-size: 20px;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-        
-        .logo-text p {
-            font-size: 12px;
-            color: var(--text-light);
-        }
-        
-        nav {
-            display: flex;
-            align-items: center;
-        }
-        
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-        
-        .nav-link {
-            text-decoration: none;
-            color: var(--dark-color);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-link:hover {
-            color: var(--primary-color);
-        }
-        
-        .nav-actions {
-            display: flex;
-            gap: 15px;
-            margin-left: 20px;
-        }
-        
-        .favorites-btn, .cart-btn {
-            background: none;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            position: relative;
-            padding: 5px;
-        }
-        
-        .favorites-count, .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--accent-color);
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .nav-toggle span {
-            width: 25px;
-            height: 3px;
-            background-color: var(--dark-color);
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-        
-        /* HERO SECTION */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 100px 0;
-        }
-        
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-        
-        .hero-text h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero-text p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-        
-        .hero-stats {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .stat {
-            text-align: center;
-        }
-        
-        .number {
-            display: block;
-            font-size: 2rem;
-            font-weight: bold;
-        }
-        
-        .label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        .hero-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .hero-visual {
-            position: relative;
-            width: 300px;
-            height: 300px;
-        }
-        
-        .floating-element {
-            position: absolute;
-            font-size: 4rem;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .floating-element:nth-child(1) {
-            top: 0;
-            left: 0;
-            animation-delay: 0s;
-        }
-        
-        .floating-element:nth-child(2) {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: 2s;
-        }
-        
-        .floating-element:nth-child(3) {
-            bottom: 0;
-            right: 0;
-            animation-delay: 4s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        /* SECTION HEADER */
-        .section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-        
-        .section-header p {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* PRODUCTS GRID */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .product-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 1;
-        }
-        
-        .favorite-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            z-index: 1;
-            transition: all 0.3s ease;
-        }
-        
-        .favorite-btn:hover {
-            transform: scale(1.1);
-        }
-        
-        .product-image-container {
-            height: 250px;
-            overflow: hidden;
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--light-color);
-        }
-        
-        .product-img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-        }
-        
-        .product-content {
-            padding: 20px;
-        }
-        
-        .product-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--dark-color);
-        }
-        
-        .product-description {
-            color: var(--text-light);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-        
-        .product-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-        
-        .product-stock {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-        
-        .stock-indicator {
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        
-        .in-stock {
-            background-color: #e8f5e8;
-            color: var(--success-color);
-        }
-        
-        .low-stock {
-            background-color: #fff3cd;
-            color: var(--warning-color);
-        }
-        
-        .stock-quantity {
-            color: var(--text-light);
-            font-size: 0.8rem;
-        }
-        
-        .product-origin {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            color: var(--primary-color);
-            font-weight: 500;
-        }
-        
-        .product-price {
-            margin-bottom: 15px;
-        }
-        
-        .price-original {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-        
-        /* SECTION PAIEMENT */
-        #paiement {
-            padding: 60px 0;
-            background-color: #f8f9fa;
-        }
-        
-        #paiement .checkout-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        #paiement .checkout-header h1 {
-            font-size: 24px;
-            color: var(--primary-color);
-        }
-        
-        #paiement .checkout-content {
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 30px;
-        }
-        
-        #paiement .checkout-form {
-            background: white;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        #paiement .form-section {
-            margin-bottom: 25px;
-        }
-        
-        #paiement .form-section h2 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        #paiement .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        
-        #paiement .form-group {
-            margin-bottom: 15px;
-        }
-        
-        #paiement label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        
-        #paiement input[type="text"],
-        #paiement input[type="email"],
-        #paiement input[type="tel"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-        
-        #paiement input:focus {
-            border-color: var(--primary-color);
-            outline: none;
-        }
-        
-        #paiement .checkout-summary {
-            background: white;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-        }
-        
-        #paiement .summary-title {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        #paiement .summary-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        
-        #paiement .summary-total {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            font-size: 18px;
-            margin: 20px 0;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-color);
-        }
-        
-        #paiement .security-info {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 20px 0;
-        }
-        
-        #paiement .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 10px;
-        }
-        
-        #paiement .checkbox-group input {
-            margin-right: 10px;
-            margin-top: 3px;
-        }
-        
-        #paiement .guarantee {
-            margin-left: 24px;
-            font-size: 14px;
-            color: #666;
-        }
-        
-        #paiement .btn-pay {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 15px;
-            width: 100%;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        #paiement .btn-pay:hover {
-            background-color: var(--secondary-color);
-        }
-
-        /* MODALS */
-        .panier-modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-
-        .panier-modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 0;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .panier-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .panier-modal-header h2 {
-            color: var(--primary-color);
-            margin: 0;
-        }
-
-        .close-panier {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-light);
-        }
-
-        .close-panier:hover {
-            color: var(--dark-color);
-        }
-
-        .panier-modal-body {
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 30px;
-        }
-
-        .panier-items-container h3 {
-            margin-bottom: 15px;
-            color: var(--dark-color);
-        }
-
-        .panier-item {
-            display: grid;
-            grid-template-columns: 80px 1fr auto auto;
-            gap: 15px;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .item-image {
-            width: 80px;
-            height: 80px;
-            background: var(--light-color);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .item-image img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-        }
-
-        .item-details h4 {
-            margin-bottom: 5px;
-            font-size: 1rem;
-        }
-
-        .item-price {
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        .item-quantity {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .quantity-btn {
-            background: var(--light-color);
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .item-remove {
-            background: none;
-            border: none;
-            font-size: 20px;
-            color: var(--danger-color);
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .panier-vide, .favorites-vide {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-light);
-        }
-
-        .panier-totals {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .panier-totals h3 {
-            margin-bottom: 15px;
-            color: var(--dark-color);
-        }
-
-        .panier-sous-total,
-        .panier-promo,
-        .panier-livraison-total {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .panier-total {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px solid var(--border-color);
-        }
-
-        .panier-security {
-            margin-top: 20px;
-        }
-
-        .security-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-
-        .panier-modal-actions {
-            padding: 20px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-        }
-
-        .actions-container {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-        }
-
-        /* FAVORIS */
-        .favorite-item {
-            display: grid;
-            grid-template-columns: 100px 1fr auto;
-            gap: 15px;
-            align-items: center;
-            padding: 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        .favorite-image {
-            width: 100px;
-            height: 100px;
-            background: var(--light-color);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .favorite-image img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-        }
-
-        .favorite-details h4 {
-            margin-bottom: 5px;
-        }
-
-        .favorite-price {
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .favorite-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        /* NOTIFICATIONS */
-        #notificationContainer {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1002;
-        }
-
-        .notification {
-            background: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            min-width: 300px;
-            border-left: 4px solid var(--primary-color);
-        }
-
-        .notification-success {
-            border-left-color: var(--success-color);
-        }
-
-        .notification-error {
-            border-left-color: var(--danger-color);
-        }
-
-        .notification-info {
-            border-left-color: var(--primary-color);
-        }
-
-        .notification button {
-            background: none;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            color: var(--text-light);
-        }
-
-        /* BOUTON RETOUR EN HAUT */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 20px;
-            cursor: pointer;
-            display: none;
-            z-index: 999;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .back-to-top:hover {
-            background: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-
-        /* PROMO BANNER */
-        .promo-banner {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 15px 0;
-            margin-bottom: 30px;
-        }
-
-        .promo-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .promo-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 0 10px;
-        }
-
-        /* FOOTER */
-        footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 60px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-section a {
-            color: #bdc3c7;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .trust-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .trust-badge {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #bdc3c7;
-            font-size: 0.9rem;
-        }
-        
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .nav-toggle {
-                display: flex;
-            }
-            
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            }
-            
-            .nav-menu.active {
-                display: flex;
-            }
-            
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .hero-text h1 {
-                font-size: 2rem;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero-stats {
-                justify-content: center;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            #paiement .checkout-content {
-                grid-template-columns: 1fr;
-            }
-            
-            #paiement .form-row {
-                grid-template-columns: 1fr;
-            }
-            
-            #paiement .checkout-summary {
-                position: static;
-                margin-top: 20px;
-            }
-            
-            .panier-modal-body {
-                grid-template-columns: 1fr;
-            }
-            
-            .panier-item {
-                grid-template-columns: 60px 1fr;
-                gap: 10px;
-            }
-            
-            .item-quantity,
-            .item-remove {
-                grid-column: 1 / -1;
-                justify-self: start;
-            }
-            
-            .favorite-item {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .favorite-actions {
-                flex-direction: row;
-                justify-content: center;
-            }
-            
-            .panier-modal-actions {
-                flex-direction: column;
-            }
-            
-            .actions-container {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Skip Link pour accessibilité -->
@@ -1278,6 +139,59 @@
             </div>
         </section>
 
+        <!-- Section Présentation -->
+        <section class="presentation section-padding" id="histoire">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Notre Histoire</h2>
+                    <p>Transmettre l'excellence artisanale marocaine depuis trois générations</p>
+                </div>
+                <div class="histoire-content">
+                    <div class="histoire-text">
+                        <h3>Un Savoir-Faire Ancestral du Maroc</h3>
+                        <p>Fondé en 1985 par la famille Martin, <strong>Au Palais Des Arts</strong> perpétue la tradition du tissage d'osier et du travail artisanal de qualité. <strong>Nos créations sont entièrement fabriquées au Maroc</strong> par des artisans locaux qui maîtrisent des techniques ancestrales.</p>
+                        
+                        <div class="origine-info">
+                            <div class="origine-badge">
+                                <span class="origine-icon">🇲🇦</span>
+                                <div>
+                                    <h4>Origine Marocaine</h4>
+                                    <p>100% fait main au Maroc par des artisans locaux</p>
+                                </div>
+                            </div>
+                            <div class="origine-badge">
+                                <span class="origine-icon">👐</span>
+                                <div>
+                                    <h4>100% Artisanal</h4>
+                                    <p>Techniques traditionnelles transmises de génération en génération</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p>Chaque panier est conçu avec passion et expertise, utilisant des matériaux naturels et durables provenant des régions marocaines. Nous collaborons étroitement avec des coopératives d'artisans qui préservent ce savoir-faire unique.</p>
+                        
+                        <div class="valeurs-grid">
+                            <div class="valeur-card">
+                                <div class="valeur-icon">🌱</div>
+                                <h4>Éco-responsable</h4>
+                                <p>Osier 100% naturel de cultures durables marocaines</p>
+                            </div>
+                            <div class="valeur-card">
+                                <div class="valeur-icon">👐</div>
+                                <h4>Fait Main</h4>
+                                <p>Techniques ancestrales marocaines transmises</p>
+                            </div>
+                            <div class="valeur-card">
+                                <div class="valeur-icon">🇲🇦</div>
+                                <h4>Origine Maroc</h4>
+                                <p>Fabriqué au Maroc par des artisans locaux</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Section Produits -->
         <section class="produits section-padding" id="produits">
             <div class="container">
@@ -1291,7 +205,7 @@
                     <div class="promo-content">
                         <span class="promo-icon">🎁</span>
                         <span class="promo-text">Code promo : <strong>BIENVENUE10</strong> pour -10% sur votre première commande !</span>
-                        <button class="promo-close" id="promoClose" aria-label="Fermer la bannière">×</button>
+                        <button class="promo-close" onclick="fermerPromoBanner()" aria-label="Fermer la bannière">×</button>
                     </div>
                 </div>
 
@@ -1548,95 +462,210 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Section Produits Récemment Consultés -->
+                <div id="recently-viewed-section" style="display: none;">
+                    <div class="section-header">
+                        <h2>Récemment Consultés</h2>
+                        <p>Retrouvez les produits que vous avez récemment regardés</p>
+                    </div>
+                    <div class="products-grid" id="recently-viewed-grid">
+                        <!-- Les produits récemment consultés seront insérés ici -->
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Section Paiement -->
-        <section id="paiement" class="section-padding">
+        <!-- Section Création sur Mesure -->
+        <section class="creation-sur-mesure section-padding" id="sur-mesure">
             <div class="container">
-                <div class="checkout-header">
-                    <h1>Finaliser votre commande</h1>
+                <div class="section-header">
+                    <h2>Création sur Mesure</h2>
+                    <p>Votre projet unique, réalisé par nos artisans marocains</p>
                 </div>
                 
-                <div class="checkout-content">
-                    <div class="checkout-form">
-                        <div class="form-section">
-                            <h2>Informations de livraison</h2>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="firstname">Prénom *</label>
-                                    <input type="text" id="firstname" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="lastname">Nom *</label>
-                                    <input type="text" id="lastname" required>
+                <div class="creation-content">
+                    <div class="creation-text">
+                        <h3>Votre Vision, Notre Savoir-Faire</h3>
+                        <p>Vous avez un projet spécifique ? Une idée unique ? Nos artisans marocains peuvent créer <strong>votre pièce sur mesure</strong> selon vos envies et besoins.</p>
+                        
+                        <div class="avantages-list">
+                            <div class="avantage">
+                                <span class="avantage-icon">🎨</span>
+                                <div>
+                                    <h4>Design Personnalisé</h4>
+                                    <p>Dimensions, formes et couleurs adaptées à vos besoins</p>
                                 </div>
                             </div>
-                            
-                            <div class="form-group">
-                                <label for="address">Adresse *</label>
-                                <input type="text" id="address" required>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="postal">Code postal *</label>
-                                    <input type="text" id="postal" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="city">Ville *</label>
-                                    <input type="text" id="city" required>
+                            <div class="avantage">
+                                <span class="avantage-icon">👨‍🎨</span>
+                                <div>
+                                    <h4>Expertise Marocaine</h4>
+                                    <p>Réalisé par nos artisans expérimentés au Maroc</p>
                                 </div>
                             </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" id="email" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="phone">Téléphone *</label>
-                                <input type="tel" id="phone" required>
+                            <div class="avantage">
+                                <span class="avantage-icon">⏱️</span>
+                                <div>
+                                    <h4>Accompagnement</h4>
+                                    <p>Suivi personnalisé de votre projet jusqu'à la livraison</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="checkout-summary">
-                        <h2 class="summary-title">Récapitulatif</h2>
-                        
-                        <div class="summary-item">
-                            <span>Sous-total</span>
-                            <span>80.00€</span>
-                        </div>
-                        
-                        <div class="summary-item">
-                            <span>Livraison</span>
-                            <span>14.90€</span>
-                        </div>
-                        
-                        <div class="summary-total">
-                            <span>Total</span>
-                            <span>94.90€</span>
-                        </div>
-                        
-                        <div class="security-info">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="secure-payment" checked>
-                                <label for="secure-payment">Paiement sécurisé</label>
+                    <div class="creation-form-container">
+                        <form class="creation-form" id="creationForm">
+                            <h4>Parlez-nous de votre projet</h4>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="creation-nom">Nom complet *</label>
+                                    <input type="text" id="creation-nom" name="nom" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="creation-email">Email *</label>
+                                    <input type="email" id="creation-email" name="email" required>
+                                </div>
                             </div>
                             
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="guaranteed-delivery" checked>
-                                <label for="guaranteed-delivery">Livraison garantie</label>
+                            <div class="form-group">
+                                <label for="creation-telephone">Téléphone</label>
+                                <input type="tel" id="creation-telephone" name="telephone">
                             </div>
                             
-                            <div class="guarantee">Support 7j/7</div>
+                            <div class="form-group">
+                                <label for="creation-type">Type de création *</label>
+                                <select id="creation-type" name="type" required>
+                                    <option value="">Choisissez le type</option>
+                                    <option value="panier">Panier sur mesure</option>
+                                    <option value="corbeille">Corbeille personnalisée</option>
+                                    <option value="decoration">Décoration intérieure</option>
+                                    <option value="mobilier">Mobilier en osier</option>
+                                    <option value="autre">Autre projet</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="creation-dimensions">Dimensions souhaitées</label>
+                                <input type="text" id="creation-dimensions" name="dimensions" placeholder="Ex: 40x30x25cm">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="creation-description">Description de votre projet *</label>
+                                <textarea id="creation-description" name="description" rows="5" required placeholder="Décrivez en détail votre projet, vos attentes, l'usage prévu..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="creation-budget">Budget estimatif</label>
+                                <input type="text" id="creation-budget" name="budget" placeholder="Ex: 50-100€">
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="origine" required>
+                                    <span class="checkmark"></span>
+                                    Je comprends que mes créations seront fabriquées au Maroc par des artisans locaux *
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-full" id="submitCreationForm">
+                                🎨 Envoyer ma demande de création sur mesure
+                            </button>
+                            
+                            <!-- Message de confirmation -->
+                            <div id="confirmationMessage" class="confirmation-message" style="display: none;">
+                                ✅ Votre demande a été prise en compte ! Nous vous recontacterons dans les plus brefs délais.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Avis -->
+        <section class="avis section-padding" id="avis">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Avis Clients</h2>
+                    <p>Ce que disent nos clients satisfaits</p>
+                </div>
+                <div class="avis-grid">
+                    <div class="avis-card">
+                        <div class="avis-header">
+                            <div class="avis-client">
+                                <div class="client-avatar">M</div>
+                                <div>
+                                    <h4>Marie L.</h4>
+                                    <div class="avis-rating">★★★★★</div>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <button class="btn-pay">Payer ma commande</button>
+                        <p class="avis-text">"Le panier rectangulaire est absolument magnifique ! La qualité de tissage est exceptionnelle. Savoir qu'il est fait main au Maroc ajoute une valeur sentimentale. Livraison rapide et emballage soigné."</p>
+                        <div class="avis-date">15/10/2024</div>
+                    </div>
+
+                    <div class="avis-card">
+                        <div class="avis-header">
+                            <div class="avis-client">
+                                <div class="client-avatar">P</div>
+                                <div>
+                                    <h4>Pierre D.</h4>
+                                    <div class="avis-rating">★★★★★</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="avis-text">"J'ai offert le panier double compartiment à ma femme et elle en est ravie. Pratique et élégant, il trône maintenant dans notre chambre. La qualité artisanale marocaine est remarquable !"</p>
+                        <div class="avis-date">12/10/2024</div>
+                    </div>
+
+                    <div class="avis-card">
+                        <div class="avis-header">
+                            <div class="avis-client">
+                                <div class="client-avatar">S</div>
+                                <div>
+                                    <h4>Sophie M.</h4>
+                                    <div class="avis-rating">★★★★☆</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="avis-text">"Très beau panier en feuilles de palmier, léger et résistant. Le côté écologique et l'origine marocaine sont appréciables. Petit bémol : une légère odeur au début, mais qui part rapidement."</p>
+                        <div class="avis-date">08/10/2024</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section class="contact section-padding" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Contactez-nous</h2>
+                    <p>Une question ? Un projet sur mesure ?</p>
+                </div>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="icon">📧</div>
+                            <div class="details">
+                                <h3>Email</h3>
+                                <p>contact@aupalaisdesarts.fr</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon">📞</div>
+                            <div class="details">
+                                <h3>Téléphone</h3>
+                                <p>01 23 45 67 89</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon">📍</div>
+                            <div class="details">
+                                <h3>Atelier Partenaire</h3>
+                                <p>Coopérative d'artisans<br>Marrakech, Maroc</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1669,7 +698,7 @@
                 <div class="footer-section">
                     <h3>Informations Légales</h3>
                     <ul>
-                        <li><a href="cgv.html">Mentions légales</a></li>
+                        <li><a href="mentions-legales.html">Mentions légales</a></li>
                         <li><a href="cgv.html">CGV</a></li>
                         <li><a href="politique-confidentialite.html">Politique de confidentialité</a></li>
                         <li>✓ 100% Fait main au Maroc</li>
@@ -1683,51 +712,179 @@
         </div>
     </footer>
 
-    <!-- Modal Panier -->
+    <!-- Modal Panier avec processus de paiement intégré -->
     <div id="panierModal" class="panier-modal">
         <div class="panier-modal-content">
             <div class="panier-modal-header">
-                <h2>🛒 Votre Panier</h2>
+                <h2 id="panierModalTitle">🛒 Votre Panier</h2>
                 <button class="close-panier" id="closePanier" aria-label="Fermer le panier">×</button>
             </div>
             <div class="panier-modal-body">
-                <div class="panier-items-container">
-                    <h3>Vos articles</h3>
+                <!-- Étape 1: Panier -->
+                <div id="panier-step-1">
+                    <!-- Section code promo -->
+                    <div class="panier-promo-section">
+                        <div class="promo-input-group">
+                            <input type="text" id="codePromoInput" class="promo-input" placeholder="Code promo">
+                            <button class="btn-promo" onclick="appliquerCodePromo()">Appliquer</button>
+                        </div>
+                        <div id="promoMessage" class="promo-message"></div>
+                    </div>
+
+                    <!-- Liste des articles -->
                     <div class="panier-items" id="panier-items">
                         <!-- Les articles du panier seront insérés ici -->
                     </div>
+
+                    <!-- Options de livraison -->
+                    <div class="panier-livraison">
+                        <h3>Livraison</h3>
+                        <div class="livraison-option">
+                            <label>
+                                <input type="radio" name="livraison" value="standard" checked>
+                                Livraison standard
+                                <span class="livraison-prix">7,90€</span>
+                            </label>
+                        </div>
+                        <div class="livraison-option">
+                            <label>
+                                <input type="radio" name="livraison" value="express">
+                                Livraison express
+                                <span class="livraison-prix">14,90€</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Totaux -->
+                    <div class="panier-totals">
+                        <div class="panier-sous-total">
+                            <span>Sous-total</span>
+                            <span id="sous-total">0,00€</span>
+                        </div>
+                        <div class="panier-promo" id="panier-promo" style="display: none;">
+                            <span>Réduction</span>
+                            <span id="montant-promo">-0,00€</span>
+                        </div>
+                        <div class="panier-livraison-total">
+                            <span>Livraison</span>
+                            <span id="frais-livraison">0,00€</span>
+                        </div>
+                        <div class="panier-total">
+                            <span>Total</span>
+                            <span id="total-panier">0,00€</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="panier-totals">
-                    <h3>Récapitulatif</h3>
-                    <div class="panier-sous-total">
-                        <span>Sous-total</span>
-                        <span id="sous-total">0,00€</span>
+                <!-- Étape 2: Paiement -->
+                <div id="panier-step-2" style="display: none;">
+                    <div class="paiement-header">
+                        <h3>💳 Finaliser votre commande</h3>
+                        <p class="paiement-sous-titre">Remplissez vos informations pour compléter votre achat</p>
                     </div>
-                    <div class="panier-promo" id="panier-promo" style="display: none;">
-                        <span>Réduction</span>
-                        <span id="montant-promo">-0,00€</span>
-                    </div>
-                    <div class="panier-livraison-total">
-                        <span>Livraison</span>
-                        <span id="frais-livraison">0,00€</span>
-                    </div>
-                    <div class="panier-total">
-                        <span>Total</span>
-                        <span id="total-panier">0,00€</span>
-                    </div>
-                    <div class="panier-security">
-                        <div class="security-badge">🔒 Paiement sécurisé</div>
-                        <div class="security-badge">🚚 Livraison garantie</div>
-                        <div class="security-badge">💬 Support 7j/7</div>
-                    </div>
+
+                    <form class="creation-form" id="paiementForm">
+                        <h4>Informations de livraison</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="prenom">Prénom *</label>
+                                <input type="text" id="prenom" name="prenom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nom">Nom *</label>
+                                <input type="text" id="nom" name="nom" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="adresse">Adresse *</label>
+                            <input type="text" id="adresse" name="adresse" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="code-postal">Code postal *</label>
+                                <input type="text" id="code-postal" name="code-postal" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ville">Ville *</label>
+                                <input type="text" id="ville" name="ville" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telephone">Téléphone *</label>
+                            <input type="tel" id="telephone" name="telephone" required>
+                        </div>
+
+                        <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Méthode de paiement</h4>
+                        
+                        <div class="form-group">
+                            <label for="carte-num">Numéro de carte *</label>
+                            <input type="text" id="carte-num" name="carte-num" placeholder="1234 5678 9012 3456" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="carte-exp">Date d'expiration *</label>
+                                <input type="text" id="carte-exp" name="carte-exp" placeholder="MM/AA" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="carte-cvv">CVV *</label>
+                                <input type="text" id="carte-cvv" name="carte-cvv" placeholder="123" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="conditions" required>
+                                <span class="checkmark"></span>
+                                J'accepte les <a href="cgv.html" target="_blank">conditions générales de vente</a> *
+                            </label>
+                        </div>
+                        
+                        <p style="text-align: center; margin: 1rem 0; font-size: 0.9rem; color: var(--text-light);">
+                            🔒 Paiement sécurisé - Vos données sont protégées
+                        </p>
+                    </form>
                 </div>
             </div>
             <div class="panier-modal-actions">
-                <div class="actions-container">
+                <!-- Actions Étape 1 -->
+                <div id="actions-step-1">
                     <button class="btn btn-danger" id="viderPanierBtn">Vider le panier</button>
                     <button class="btn btn-success" id="commanderBtn">Commander</button>
                 </div>
+                
+                <!-- Actions Étape 2 -->
+                <div id="actions-step-2" style="display: none;">
+                    <button class="btn btn-secondary" id="retourPanierBtn">← Retour au panier</button>
+                    <button class="btn btn-success" id="paiementBtn">💳 Payer ma commande</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Favoris -->
+    <div id="favoritesModal" class="panier-modal">
+        <div class="panier-modal-content">
+            <div class="panier-modal-header">
+                <h2>❤️ Mes Favoris</h2>
+                <button class="close-panier" id="closeFavorites" aria-label="Fermer les favoris">×</button>
+            </div>
+            <div class="panier-modal-body">
+                <div class="favorites-items" id="favorites-items">
+                    <!-- Les produits favoris seront insérés ici -->
+                </div>
+            </div>
+            <div class="panier-modal-actions">
+                <button class="btn btn-secondary" id="closeFavoritesBtn">Fermer</button>
             </div>
         </div>
     </div>
@@ -1738,398 +895,6 @@
     <!-- Conteneur pour les notifications -->
     <div id="notificationContainer"></div>
 
-    <script>
-        // Gestion du panier et des favoris
-        let panier = JSON.parse(localStorage.getItem('panier')) || [];
-        let favoris = JSON.parse(localStorage.getItem('favoris')) || [];
-
-        // Produits disponibles
-        const produits = {
-            1: { id: 1, nom: "Panier Rectangulaire en Jacinthe d'Eau", prix: 29.99, image: "Panier rectangulaire en jacinthe d'eau.jpg" },
-            2: { id: 2, nom: "Panier Rond Jacinthe d'Eau H36.5", prix: 24.99, image: "Panier rond jacinthe d'eau H36.5 cm Lian.jpg" },
-            3: { id: 3, nom: "Panier Tressé Rectangulaire", prix: 35.00, image: "Panier tressé rectangulaire.jpg" },
-            4: { id: 4, nom: "Panier Double Compartiment", prix: 55.00, image: "Panier à linge double compartiment.jpg" },
-            5: { id: 5, nom: "Panier en Feuilles de Palmier", prix: 42.00, image: "Panier à linge en feuilles de palmier.jpg" },
-            6: { id: 6, nom: "Panier Rond en Osier", prix: 38.00, image: "Panier à linge rond en osier.jpg" },
-            7: { id: 7, nom: "Lot de 4 Paniers en Rotin Naturel", prix: 45.00, image: "Lot de 4 Paniers.jpg" }
-        };
-
-        // Initialisation au chargement
-        document.addEventListener('DOMContentLoaded', function() {
-            initialiserNavigation();
-            initialiserPanier();
-            initialiserFavoris();
-            initialiserProduits();
-            initialiserRetourHaut();
-            initialiserPromoBanner();
-            masquerEcranChargement();
-            
-            // Mettre à jour les compteurs au chargement
-            mettreAJourCompteurPanier();
-            mettreAJourCompteurFavoris();
-            mettreAJourBoutonsFavoris();
-        });
-
-        // Navigation mobile
-        function initialiserNavigation() {
-            const navToggle = document.getElementById('navToggle');
-            const navMenu = document.getElementById('navMenu');
-            
-            if (navToggle && navMenu) {
-                navToggle.addEventListener('click', function() {
-                    navMenu.classList.toggle('active');
-                    const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-                    navToggle.setAttribute('aria-expanded', !isExpanded);
-                });
-            }
-        }
-
-        // Gestion du panier
-        function initialiserPanier() {
-            const cartBtn = document.getElementById('cartBtn');
-            const closePanier = document.getElementById('closePanier');
-            const panierModal = document.getElementById('panierModal');
-            const viderPanierBtn = document.getElementById('viderPanierBtn');
-            const commanderBtn = document.getElementById('commanderBtn');
-
-            // Ouvrir/fermer le panier
-            if (cartBtn && panierModal) {
-                cartBtn.addEventListener('click', function() {
-                    afficherPanier();
-                    panierModal.style.display = 'block';
-                });
-            }
-            if (closePanier && panierModal) {
-                closePanier.addEventListener('click', function() {
-                    panierModal.style.display = 'none';
-                });
-            }
-
-            // Vider le panier
-            if (viderPanierBtn) {
-                viderPanierBtn.addEventListener('click', viderPanier);
-            }
-
-            // Commander
-            if (commanderBtn) {
-                commanderBtn.addEventListener('click', function() {
-                    if (panier.length === 0) {
-                        afficherNotification('Votre panier est vide', 'error');
-                        return;
-                    }
-                    window.location.href = '#paiement';
-                    panierModal.style.display = 'none';
-                });
-            }
-
-            // Fermer en cliquant en dehors
-            window.addEventListener('click', function(e) {
-                if (e.target === panierModal) {
-                    panierModal.style.display = 'none';
-                }
-            });
-        }
-
-        // Gestion des favoris
-        function initialiserFavoris() {
-            const favoritesBtn = document.getElementById('favoritesBtn');
-            
-            if (favoritesBtn) {
-                favoritesBtn.addEventListener('click', function() {
-                    afficherNotification('Fonctionnalité favoris bientôt disponible', 'info');
-                });
-            }
-        }
-
-        // Initialisation des produits
-        function initialiserProduits() {
-            // Boutons "Ajouter au panier" - SOLUTION CORRIGÉE
-            document.querySelectorAll('.add-to-cart').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    const productId = this.getAttribute('data-product-id');
-                    if (productId) {
-                        ajouterAuPanier(parseInt(productId));
-                    } else {
-                        console.error("Bouton Ajouter au panier sans data-product-id");
-                    }
-                });
-            });
-
-            // Boutons favoris
-            document.querySelectorAll('.favorite-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const productId = this.getAttribute('data-product-id');
-                    toggleFavori(parseInt(productId));
-                });
-            });
-        }
-
-        // Bannière promo
-        function initialiserPromoBanner() {
-            const promoClose = document.getElementById('promoClose');
-            if (promoClose) {
-                promoClose.addEventListener('click', function() {
-                    const banner = document.getElementById('promoBanner');
-                    if (banner) {
-                        banner.style.display = 'none';
-                    }
-                });
-            }
-        }
-
-        // Fonctions panier
-        function ajouterAuPanier(productId) {
-            const produit = produits[productId];
-            if (!produit) {
-                console.error("Produit non trouvé avec l'ID:", productId);
-                return;
-            }
-
-            const existingItem = panier.find(item => item.id === productId);
-            
-            if (existingItem) {
-                existingItem.quantite += 1;
-            } else {
-                panier.push({
-                    id: productId,
-                    nom: produit.nom,
-                    prix: produit.prix,
-                    image: produit.image,
-                    quantite: 1
-                });
-            }
-
-            sauvegarderPanier();
-            mettreAJourCompteurPanier();
-            afficherNotification(`${produit.nom} ajouté au panier`, 'success');
-            
-            // Animation du bouton
-            const btn = document.querySelector(`.add-to-cart[data-product-id="${productId}"]`);
-            if (btn) {
-                btn.textContent = '✓ Ajouté !';
-                btn.style.backgroundColor = 'var(--success-color)';
-                
-                setTimeout(() => {
-                    btn.textContent = '+ Ajouter au panier';
-                    btn.style.backgroundColor = '';
-                }, 2000);
-            }
-        }
-
-        function retirerDuPanier(productId) {
-            panier = panier.filter(item => item.id !== productId);
-            sauvegarderPanier();
-            mettreAJourCompteurPanier();
-            afficherPanier();
-        }
-
-        function viderPanier() {
-            panier = [];
-            sauvegarderPanier();
-            mettreAJourCompteurPanier();
-            afficherPanier();
-            afficherNotification('Panier vidé', 'info');
-        }
-
-        function sauvegarderPanier() {
-            localStorage.setItem('panier', JSON.stringify(panier));
-        }
-
-        function mettreAJourCompteurPanier() {
-            const cartCount = document.querySelector('.cart-count');
-            const totalItems = panier.reduce((total, item) => total + item.quantite, 0);
-            if (cartCount) {
-                cartCount.textContent = totalItems;
-            }
-        }
-
-        function afficherPanier() {
-            const panierItems = document.getElementById('panier-items');
-            if (!panierItems) return;
-
-            if (panier.length === 0) {
-                panierItems.innerHTML = '<p class="panier-vide">Votre panier est vide</p>';
-                mettreAJourTotauxPanier();
-                return;
-            }
-
-            panierItems.innerHTML = panier.map(item => `
-                <div class="panier-item">
-                    <div class="item-image">
-                        <img src="${item.image}" alt="${item.nom}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yMCAyMEg0MFY0MEgyMFYyMFoiIGZpbGw9IiNEREQiLz4KPHBhdGggZD0iTTI2IDI2VjM0SDM0VjI2SDI2WiIgZmlsbD0iIzlBOUE5QSIvPgo8L3N2Zz4K'">
-                    </div>
-                    <div class="item-details">
-                        <h4>${item.nom}</h4>
-                        <p class="item-price">${item.prix.toFixed(2)}€</p>
-                    </div>
-                    <div class="item-quantity">
-                        <button class="quantity-btn" onclick="modifierQuantite(${item.id}, -1)">-</button>
-                        <span>${item.quantite}</span>
-                        <button class="quantity-btn" onclick="modifierQuantite(${item.id}, 1)">+</button>
-                    </div>
-                    <button class="item-remove" onclick="retirerDuPanier(${item.id})" aria-label="Retirer du panier">×</button>
-                </div>
-            `).join('');
-
-            mettreAJourTotauxPanier();
-        }
-
-        function modifierQuantite(productId, changement) {
-            const item = panier.find(item => item.id === productId);
-            if (!item) return;
-
-            item.quantite += changement;
-
-            if (item.quantite <= 0) {
-                retirerDuPanier(productId);
-            } else {
-                sauvegarderPanier();
-                mettreAJourCompteurPanier();
-                afficherPanier();
-            }
-        }
-
-        function mettreAJourTotauxPanier() {
-            const sousTotal = panier.reduce((total, item) => total + (item.prix * item.quantite), 0);
-            const fraisLivraison = 14.90;
-            const total = sousTotal + fraisLivraison;
-
-            const sousTotalEl = document.getElementById('sous-total');
-            const fraisLivraisonEl = document.getElementById('frais-livraison');
-            const totalEl = document.getElementById('total-panier');
-
-            if (sousTotalEl) sousTotalEl.textContent = `${sousTotal.toFixed(2)}€`;
-            if (fraisLivraisonEl) fraisLivraisonEl.textContent = `${fraisLivraison.toFixed(2)}€`;
-            if (totalEl) totalEl.textContent = `${total.toFixed(2)}€`;
-        }
-
-        // Fonctions favoris
-        function toggleFavori(productId) {
-            const index = favoris.indexOf(productId);
-            
-            if (index === -1) {
-                favoris.push(productId);
-                afficherNotification('Ajouté aux favoris', 'success');
-            } else {
-                favoris.splice(index, 1);
-                afficherNotification('Retiré des favoris', 'info');
-            }
-
-            sauvegarderFavoris();
-            mettreAJourCompteurFavoris();
-            mettreAJourBoutonsFavoris();
-        }
-
-        function sauvegarderFavoris() {
-            localStorage.setItem('favoris', JSON.stringify(favoris));
-        }
-
-        function mettreAJourCompteurFavoris() {
-            const favoritesCount = document.querySelector('.favorites-count');
-            if (favoritesCount) {
-                favoritesCount.textContent = favoris.length;
-            }
-        }
-
-        function mettreAJourBoutonsFavoris() {
-            document.querySelectorAll('.favorite-btn').forEach(btn => {
-                const productId = parseInt(btn.getAttribute('data-product-id'));
-                if (favoris.includes(productId)) {
-                    btn.textContent = '❤️';
-                    btn.style.color = '#ff4757';
-                } else {
-                    btn.textContent = '🤍';
-                    btn.style.color = 'inherit';
-                }
-            });
-        }
-
-        // Retour en haut
-        function initialiserRetourHaut() {
-            const backToTop = document.getElementById('backToTop');
-            if (backToTop) {
-                window.addEventListener('scroll', function() {
-                    if (window.pageYOffset > 300) {
-                        backToTop.style.display = 'block';
-                    } else {
-                        backToTop.style.display = 'none';
-                    }
-                });
-                
-                backToTop.addEventListener('click', function() {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
-        }
-
-        // Écran de chargement
-        function masquerEcranChargement() {
-            const loadingScreen = document.getElementById('loadingScreen');
-            if (loadingScreen) {
-                setTimeout(() => {
-                    loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                    }, 500);
-                }, 1000);
-            }
-        }
-
-        // Notifications
-        function afficherNotification(message, type = 'info') {
-            const container = document.getElementById('notificationContainer');
-            if (!container) return;
-
-            const notification = document.createElement('div');
-            notification.className = `notification notification-${type}`;
-            notification.innerHTML = `
-                <span>${message}</span>
-                <button onclick="this.parentElement.remove()">×</button>
-            `;
-
-            container.appendChild(notification);
-
-            // Auto-suppression après 5 secondes
-            setTimeout(() => {
-                if (notification.parentElement) {
-                    notification.remove();
-                }
-            }, 5000);
-        }
-
-        // Gestion des erreurs d'images
-        function handleImageError(img) {
-            img.style.display = 'none';
-            const fallback = document.createElement('div');
-            fallback.className = 'image-fallback';
-            fallback.innerHTML = '🧺';
-            fallback.style.cssText = `
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: #f5f5f5;
-                font-size: 2rem;
-            `;
-            img.parentNode.appendChild(fallback);
-        }
-
-        // Enregistrement du Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(function(registration) {
-                        console.log('Service Worker enregistré avec succès:', registration);
-                    })
-                    .catch(function(error) {
-                        console.log("Échec de l'enregistrement du Service Worker:", error);
-                    });
-            });
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

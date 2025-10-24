@@ -1,147 +1,71 @@
 {
-  "name": "Au Palais Des Arts - Créations Artisanales en Osier du Maroc",
+  "name": "Au Palais Des Arts - Artisanat Marocain",
   "short_name": "Au Palais Des Arts",
-  "description": "Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains. Vannerie traditionnelle de qualité supérieure.",
+  "description": "Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1E6B4E",
+  "background_color": "#ffffff",
   "theme_color": "#1E6B4E",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "fr",
-  "dir": "ltr",
-  "categories": ["shopping", "lifestyle", "home", "fashion"],
-  
   "icons": [
     {
-      "src": "images/icon-72x72.png",
+      "src": "icons/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images/icon-96x96.png",
+      "src": "icons/icon-96x96.png",
       "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "images/icon-128x128.png",
+      "src": "icons/icon-128x128.png",
       "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "images/icon-144x144.png",
+      "src": "icons/icon-144x144.png",
       "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "images/icon-152x152.png",
+      "src": "icons/icon-152x152.png",
       "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "images/icon-192x192.png",
+      "src": "icons/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "images/icon-384x384.png",
+      "src": "icons/icon-384x384.png",
       "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "images/icon-512x512.png",
+      "src": "icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ],
-  
   "screenshots": [
     {
-      "src": "images/screenshot-mobile-1.jpg",
-      "sizes": "375x667",
-      "type": "image/jpeg",
-      "form_factor": "narrow",
-      "label": "Page d'accueil montrant les produits artisanaux"
-    },
-    {
-      "src": "images/screenshot-mobile-2.jpg",
-      "sizes": "375x667",
-      "type": "image/jpeg",
-      "form_factor": "narrow",
-      "label": "Détail d'un produit avec options d'achat"
-    },
-    {
-      "src": "images/screenshot-desktop-1.jpg",
+      "src": "screenshots/screenshot1.webp",
       "sizes": "1280x720",
-      "type": "image/jpeg",
-      "form_factor": "wide",
-      "label": "Vue desktop de la boutique en ligne"
-    }
-  ],
-  
-  "shortcuts": [
-    {
-      "name": "Nos Créations",
-      "short_name": "Produits",
-      "description": "Découvrir tous nos produits artisanaux",
-      "url": "/#produits",
-      "icons": [
-        {
-          "src": "images/shortcut-products.png",
-          "sizes": "96x96"
-        }
-      ]
+      "type": "image/webp",
+      "form_factor": "wide"
     },
     {
-      "name": "Création Sur Mesure",
-      "short_name": "Sur Mesure",
-      "description": "Demander une création personnalisée",
-      "url": "/#sur-mesure",
-      "icons": [
-        {
-          "src": "images/shortcut-custom.png",
-          "sizes": "96x96"
-        }
-      ]
-    },
-    {
-      "name": "Mon Panier",
-      "short_name": "Panier",
-      "description": "Voir mon panier d'achat",
-      "url": "/#panier",
-      "icons": [
-        {
-          "src": "images/shortcut-cart.png",
-          "sizes": "96x96"
-        }
-      ]
+      "src": "screenshots/screenshot2.webp",
+      "sizes": "750x1334",
+      "type": "image/webp",
+      "form_factor": "narrow"
     }
   ],
-  
-  "related_applications": [],
-  
-  "prefer_related_applications": false,
-  
-  "iarc_rating_id": "",
-  
-  "features": [
-    "Cross Platform",
-    "fast",
-    "simple",
-    "shopping cart",
-    "offline browsing"
-  ],
-  
-  "permissions": [
-    "notifications",
-    "storage"
-  ]
+  "categories": ["shopping", "business"],
+  "iarc_rating_id": "e58b9234-9e5d-4b1f-9b5a-8a9c7d2a8f1a"
 }

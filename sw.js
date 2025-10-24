@@ -1,424 +1,442 @@
-// Service Worker pour Au Palais Des Arts - PWA
-const CACHE_NAME = 'au-palais-des-arts-v2.0.0';
-const API_CACHE_NAME = 'au-palais-des-arts-api-v1';
+// Gestion du panier et des favoris
+let panier = JSON.parse(localStorage.getItem('panier')) || [];
+let favoris = JSON.parse(localStorage.getItem('favoris')) || [];
 
-// URLs à mettre en cache
-const STATIC_URLS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/script.js',
-  '/config.js',
-  '/manifest.json',
-  '/offline.html',
-  '/mentions-legales.html',
-  '/cgv.html',
-  '/politique-confidentialite.html',
-  
-  // Images principales
-  '/images/logo.png',
-  '/images/icon-192x192.png',
-  '/images/icon-512x512.png',
-  '/images/og-image.jpg',
-  
-  // Images des produits (placeholder)
-  '/images/panier-rectangulaire-jacinthe.jpg',
-  '/images/panier-rond-jacinthe.jpg',
-  '/images/panier-tresse-rectangulaire.jpg',
-  '/images/panier-double-compartiment.jpg',
-  '/images/panier-feuilles-palmier.jpg',
-  '/images/panier-rond-osier.jpg',
-  '/images/panier-ovale-rotin.jpg'
-];
+// Produits disponibles
+const produits = {
+    1: { id: 1, nom: "Panier Rectangulaire en Jacinthe d'Eau", prix: 29.99, image: "Panier rectangulaire en jacinthe d'eau.jpg" },
+    2: { id: 2, nom: "Panier Rond Jacinthe d'Eau H36.5", prix: 24.99, image: "Panier rond jacinthe d'eau H36.5 cm Lian.jpg" },
+    3: { id: 3, nom: "Panier Tressé Rectangulaire", prix: 35.00, image: "Panier tressé rectangulaire.jpg" },
+    4: { id: 4, nom: "Panier Double Compartiment", prix: 55.00, image: "Panier à linge double compartiment.jpg" },
+    5: { id: 5, nom: "Panier en Feuilles de Palmier", prix: 42.00, image: "Panier à linge en feuilles de palmier.jpg" },
+    6: { id: 6, nom: "Panier Rond en Osier", prix: 38.00, image: "Panier à linge rond en osier.jpg" },
+    7: { id: 7, nom: "Lot de 4 Paniers en Rotin Naturel", prix: 45.00, image: "Lot de 4 Paniers.jpg" }
+};
 
-// URLs dynamiques (API) à mettre en cache
-const DYNAMIC_URLS_TO_CACHE = [
-  '/api/products',
-  '/api/categories'
-];
-
-// Installation du Service Worker
-self.addEventListener('install', (event) => {
-  console.log('🛠️ Service Worker: Installation en cours...');
-  
-  event.waitUntil(
-    Promise.all([
-      // Cache des ressources statiques
-      caches.open(CACHE_NAME)
-        .then((cache) => {
-          console.log('📦 Cache statique ouvert');
-          return cache.addAll(STATIC_URLS_TO_CACHE.map(url => new Request(url, { cache: 'reload' })));
-        })
-        .then(() => {
-          console.log('✅ Toutes les ressources statiques sont en cache');
-        })
-        .catch((error) => {
-          console.error('❌ Erreur lors de la mise en cache statique:', error);
-        }),
-      
-      // Cache des ressources dynamiques
-      caches.open(API_CACHE_NAME)
-        .then((cache) => {
-          console.log('📦 Cache dynamique ouvert');
-          return cache.addAll(DYNAMIC_URLS_TO_CACHE);
-        })
-    ]).then(() => {
-      // Activation immédiate du Service Worker
-      console.log('🚀 Service Worker installé et activé');
-      return self.skipWaiting();
-    })
-  );
+// Initialisation au chargement
+document.addEventListener('DOMContentLoaded', function() {
+    initialiserNavigation();
+    initialiserPanier();
+    initialiserFavoris();
+    initialiserProduits();
+    initialiserFormulaireCreation();
+    initialiserRetourHaut();
+    masquerEcranChargement();
 });
 
-// Activation du Service Worker
-self.addEventListener('activate', (event) => {
-  console.log('🎯 Service Worker: Activation en cours...');
-  
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          // Supprimer les caches anciens
-          if (cacheName !== CACHE_NAME && cacheName !== API_CACHE_NAME) {
-            console.log('🗑️ Suppression de l ancien cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => {
-      console.log('✅ Service Worker activé avec succès');
-      // Prendre le contrôle de toutes les pages
-      return self.clients.claim();
-    })
-  );
-});
+// Navigation mobile
+function initialiserNavigation() {
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded', !isExpanded);
+        });
+    }
+}
 
-// Stratégie de cache: Network First avec fallback sur Cache
-self.addEventListener('fetch', (event) => {
-  const request = event.request;
-  const url = new URL(request.url);
+// Gestion du panier
+function initialiserPanier() {
+    const cartBtn = document.getElementById('cartBtn');
+    const closePanier = document.getElementById('closePanier');
+    const panierModal = document.getElementById('panierModal');
+    const viderPanierBtn = document.getElementById('viderPanierBtn');
+    const commanderBtn = document.getElementById('commanderBtn');
 
-  // Ignorer les requêtes non-GET et les requêtes cross-origin
-  if (request.method !== 'GET' || !url.origin.startsWith(self.location.origin)) {
-    return;
-  }
+    // Ouvrir/fermer le panier
+    if (cartBtn && panierModal) {
+        cartBtn.addEventListener('click', () => panierModal.style.display = 'block');
+    }
+    if (closePanier && panierModal) {
+        closePanier.addEventListener('click', () => panierModal.style.display = 'none');
+    }
 
-  // Pour les pages HTML, priorité au réseau
-  if (request.headers.get('Accept')?.includes('text/html')) {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          // Mettre à jour le cache avec la nouvelle réponse
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME)
-            .then((cache) => cache.put(request, responseClone));
-          return response;
-        })
-        .catch(() => {
-          // Fallback sur le cache
-          return caches.match(request)
-            .then((cachedResponse) => {
-              if (cachedResponse) {
-                return cachedResponse;
-              }
-              // Fallback sur la page offline
-              return caches.match('/offline.html');
-            });
-        })
-    );
-    return;
-  }
+    // Vider le panier
+    if (viderPanierBtn) {
+        viderPanierBtn.addEventListener('click', viderPanier);
+    }
 
-  // Pour les CSS, JS et images - Cache First
-  if (request.url.match(/\.(css|js|png|jpg|jpeg|gif|svg|ico|webp)$/)) {
-    event.respondWith(
-      caches.match(request)
-        .then((cachedResponse) => {
-          if (cachedResponse) {
-            // Retourner la réponse en cache et mettre à jour en arrière-plan
-            fetch(request)
-              .then((response) => {
-                const responseClone = response.clone();
-                caches.open(CACHE_NAME)
-                  .then((cache) => cache.put(request, responseClone));
-              })
-              .catch(() => {
-                console.log('⚠️ Impossible de mettre à jour le cache pour:', request.url);
-              });
-            return cachedResponse;
-          }
-          
-          // Si pas en cache, récupérer du réseau
-          return fetch(request)
-            .then((response) => {
-              // Vérifier si la réponse est valide
-              if (!response || response.status !== 200 || response.type !== 'basic') {
-                return response;
-              }
-              
-              // Mettre en cache la nouvelle ressource
-              const responseToCache = response.clone();
-              caches.open(CACHE_NAME)
-                .then((cache) => {
-                  cache.put(request, responseToCache);
-                });
-              
-              return response;
-            })
-            .catch(() => {
-              // Si le réseau échoue et pas en cache, retourner une image placeholder pour les images
-              if (request.url.match(/\.(png|jpg|jpeg|gif|svg|webp)$/)) {
-                return new Response(
-                  `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="%231E6B4E"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial" font-size="18">Image non disponible</text></svg>`,
-                  { headers: { 'Content-Type': 'image/svg+xml' } }
-                );
-              }
-              
-              // Pour les autres ressources, retourner une réponse d'erreur
-              return new Response('Ressource non disponible hors ligne', {
-                status: 408,
-                headers: { 'Content-Type': 'text/plain' }
-              });
-            });
-        })
-    );
-    return;
-  }
+    // Commander
+    if (commanderBtn) {
+        commanderBtn.addEventListener('click', () => {
+            if (panier.length === 0) {
+                afficherNotification('Votre panier est vide', 'error');
+                return;
+            }
+            window.location.href = '#paiement';
+            panierModal.style.display = 'none';
+        });
+    }
 
-  // Pour les données API - Network First
-  if (request.url.includes('/api/')) {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          // Mettre en cache la réponse API
-          const responseClone = response.clone();
-          caches.open(API_CACHE_NAME)
-            .then((cache) => cache.put(request, responseClone));
-          return response;
-        })
-        .catch(() => {
-          // Fallback sur le cache API
-          return caches.match(request)
-            .then((cachedResponse) => {
-              if (cachedResponse) {
-                return cachedResponse;
-              }
-              
-              // Retourner des données par défaut si pas en cache
-              return new Response(JSON.stringify({
-                error: 'Données non disponibles hors ligne',
-                offline: true
-              }), {
-                headers: { 'Content-Type': 'application/json' }
-              });
-            });
-        })
-    );
-    return;
-  }
+    // Fermer en cliquant en dehors
+    window.addEventListener('click', (e) => {
+        if (e.target === panierModal) {
+            panierModal.style.display = 'none';
+        }
+    });
 
-  // Stratégie par défaut: Network First
-  event.respondWith(
-    fetch(request)
-      .catch(() => {
-        return caches.match(request)
-          .then((cachedResponse) => {
-            if (cachedResponse) {
-              return cachedResponse;
+    mettreAJourCompteurPanier();
+}
+
+// Gestion des favoris
+function initialiserFavoris() {
+    const favoritesBtn = document.getElementById('favoritesBtn');
+    const closeFavorites = document.getElementById('closeFavorites');
+    const favoritesModal = document.getElementById('favoritesModal');
+    const closeFavoritesBtn = document.getElementById('closeFavoritesBtn');
+
+    if (favoritesBtn && favoritesModal) {
+        favoritesBtn.addEventListener('click', () => {
+            afficherFavoris();
+            favoritesModal.style.display = 'block';
+        });
+    }
+    if (closeFavorites && favoritesModal) {
+        closeFavorites.addEventListener('click', () => favoritesModal.style.display = 'none');
+    }
+    if (closeFavoritesBtn && favoritesModal) {
+        closeFavoritesBtn.addEventListener('click', () => favoritesModal.style.display = 'none');
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === favoritesModal) {
+            favoritesModal.style.display = 'none';
+        }
+    });
+
+    mettreAJourCompteurFavoris();
+}
+
+// Initialisation des produits
+function initialiserProduits() {
+    // Boutons "Ajouter au panier"
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            ajouterAuPanier(parseInt(productId));
+        });
+    });
+
+    // Boutons favoris
+    document.querySelectorAll('.favorite-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            toggleFavori(parseInt(productId));
+        });
+    });
+
+    // Mettre à jour l'état des boutons favoris
+    mettreAJourBoutonsFavoris();
+}
+
+// Fonctions panier
+function ajouterAuPanier(productId) {
+    const produit = produits[productId];
+    if (!produit) return;
+
+    const existingItem = panier.find(item => item.id === productId);
+    
+    if (existingItem) {
+        existingItem.quantite += 1;
+    } else {
+        panier.push({
+            id: productId,
+            nom: produit.nom,
+            prix: produit.prix,
+            image: produit.image,
+            quantite: 1
+        });
+    }
+
+    sauvegarderPanier();
+    mettreAJourCompteurPanier();
+    afficherNotification(`${produit.nom} ajouté au panier`, 'success');
+}
+
+function retirerDuPanier(productId) {
+    panier = panier.filter(item => item.id !== productId);
+    sauvegarderPanier();
+    mettreAJourCompteurPanier();
+    afficherPanier();
+}
+
+function viderPanier() {
+    panier = [];
+    sauvegarderPanier();
+    mettreAJourCompteurPanier();
+    afficherPanier();
+    afficherNotification('Panier vidé', 'info');
+}
+
+function sauvegarderPanier() {
+    localStorage.setItem('panier', JSON.stringify(panier));
+}
+
+function mettreAJourCompteurPanier() {
+    const cartCount = document.querySelector('.cart-count');
+    const totalItems = panier.reduce((total, item) => total + item.quantite, 0);
+    if (cartCount) {
+        cartCount.textContent = totalItems;
+    }
+}
+
+function afficherPanier() {
+    const panierItems = document.getElementById('panier-items');
+    if (!panierItems) return;
+
+    if (panier.length === 0) {
+        panierItems.innerHTML = '<p class="panier-vide">Votre panier est vide</p>';
+        return;
+    }
+
+    panierItems.innerHTML = panier.map(item => `
+        <div class="panier-item">
+            <div class="item-image">
+                <img src="${item.image}" alt="${item.nom}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yMCAyMEg0MFY0MEgyMFYyMFoiIGZpbGw9IiNEREQiLz4KPHBhdGggZD0iTTI2IDI2VjM0SDM0VjI2SDI2WiIgZmlsbD0iIzlBOUE5QSIvPgo8L3N2Zz4K'">
+            </div>
+            <div class="item-details">
+                <h4>${item.nom}</h4>
+                <p class="item-price">${item.prix.toFixed(2)}€</p>
+            </div>
+            <div class="item-quantity">
+                <button class="quantity-btn" onclick="modifierQuantite(${item.id}, -1)">-</button>
+                <span>${item.quantite}</span>
+                <button class="quantity-btn" onclick="modifierQuantite(${item.id}, 1)">+</button>
+            </div>
+            <button class="item-remove" onclick="retirerDuPanier(${item.id})" aria-label="Retirer du panier">×</button>
+        </div>
+    `).join('');
+
+    mettreAJourTotauxPanier();
+}
+
+function modifierQuantite(productId, changement) {
+    const item = panier.find(item => item.id === productId);
+    if (!item) return;
+
+    item.quantite += changement;
+
+    if (item.quantite <= 0) {
+        retirerDuPanier(productId);
+    } else {
+        sauvegarderPanier();
+        mettreAJourCompteurPanier();
+        afficherPanier();
+    }
+}
+
+function mettreAJourTotauxPanier() {
+    const sousTotal = panier.reduce((total, item) => total + (item.prix * item.quantite), 0);
+    const fraisLivraison = 14.90;
+    const total = sousTotal + fraisLivraison;
+
+    const sousTotalEl = document.getElementById('sous-total');
+    const fraisLivraisonEl = document.getElementById('frais-livraison');
+    const totalEl = document.getElementById('total-panier');
+
+    if (sousTotalEl) sousTotalEl.textContent = `${sousTotal.toFixed(2)}€`;
+    if (fraisLivraisonEl) fraisLivraisonEl.textContent = `${fraisLivraison.toFixed(2)}€`;
+    if (totalEl) totalEl.textContent = `${total.toFixed(2)}€`;
+}
+
+// Fonctions favoris
+function toggleFavori(productId) {
+    const index = favoris.indexOf(productId);
+    
+    if (index === -1) {
+        favoris.push(productId);
+        afficherNotification('Ajouté aux favoris', 'success');
+    } else {
+        favoris.splice(index, 1);
+        afficherNotification('Retiré des favoris', 'info');
+    }
+
+    sauvegarderFavoris();
+    mettreAJourCompteurFavoris();
+    mettreAJourBoutonsFavoris();
+
+    // Mettre à jour l'affichage des favoris si le modal est ouvert
+    const favoritesModal = document.getElementById('favoritesModal');
+    if (favoritesModal && favoritesModal.style.display === 'block') {
+        afficherFavoris();
+    }
+}
+
+function sauvegarderFavoris() {
+    localStorage.setItem('favoris', JSON.stringify(favoris));
+}
+
+function mettreAJourCompteurFavoris() {
+    const favoritesCount = document.querySelector('.favorites-count');
+    if (favoritesCount) {
+        favoritesCount.textContent = favoris.length;
+    }
+}
+
+function mettreAJourBoutonsFavoris() {
+    document.querySelectorAll('.favorite-btn').forEach(btn => {
+        const productId = parseInt(btn.getAttribute('data-product-id'));
+        if (favoris.includes(productId)) {
+            btn.textContent = '❤️';
+            btn.style.color = '#ff4757';
+        } else {
+            btn.textContent = '🤍';
+            btn.style.color = 'inherit';
+        }
+    });
+}
+
+function afficherFavoris() {
+    const favoritesItems = document.getElementById('favorites-items');
+    if (!favoritesItems) return;
+
+    if (favoris.length === 0) {
+        favoritesItems.innerHTML = '<p class="favorites-vide">Aucun produit dans vos favoris</p>';
+        return;
+    }
+
+    favoritesItems.innerHTML = favoris.map(productId => {
+        const produit = produits[productId];
+        if (!produit) return '';
+        
+        return `
+            <div class="favorite-item">
+                <div class="favorite-image">
+                    <img src="${produit.image}" alt="${produit.nom}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yNi42NjY3IDI2LjY2NjdINTMuMzMzNFY1My4zMzM0SDI2LjY2NjdWMjYuNjY2N1oiIGZpbGw9IiNEREQiLz4KPHBhdGggZD0iTTM1IDM1VjQ1SDQ1VjM1SDM1WiIgZmlsbD0iIzlBOUE5QSIvPgo8L3N2Zz4K'">
+                </div>
+                <div class="favorite-details">
+                    <h4>${produit.nom}</h4>
+                    <p class="favorite-price">${produit.prix.toFixed(2)}€</p>
+                </div>
+                <div class="favorite-actions">
+                    <button class="btn btn-primary" onclick="ajouterAuPanier(${productId})">Ajouter au panier</button>
+                    <button class="btn btn-danger" onclick="toggleFavori(${productId})">Retirer</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// Formulaire création sur mesure
+function initialiserFormulaireCreation() {
+    const form = document.getElementById('creationForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulation d'envoi
+            const confirmation = document.getElementById('confirmationMessage');
+            if (confirmation) {
+                confirmation.style.display = 'block';
+                form.reset();
+                
+                setTimeout(() => {
+                    confirmation.style.display = 'none';
+                }, 5000);
             }
             
-            // Rediriger vers la page offline pour les routes inconnues
-            if (request.headers.get('Accept')?.includes('text/html')) {
-              return caches.match('/offline.html');
+            afficherNotification('Votre demande a été envoyée !', 'success');
+        });
+    }
+}
+
+// Retour en haut
+function initialiserRetourHaut() {
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
             }
-            
-            return new Response('Ressource non disponible', {
-              status: 404,
-              statusText: 'Not Found'
-            });
-          });
-      })
-  );
-});
-
-// Gestion des messages depuis le client
-self.addEventListener('message', (event) => {
-  console.log('📨 Message reçu du client:', event.data);
-  
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-  
-  if (event.data && event.data.type === 'GET_VERSION') {
-    event.ports[0].postMessage({
-      type: 'VERSION_INFO',
-      version: '2.0.0',
-      cacheName: CACHE_NAME
-    });
-  }
-});
-
-// Gestion des synchronisations en arrière-plan
-self.addEventListener('sync', (event) => {
-  console.log('🔄 Synchronisation en arrière-plan:', event.tag);
-  
-  if (event.tag === 'background-sync') {
-    event.waitUntil(
-      doBackgroundSync()
-        .then(() => {
-          console.log('✅ Synchronisation réussie');
-        })
-        .catch((error) => {
-          console.error('❌ Erreur de synchronisation:', error);
-        })
-    );
-  }
-});
-
-// Fonction de synchronisation en arrière-plan
-async function doBackgroundSync() {
-  // Synchroniser les données avec le serveur
-  // (à implémenter selon les besoins)
-  
-  // Exemple: synchroniser le panier
-  const clients = await self.clients.matchAll();
-  clients.forEach((client) => {
-    client.postMessage({
-      type: 'SYNC_COMPLETE',
-      message: 'Données synchronisées'
-    });
-  });
+        });
+        
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 }
 
-// Gestion des notifications push
-self.addEventListener('push', (event) => {
-  console.log('🔔 Notification push reçue');
-  
-  if (!event.data) return;
-  
-  const data = event.data.json();
-  const options = {
-    body: data.body || 'Nouvelle notification de Au Palais Des Arts',
-    icon: '/images/icon-192x192.png',
-    badge: '/images/icon-192x192.png',
-    image: data.image,
-    data: data.url,
-    actions: [
-      {
-        action: 'view',
-        title: 'Voir'
-      },
-      {
-        action: 'dismiss',
-        title: 'Fermer'
-      }
-    ],
-    tag: data.tag || 'general',
-    renotify: true,
-    requireInteraction: true
-  };
-  
-  event.waitUntil(
-    self.registration.showNotification(data.title || 'Au Palais Des Arts', options)
-  );
-});
-
-// Gestion des clics sur les notifications
-self.addEventListener('notificationclick', (event) => {
-  console.log('👆 Notification cliquée:', event.notification.tag);
-  
-  event.notification.close();
-  
-  if (event.action === 'view' && event.notification.data) {
-    // Ouvrir l'URL de la notification
-    event.waitUntil(
-      self.clients.matchAll({ type: 'window' })
-        .then((clientList) => {
-          // Chercher un client déjà ouvert
-          for (const client of clientList) {
-            if (client.url === event.notification.data && 'focus' in client) {
-              return client.focus();
-            }
-          }
-          
-          // Ouvrir une nouvelle fenêtre
-          if (self.clients.openWindow) {
-            return self.clients.openWindow(event.notification.data);
-          }
-        })
-    );
-  } else if (event.action === 'dismiss') {
-    // Notification fermée
-    console.log('Notification fermée');
-  } else {
-    // Clic sur le corps de la notification
-    event.waitUntil(
-      self.clients.matchAll({ type: 'window' })
-        .then((clientList) => {
-          if (clientList.length > 0) {
-            return clientList[0].focus();
-          }
-          return self.clients.openWindow('/');
-        })
-    );
-  }
-});
-
-// Gestion de la fermeture des notifications
-self.addEventListener('notificationclose', (event) => {
-  console.log('📪 Notification fermée:', event.notification.tag);
-});
-
-// Gestion des erreurs du Service Worker
-self.addEventListener('error', (error) => {
-  console.error('🚨 Erreur du Service Worker:', error);
-});
-
-// Fonction utilitaire pour nettoyer le cache
-async function cleanupOldCaches() {
-  const cacheNames = await caches.keys();
-  const currentCaches = [CACHE_NAME, API_CACHE_NAME];
-  
-  return Promise.all(
-    cacheNames.map((cacheName) => {
-      if (!currentCaches.includes(cacheName)) {
-        console.log('🗑️ Nettoyage du cache obsolète:', cacheName);
-        return caches.delete(cacheName);
-      }
-    })
-  );
+// Écran de chargement
+function masquerEcranChargement() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen) {
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }, 1000);
+    }
 }
 
-// Exécuter le nettoyage au démarrage
-cleanupOldCaches().then(() => {
-  console.log('🧹 Nettoyage des caches terminé');
-});
+// Notifications
+function afficherNotification(message, type = 'info') {
+    const container = document.getElementById('notificationContainer');
+    if (!container) return;
 
-// Health check du Service Worker
-self.addEventListener('periodicsync', (event) => {
-  if (event.tag === 'health-check') {
-    console.log('❤️ Health check du Service Worker');
-    event.waitUntil(
-      doHealthCheck()
-    );
-  }
-});
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()">×</button>
+    `;
 
-async function doHealthCheck() {
-  // Vérifier l'état du cache
-  const cache = await caches.open(CACHE_NAME);
-  const keys = await cache.keys();
-  console.log(`📊 État du cache: ${keys.length} ressources en cache`);
-  
-  // Envoyer un rapport d'état aux clients
-  const clients = await self.clients.matchAll();
-  clients.forEach((client) => {
-    client.postMessage({
-      type: 'HEALTH_REPORT',
-      cacheSize: keys.length,
-      status: 'healthy'
-    });
-  });
+    container.appendChild(notification);
+
+    // Auto-suppression après 5 secondes
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
 }
 
-console.log('🎉 Service Worker de Au Palais Des Arts chargé avec succès');
+// Gestion des erreurs d'images
+function handleImageError(img) {
+    img.style.display = 'none';
+    const fallback = document.createElement('div');
+    fallback.className = 'image-fallback';
+    fallback.innerHTML = '🧺';
+    fallback.style.cssText = `
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f5f5;
+        font-size: 2rem;
+    `;
+    img.parentNode.appendChild(fallback);
+}
+
+// Code promo
+function appliquerCodePromo() {
+    const input = document.getElementById('codePromoInput');
+    const message = document.getElementById('promoMessage');
+    const code = input.value.trim().toUpperCase();
+
+    if (code === 'BIENVENUE10') {
+        message.textContent = 'Code appliqué ! -10% sur votre commande.';
+        message.className = 'promo-message success';
+        // Logique pour appliquer la réduction
+    } else if (code) {
+        message.textContent = 'Code promo invalide.';
+        message.className = 'promo-message error';
+    } else {
+        message.textContent = 'Veuillez entrer un code promo.';
+        message.className = 'promo-message error';
+    }
+}
+
+// Bannière promo
+function fermerPromoBanner() {
+    const banner = document.getElementById('promoBanner');
+    if (banner) {
+        banner.style.display = 'none';
+    }
+}

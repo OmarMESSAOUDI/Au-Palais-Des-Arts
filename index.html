@@ -37,7 +37,725 @@
         gtag('config', 'G-XXXXXXXXXX');
     </script>
     
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* STYLES GÉNÉRAUX */
+        :root {
+            --primary-color: #1E6B4E;
+            --secondary-color: #2D8A62;
+            --accent-color: #FF6B35;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+            --border-color: #dee2e6;
+            --text-light: #6c757d;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-padding {
+            padding: 80px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-full {
+            width: 100%;
+        }
+        
+        /* HEADER */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-image {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light-color);
+            border-radius: 8px;
+        }
+        
+        .logo-img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .logo-text h1 {
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .logo-text p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+            margin-left: 20px;
+        }
+        
+        .favorites-btn, .cart-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            padding: 5px;
+        }
+        
+        .favorites-count, .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 100px 0;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .hero-text h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .number {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero-visual {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+        
+        .floating-element {
+            position: absolute;
+            font-size: 4rem;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 0;
+            left: 0;
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 2s;
+        }
+        
+        .floating-element:nth-child(3) {
+            bottom: 0;
+            right: 0;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* SECTION HEADER */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* PRODUCTS GRID */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .favorite-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .product-image-container {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light-color);
+        }
+        
+        .product-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-content {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .product-description {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .product-stock {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .stock-indicator {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .in-stock {
+            background-color: #e8f5e8;
+            color: var(--success-color);
+        }
+        
+        .low-stock {
+            background-color: #fff3cd;
+            color: var(--warning-color);
+        }
+        
+        .stock-quantity {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+        
+        .product-origin {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .product-price {
+            margin-bottom: 15px;
+        }
+        
+        .price-original {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* SECTION PAIEMENT */
+        #paiement {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+        
+        #paiement .checkout-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        #paiement .checkout-header h1 {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+        
+        #paiement .checkout-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        
+        #paiement .checkout-form {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        #paiement .form-section {
+            margin-bottom: 25px;
+        }
+        
+        #paiement .form-section h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        #paiement .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        #paiement .form-group {
+            margin-bottom: 15px;
+        }
+        
+        #paiement label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        #paiement input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        #paiement input[type="text"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        #paiement .checkout-summary {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        
+        #paiement .summary-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        #paiement .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        #paiement .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 20px 0;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        #paiement .security-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+        
+        #paiement .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        #paiement .checkbox-group input {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        #paiement .guarantee {
+            margin-left: 24px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        #paiement .btn-pay {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #paiement .btn-pay:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* FOOTER */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .trust-badge {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            #paiement .checkout-content {
+                grid-template-columns: 1fr;
+            }
+            
+            #paiement .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            #paiement .checkout-summary {
+                position: static;
+                margin-top: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Skip Link pour accessibilité -->
@@ -474,6 +1192,97 @@
             </div>
         </section>
 
+        <!-- Section Paiement -->
+        <section id="paiement" class="section-padding">
+            <div class="container">
+                <div class="checkout-header">
+                    <h1>Finaliser votre commande</h1>
+                </div>
+                
+                <div class="checkout-content">
+                    <div class="checkout-form">
+                        <div class="form-section">
+                            <h2>Informations de livraison</h2>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstname">Prénom *</label>
+                                    <input type="text" id="firstname" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="lastname">Nom *</label>
+                                    <input type="text" id="lastname" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address">Adresse *</label>
+                                <input type="text" id="address" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="postal">Code postal *</label>
+                                    <input type="text" id="postal" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="city">Ville *</label>
+                                    <input type="text" id="city" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Téléphone *</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checkout-summary">
+                        <h2 class="summary-title">Récapitulatif</h2>
+                        
+                        <div class="summary-item">
+                            <span>Sous-total</span>
+                            <span>80.00€</span>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <span>Livraison</span>
+                            <span>14.90€</span>
+                        </div>
+                        
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span>94.90€</span>
+                        </div>
+                        
+                        <div class="security-info">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="secure-payment" checked>
+                                <label for="secure-payment">Paiement sécurisé</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="guaranteed-delivery" checked>
+                                <label for="guaranteed-delivery">Livraison garantie</label>
+                            </div>
+                            
+                            <div class="guarantee">Support 7j/7</div>
+                        </div>
+                        
+                        <button class="btn-pay">Payer ma commande</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Section Création sur Mesure -->
         <section class="creation-sur-mesure section-padding" id="sur-mesure">
             <div class="container">
@@ -710,204 +1519,52 @@
         </div>
     </footer>
 
-    <!-- Modal Panier avec processus de paiement intégré - VERSION AGRANDIE -->
-    <div id="panierModal" class="panier-modal">
-        <div class="panier-modal-content">
-            <div class="panier-modal-header">
-                <h2 id="panierModalTitle">🛒 Votre Panier</h2>
-                <button class="close-panier" id="closePanier" aria-label="Fermer le panier">×</button>
-            </div>
-            <div class="panier-modal-body">
-                <!-- Étape 1: Panier -->
-                <div id="panier-step-1" class="panier-step-container">
-                    <!-- Section code promo -->
-                    <div class="panier-promo-section">
-                        <div class="promo-input-group">
-                            <input type="text" id="codePromoInput" class="promo-input" placeholder="Code promo">
-                            <button class="btn-promo" onclick="appliquerCodePromo()">Appliquer</button>
-                        </div>
-                        <div id="promoMessage" class="promo-message"></div>
-                    </div>
-
-                    <!-- Liste des articles -->
-                    <div class="panier-items-container">
-                        <h3>Vos articles</h3>
-                        <div class="panier-items" id="panier-items">
-                            <!-- Les articles du panier seront insérés ici -->
-                        </div>
-                    </div>
-
-                    <!-- Options de livraison -->
-                    <div class="panier-livraison">
-                        <h3>Livraison</h3>
-                        <div class="livraison-option">
-                            <label>
-                                <input type="radio" name="livraison" value="standard" checked>
-                                Livraison standard
-                                <span class="livraison-prix">7,90€</span>
-                            </label>
-                        </div>
-                        <div class="livraison-option">
-                            <label>
-                                <input type="radio" name="livraison" value="express">
-                                Livraison express
-                                <span class="livraison-prix">14,90€</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Colonne des totaux -->
-                <div class="panier-totals-container">
-                    <div class="panier-totals">
-                        <h3>Récapitulatif</h3>
-                        <div class="panier-sous-total">
-                            <span>Sous-total</span>
-                            <span id="sous-total">0,00€</span>
-                        </div>
-                        <div class="panier-promo" id="panier-promo" style="display: none;">
-                            <span>Réduction</span>
-                            <span id="montant-promo">-0,00€</span>
-                        </div>
-                        <div class="panier-livraison-total">
-                            <span>Livraison</span>
-                            <span id="frais-livraison">0,00€</span>
-                        </div>
-                        <div class="panier-total">
-                            <span>Total</span>
-                            <span id="total-panier">0,00€</span>
-                        </div>
-                        <div class="panier-security">
-                            <div class="security-badge">🔒 Paiement sécurisé</div>
-                            <div class="security-badge">🚚 Livraison garantie</div>
-                            <div class="security-badge">💬 Support 7j/7</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Étape 2: Paiement -->
-                <div id="panier-step-2" style="display: none;" class="paiement-full-width">
-                    <div class="paiement-header">
-                        <h3>💳 Finaliser votre commande</h3>
-                        <p class="paiement-sous-titre">Remplissez vos informations pour compléter votre achat</p>
-                    </div>
-
-                    <form class="creation-form" id="paiementForm">
-                        <div class="form-section">
-                            <h4>Informations de livraison</h4>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="prenom">Prénom *</label>
-                                    <input type="text" id="prenom" name="prenom" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="nom">Nom *</label>
-                                    <input type="text" id="nom" name="nom" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="adresse">Adresse *</label>
-                                <input type="text" id="adresse" name="adresse" required>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="code-postal">Code postal *</label>
-                                    <input type="text" id="code-postal" name="code-postal" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="ville">Ville *</label>
-                                    <input type="text" id="ville" name="ville" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="telephone">Téléphone *</label>
-                                <input type="tel" id="telephone" name="telephone" required>
-                            </div>
-                        </div>
-
-                        <div class="form-section">
-                            <h4>Méthode de paiement</h4>
-                            
-                            <div class="form-group">
-                                <label for="carte-num">Numéro de carte *</label>
-                                <input type="text" id="carte-num" name="carte-num" placeholder="1234 5678 9012 3456" required>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="carte-exp">Date d'expiration *</label>
-                                    <input type="text" id="carte-exp" name="carte-exp" placeholder="MM/AA" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="carte-cvv">CVV *</label>
-                                    <input type="text" id="carte-cvv" name="carte-cvv" placeholder="123" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="conditions" required>
-                                    <span class="checkmark"></span>
-                                    J'accepte les <a href="cgv.html" target="_blank">conditions générales de vente</a> *
-                                </label>
-                            </div>
-                            
-                            <p style="text-align: center; margin: 1rem 0; font-size: 0.9rem; color: var(--text-light);">
-                                🔒 Paiement sécurisé - Vos données sont protégées
-                            </p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="panier-modal-actions">
-                <!-- Actions Étape 1 -->
-                <div id="actions-step-1" class="actions-container">
-                    <button class="btn btn-danger" id="viderPanierBtn">Vider le panier</button>
-                    <button class="btn btn-success" id="commanderBtn">Commander</button>
-                </div>
-                
-                <!-- Actions Étape 2 -->
-                <div id="actions-step-2" style="display: none;" class="actions-container">
-                    <button class="btn btn-secondary" id="retourPanierBtn">← Retour au panier</button>
-                    <button class="btn btn-success" id="paiementBtn">💳 Payer ma commande</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Favoris -->
-    <div id="favoritesModal" class="panier-modal">
-        <div class="panier-modal-content">
-            <div class="panier-modal-header">
-                <h2>❤️ Mes Favoris</h2>
-                <button class="close-panier" id="closeFavorites" aria-label="Fermer les favoris">×</button>
-            </div>
-            <div class="panier-modal-body">
-                <div class="favorites-items" id="favorites-items">
-                    <!-- Les produits favoris seront insérés ici -->
-                </div>
-            </div>
-            <div class="panier-modal-actions">
-                <button class="btn btn-secondary" id="closeFavoritesBtn">Fermer</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Bouton Retour en Haut -->
     <button id="backToTop" class="back-to-top" aria-label="Retour en haut">↑</button>
 
-    <!-- Conteneur pour les notifications -->
-    <div id="notificationContainer"></div>
-
-    <script src="script.js"></script>
+    <script>
+        // Scripts basiques pour la navigation mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+                    navToggle.setAttribute('aria-expanded', !isExpanded);
+                });
+            }
+            
+            // Retour en haut
+            const backToTop = document.getElementById('backToTop');
+            if (backToTop) {
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 300) {
+                        backToTop.style.display = 'block';
+                    } else {
+                        backToTop.style.display = 'none';
+                    }
+                });
+                
+                backToTop.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+            
+            // Gestion du chargement
+            window.addEventListener('load', function() {
+                const loadingScreen = document.getElementById('loadingScreen');
+                if (loadingScreen) {
+                    loadingScreen.style.display = 'none';
+                }
+            });
+        });
+        
+        function handleImageError(img) {
+            img.style.display = 'none';
+            // Optionnel: Afficher une image de remplacement
+        }
+    </script>
 </body>
 </html>

@@ -13,14 +13,14 @@
     
     <!-- MÉDIA SOCIAUX -->
     <meta property="og:title" content="Au Palais Des Arts - Créations Artisanales en Osier du Maroc">
-    <meta property="og:description" content="Paniers artisanaux en osier 100% fait main au Maroc. Créations sur mesure par nos artisans marocains.">
+    <meta property="og:description" content="Paniers artisanaux en osier 100% faits main au Maroc. Créations sur mesure par nos artisans marocains.">
     <meta property="og:image" content="https://aupalaisdesarts.fr/logo-social.jpg">
     <meta property="og:url" content="https://aupalaisdesarts.fr">
     <meta property="og:type" content="website">
     
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Au Palais Des Arts - Artisanat Marocain">
-    <meta name="twitter:description" content="Paniers artisanaux en osier 100% fait main au Maroc">
+    <meta name="twitter:description" content="Paniers artisanaux en osier 100% faits main au Maroc">
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
@@ -37,413 +37,6 @@
         gtag('config', 'G-XXXXXXXXXX');
     </script>
     
-    <style>
-        /* ===== MODAL PANIER AGRANDIE ===== */
-        .panier-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            animation: fadeIn 0.3s;
-        }
-
-        .panier-modal-content {
-            background-color: #fefefe;
-            margin: 2% auto;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            max-height: 96vh;
-        }
-
-        .panier-modal-content.large-modal {
-            width: 90%;
-            max-width: 1000px;
-            height: 90vh;
-        }
-
-        .panier-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px 30px;
-            border-bottom: 1px solid #eaeaea;
-            background: linear-gradient(135deg, #1E6B4E 0%, #2a8b5e 100%);
-            color: white;
-            border-radius: 12px 12px 0 0;
-        }
-
-        .panier-modal-header h2 {
-            margin: 0;
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
-
-        .close-panier {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            font-size: 28px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .close-panier:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.1);
-        }
-
-        .panier-modal-body {
-            flex: 1;
-            padding: 25px 30px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .panier-step {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .panier-section {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            border: 1px solid #eaeaea;
-        }
-
-        .panier-section h3 {
-            margin: 0 0 15px 0;
-            font-size: 1.3rem;
-            color: #1E6B4E;
-            font-weight: 600;
-        }
-
-        .panier-promo-section {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            border: 1px solid #e9ecef;
-        }
-
-        .promo-input-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .promo-input {
-            flex: 1;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 1rem;
-        }
-
-        .btn-promo {
-            background: #1E6B4E;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-
-        .btn-promo:hover {
-            background: #2a8b5e;
-        }
-
-        .panier-items {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .panier-empty {
-            text-align: center;
-            padding: 40px 20px;
-            color: #6c757d;
-        }
-
-        .livraison-option {
-            margin-bottom: 10px;
-        }
-
-        .livraison-label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border: 2px solid #eaeaea;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .livraison-label:hover {
-            border-color: #1E6B4E;
-        }
-
-        .livraison-info {
-            flex: 1;
-            margin-left: 10px;
-        }
-
-        .livraison-info strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .livraison-info span {
-            font-size: 0.9rem;
-            color: #6c757d;
-        }
-
-        .livraison-prix {
-            font-weight: 600;
-            color: #1E6B4E;
-        }
-
-        .panier-totals {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .panier-sous-total,
-        .panier-promo,
-        .panier-livraison-total,
-        .panier-total {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-        }
-
-        .panier-total {
-            border-top: 2px solid #eaeaea;
-            padding-top: 15px;
-            margin-top: 5px;
-            font-size: 1.2rem;
-        }
-
-        .paiement-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .paiement-header h3 {
-            font-size: 1.6rem;
-            color: #1E6B4E;
-            margin-bottom: 8px;
-        }
-
-        .paiement-sous-titre {
-            color: #6c757d;
-            font-size: 1rem;
-        }
-
-        .paiement-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
-        .paiement-form-container {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            border: 1px solid #eaeaea;
-        }
-
-        .commande-resume {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 8px;
-            border: 1px solid #e9ecef;
-            height: fit-content;
-            position: sticky;
-            top: 20px;
-        }
-
-        .commande-resume h4 {
-            margin: 0 0 15px 0;
-            color: #1E6B4E;
-            font-weight: 600;
-        }
-
-        .large-input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #eaeaea;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .large-input:focus {
-            border-color: #1E6B4E;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(30, 107, 78, 0.1);
-        }
-
-        .resume-items {
-            max-height: 200px;
-            overflow-y: auto;
-            margin-bottom: 15px;
-        }
-
-        .resume-totals {
-            border-top: 1px solid #dee2e6;
-            padding-top: 15px;
-        }
-
-        .resume-line {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
-        .resume-total {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #dee2e6;
-        }
-
-        .security-notice {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #e8f5e8;
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin-top: 20px;
-        }
-
-        .security-notice p {
-            margin: 0;
-            color: #2d5016;
-            font-size: 0.9rem;
-        }
-
-        .panier-modal-actions {
-            padding: 20px 30px;
-            border-top: 1px solid #eaeaea;
-            background: #f8f9fa;
-            border-radius: 0 0 12px 12px;
-        }
-
-        .actions-step {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .actions-right {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1rem;
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-            transform: translateY(-1px);
-        }
-
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #c82333;
-            transform: translateY(-1px);
-        }
-
-        .btn-success {
-            background: #1E6B4E;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #2a8b5e;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(30, 107, 78, 0.3);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @media (max-width: 768px) {
-            .panier-modal-content.large-modal {
-                width: 95%;
-                height: 95vh;
-                margin: 2.5% auto;
-            }
-            
-            .paiement-content {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .commande-resume {
-                position: static;
-            }
-            
-            .actions-step {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .actions-right {
-                width: 100%;
-                justify-content: space-between;
-            }
-        }
-    </style>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -533,248 +126,742 @@
                             </div>
                         </div>
                     </div>
-                    <div class="logo-container">
-                        <img src="Au_Palais_Des_Arts.png" alt="Logo Au Palais Des Arts - Vannerie Marocaine" class="logo">
+                    <div class="hero-image">
+                        <div class="hero-visual">
+                            <div class="floating-element">🌿</div>
+                            <div class="floating-element">🧺</div>
+                            <div class="floating-element">🇲🇦</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Le reste de votre contenu existant reste inchangé -->
         <!-- Section Présentation -->
         <section class="presentation section-padding" id="histoire">
-            <!-- Votre contenu existant -->
+            <div class="container">
+                <div class="section-header">
+                    <h2>Notre Histoire</h2>
+                    <p>Transmettre l'excellence artisanale marocaine depuis trois générations</p>
+                </div>
+                <div class="histoire-content">
+                    <div class="histoire-text">
+                        <h3>Un Savoir-Faire Ancestral du Maroc</h3>
+                        <p>Fondé en 1985 par la famille Martin, <strong>Au Palais Des Arts</strong> perpétue la tradition du tissage d'osier et du travail artisanal de qualité. <strong>Nos créations sont entièrement fabriquées au Maroc</strong> par des artisans locaux qui maîtrisent des techniques ancestrales.</p>
+                        
+                        <div class="origine-info">
+                            <div class="origine-badge">
+                                <span class="origine-icon">🇲🇦</span>
+                                <div>
+                                    <h4>Origine Marocaine</h4>
+                                    <p>100% fait main au Maroc par des artisans locaux</p>
+                                </div>
+                            </div>
+                            <div class="origine-badge">
+                                <span class="origine-icon">👐</span>
+                                <div>
+                                    <h4>100% Artisanal</h4>
+                                    <p>Techniques traditionnelles transmises de génération en génération</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p>Chaque panier est conçu avec passion et expertise, utilisant des matériaux naturels et durables provenant des régions marocaines. Nous collaborons étroitement avec des coopératives d'artisans qui préservent ce savoir-faire unique.</p>
+                        
+                        <div class="valeurs-grid">
+                            <div class="valeur-card">
+                                <div class="valeur-icon">🌱</div>
+                                <h4>Éco-responsable</h4>
+                                <p>Osier 100% naturel de cultures durables marocaines</p>
+                            </div>
+                            <div class="valeur-card">
+                                <div class="valeur-icon">👐</div>
+                                <h4>Fait Main</h4>
+                                <p>Techniques ancestrales marocaines transmises</p>
+                            </div>
+                            <div class="valeur-card">
+                                <div class="valeur-icon">🇲🇦</div>
+                                <h4>Origine Maroc</h4>
+                                <p>Fabriqué au Maroc par des artisans locaux</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Section Produits -->
         <section class="produits section-padding" id="produits">
-            <!-- Votre contenu existant -->
+            <div class="container">
+                <div class="section-header">
+                    <h2>Nos 7 Créations en Osier du Maroc</h2>
+                    <p>Pièces uniques faites main avec des techniques ancestrales marocaines</p>
+                </div>
+
+                <!-- Code Promo Banner -->
+                <div class="promo-banner" id="promoBanner">
+                    <div class="promo-content">
+                        <span class="promo-icon">🎁</span>
+                        <span class="promo-text">Code promo : <strong>BIENVENUE10</strong> pour -10% sur votre première commande !</span>
+                        <button class="promo-close" onclick="fermerPromoBanner()" aria-label="Fermer la bannière">×</button>
+                    </div>
+                </div>
+
+                <div class="products-grid">
+                    <!-- Produit 1 -->
+                    <div class="product-card" data-product-id="1">
+                        <div class="product-badge">Populaire</div>
+                        <button class="favorite-btn" data-product-id="1" aria-label="Ajouter aux favoris">🤍</button>
+                        <div class="product-image-container">
+                            <div class="product-image">
+                                <img src="Panier rectangulaire en jacinthe d'eau.jpg" 
+                                     alt="Panier Rectangulaire en Jacinthe d'Eau - Vue de face" 
+                                     class="product-img"
+                                     loading="lazy"
+                                     width="400"
+                                     height="300"
+                                     onerror="handleImageError(this)">
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">Panier Rectangulaire en Jacinthe d'Eau</h3>
+                            <p class="product-description">Panier élégant en jacinthe d'eau naturelle, tissé à la main par nos artisans marocains. Parfait pour le rangement et la décoration.</p>
+                            <div class="product-meta">
+                                <span>📏 40x30x25cm</span>
+                                <span>🚚 48h</span>
+                            </div>
+                            <div class="product-stock">
+                                <span class="stock-indicator in-stock">✓ En stock</span>
+                                <span class="stock-quantity">(Plus que 3 disponibles)</span>
+                            </div>
+                            <div class="product-origin">🇲🇦 Fait main au Maroc</div>
+                            <div class="product-price">
+                                <span class="price-original">29,99€</span>
+                            </div>
+                            <button class="btn btn-primary add-to-cart btn-full" data-product-id="1">
+                                ➕ Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Produit 2 -->
+                    <div class="product-card" data-product-id="2">
+                        <div class="product-badge">Nouveau</div>
+                        <button class="favorite-btn" data-product-id="2" aria-label="Ajouter aux favoris">🤍</button>
+                        <div class="product-image-container">
+                            <div class="product-image">
+                                <img src="Panier rond jacinthe d'eau H36.5 cm Lian.jpg" 
+                                     alt="Panier Rond Jacinthe d'Eau H36.5 - Vue perspective" 
+                                     class="product-img"
+                                     loading="lazy"
+                                     width="400"
+                                     height="300"
+                                     onerror="handleImageError(this)">
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">Panier Rond Jacinthe d'Eau H36.5</h3>
+                            <p class="product-description">Panier rond de 36.5cm de hauteur en jacinthe d'eau, idéal pour la décoration intérieure. Tressage traditionnel marocain.</p>
+                            <div class="product-meta">
+                                <span>📏 Ø35cm x H36.5cm</span>
+                                <span>🚚 48h</span>
+                            </div>
+                            <div class="product-stock">
+                                <span class="stock-indicator in-stock">✓ En stock</span>
+                                <span class="stock-quantity">(Plus que 5 disponibles)</span>
+                            </div>
+                            <div class="product-origin">🇲🇦 Fait main au Maroc</div>
+                            <div class="product-price">
+                                <span class="price-original">24,99€</span>
+                            </div>
+                            <button class="btn btn-primary add-to-cart btn-full" data-product-id="2">
+                                ➕ Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Produit 3 -->
+                    <div class="product-card" data-product-id="3">
+                        <div class="product-badge">Best-seller</div>
+                        <button class="favorite-btn" data-product-id="3" aria-label="Ajouter aux favoris">🤍</button>
+                        <div class="product-image-container">
+                            <div class="product-image">
+                                <img src="Panier tressé rectangulaire.jpg" 
+                                     alt="Panier Tressé Rectangulaire - Détail du tissage" 
+                                     class="product-img"
+                                     loading="lazy"
+                                     width="400"
+                                     height="300"
+                                     onerror="handleImageError(this)">
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">Panier Tressé Rectangulaire</h3>
+                            <p class="product-description">Panier élégant au design rectangulaire, parfait pour le rangement et la décoration. Tressage traditionnel marocain pour une durabilité exceptionnelle.</p>
+                            <div class="product-meta">
+                                <span>📏 40x30x25cm</span>
+                                <span>🚚 48h</span>
+                            </div>
+                            <div class="product-stock">
+                                <span class="stock-indicator low-stock">⚠️ Stock limité</span>
+                                <span class="stock-quantity">(Plus que 2 disponibles)</span>
+                            </div>
+                            <div class="product-origin">🇲🇦 Fait main au Maroc</div>
+                            <div class="product-price">
+                                <span class="price-original">35,00€</span>
+                            </div>
+                            <button class="btn btn-primary add-to-cart btn-full" data-product-id="3">
+                                ➕ Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Produit 4 -->
+                    <div class="product-card" data-product-id="4">
+                        <div class="product-badge">Innovant</div>
+                        <button class="favorite-btn" data-product-id="4" aria-label="Ajouter aux favoris">🤍</button>
+                        <div class="product-image-container">
+                            <div class="product-image">
+                                <img src="Panier à linge double compartiment.jpg" 
+                                     alt="Panier Double Compartiment - Vue montrant les deux sections" 
+                                     class="product-img"
+                                     loading="lazy"
+                                     width="400"
+                                     height="300"
+                                     onerror="handleImageError(this)">
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">Panier Double Compartiment</h3>
+                            <p class="product-description">Innovant et pratique, ce panier à double compartiment vous permet de trier votre linge facilement. Idéal pour une organisation optimale.</p>
+                            <div class="product-meta">
+                                <span>📏 50x40x35cm</span>
+                                <span>🚚 48h</span>
+                            </div>
+                            <div class="product-stock">
+                                <span class="stock-indicator in-stock">✓ En stock</span>
+                                <span class="stock-quantity">(Plus que 8 disponibles)</span>
+                            </div>
+                            <div class="product-origin">🇲🇦 Fait main au Maroc</div>
+                            <div class="product-price">
+                                <span class="price-original">55,00€</span>
+                            </div>
+                            <button class="btn btn-primary add-to-cart btn-full" data-product-id="4">
+                                ➕ Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Produit 5 -->
+                    <div class="product-card" data-product-id="5">
+                        <div class="product-badge">Écologique</div>
+                        <button class="favorite-btn" data-product-id="5" aria-label="Ajouter aux favoris">🤍</button>
+                        <div class="product-image-container">
+                            <div class="product-image">
+                                <img src="Panier à linge en feuilles de palmier.jpg" 
+                                     alt="Panier en Feuilles de Palmier - Texture naturelle visible" 
+                                     class="product-img"
+                                     loading="lazy"
+                                     width="400"
+                                     height="300"
+                                     onerror="handleImageError(this)">
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">Panier en Feuilles de Palmier</h3>
+                            <p class="product-description">Panier écologique fabriqué à partir de feuilles de palmier naturelles. Léger, résistant et respectueux de l'environnement.</p>
+                            <div class="product-meta">
+                                <span>📏 45x35x30cm</span>
+                                <span>🚚 48h</span>
+                            </div>
+                            <div class="product-stock">
+                                <span class="stock-indicator in-stock">✓ En stock</span>
+                                <span class="stock-quantity">(Plus que 6 disponibles)</span>
+                            </div>
+                            <div class="product-origin">🇲🇦 Fait main au Maroc</div>
+                            <div class="product-price">
+                                <span class="price-original">42,00€</span>
+                            </div>
+                            <button class="btn btn-primary add-to-cart btn-full" data-product-id="5">
+                                ➕ Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Produit 6 -->
+                    <div class="product-card" data-product-id="6">
+                        <div class="product-badge">Classique</div>
+                        <button class="favorite-btn" data-product-id="6" aria-label="Ajouter aux favoris">🤍</button>
+                        <div class="product-image-container">
+                            <div class="product-image">
+                                <img src="Panier à linge rond en osier.jpg" 
+                                     alt="Panier Rond en Osier - Forme circulaire traditionnelle" 
+                                     class="product-img"
+                                     loading="lazy"
+                                     width="400"
+                                     height="300"
+                                     onerror="handleImageError(this)">
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">Panier Rond en Osier</h3>
+                            <p class="product-description">Panier rond traditionnel en osier de qualité supérieure. Parfait pour le rangement du linge ou comme élément décoratif chaleureux.</p>
+                            <div class="product-meta">
+                                <span>📏 Diamètre 45cm</span>
+                                <span>🚚 48h</span>
+                            </div>
+                            <div class="product-stock">
+                                <span class="stock-indicator in-stock">✓ En stock</span>
+                                <span class="stock-quantity">(Plus que 4 disponibles)</span>
+                            </div>
+                            <div class="product-origin">🇲🇦 Fait main au Maroc</div>
+                            <div class="product-price">
+                                <span class="price-original">38,00€</span>
+                            </div>
+                            <button class="btn btn-primary add-to-cart btn-full" data-product-id="6">
+                                ➕ Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Produit 7 -->
+                    <div class="product-card" data-product-id="7">
+                        <div class="product-badge">Exclusivité</div>
+                        <button class="favorite-btn" data-product-id="7" aria-label="Ajouter aux favoris">🤍</button>
+                        <div class="product-image-container">
+                            <div class="product-image">
+                                <img src="Lot de 4 Paniers.jpg" 
+                                     alt="Panier Ovale en Rotin Naturel - Design ovale élégant" 
+                                     class="product-img"
+                                     loading="lazy"
+                                     width="400"
+                                     height="300"
+                                     onerror="handleImageError(this)">
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">Lot de 4 Paniers en Rotin Naturel</h3>
+                            <p class="product-description">Élégant lot de 4 paniers en rotin naturel, design raffiné pour une touche d'élégance dans votre décoration. Fait main par nos artisans.</p>
+                            <div class="product-meta">
+                                <span>📏 4 tailles différentes</span>
+                                <span>🚚 48h</span>
+                            </div>
+                            <div class="product-stock">
+                                <span class="stock-indicator in-stock">✓ En stock</span>
+                                <span class="stock-quantity">(Plus que 7 disponibles)</span>
+                            </div>
+                            <div class="product-origin">🇲🇦 Fait main au Maroc</div>
+                            <div class="product-price">
+                                <span class="price-original">45,00€</span>
+                            </div>
+                            <button class="btn btn-primary add-to-cart btn-full" data-product-id="7">
+                                ➕ Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section Produits Récemment Consultés -->
+                <div id="recently-viewed-section" style="display: none;">
+                    <div class="section-header">
+                        <h2>Récemment Consultés</h2>
+                        <p>Retrouvez les produits que vous avez récemment regardés</p>
+                    </div>
+                    <div class="products-grid" id="recently-viewed-grid">
+                        <!-- Les produits récemment consultés seront insérés ici -->
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Section Création sur Mesure -->
         <section class="creation-sur-mesure section-padding" id="sur-mesure">
-            <!-- Votre contenu existant -->
+            <div class="container">
+                <div class="section-header">
+                    <h2>Création sur Mesure</h2>
+                    <p>Votre projet unique, réalisé par nos artisans marocains</p>
+                </div>
+                
+                <div class="creation-content">
+                    <div class="creation-text">
+                        <h3>Votre Vision, Notre Savoir-Faire</h3>
+                        <p>Vous avez un projet spécifique ? Une idée unique ? Nos artisans marocains peuvent créer <strong>votre pièce sur mesure</strong> selon vos envies et besoins.</p>
+                        
+                        <div class="avantages-list">
+                            <div class="avantage">
+                                <span class="avantage-icon">🎨</span>
+                                <div>
+                                    <h4>Design Personnalisé</h4>
+                                    <p>Dimensions, formes et couleurs adaptées à vos besoins</p>
+                                </div>
+                            </div>
+                            <div class="avantage">
+                                <span class="avantage-icon">👨‍🎨</span>
+                                <div>
+                                    <h4>Expertise Marocaine</h4>
+                                    <p>Réalisé par nos artisans expérimentés au Maroc</p>
+                                </div>
+                            </div>
+                            <div class="avantage">
+                                <span class="avantage-icon">⏱️</span>
+                                <div>
+                                    <h4>Accompagnement</h4>
+                                    <p>Suivi personnalisé de votre projet jusqu'à la livraison</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="creation-form-container">
+                        <form class="creation-form" id="creationForm">
+                            <h4>Parlez-nous de votre projet</h4>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="creation-nom">Nom complet *</label>
+                                    <input type="text" id="creation-nom" name="nom" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="creation-email">Email *</label>
+                                    <input type="email" id="creation-email" name="email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="creation-telephone">Téléphone</label>
+                                <input type="tel" id="creation-telephone" name="telephone">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="creation-type">Type de création *</label>
+                                <select id="creation-type" name="type" required>
+                                    <option value="">Choisissez le type</option>
+                                    <option value="panier">Panier sur mesure</option>
+                                    <option value="corbeille">Corbeille personnalisée</option>
+                                    <option value="decoration">Décoration intérieure</option>
+                                    <option value="mobilier">Mobilier en osier</option>
+                                    <option value="autre">Autre projet</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="creation-dimensions">Dimensions souhaitées</label>
+                                <input type="text" id="creation-dimensions" name="dimensions" placeholder="Ex: 40x30x25cm">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="creation-description">Description de votre projet *</label>
+                                <textarea id="creation-description" name="description" rows="5" required placeholder="Décrivez en détail votre projet, vos attentes, l'usage prévu..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="creation-budget">Budget estimatif</label>
+                                <input type="text" id="creation-budget" name="budget" placeholder="Ex: 50-100€">
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="origine" required>
+                                    <span class="checkmark"></span>
+                                    Je comprends que mes créations seront fabriquées au Maroc par des artisans locaux *
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-full" id="submitCreationForm">
+                                🎨 Envoyer ma demande de création sur mesure
+                            </button>
+                            
+                            <!-- Message de confirmation -->
+                            <div id="confirmationMessage" class="confirmation-message" style="display: none;">
+                                ✅ Votre demande a été prise en compte ! Nous vous recontacterons dans les plus brefs délais.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Section Avis -->
         <section class="avis section-padding" id="avis">
-            <!-- Votre contenu existant -->
+            <div class="container">
+                <div class="section-header">
+                    <h2>Avis Clients</h2>
+                    <p>Ce que disent nos clients satisfaits</p>
+                </div>
+                <div class="avis-grid">
+                    <div class="avis-card">
+                        <div class="avis-header">
+                            <div class="avis-client">
+                                <div class="client-avatar">M</div>
+                                <div>
+                                    <h4>Marie L.</h4>
+                                    <div class="avis-rating">★★★★★</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="avis-text">"Le panier rectangulaire est absolument magnifique ! La qualité de tissage est exceptionnelle. Savoir qu'il est fait main au Maroc ajoute une valeur sentimentale. Livraison rapide et emballage soigné."</p>
+                        <div class="avis-date">15/10/2024</div>
+                    </div>
+
+                    <div class="avis-card">
+                        <div class="avis-header">
+                            <div class="avis-client">
+                                <div class="client-avatar">P</div>
+                                <div>
+                                    <h4>Pierre D.</h4>
+                                    <div class="avis-rating">★★★★★</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="avis-text">"J'ai offert le panier double compartiment à ma femme et elle en est ravie. Pratique et élégant, il trône maintenant dans notre chambre. La qualité artisanale marocaine est remarquable !"</p>
+                        <div class="avis-date">12/10/2024</div>
+                    </div>
+
+                    <div class="avis-card">
+                        <div class="avis-header">
+                            <div class="avis-client">
+                                <div class="client-avatar">S</div>
+                                <div>
+                                    <h4>Sophie M.</h4>
+                                    <div class="avis-rating">★★★★☆</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="avis-text">"Très beau panier en feuilles de palmier, léger et résistant. Le côté écologique et l'origine marocaine sont appréciables. Petit bémol : une légère odeur au début, mais qui part rapidement."</p>
+                        <div class="avis-date">08/10/2024</div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Section Contact -->
         <section class="contact section-padding" id="contact">
-            <!-- Votre contenu existant -->
+            <div class="container">
+                <div class="section-header">
+                    <h2>Contactez-nous</h2>
+                    <p>Une question ? Un projet sur mesure ?</p>
+                </div>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="icon">📧</div>
+                            <div class="details">
+                                <h3>Email</h3>
+                                <p>contact@aupalaisdesarts.fr</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon">📞</div>
+                            <div class="details">
+                                <h3>Téléphone</h3>
+                                <p>01 23 45 67 89</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon">📍</div>
+                            <div class="details">
+                                <h3>Atelier Partenaire</h3>
+                                <p>Coopérative d'artisans<br>Marrakech, Maroc</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <!-- Votre contenu existant -->
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Au Palais Des Arts</h3>
+                    <p>Artisanat marocain d'exception depuis 1985</p>
+                    <div class="trust-badges">
+                        <span class="trust-badge">🌿 100% Fait main</span>
+                        <span class="trust-badge">🇲🇦 Fabriqué au Maroc</span>
+                        <span class="trust-badge">🚚 Livraison France</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="#produits">Nos créations</a></li>
+                        <li><a href="#histoire">Notre histoire</a></li>
+                        <li><a href="#sur-mesure">Création sur mesure</a></li>
+                        <li><a href="#avis">Avis clients</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Informations Légales</h3>
+                    <ul>
+                        <li><a href="mentions-legales.html">Mentions légales</a></li>
+                        <li><a href="cgv.html">CGV</a></li>
+                        <li><a href="politique-confidentialite.html">Politique de confidentialité</a></li>
+                        <li>✓ 100% Fait main au Maroc</li>
+                        <li>✓ Artisanat traditionnel</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Au Palais Des Arts. Artisanat marocain - Tous droits réservés.</p>
+            </div>
+        </div>
     </footer>
 
-    <!-- Modal Panier avec processus de paiement intégré - VERSION AGRANDIE -->
+    <!-- Modal Panier avec processus de paiement intégré -->
     <div id="panierModal" class="panier-modal">
-        <div class="panier-modal-content large-modal">
+        <div class="panier-modal-content">
             <div class="panier-modal-header">
                 <h2 id="panierModalTitle">🛒 Votre Panier</h2>
                 <button class="close-panier" id="closePanier" aria-label="Fermer le panier">×</button>
             </div>
             <div class="panier-modal-body">
                 <!-- Étape 1: Panier -->
-                <div id="panier-step-1" class="panier-step">
+                <div id="panier-step-1">
                     <!-- Section code promo -->
                     <div class="panier-promo-section">
-                        <h3>Code Promo</h3>
                         <div class="promo-input-group">
-                            <input type="text" id="codePromoInput" class="promo-input" placeholder="Entrez votre code promo">
+                            <input type="text" id="codePromoInput" class="promo-input" placeholder="Code promo">
                             <button class="btn-promo" onclick="appliquerCodePromo()">Appliquer</button>
                         </div>
                         <div id="promoMessage" class="promo-message"></div>
                     </div>
 
                     <!-- Liste des articles -->
-                    <div class="panier-section">
-                        <h3>Articles dans votre panier</h3>
-                        <div class="panier-items" id="panier-items">
-                            <div class="panier-empty" id="panier-empty">
-                                <p>Votre panier est vide</p>
-                            </div>
-                        </div>
+                    <div class="panier-items" id="panier-items">
+                        <!-- Les articles du panier seront insérés ici -->
                     </div>
 
                     <!-- Options de livraison -->
-                    <div class="panier-section">
-                        <h3>Options de livraison</h3>
-                        <div class="panier-livraison">
-                            <div class="livraison-option">
-                                <label class="livraison-label">
-                                    <input type="radio" name="livraison" value="standard" checked>
-                                    <span class="livraison-info">
-                                        <strong>Livraison standard</strong>
-                                        <span>Délai : 3-5 jours ouvrables</span>
-                                    </span>
-                                    <span class="livraison-prix">7,90€</span>
-                                </label>
-                            </div>
-                            <div class="livraison-option">
-                                <label class="livraison-label">
-                                    <input type="radio" name="livraison" value="express">
-                                    <span class="livraison-info">
-                                        <strong>Livraison express</strong>
-                                        <span>Délai : 24-48h</span>
-                                    </span>
-                                    <span class="livraison-prix">14,90€</span>
-                                </label>
-                            </div>
+                    <div class="panier-livraison">
+                        <h3>Livraison</h3>
+                        <div class="livraison-option">
+                            <label>
+                                <input type="radio" name="livraison" value="standard" checked>
+                                Livraison standard
+                                <span class="livraison-prix">7,90€</span>
+                            </label>
+                        </div>
+                        <div class="livraison-option">
+                            <label>
+                                <input type="radio" name="livraison" value="express">
+                                Livraison express
+                                <span class="livraison-prix">14,90€</span>
+                            </label>
                         </div>
                     </div>
 
                     <!-- Totaux -->
-                    <div class="panier-section">
-                        <h3>Récapitulatif de commande</h3>
-                        <div class="panier-totals">
-                            <div class="panier-sous-total">
-                                <span>Sous-total</span>
-                                <span id="sous-total">0,00€</span>
-                            </div>
-                            <div class="panier-promo" id="panier-promo" style="display: none;">
-                                <span>Réduction</span>
-                                <span id="montant-promo">-0,00€</span>
-                            </div>
-                            <div class="panier-livraison-total">
-                                <span>Livraison</span>
-                                <span id="frais-livraison">0,00€</span>
-                            </div>
-                            <div class="panier-total">
-                                <span><strong>Total TTC</strong></span>
-                                <span id="total-panier"><strong>0,00€</strong></span>
-                            </div>
+                    <div class="panier-totals">
+                        <div class="panier-sous-total">
+                            <span>Sous-total</span>
+                            <span id="sous-total">0,00€</span>
+                        </div>
+                        <div class="panier-promo" id="panier-promo" style="display: none;">
+                            <span>Réduction</span>
+                            <span id="montant-promo">-0,00€</span>
+                        </div>
+                        <div class="panier-livraison-total">
+                            <span>Livraison</span>
+                            <span id="frais-livraison">0,00€</span>
+                        </div>
+                        <div class="panier-total">
+                            <span>Total</span>
+                            <span id="total-panier">0,00€</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Étape 2: Paiement -->
-                <div id="panier-step-2" class="panier-step" style="display: none;">
+                <div id="panier-step-2" style="display: none;">
                     <div class="paiement-header">
                         <h3>💳 Finaliser votre commande</h3>
                         <p class="paiement-sous-titre">Remplissez vos informations pour compléter votre achat</p>
                     </div>
 
-                    <div class="paiement-content">
-                        <div class="paiement-form-container">
-                            <form class="creation-form" id="paiementForm">
-                                <h4>Informations de livraison</h4>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="prenom">Prénom *</label>
-                                        <input type="text" id="prenom" name="prenom" required class="large-input">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nom">Nom *</label>
-                                        <input type="text" id="nom" name="nom" required class="large-input">
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="adresse">Adresse *</label>
-                                    <input type="text" id="adresse" name="adresse" required class="large-input" placeholder="Numéro et nom de rue">
-                                </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="code-postal">Code postal *</label>
-                                        <input type="text" id="code-postal" name="code-postal" required class="large-input">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="ville">Ville *</label>
-                                        <input type="text" id="ville" name="ville" required class="large-input">
-                                    </div>
-                                </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="email">Email *</label>
-                                        <input type="email" id="email" name="email" required class="large-input">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="telephone">Téléphone *</label>
-                                        <input type="tel" id="telephone" name="telephone" required class="large-input">
-                                    </div>
-                                </div>
-
-                                <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Méthode de paiement</h4>
-                                
-                                <div class="form-group">
-                                    <label for="carte-num">Numéro de carte *</label>
-                                    <input type="text" id="carte-num" name="carte-num" placeholder="1234 5678 9012 3456" required class="large-input">
-                                </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="carte-exp">Date d'expiration *</label>
-                                        <input type="text" id="carte-exp" name="carte-exp" placeholder="MM/AA" required class="large-input">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="carte-cvv">CVV *</label>
-                                        <input type="text" id="carte-cvv" name="carte-cvv" placeholder="123" required class="large-input">
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group checkbox-group">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" name="conditions" required>
-                                        <span class="checkmark"></span>
-                                        J'accepte les <a href="cgv.html" target="_blank">conditions générales de vente</a> *
-                                    </label>
-                                </div>
-                                
-                                <div class="security-notice">
-                                    <span>🔒</span>
-                                    <p>Paiement sécurisé - Vos données sont cryptées et protégées</p>
-                                </div>
-                            </form>
+                    <form class="creation-form" id="paiementForm">
+                        <h4>Informations de livraison</h4>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="prenom">Prénom *</label>
+                                <input type="text" id="prenom" name="prenom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nom">Nom *</label>
+                                <input type="text" id="nom" name="nom" required>
+                            </div>
                         </div>
                         
-                        <div class="commande-resume">
-                            <h4>Résumé de votre commande</h4>
-                            <div class="resume-items" id="resume-items">
-                                <!-- Les articles résumés seront insérés ici -->
+                        <div class="form-group">
+                            <label for="adresse">Adresse *</label>
+                            <input type="text" id="adresse" name="adresse" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="code-postal">Code postal *</label>
+                                <input type="text" id="code-postal" name="code-postal" required>
                             </div>
-                            <div class="resume-totals">
-                                <div class="resume-line">
-                                    <span>Sous-total :</span>
-                                    <span id="resume-sous-total">0,00€</span>
-                                </div>
-                                <div class="resume-line" id="resume-promo" style="display: none;">
-                                    <span>Réduction :</span>
-                                    <span id="resume-montant-promo">-0,00€</span>
-                                </div>
-                                <div class="resume-line">
-                                    <span>Livraison :</span>
-                                    <span id="resume-frais-livraison">0,00€</span>
-                                </div>
-                                <div class="resume-total">
-                                    <span>Total :</span>
-                                    <span id="resume-total">0,00€</span>
-                                </div>
+                            <div class="form-group">
+                                <label for="ville">Ville *</label>
+                                <input type="text" id="ville" name="ville" required>
                             </div>
                         </div>
-                    </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telephone">Téléphone *</label>
+                            <input type="tel" id="telephone" name="telephone" required>
+                        </div>
+
+                        <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Méthode de paiement</h4>
+                        
+                        <div class="form-group">
+                            <label for="carte-num">Numéro de carte *</label>
+                            <input type="text" id="carte-num" name="carte-num" placeholder="1234 5678 9012 3456" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="carte-exp">Date d'expiration *</label>
+                                <input type="text" id="carte-exp" name="carte-exp" placeholder="MM/AA" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="carte-cvv">CVV *</label>
+                                <input type="text" id="carte-cvv" name="carte-cvv" placeholder="123" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="conditions" required>
+                                <span class="checkmark"></span>
+                                J'accepte les <a href="cgv.html" target="_blank">conditions générales de vente</a> *
+                            </label>
+                        </div>
+                        
+                        <p style="text-align: center; margin: 1rem 0; font-size: 0.9rem; color: var(--text-light);">
+                            🔒 Paiement sécurisé - Vos données sont protégées
+                        </p>
+                    </form>
                 </div>
             </div>
             <div class="panier-modal-actions">
                 <!-- Actions Étape 1 -->
-                <div id="actions-step-1" class="actions-step">
-                    <button class="btn btn-secondary" onclick="fermerPanier()">Continuer mes achats</button>
-                    <div class="actions-right">
-                        <button class="btn btn-danger" id="viderPanierBtn">Vider le panier</button>
-                        <button class="btn btn-success" id="commanderBtn">Procéder au paiement →</button>
-                    </div>
+                <div id="actions-step-1">
+                    <button class="btn btn-danger" id="viderPanierBtn">Vider le panier</button>
+                    <button class="btn btn-success" id="commanderBtn">Commander</button>
                 </div>
                 
                 <!-- Actions Étape 2 -->
-                <div id="actions-step-2" class="actions-step" style="display: none;">
+                <div id="actions-step-2" style="display: none;">
                     <button class="btn btn-secondary" id="retourPanierBtn">← Retour au panier</button>
                     <button class="btn btn-success" id="paiementBtn">💳 Payer ma commande</button>
                 </div>

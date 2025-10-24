@@ -1146,7 +1146,7 @@ header {
     transform: translateY(-3px);
 }
 
-/* MODAL PANIER */
+/* MODAL PANIER - VERSION AGRANDIE */
 .panier-modal {
     position: fixed;
     top: 0;
@@ -1169,7 +1169,7 @@ header {
     background: var(--white);
     border-radius: 20px;
     width: 100%;
-    max-width: 500px;
+    max-width: 900px; /* AGRANDI de 500px à 900px */
     max-height: 90vh;
     overflow: hidden;
     display: flex;
@@ -1219,10 +1219,63 @@ header {
     transform: scale(1.2);
 }
 
+/* NOUVEAU STYLE POUR LE CORPS DE LA MODAL AGRANDIE */
 .panier-modal-body {
     padding: 2rem;
     flex-grow: 1;
     overflow-y: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.panier-step-container {
+    grid-column: 1;
+}
+
+.panier-totals-container {
+    grid-column: 2;
+    background: var(--gray-light);
+    padding: 1.5rem;
+    border-radius: 15px;
+    position: sticky;
+    top: 0;
+}
+
+.panier-items-container h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.panier-totals h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.panier-security {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.security-badge {
+    background: rgba(30, 107, 78, 0.1);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Pour l'étape de paiement qui prend toute la largeur */
+.paiement-full-width {
+    grid-column: 1 / -1;
 }
 
 .panier-promo-section {
@@ -1424,6 +1477,12 @@ header {
     gap: 1rem;
 }
 
+.actions-container {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
 .btn-danger {
     background: var(--accent-color);
     color: var(--white);
@@ -1459,6 +1518,19 @@ header {
 .paiement-sous-titre {
     color: var(--text-light);
     font-size: 1rem;
+}
+
+.form-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--gray-light);
+    border-radius: 10px;
+}
+
+.form-section h4 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
 }
 
 /* Adaptation du formulaire pour la modal */
@@ -1548,6 +1620,10 @@ header {
     .footer-content {
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
+    }
+
+    .panier-modal-content {
+        max-width: 95%;
     }
 }
 
@@ -1649,6 +1725,26 @@ header {
         right: 1rem;
     }
 
+    /* Responsive pour la modal panier agrandie */
+    .panier-modal-body {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .panier-step-container,
+    .panier-totals-container {
+        grid-column: 1;
+    }
+
+    .panier-totals-container {
+        position: static;
+        order: -1;
+    }
+
+    .actions-container {
+        flex-direction: column;
+    }
+
     /* Responsive pour le processus de paiement */
     .panier-modal-body .creation-form h4 {
         margin: -1rem -0.5rem 1.5rem -0.5rem;
@@ -1723,5 +1819,17 @@ header {
         right: 1rem;
         left: 1rem;
         max-width: none;
+    }
+
+    /* Ajustements pour la modal panier sur mobile */
+    .panier-item, .favorite-item {
+        flex-wrap: wrap;
+    }
+
+    .panier-item-quantity {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
     }
 }
